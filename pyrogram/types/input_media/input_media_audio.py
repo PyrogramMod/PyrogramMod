@@ -16,7 +16,7 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from typing import Optional, List, BinaryIO, Union
+from typing import Optional, List
 
 from .input_media import InputMedia
 from ..messages_and_media import MessageEntity
@@ -31,9 +31,7 @@ class InputMediaAudio(InputMedia):
         media (``str``):
             Audio to send.
             Pass a file_id as string to send an audio that exists on the Telegram servers or
-            pass a file path as string to upload a new audio that exists on your local machine or
-            pass a binary file-like object with its attribute “.name” set for in-memory uploads or
-            pass an HTTP URL as a string for Telegram to get an audio file from the Internet.
+            pass a file path as string to upload a new audio that exists on your local machine.
 
         thumb (``str``, *optional*):
             Thumbnail of the music file album cover.
@@ -67,9 +65,9 @@ class InputMediaAudio(InputMedia):
 
     def __init__(
         self,
-        media: Union[str, BinaryIO],
+        media: str,
         thumb: str = None,
-        caption: str = "",
+        caption: str = None,
         parse_mode: Optional[str] = object,
         caption_entities: List[MessageEntity] = None,
         duration: int = 0,

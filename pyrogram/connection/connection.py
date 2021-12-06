@@ -18,6 +18,7 @@
 
 import asyncio
 import logging
+
 from typing import Optional
 
 from .transport import *
@@ -60,12 +61,13 @@ class Connection:
                 self.protocol.close()
                 await asyncio.sleep(1)
             else:
-                log.info("Connected! {} DC{}{} - IPv{} - {}".format(
+                log.info("Connected! {} DC{} - IPv{} - {}{} {}".format(
                     "Test" if self.test_mode else "Production",
                     self.dc_id,
-                    " (media)" if self.media else "",
                     "6" if self.ipv6 else "4",
                     self.mode.__name__,
+                    " (media)" if self.media else "",
+                    self.address
                 ))
                 break
         else:

@@ -110,7 +110,7 @@ class CallbackQuery(Object, Update):
         # ignoring/replacing errors, this way, button clicks will still work.
         try:
             data = callback_query.data.decode()
-        except (UnicodeDecodeError, AttributeError):
+        except UnicodeDecodeError:
             data = callback_query.data
 
         return CallbackQuery(
@@ -252,7 +252,7 @@ class CallbackQuery(Object, Update):
         Raises:
             RPCError: In case of a Telegram RPC error.
         """
-        return await self.edit_message_text(caption, parse_mode, reply_markup=reply_markup)
+        return await self.edit_message_text(caption, parse_mode, reply_markup)
 
     async def edit_message_media(
         self,

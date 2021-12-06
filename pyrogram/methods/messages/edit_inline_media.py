@@ -16,7 +16,6 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
 import re
 
 from pyrogram import raw
@@ -73,101 +72,35 @@ class EditInlineMedia(Scaffold):
         parse_mode = media.parse_mode
 
         if isinstance(media, types.InputMediaPhoto):
-            if os.path.isfile(media.media):
-                media = raw.types.InputMediaUploadedPhoto(
-                    file=await self.save_file(media.media)
-                )
-            elif re.match("^https?://", media.media):
+            if re.match("^https?://", media.media):
                 media = raw.types.InputMediaPhotoExternal(
                     url=media.media
                 )
             else:
                 media = utils.get_input_media_from_file_id(media.media, FileType.PHOTO)
         elif isinstance(media, types.InputMediaVideo):
-            if os.path.isfile(media.media):
-                media = raw.types.InputMediaUploadedDocument(
-                    mime_type=self.guess_mime_type(media.media) or "video/mp4",
-                    thumb=await self.save_file(media.thumb),
-                    file=await self.save_file(media.media),
-                    attributes=[
-                        raw.types.DocumentAttributeVideo(
-                            supports_streaming=media.supports_streaming or None,
-                            duration=media.duration,
-                            w=media.width,
-                            h=media.height
-                        ),
-                        raw.types.DocumentAttributeFilename(
-                            file_name=os.path.basename(media.media)
-                        )
-                    ]
-                )
-            elif re.match("^https?://", media.media):
+            if re.match("^https?://", media.media):
                 media = raw.types.InputMediaDocumentExternal(
                     url=media.media
                 )
             else:
                 media = utils.get_input_media_from_file_id(media.media, FileType.VIDEO)
         elif isinstance(media, types.InputMediaAudio):
-            if os.path.isfile(media.media):
-                media = raw.types.InputMediaUploadedDocument(
-                    mime_type=self.guess_mime_type(media.media) or "audio/mpeg",
-                    thumb=await self.save_file(media.thumb),
-                    file=await self.save_file(media.media),
-                    attributes=[
-                        raw.types.DocumentAttributeAudio(
-                            duration=media.duration,
-                            performer=media.performer,
-                            title=media.title
-                        ),
-                        raw.types.DocumentAttributeFilename(
-                            file_name=os.path.basename(media.media)
-                        )
-                    ]
-                )
-            elif re.match("^https?://", media.media):
+            if re.match("^https?://", media.media):
                 media = raw.types.InputMediaDocumentExternal(
                     url=media.media
                 )
             else:
                 media = utils.get_input_media_from_file_id(media.media, FileType.AUDIO)
         elif isinstance(media, types.InputMediaAnimation):
-            if os.path.isfile(media.media):
-                media = raw.types.InputMediaUploadedDocument(
-                    mime_type=self.guess_mime_type(media.media) or "video/mp4",
-                    thumb=await self.save_file(media.thumb),
-                    file=await self.save_file(media.media),
-                    attributes=[
-                        raw.types.DocumentAttributeVideo(
-                            supports_streaming=True,
-                            duration=media.duration,
-                            w=media.width,
-                            h=media.height
-                        ),
-                        raw.types.DocumentAttributeFilename(
-                            file_name=os.path.basename(media.media)
-                        ),
-                        raw.types.DocumentAttributeAnimated()
-                    ]
-                )
-            elif re.match("^https?://", media.media):
+            if re.match("^https?://", media.media):
                 media = raw.types.InputMediaDocumentExternal(
                     url=media.media
                 )
             else:
                 media = utils.get_input_media_from_file_id(media.media, FileType.ANIMATION)
         elif isinstance(media, types.InputMediaDocument):
-            if os.path.isfile(media.media):
-                media = raw.types.InputMediaUploadedDocument(
-                    mime_type=self.guess_mime_type(media.media) or "application/zip",
-                    thumb=await self.save_file(media.thumb),
-                    file=await self.save_file(media.media),
-                    attributes=[
-                        raw.types.DocumentAttributeFilename(
-                            file_name=os.path.basename(media.media)
-                        )
-                    ]
-                )
-            elif re.match("^https?://", media.media):
+            if re.match("^https?://", media.media):
                 media = raw.types.InputMediaDocumentExternal(
                     url=media.media
                 )

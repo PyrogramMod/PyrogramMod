@@ -28,7 +28,7 @@ class IterProfilePhotos(Scaffold):
         chat_id: Union[int, str],
         offset: int = 0,
         limit: int = 0,
-    ) -> Optional[AsyncGenerator["types.Photo", None]]:
+    ) -> Optional[AsyncGenerator["types.Message", None]]:
         """Iterate through a chat or a user profile photos sequentially.
 
         This convenience method does the same as repeatedly calling :meth:`~pyrogram.Client.get_profile_photos` in a

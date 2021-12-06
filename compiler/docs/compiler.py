@@ -144,7 +144,6 @@ def pyrogram_api():
             send_message
             forward_messages
             copy_message
-            copy_media_group
             send_photo
             send_audio
             send_document
@@ -222,7 +221,6 @@ def pyrogram_api():
             set_slow_mode
             mark_chat_unread
             get_chat_event_log
-            get_chat_online_count
         """,
         users="""
         Users
@@ -378,7 +376,6 @@ def pyrogram_api():
             Poll
             PollOption
             Dice
-            VoiceChatScheduled
             VoiceChatStarted
             VoiceChatEnded
             VoiceChatMembersInvited
@@ -395,7 +392,6 @@ def pyrogram_api():
             CallbackQuery
             GameHighScore
             CallbackGame
-            BotCommand
         """,
         input_media="""
         Input Media

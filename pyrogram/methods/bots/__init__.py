@@ -24,7 +24,6 @@ from .request_callback_answer import RequestCallbackAnswer
 from .send_game import SendGame
 from .send_inline_bot_result import SendInlineBotResult
 from .set_game_score import SetGameScore
-from .set_bot_commands import SetBotCommands
 
 
 class Bots(
@@ -35,7 +34,6 @@ class Bots(
     SendInlineBotResult,
     SendGame,
     SetGameScore,
-    GetGameHighScores,
-    SetBotCommands
+    GetGameHighScores
 ):
     pass

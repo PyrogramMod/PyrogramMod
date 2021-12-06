@@ -54,9 +54,8 @@ class SaveFile(Scaffold):
             available yet in the Client class as an easy-to-use method).
 
         Parameters:
-            path (``str`` | ``BinaryIO``):
-                The path of the file you want to upload that exists on your local machine or a binary file-like object
-                with its attribute ".name" set for in-memory uploads.
+            path (``str``):
+                The path of the file you want to upload that exists on your local machine.
 
             file_id (``int``, *optional*):
                 In case a file part expired, pass the file_id and the file_part to retry uploading that specific chunk.
@@ -116,7 +115,7 @@ class SaveFile(Scaffold):
         else:
             raise ValueError("Invalid file. Expected a file path as string or a binary (not text) file pointer")
 
-        file_name = getattr(fp, "name", "file.jpg")
+        file_name = fp.name
 
         fp.seek(0, os.SEEK_END)
         file_size = fp.tell()
@@ -148,52 +147,53 @@ class SaveFile(Scaffold):
             for session in pool:
                 await session.start()
 
-            fp.seek(part_size * file_part)
+            with fp:
+                fp.seek(part_size * file_part)
 
-            while True:
-                chunk = fp.read(part_size)
+                while True:
+                    chunk = fp.read(part_size)
 
-                if not chunk:
-                    if not is_big and not is_missing_part:
-                        md5_sum = "".join([hex(i)[2:].zfill(2) for i in md5_sum.digest()])
-                    break
+                    if not chunk:
+                        if not is_big and not is_missing_part:
+                            md5_sum = "".join([hex(i)[2:].zfill(2) for i in md5_sum.digest()])
+                        break
 
-                if is_big:
-                    rpc = raw.functions.upload.SaveBigFilePart(
-                        file_id=file_id,
-                        file_part=file_part,
-                        file_total_parts=file_total_parts,
-                        bytes=chunk
-                    )
-                else:
-                    rpc = raw.functions.upload.SaveFilePart(
-                        file_id=file_id,
-                        file_part=file_part,
-                        bytes=chunk
-                    )
-
-                await queue.put(rpc)
-
-                if is_missing_part:
-                    return
-
-                if not is_big and not is_missing_part:
-                    md5_sum.update(chunk)
-
-                file_part += 1
-
-                if progress:
-                    func = functools.partial(
-                        progress,
-                        min(file_part * part_size, file_size),
-                        file_size,
-                        *progress_args
-                    )
-
-                    if inspect.iscoroutinefunction(progress):
-                        await func()
+                    if is_big:
+                        rpc = raw.functions.upload.SaveBigFilePart(
+                            file_id=file_id,
+                            file_part=file_part,
+                            file_total_parts=file_total_parts,
+                            bytes=chunk
+                        )
                     else:
-                        await self.loop.run_in_executor(self.executor, func)
+                        rpc = raw.functions.upload.SaveFilePart(
+                            file_id=file_id,
+                            file_part=file_part,
+                            bytes=chunk
+                        )
+
+                    await queue.put(rpc)
+
+                    if is_missing_part:
+                        return
+
+                    if not is_big and not is_missing_part:
+                        md5_sum.update(chunk)
+
+                    file_part += 1
+
+                    if progress:
+                        func = functools.partial(
+                            progress,
+                            min(file_part * part_size, file_size),
+                            file_size,
+                            *progress_args
+                        )
+
+                        if inspect.iscoroutinefunction(progress):
+                            await func()
+                        else:
+                            await self.loop.run_in_executor(self.executor, func)
         except StopTransmission:
             raise
         except Exception as e:
@@ -221,6 +221,3 @@ class SaveFile(Scaffold):
 
             for session in pool:
                 await session.stop()
-
-            if isinstance(path, (str, PurePath)):
-                fp.close()

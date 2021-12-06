@@ -32,7 +32,6 @@ from .restriction import Restriction
 from .user import User
 from .voice_chat_ended import VoiceChatEnded
 from .voice_chat_members_invited import VoiceChatMembersInvited
-from .voice_chat_scheduled import VoiceChatScheduled
 from .voice_chat_started import VoiceChatStarted
 
 __all__ = [
@@ -52,6 +51,5 @@ __all__ = [
     "VoiceChatStarted",
     "VoiceChatEnded",
     "VoiceChatMembersInvited",
-    "ChatMemberUpdated",
-    "VoiceChatScheduled"
+    "ChatMemberUpdated"
 ]
