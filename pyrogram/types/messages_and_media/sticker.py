@@ -18,8 +18,6 @@
 
 from typing import List
 
-from async_lru import alru_cache
-
 import pyrogram
 from pyrogram import raw
 from pyrogram import types
@@ -30,42 +28,30 @@ from ..object import Object
 
 class Sticker(Object):
     """A sticker.
-
     Parameters:
         file_id (``str``):
             Identifier for this file, which can be used to download or reuse the file.
-
         file_unique_id (``str``):
             Unique identifier for this file, which is supposed to be the same over time and for different accounts.
             Can't be used to download or reuse the file.
-
         width (``int``):
             Sticker width.
-
         height (``int``):
             Sticker height.
-
         is_animated (``bool``):
             True, if the sticker is animated
-
         file_name (``str``, *optional*):
             Sticker file name.
-
         mime_type (``str``, *optional*):
             MIME type of the file as defined by sender.
-
         file_size (``int``, *optional*):
             File size.
-
         date (``int``, *optional*):
             Date the sticker was sent in Unix time.
-
         emoji (``str``, *optional*):
             Emoji associated with the sticker.
-
         set_name (``str``, *optional*):
             Name of the sticker set to which the sticker belongs.
-
         thumbs (List of :obj:`~pyrogram.types.Thumbnail`, *optional*):
             Sticker thumbnails in the .webp or .jpg format.
     """
@@ -105,18 +91,36 @@ class Sticker(Object):
         self.thumbs = thumbs
         # self.mask_position = mask_position
 
+    cache = {}
+
     @staticmethod
-    @alru_cache(maxsize=256)
     async def _get_sticker_set_name(send, input_sticker_set_id):
         try:
-            return (await send(
+            set_id = input_sticker_set_id[0]
+            set_access_hash = input_sticker_set_id[1]
+
+            name = Sticker.cache.get((set_id, set_access_hash), None)
+
+            if name is not None:
+                return name
+
+            name = (await send(
                 raw.functions.messages.GetStickerSet(
                     stickerset=raw.types.InputStickerSetID(
-                        id=input_sticker_set_id[0],
-                        access_hash=input_sticker_set_id[1]
-                    )
+                        id=set_id,
+                        access_hash=set_access_hash
+                    ),
+                    hash=0
                 )
             )).set.short_name
+
+            Sticker.cache[(set_id, set_access_hash)] = name
+
+            if len(Sticker.cache) > 250:
+                for i in range(50):
+                    Sticker.cache.pop(next(iter(Sticker.cache)))
+
+            return name
         except StickersetInvalid:
             return None
 
