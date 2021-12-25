@@ -144,6 +144,7 @@ def pyrogram_api():
             send_message
             forward_messages
             copy_message
+            copy_media_group
             send_photo
             send_audio
             send_document
@@ -181,12 +182,13 @@ def pyrogram_api():
             search_messages
             search_global
             download_media
+            get_discussion_message
         """,
         chats="""
         Chats
             join_chat
             leave_chat
-            kick_chat_member
+            ban_chat_member
             unban_chat_member
             restrict_chat_member
             promote_chat_member
@@ -221,6 +223,9 @@ def pyrogram_api():
             set_slow_mode
             mark_chat_unread
             get_chat_event_log
+            get_chat_online_count
+            get_send_as_chats
+            set_send_as_chat
         """,
         users="""
         Users
@@ -251,6 +256,8 @@ def pyrogram_api():
             get_chat_admin_invite_links_count
             get_chat_admins_with_invite_links
             delete_chat_admin_invite_links
+            approve_chat_join_request
+            decline_chat_join_request
         """,
         contacts="""
         Contacts
@@ -376,6 +383,7 @@ def pyrogram_api():
             Poll
             PollOption
             Dice
+            VoiceChatScheduled
             VoiceChatStarted
             VoiceChatEnded
             VoiceChatMembersInvited
@@ -392,6 +400,7 @@ def pyrogram_api():
             CallbackQuery
             GameHighScore
             CallbackGame
+            BotCommand
         """,
         input_media="""
         Input Media
@@ -495,7 +504,7 @@ def pyrogram_api():
             Chat.set_title
             Chat.set_description
             Chat.set_photo
-            Chat.kick_member
+            Chat.ban_member
             Chat.unban_member
             Chat.restrict_member
             Chat.promote_member

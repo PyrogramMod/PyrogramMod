@@ -21,6 +21,7 @@ from .chat_admin_with_invite_links import ChatAdminWithInviteLinks
 from .chat_event import ChatEvent
 from .chat_event_filter import ChatEventFilter
 from .chat_invite_link import ChatInviteLink
+from .chat_join_request import ChatJoinRequest
 from .chat_member import ChatMember
 from .chat_member_updated import ChatMemberUpdated
 from .chat_permissions import ChatPermissions
@@ -32,6 +33,7 @@ from .restriction import Restriction
 from .user import User
 from .voice_chat_ended import VoiceChatEnded
 from .voice_chat_members_invited import VoiceChatMembersInvited
+from .voice_chat_scheduled import VoiceChatScheduled
 from .voice_chat_started import VoiceChatStarted
 
 __all__ = [
@@ -51,5 +53,7 @@ __all__ = [
     "VoiceChatStarted",
     "VoiceChatEnded",
     "VoiceChatMembersInvited",
-    "ChatMemberUpdated"
+    "ChatMemberUpdated",
+    "VoiceChatScheduled",
+    "ChatJoinRequest"
 ]

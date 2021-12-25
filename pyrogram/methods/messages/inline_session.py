@@ -16,29 +16,22 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from asyncio import Lock
-
 import pyrogram
 from pyrogram import raw
 from pyrogram.errors import AuthBytesInvalid
 from pyrogram.session import Session
 from pyrogram.session.auth import Auth
 
-lock = Lock()
-session = None
-
 
 async def get_session(client: "pyrogram.Client", dc_id: int):
     if dc_id == await client.storage.dc_id():
         return client
 
-    async with lock:
-        global session
+    async with client.media_sessions_lock:
+        if client.media_sessions.get(dc_id):
+            return client.media_sessions[dc_id]
 
-        if session is not None:
-            return session
-
-        session = Session(
+        session = client.media_sessions[dc_id] = Session(
             client, dc_id,
             await Auth(client, dc_id, False).create(),
             False, is_media=True
