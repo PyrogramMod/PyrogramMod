@@ -230,7 +230,10 @@ class Chat(Object):
     def _parse_channel_chat(client, channel: raw.types.Channel) -> "Chat":
         peer_id = utils.get_channel_id(channel.id)
         restriction_reason = getattr(channel, "restriction_reason", [])
-
+        try:
+            no_forward = channel.noforwards
+        except AttributeError:
+            no_forward = None
         return Chat(
             id=peer_id,
             type="supergroup" if getattr(channel, "megagroup", None) else "channel",
@@ -246,7 +249,7 @@ class Chat(Object):
             permissions=types.ChatPermissions._parse(getattr(channel, "default_banned_rights", None)),
             members_count=getattr(channel, "participants_count", None),
             dc_id=getattr(getattr(channel, "photo", None), "dc_id", None),
-            has_protected_content=channel.noforwards,
+            has_protected_content=no_forward,
             client=client
         )
 
