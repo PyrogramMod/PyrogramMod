@@ -60,7 +60,7 @@ and bot identities (bot API alternative) via the [MTProto API](https://docs.pyro
 ### Installing
 
 ``` bash
-pip3 install pyrogram
+pip3 install https://github.com/null-nick/Pyrogram-Mod/archive/refs/heads/master.zip
 ```
 
 ### Resources
@@ -73,3 +73,15 @@ pip3 install pyrogram
 
 - Copyright (C) 2017-2021 Dan <<https://github.com/delivrance>>
 - Licensed under the terms of the [GNU Lesser General Public License v3 or later (LGPLv3+)](COPYING.lesser)
+
+### INFO
+
+- 📕 Official Repo: https://github.com/pyrogram/pyrogram
+- 🗞 News: https://t.me/pyrogram
+- 💭 Support Group: https://t.me/pyrogramchat
+- 📚 Docs: https://docs.pyrogram.org
+------------------------------------------------------------
+- 📕 Un-Official Repo: https://github.com/null-nick/Pyrogram/
+- 🗞 News: https://t.me/PyroGramMod
+- 💭 Support Group: https://t.me/PyroGramModChat
+- 📚 Docs: https://docs.documentations.ml
