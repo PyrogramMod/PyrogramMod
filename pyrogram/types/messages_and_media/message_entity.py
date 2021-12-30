@@ -38,6 +38,7 @@ class MessageEntityType(AutoName):
     URL = auto()
     EMAIL = auto()
     PHONE_NUMBER = auto()
+    SPOILER = auto()
     BOLD = auto()
     ITALIC = auto()
     UNDERLINE = auto()
@@ -65,7 +66,8 @@ RAW_ENTITIES_TO_TYPE = {
     raw.types.MessageEntityBlockquote: MessageEntityType.BLOCKQUOTE,
     raw.types.MessageEntityTextUrl: MessageEntityType.TEXT_LINK,
     raw.types.MessageEntityMentionName: MessageEntityType.TEXT_MENTION,
-    raw.types.MessageEntityPhone: MessageEntityType.PHONE_NUMBER
+    raw.types.MessageEntityPhone: MessageEntityType.PHONE_NUMBER,
+    raw.types.MessageEntitySpoiler: MessageEntityType.SPOILER
 }
 
 TYPE_TO_RAW_ENTITIES = {v.value: k for k, v in RAW_ENTITIES_TO_TYPE.items()}
@@ -94,6 +96,7 @@ class MessageEntity(Object):
             - "pre": monowidth block (see *language* below).
             - "text_link": for clickable text URLs.
             - "text_mention": for users without usernames (see *user* below).
+            - "spoiler": for message spoiler
 
         offset (``int``):
             Offset in UTF-16 code units to the start of the entity.
