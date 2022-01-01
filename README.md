@@ -71,7 +71,7 @@ pip3 install https://github.com/null-nick/Pyrogram-Mod/archive/refs/heads/master
 
 ### Copyright & License
 
-- Copyright (C) 2017-2021 Dan <<https://github.com/delivrance>>
+- Copyright (C) 2017-2022 Dan <<https://github.com/delivrance>>
 - Licensed under the terms of the [GNU Lesser General Public License v3 or later (LGPLv3+)](COPYING.lesser)
 
 ### INFO
