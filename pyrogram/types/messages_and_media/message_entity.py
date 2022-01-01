@@ -96,7 +96,7 @@ class MessageEntity(Object):
             - "pre": monowidth block (see *language* below).
             - "text_link": for clickable text URLs.
             - "text_mention": for users without usernames (see *user* below).
-            - "spoiler": for message spoiler
+            - "spoiler": spoiler text
 
         offset (``int``):
             Offset in UTF-16 code units to the start of the entity.
