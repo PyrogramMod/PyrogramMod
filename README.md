@@ -81,7 +81,7 @@ pip3 install https://github.com/null-nick/Pyrogram-Mod/archive/refs/heads/master
 - 💭 Support Group: https://t.me/pyrogramchat
 - 📚 Docs: https://docs.pyrogram.org
 ------------------------------------------------------------
-- 📕 Un-Official Repo: https://github.com/null-nick/Pyrogram/
+- 📕 Un-Official Repo: https://github.com/null-nick/Pyrogram-Mod/
 - 🗞 News: https://t.me/PyroGramMod
 - 💭 Support Group: https://t.me/PyroGramModChat
 - 📚 Docs: https://docs.documentations.ml
