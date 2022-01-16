@@ -86,6 +86,7 @@ pip3 install https://github.com/null-nick/Pyrogram-Mod/archive/refs/heads/master
 - 🗞 News: https://t.me/PyroGramMod
 - 💭 Support Group: https://t.me/PyroGramModChat
 - 📚 Docs: https://docs.documentations.ml
+------------------------------------------------------------
 - Check out the docs at https://docs.pyrogram.org to learn more about Pyrogram, get started right
 away and discover more in-depth material for building your client applications.
 - Join the official channel at https://t.me/pyrogram and stay tuned for news, updates and announcements.
