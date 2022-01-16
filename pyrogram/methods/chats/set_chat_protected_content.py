@@ -16,24 +16,36 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-import logging
+from typing import Union
 
-from pyrogram import raw
+from pyrogram.raw import functions
 from pyrogram.scaffold import Scaffold
 
-log = logging.getLogger(__name__)
 
+class SetChatProtectedContent(Scaffold):
+    async def set_chat_protected_content(
+        self,
+        chat_id: Union[int, str],
+        enabled: bool
+    ) -> bool:
+        """Set the chat protected content setting.
 
-class SendRecoveryCode(Scaffold):
-    async def send_recovery_code(self) -> str:
-        """Send a code to your email to recover your password.
+        Parameters:
+            chat_id (``int`` | ``str``):
+                Unique identifier (int) or username (str) of the target chat.
+
+            enabled (``bool``):
+                Pass True to enable the protected content setting, False to disable.
 
         Returns:
-            ``str``: On success, the hidden email pattern is returned and a recovery code is sent to that email.
-
-        Raises:
-            BadRequest: In case no recovery email was set up.
+            ``bool``: On success, True is returned.
         """
-        return (await self.send(
-            raw.functions.auth.RequestPasswordRecovery()
-        )).email_pattern
+
+        await self.send(
+            functions.messages.ToggleNoForwards(
+                peer=await self.resolve_peer(chat_id),
+                enabled=enabled
+            )
+        )
+
+        return True

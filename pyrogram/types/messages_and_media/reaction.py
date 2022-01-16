@@ -16,26 +16,34 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from .answer_callback_query import AnswerCallbackQuery
-from .answer_inline_query import AnswerInlineQuery
-from .get_game_high_scores import GetGameHighScores
-from .get_inline_bot_results import GetInlineBotResults
-from .request_callback_answer import RequestCallbackAnswer
-from .send_game import SendGame
-from .send_inline_bot_result import SendInlineBotResult
-from .set_bot_commands import SetBotCommands
-from .set_game_score import SetGameScore
+import pyrogram
+from ..object import Object
 
 
-class Bots(
-    AnswerCallbackQuery,
-    AnswerInlineQuery,
-    GetInlineBotResults,
-    RequestCallbackAnswer,
-    SendInlineBotResult,
-    SendGame,
-    SetGameScore,
-    GetGameHighScores,
-    SetBotCommands
-):
-    pass
+class Reaction(Object):
+    """Contains information about a reaction.
+
+    Parameters:
+        emoji (``str``):
+            Reaction emoji.
+
+        count (``int``):
+            Reaction count.
+
+        chosen (``bool``):
+            Whether this is the chosen reaction.
+    """
+
+    def __init__(
+        self,
+        *,
+        client: "pyrogram.Client" = None,
+        emoji: str,
+        count: int,
+        chosen: bool
+    ):
+        super().__init__(client)
+
+        self.emoji = emoji
+        self.count = count
+        self.chosen = chosen

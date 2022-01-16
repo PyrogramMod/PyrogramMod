@@ -1,5 +1,5 @@
 #  Pyrogram - Telegram MTProto API Client Library for Python
-#  Copyright (C) 2017-2022 Dan <https://github.com/delivrance>
+#  Copyright (C) 2017-present Dan <https://github.com/delivrance>
 #
 #  This file is part of Pyrogram.
 #
@@ -28,9 +28,9 @@ BOLD_DELIM = "**"
 ITALIC_DELIM = "__"
 UNDERLINE_DELIM = "--"
 STRIKE_DELIM = "~~"
+SPOILER_DELIM = "||"
 CODE_DELIM = "`"
 PRE_DELIM = "```"
-SPOILER_DELIM = "||"
 
 MARKDOWN_RE = re.compile(r"({d})|\[(.+?)\]\((.+?)\)".format(
     d="|".join(

@@ -1,5 +1,5 @@
 #  Pyrogram - Telegram MTProto API Client Library for Python
-#  Copyright (C) 2017-2022 Dan <https://github.com/delivrance>
+#  Copyright (C) 2017-present Dan <https://github.com/delivrance>
 #
 #  This file is part of Pyrogram.
 #
@@ -15,6 +15,7 @@
 #
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
+
 from typing import Union
 
 from pyrogram import raw
@@ -23,36 +24,42 @@ from pyrogram.scaffold import Scaffold
 
 class SendReaction(Scaffold):
     async def send_reaction(
-            self,
-            chat_id: Union[int, str],
-            msg_id: int,
-            reaction: Union[str, None]
-    ):
+        self,
+        chat_id: Union[int, str],
+        message_id: int,
+        emoji: str = ""
+    ) -> bool:
+        """Send a reaction to a message.
+
+        Parameters:
+            chat_id (``int`` | ``str``):
+                Unique identifier (int) or username (str) of the target chat.
+
+            message_id (``int``):
+                Identifier of the message.
+
+            emoji (``str``, *optional*):
+                Reaction emoji.
+                Pass "" as emoji (default) to retract the reaction.
+
+        Returns:
+            ``bool``: On success, True is returned.
+
+        Example:
+            .. code-block:: python
+
+                # Send a reaction
+                app.send_reaction(chat_id, message_id, "🔥")
+
+                # Retract a reaction
+                app.send_reaction(chat_id, message_id)
         """
-            React to message with emoji
-
-            Use :meth:`~pyrogram.Client.send_reaction` to react a message..
-
-            Parameters:
-                chat_id (``int`` | ``str``):
-                    Unique identifier (int) or username (str) of the target chat.
-
-                msg_id (``int``):
-                    message_id to which you want to react
-
-                reaction: Emoji (``str``):
-                    Emoji to use for reaction
-
-            Example:
-                .. code-block:: python
-
-                    app.send_reaction(chat_id, 123, "👍")
-        """
-        r = await self.send(
+        await self.send(
             raw.functions.messages.SendReaction(
                 peer=await self.resolve_peer(chat_id),
-                msg_id=msg_id,
-                reaction=reaction,
+                msg_id=message_id,
+                reaction=emoji
             )
         )
-        return getattr(r.updates[0], "message", r.updates[0]).reactions.results[0]
+
+        return True
