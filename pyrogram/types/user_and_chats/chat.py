@@ -248,8 +248,7 @@ class Chat(Object):
             is_fake=getattr(channel, "fake", None),
             title=channel.title,
             username=getattr(channel, "username", None),
-            photo=types.ChatPhoto._parse(client, getattr(channel, "photo", None), peer_id,
-                                         getattr(channel, "access_hash", 0)),
+            photo=types.ChatPhoto._parse(client, getattr(channel, "photo", None), peer_id, channel.access_hash),
             restrictions=types.List([types.Restriction._parse(r) for r in restriction_reason]) or None,
             permissions=types.ChatPermissions._parse(getattr(channel, "default_banned_rights", None)),
             members_count=getattr(channel, "participants_count", None),
@@ -941,23 +940,3 @@ class Chat(Object):
             self.id,
             enabled=enabled
         )
-
-    async def unpin_all_messages(self) -> bool:
-        """Bound method *unpin_all_messages* of :obj:`~pyrogram.types.Chat`.
-
-        Use as a shortcut for:
-
-        .. code-block:: python
-
-            client.unpin_all_chat_messages(chat_id)
-
-        Example:
-            .. code-block:: python
-
-                chat.unpin_all_messages()
-
-        Returns:
-            ``bool``: On success, True is returned.
-        """
-
-        return await self._client.unpin_all_chat_messages(self.id)
