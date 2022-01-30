@@ -349,3 +349,5 @@ WEBDOCUMENT_URL_INVALID	The web document URL is invalid
 WEBPAGE_CURL_FAILED	Telegram server could not fetch the provided URL
 WEBPAGE_MEDIA_EMPTY	The URL doesn't contain any valid media
 YOU_BLOCKED_USER	You blocked this user
+USER_VOLUME_INVALID  You have entered an invalid volume value
+PARTICIPANT_JOIN_MISSING  User not present in the GroupCall
