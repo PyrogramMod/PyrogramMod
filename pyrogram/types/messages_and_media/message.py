@@ -316,6 +316,7 @@ class Message(Object, Update):
         from_scheduled: bool = None,
         media: str = None,
         edit_date: int = None,
+        edit_hide: bool = False,
         media_group_id: str = None,
         author_signature: str = None,
         has_protected_content: bool = None,
@@ -388,6 +389,7 @@ class Message(Object, Update):
         self.from_scheduled = from_scheduled
         self.media = media
         self.edit_date = edit_date
+        self.edit_hide = edit_hide
         self.media_group_id = media_group_id
         self.author_signature = author_signature
         self.has_protected_content = has_protected_content
@@ -674,6 +676,14 @@ class Message(Object, Update):
                             video_attributes = attributes.get(raw.types.DocumentAttributeVideo, None)
                             animation = types.Animation._parse(client, doc, video_attributes, file_name)
                             media_type = "animation"
+                        elif raw.types.DocumentAttributeSticker in attributes:
+                            sticker = await types.Sticker._parse(
+                                client, doc,
+                                attributes.get(raw.types.DocumentAttributeImageSize, None),
+                                attributes[raw.types.DocumentAttributeSticker],
+                                file_name
+                            )
+                            media_type = "sticker"
                         elif raw.types.DocumentAttributeVideo in attributes:
                             video_attributes = attributes[raw.types.DocumentAttributeVideo]
 
@@ -683,14 +693,6 @@ class Message(Object, Update):
                             else:
                                 video = types.Video._parse(client, doc, video_attributes, file_name, media.ttl_seconds)
                                 media_type = "video"
-                        elif raw.types.DocumentAttributeSticker in attributes:
-                            sticker = await types.Sticker._parse(
-                                client, doc,
-                                attributes.get(raw.types.DocumentAttributeImageSize, None),
-                                attributes[raw.types.DocumentAttributeSticker],
-                                file_name
-                            )
-                            media_type = "sticker"
                         else:
                             document = types.Document._parse(client, doc, file_name)
                             media_type = "document"
@@ -768,6 +770,7 @@ class Message(Object, Update):
                 from_scheduled=message.from_scheduled,
                 media=media_type,
                 edit_date=message.edit_date,
+                edit_hide=message.edit_hide,
                 media_group_id=message.grouped_id,
                 photo=photo,
                 location=location,
