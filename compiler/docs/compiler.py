@@ -230,6 +230,10 @@ def pyrogram_api():
             get_send_as_chats
             set_send_as_chat
             set_chat_protected_content
+            set_chat_reactions
+            get_group_call_stream_rtmp_url
+            create_group_call
+            get_group_call_stream_channels
         """,
         users="""
         Users
