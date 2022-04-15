@@ -1671,8 +1671,7 @@ class Message(Object, Update):
         result_id: str,
         quote: bool = None,
         disable_notification: bool = None,
-        reply_to_message_id: int = None,
-        hide_via: bool = None
+        reply_to_message_id: int = None
     ) -> "Message":
         """Bound method *reply_inline_bot_result* of :obj:`~pyrogram.types.Message`.
 
@@ -1710,9 +1709,6 @@ class Message(Object, Update):
             reply_to_message_id (``bool``, *optional*):
                 If the message is a reply, ID of the original message.
 
-            hide_via (``bool``):
-                Sends the message with *via @bot* hidden.
-
         Returns:
             On success, the sent Message is returned.
 
@@ -1730,8 +1726,7 @@ class Message(Object, Update):
             query_id=query_id,
             result_id=result_id,
             disable_notification=disable_notification,
-            reply_to_message_id=reply_to_message_id,
-            hide_via=hide_via
+            reply_to_message_id=reply_to_message_id
         )
 
     async def reply_location(
