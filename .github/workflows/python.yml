@@ -1,4 +1,4 @@
-name: Pyrogram
+name: Pyrogram - Mod
 
 on: [push, pull_request]
 
@@ -28,6 +28,7 @@ jobs:
       - name: Generate API
         run: |
           python setup.py generate --api
+          python setup.py generate --docs
 
       - name: Run tests
         run: |
