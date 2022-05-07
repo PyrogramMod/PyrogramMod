@@ -16,27 +16,25 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-__version__ = "2.0.19"
-__license__ = "GNU Lesser General Public License v3.0 (LGPL-3.0)"
-__copyright__ = "Copyright (C) 2017-present Dan <https://github.com/delivrance>"
+from typing import Union
 
-from concurrent.futures.thread import ThreadPoolExecutor
-
-
-class StopTransmission(Exception):
-    pass
+import pyrogram
+from pyrogram import raw
 
 
-class StopPropagation(StopAsyncIteration):
-    pass
-
-
-class ContinuePropagation(StopAsyncIteration):
-    pass
-
-
-from . import raw, types, filters, handlers, emoji, enums
-from .client import Client
-from .sync import idle, compose
-
-crypto_executor = ThreadPoolExecutor(1, thread_name_prefix="CryptoWorker")
+class GetGroupCallStreamChannels:
+    async def get_group_call_stream_channels(
+            self: "pyrogram.Client",
+            call: Union[int, str],
+            chat_id: Union[int, str]
+    ):
+        call = await self.invoke(raw.functions.channels.GetFullChannel(channel=await self.resolve_peer(chat_id)))
+        try:
+            result = await self.invoke(
+                raw.functions.phone.GetGroupCallStreamChannels(
+                    call=call.full_chat.call
+                )
+            )
+            return result
+        except Exception as e:
+            return Exception(e)
