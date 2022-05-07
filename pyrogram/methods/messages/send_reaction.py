@@ -18,13 +18,13 @@
 
 from typing import Union
 
+import pyrogram
 from pyrogram import raw
-from pyrogram.scaffold import Scaffold
 
 
-class SendReaction(Scaffold):
+class SendReaction:
     async def send_reaction(
-        self,
+        self: "pyrogram.Client",
         chat_id: Union[int, str],
         message_id: int,
         emoji: str = ""
@@ -49,12 +49,12 @@ class SendReaction(Scaffold):
             .. code-block:: python
 
                 # Send a reaction
-                app.send_reaction(chat_id, message_id, "🔥")
+                await app.send_reaction(chat_id, message_id, "🔥")
 
                 # Retract a reaction
-                app.send_reaction(chat_id, message_id)
+                await app.send_reaction(chat_id, message_id)
         """
-        await self.send(
+        await self.invoke(
             raw.functions.messages.SendReaction(
                 peer=await self.resolve_peer(chat_id),
                 msg_id=message_id,

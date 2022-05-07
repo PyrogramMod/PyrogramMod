@@ -114,14 +114,14 @@ class Session:
 
                 self.network_task = self.loop.create_task(self.network_worker())
 
-                await self._send(raw.functions.Ping(ping_id=0), timeout=self.START_TIMEOUT)
+                await self.send(raw.functions.Ping(ping_id=0), timeout=self.START_TIMEOUT)
 
                 if not self.is_cdn:
-                    await self._send(
+                    await self.send(
                         raw.functions.InvokeWithLayer(
                             layer=layer,
                             query=raw.functions.InitConnection(
-                                api_id=self.client.api_id,
+                                api_id=await self.client.storage.api_id(),
                                 app_version=self.client.app_version,
                                 device_model=self.client.device_model,
                                 system_version=self.client.system_version,
@@ -248,7 +248,7 @@ class Session:
             log.debug(f"Send {len(self.pending_acks)} acks")
 
             try:
-                await self._send(raw.types.MsgsAck(msg_ids=list(self.pending_acks)), False)
+                await self.send(raw.types.MsgsAck(msg_ids=list(self.pending_acks)), False)
             except (OSError, TimeoutError):
                 pass
             else:
@@ -266,7 +266,7 @@ class Session:
                 break
 
             try:
-                await self._send(
+                await self.send(
                     raw.functions.PingDelayDisconnect(
                         ping_id=0, disconnect_delay=self.WAIT_TIMEOUT + 10
                     ), False
@@ -295,7 +295,7 @@ class Session:
 
         log.info("NetworkTask stopped")
 
-    async def _send(self, data: TLObject, wait_response: bool = True, timeout: float = WAIT_TIMEOUT):
+    async def send(self, data: TLObject, wait_response: bool = True, timeout: float = WAIT_TIMEOUT):
         message = self.msg_factory(data)
         msg_id = message.msg_id
 
@@ -342,13 +342,13 @@ class Session:
                 raise BadMsgNotification(result.error_code)
             elif isinstance(result, raw.types.BadServerSalt):
                 self.salt = result.new_server_salt
-                return await self._send(data, wait_response, timeout)
+                return await self.send(data, wait_response, timeout)
             else:
                 return result
 
-    async def send(
+    async def invoke(
         self,
-        data: TLObject,
+        query: TLObject,
         retries: int = MAX_RETRIES,
         timeout: float = WAIT_TIMEOUT,
         sleep_threshold: float = SLEEP_THRESHOLD
@@ -358,24 +358,22 @@ class Session:
         except asyncio.TimeoutError:
             pass
 
-        if isinstance(data, (raw.functions.InvokeWithoutUpdates, raw.functions.InvokeWithTakeout)):
-            query = data.query
-        else:
-            query = data
+        if isinstance(query, (raw.functions.InvokeWithoutUpdates, raw.functions.InvokeWithTakeout)):
+            query = query.query
 
-        query = ".".join(query.QUALNAME.split(".")[1:])
+        query_name = ".".join(query.QUALNAME.split(".")[1:])
 
         while True:
             try:
-                return await self._send(data, timeout=timeout)
+                return await self.send(query, timeout=timeout)
             except FloodWait as e:
-                amount = e.x
+                amount = e.value
 
                 if amount > sleep_threshold >= 0:
                     raise
 
-                log.warning(f'[{self.client.session_name}] Waiting for {amount} seconds before continuing '
-                            f'(required by "{query}")')
+                log.warning(f'[{self.client.name}] Waiting for {amount} seconds before continuing '
+                            f'(required by "{query_name}")')
 
                 await asyncio.sleep(amount)
             except (OSError, TimeoutError, InternalServerError, ServiceUnavailable) as e:
@@ -383,8 +381,8 @@ class Session:
                     raise e from None
 
                 (log.warning if retries < 2 else log.info)(
-                    f'[{Session.MAX_RETRIES - retries + 1}] Retrying "{query}" due to {str(e) or repr(e)}')
+                    f'[{Session.MAX_RETRIES - retries + 1}] Retrying "{query_name}" due to {str(e) or repr(e)}')
 
                 await asyncio.sleep(0.5)
 
-                return await self.send(data, retries - 1, timeout)
+                return await self.invoke(query, retries - 1, timeout)

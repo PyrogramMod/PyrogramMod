@@ -18,19 +18,18 @@
 
 import os
 import re
-import io
 
+import pyrogram
 from pyrogram import raw
 from pyrogram import types
 from pyrogram import utils
 from pyrogram.file_id import FileType
-from pyrogram.scaffold import Scaffold
 from .inline_session import get_session
 
 
-class EditInlineMedia(Scaffold):
+class EditInlineMedia:
     async def edit_inline_media(
-        self,
+        self: "pyrogram.Client",
         inline_message_id: str,
         media: "types.InputMedia",
         reply_markup: "types.InlineKeyboardMarkup" = None
@@ -62,19 +61,19 @@ class EditInlineMedia(Scaffold):
                 # Bots only
 
                 # Replace the current media with a local photo
-                app.edit_inline_media(inline_message_id, InputMediaPhoto("new_photo.jpg"))
+                await app.edit_inline_media(inline_message_id, InputMediaPhoto("new_photo.jpg"))
 
                 # Replace the current media with a local video
-                app.edit_inline_media(inline_message_id, InputMediaVideo("new_video.mp4"))
+                await app.edit_inline_media(inline_message_id, InputMediaVideo("new_video.mp4"))
 
                 # Replace the current media with a local audio
-                app.edit_inline_media(inline_message_id, InputMediaAudio("new_audio.mp3"))
+                await app.edit_inline_media(inline_message_id, InputMediaAudio("new_audio.mp3"))
         """
         caption = media.caption
         parse_mode = media.parse_mode
 
         if isinstance(media, types.InputMediaPhoto):
-            if isinstance(media.media, io.BytesIO) or os.path.isfile(media.media):
+            if os.path.isfile(media.media):
                 media = raw.types.InputMediaUploadedPhoto(
                     file=await self.save_file(media.media)
                 )
@@ -85,7 +84,7 @@ class EditInlineMedia(Scaffold):
             else:
                 media = utils.get_input_media_from_file_id(media.media, FileType.PHOTO)
         elif isinstance(media, types.InputMediaVideo):
-            if isinstance(media.media, io.BytesIO) or os.path.isfile(media.media):
+            if os.path.isfile(media.media):
                 media = raw.types.InputMediaUploadedDocument(
                     mime_type=self.guess_mime_type(media.media) or "video/mp4",
                     thumb=await self.save_file(media.thumb),
@@ -109,7 +108,7 @@ class EditInlineMedia(Scaffold):
             else:
                 media = utils.get_input_media_from_file_id(media.media, FileType.VIDEO)
         elif isinstance(media, types.InputMediaAudio):
-            if isinstance(media.media, io.BytesIO) or os.path.isfile(media.media):
+            if os.path.isfile(media.media):
                 media = raw.types.InputMediaUploadedDocument(
                     mime_type=self.guess_mime_type(media.media) or "audio/mpeg",
                     thumb=await self.save_file(media.thumb),
@@ -132,7 +131,7 @@ class EditInlineMedia(Scaffold):
             else:
                 media = utils.get_input_media_from_file_id(media.media, FileType.AUDIO)
         elif isinstance(media, types.InputMediaAnimation):
-            if isinstance(media.media, io.BytesIO) or os.path.isfile(media.media):
+            if os.path.isfile(media.media):
                 media = raw.types.InputMediaUploadedDocument(
                     mime_type=self.guess_mime_type(media.media) or "video/mp4",
                     thumb=await self.save_file(media.thumb),
@@ -157,7 +156,7 @@ class EditInlineMedia(Scaffold):
             else:
                 media = utils.get_input_media_from_file_id(media.media, FileType.ANIMATION)
         elif isinstance(media, types.InputMediaDocument):
-            if isinstance(media.media, io.BytesIO) or os.path.isfile(media.media):
+            if os.path.isfile(media.media):
                 media = raw.types.InputMediaUploadedDocument(
                     mime_type=self.guess_mime_type(media.media) or "application/zip",
                     thumb=await self.save_file(media.thumb),
@@ -180,7 +179,7 @@ class EditInlineMedia(Scaffold):
 
         session = await get_session(self, dc_id)
 
-        return await session.send(
+        return await session.invoke(
             raw.functions.messages.EditInlineBotMessage(
                 id=unpacked,
                 media=media,

@@ -19,14 +19,14 @@
 import asyncio
 from typing import Iterable, Union, List
 
+import pyrogram
 from pyrogram import raw
 from pyrogram import types
-from pyrogram.scaffold import Scaffold
 
 
-class GetUsers(Scaffold):
+class GetUsers:
     async def get_users(
-        self,
+        self: "pyrogram.Client",
         user_ids: Union[Iterable[Union[int, str]], int, str]
     ) -> Union["types.User", List["types.User"]]:
         """Get information about a user.
@@ -47,16 +47,16 @@ class GetUsers(Scaffold):
             .. code-block:: python
 
                 # Get information about one user
-                app.get_users("me")
+                await app.get_users("me")
 
                 # Get information about multiple users at once
-                app.get_users([user1, user2, user3])
+                await app.get_users([user_id1, user_id2, user_id3])
         """
         is_iterable = not isinstance(user_ids, (int, str))
         user_ids = list(user_ids) if is_iterable else [user_ids]
         user_ids = await asyncio.gather(*[self.resolve_peer(i) for i in user_ids])
 
-        r = await self.send(
+        r = await self.invoke(
             raw.functions.users.GetUsers(
                 id=user_ids
             )

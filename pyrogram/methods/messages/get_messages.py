@@ -19,10 +19,10 @@
 import logging
 from typing import Union, Iterable, List
 
+import pyrogram
 from pyrogram import raw
 from pyrogram import types
 from pyrogram import utils
-from pyrogram.scaffold import Scaffold
 
 log = logging.getLogger(__name__)
 
@@ -30,9 +30,9 @@ log = logging.getLogger(__name__)
 # TODO: Rewrite using a flag for replied messages and have message_ids non-optional
 
 
-class GetMessages(Scaffold):
+class GetMessages:
     async def get_messages(
-        self,
+        self: "pyrogram.Client",
         chat_id: Union[int, str],
         message_ids: Union[int, Iterable[int]] = None,
         reply_to_message_ids: Union[int, Iterable[int]] = None,
@@ -71,19 +71,19 @@ class GetMessages(Scaffold):
             .. code-block:: python
 
                 # Get one message
-                app.get_messages(chat_id, 12345)
+                await app.get_messages(chat_id, 12345)
 
                 # Get more than one message (list of messages)
-                app.get_messages(chat_id, [12345, 12346])
+                await app.get_messages(chat_id, [12345, 12346])
 
                 # Get message by ignoring any replied-to message
-                app.get_messages(chat_id, message_id, replies=0)
+                await app.get_messages(chat_id, message_id, replies=0)
 
                 # Get message with all chained replied-to messages
-                app.get_messages(chat_id, message_id, replies=-1)
+                await app.get_messages(chat_id, message_id, replies=-1)
 
                 # Get the replied-to message of a message
-                app.get_messages(chat_id, reply_to_message_ids=message_id)
+                await app.get_messages(chat_id, reply_to_message_ids=message_id)
 
         Raises:
             ValueError: In case of invalid arguments.
@@ -111,7 +111,7 @@ class GetMessages(Scaffold):
         else:
             rpc = raw.functions.messages.GetMessages(id=ids)
 
-        r = await self.send(rpc, sleep_threshold=-1)
+        r = await self.invoke(rpc, sleep_threshold=-1)
 
         messages = await utils.parse_messages(self, r, replies=replies)
 

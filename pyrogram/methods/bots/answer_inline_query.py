@@ -18,14 +18,14 @@
 
 from typing import Iterable
 
+import pyrogram
 from pyrogram import raw
 from pyrogram import types
-from pyrogram.scaffold import Scaffold
 
 
-class AnswerInlineQuery(Scaffold):
+class AnswerInlineQuery:
     async def answer_inline_query(
-        self,
+        self: "pyrogram.Client",
         inline_query_id: str,
         results: Iterable["types.InlineQueryResult"],
         cache_time: int = 300,
@@ -86,7 +86,7 @@ class AnswerInlineQuery(Scaffold):
 
                 from pyrogram.types import InlineQueryResultArticle, InputTextMessageContent
 
-                app.answer_inline_query(
+                await app.answer_inline_query(
                     inline_query_id,
                     results=[
                         InlineQueryResultArticle(
@@ -94,7 +94,7 @@ class AnswerInlineQuery(Scaffold):
                             InputTextMessageContent("Message content"))])
         """
 
-        return await self.send(
+        return await self.invoke(
             raw.functions.messages.SetInlineBotResults(
                 query_id=int(inline_query_id),
                 results=[await r.write(self) for r in results],

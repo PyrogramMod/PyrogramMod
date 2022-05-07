@@ -3,5 +3,4 @@
 pytest
 pytest-asyncio
 pytest-cov
-async.lru
-tgcrypto
+twine

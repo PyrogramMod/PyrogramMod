@@ -23,11 +23,12 @@ import hashlib
 import os
 import struct
 from concurrent.futures.thread import ThreadPoolExecutor
+from datetime import datetime
 from getpass import getpass
 from typing import Union, List, Dict, Optional
 
 import pyrogram
-from pyrogram import raw
+from pyrogram import raw, enums
 from pyrogram import types
 from pyrogram.file_id import FileId, FileType, PHOTO_TYPES, DOCUMENT_TYPES
 
@@ -114,10 +115,10 @@ async def parse_messages(client, messages: "raw.types.messages.Messages", replie
             )
 
             for message in parsed_messages:
-                reply_id = messages_with_replies.get(message.message_id, None)
+                reply_id = messages_with_replies.get(message.id, None)
 
                 for reply in reply_messages:
-                    if reply.message_id == reply_id:
+                    if reply.id == reply_id:
                         message.reply_to_message = reply
 
     return types.List(parsed_messages)
@@ -132,10 +133,10 @@ def parse_deleted_messages(client, update) -> List["types.Message"]:
     for message in messages:
         parsed_messages.append(
             types.Message(
-                message_id=message,
+                id=message,
                 chat=types.Chat(
                     id=get_channel_id(channel_id),
-                    type="channel",
+                    type=enums.ChatType.CHANNEL,
                     client=client
                 ) if channel_id is not None else None,
                 client=client
@@ -145,15 +146,47 @@ def parse_deleted_messages(client, update) -> List["types.Message"]:
     return types.List(parsed_messages)
 
 
-def unpack_inline_message_id(inline_message_id: str) -> "raw.types.InputBotInlineMessageID":
-    r = inline_message_id + "=" * (-len(inline_message_id) % 4)
-    r = struct.unpack("<iqq", base64.b64decode(r, altchars=b"-_"))
+def pack_inline_message_id(msg_id: "raw.base.InputBotInlineMessageID"):
+    if isinstance(msg_id, raw.types.InputBotInlineMessageID):
+        inline_message_id_packed = struct.pack(
+            "<iqq",
+            msg_id.dc_id,
+            msg_id.id,
+            msg_id.access_hash
+        )
+    else:
+        inline_message_id_packed = struct.pack(
+            "<iqiq",
+            msg_id.dc_id,
+            msg_id.owner_id,
+            msg_id.id,
+            msg_id.access_hash
+        )
 
-    return raw.types.InputBotInlineMessageID(
-        dc_id=r[0],
-        id=r[1],
-        access_hash=r[2]
-    )
+    return base64.urlsafe_b64encode(inline_message_id_packed).decode().rstrip("=")
+
+
+def unpack_inline_message_id(inline_message_id: str) -> "raw.base.InputBotInlineMessageID":
+    padded = inline_message_id + "=" * (-len(inline_message_id) % 4)
+    decoded = base64.urlsafe_b64decode(padded)
+
+    if len(decoded) == 20:
+        unpacked = struct.unpack("<iqq", decoded)
+
+        return raw.types.InputBotInlineMessageID(
+            dc_id=unpacked[0],
+            id=unpacked[1],
+            access_hash=unpacked[2]
+        )
+    else:
+        unpacked = struct.unpack("<iqiq", decoded)
+
+        return raw.types.InputBotInlineMessageID64(
+            dc_id=unpacked[0],
+            owner_id=unpacked[1],
+            id=unpacked[2],
+            access_hash=unpacked[3]
+        )
 
 
 MIN_CHANNEL_ID = -1002147483647
@@ -294,9 +327,9 @@ def compute_password_check(r: raw.types.account.Password, password: str) -> raw.
 async def parse_text_entities(
     client: "pyrogram.Client",
     text: str,
-    parse_mode: str,
+    parse_mode: enums.ParseMode,
     entities: List["types.MessageEntity"]
-) -> Dict[str, raw.base.MessageEntity]:
+) -> Dict[str, Union[str, List[raw.base.MessageEntity]]]:
     if entities:
         # Inject the client instance because parsing user mentions requires it
         for entity in entities:
@@ -310,3 +343,11 @@ async def parse_text_entities(
         "message": text,
         "entities": entities
     }
+
+
+def timestamp_to_datetime(ts: Optional[int]) -> Optional[datetime]:
+    return datetime.fromtimestamp(ts) if ts else None
+
+
+def datetime_to_timestamp(dt: Optional[datetime]) -> Optional[int]:
+    return int(dt.timestamp()) if dt else None

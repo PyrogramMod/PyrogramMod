@@ -18,13 +18,16 @@
 
 from typing import Union
 
+import pyrogram
 from pyrogram import raw
 from pyrogram import types
-from pyrogram.scaffold import Scaffold
 
 
-class GetCommonChats(Scaffold):
-    async def get_common_chats(self, user_id: Union[int, str]) -> list:
+class GetCommonChats:
+    async def get_common_chats(
+        self: "pyrogram.Client",
+        user_id: Union[int, str]
+    ) -> list:
         """Get the common chats you have with a user.
 
         Parameters:
@@ -42,14 +45,14 @@ class GetCommonChats(Scaffold):
         Example:
             .. code-block:: python
 
-                common = app.get_common_chats(user_id)
+                common = await app.get_common_chats(user_id)
                 print(common)
         """
 
         peer = await self.resolve_peer(user_id)
 
         if isinstance(peer, raw.types.InputPeerUser):
-            r = await self.send(
+            r = await self.invoke(
                 raw.functions.messages.GetCommonChats(
                     user_id=peer,
                     max_id=0,
