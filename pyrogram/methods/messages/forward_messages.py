@@ -17,7 +17,7 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import datetime
-from typing import Union, Iterable, List
+from typing import Union, List, Iterable
 
 import pyrogram
 from pyrogram import raw, utils
@@ -47,9 +47,8 @@ class ForwardMessages:
                 For your personal cloud (Saved Messages) you can simply use "me" or "self".
                 For a contact that exists in your Telegram address book you can use his phone number (str).
 
-            message_ids (``int`` | List of ``int``):
-                A list of Message identifiers in the chat specified in *from_chat_id* or a single message id.
-                Iterators and Generators are also accepted.
+            message_ids (``int`` | Iterable of ``int``):
+                An iterable of message identifiers in the chat specified in *from_chat_id* or a single message id.
 
             disable_notification (``bool``, *optional*):
                 Sends the message silently.
@@ -62,9 +61,8 @@ class ForwardMessages:
                 Protects the contents of the sent message from forwarding and saving.
 
         Returns:
-            :obj:`~pyrogram.types.Message` | List of :obj:`~pyrogram.types.Message`: In case *message_ids* was an
-            integer, the single forwarded message is returned, otherwise, in case *message_ids* was an iterable,
-            the returned value will be a list of messages, even if such iterable contained just a single element.
+            :obj:`~pyrogram.types.Message` | List of :obj:`~pyrogram.types.Message`: In case *message_ids* was not
+            a list, a single message is returned, otherwise a list of messages is returned.
 
         Example:
             .. code-block:: python

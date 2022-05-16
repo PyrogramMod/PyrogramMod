@@ -17,7 +17,7 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-from typing import Union, Iterable, List
+from typing import Union, List, Iterable
 
 import pyrogram
 from pyrogram import raw
@@ -48,13 +48,13 @@ class GetMessages:
                 For your personal cloud (Saved Messages) you can simply use "me" or "self".
                 For a contact that exists in your Telegram address book you can use his phone number (str).
 
-            message_ids (``iterable``, *optional*):
-                Pass a single message identifier or a list of message ids (as integers) to get the content of the
-                message themselves. Iterators and Generators are also accepted.
+            message_ids (``int`` | Iterable of ``int``, *optional*):
+                Pass a single message identifier or an iterable of message ids (as integers) to get the content of the
+                message themselves.
 
-            reply_to_message_ids (``iterable``, *optional*):
-                Pass a single message identifier or a list of message ids (as integers) to get the content of
-                the previous message you replied to using this message. Iterators and Generators are also accepted.
+            reply_to_message_ids (``int`` | Iterable of ``int``, *optional*):
+                Pass a single message identifier or an iterable of message ids (as integers) to get the content of
+                the previous message you replied to using this message.
                 If *message_ids* is set, this argument will be ignored.
 
             replies (``int``, *optional*):
@@ -63,9 +63,8 @@ class GetMessages:
                 Defaults to 1.
 
         Returns:
-            :obj:`~pyrogram.types.Message` | List of :obj:`~pyrogram.types.Message`: In case *message_ids* was an
-            integer, the single requested message is returned, otherwise, in case *message_ids* was an iterable, the
-            returned value will be a list of messages, even if such iterable contained just a single element.
+            :obj:`~pyrogram.types.Message` | List of :obj:`~pyrogram.types.Message`: In case *message_ids* was not
+            a list, a single message is returned, otherwise a list of messages is returned.
 
         Example:
             .. code-block:: python

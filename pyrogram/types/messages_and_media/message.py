@@ -3313,7 +3313,7 @@ class Message(Object, Update):
         else:
             await self.reply(button, quote=quote)
 
-    async def react(self, emoji: str = "") -> bool:
+    async def react(self, emoji: str = "", big: bool = False) -> bool:
         """Bound method *react* of :obj:`~pyrogram.types.Message`.
 
         Use as a shortcut for:
@@ -3335,6 +3335,10 @@ class Message(Object, Update):
             emoji (``str``, *optional*):
                 Reaction emoji.
                 Pass "" as emoji (default) to retract the reaction.
+             
+            big (``bool``, *optional*):
+                Pass True to show a bigger and longer reaction.
+                Defaults to False.
 
         Returns:
             ``bool``: On success, True is returned.
@@ -3346,7 +3350,8 @@ class Message(Object, Update):
         return await self._client.send_reaction(
             chat_id=self.chat.id,
             message_id=self.id,
-            emoji=emoji
+            emoji=emoji,
+            big=big
         )
 
     async def retract_vote(
