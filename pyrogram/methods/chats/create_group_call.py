@@ -16,7 +16,9 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from typing import Union, Optional
+import random
+from typing import Optional
+from typing import Union
 
 import pyrogram
 from pyrogram import raw
@@ -25,16 +27,15 @@ from pyrogram import raw
 class CreateGroupCall:
     async def create_group_call(
             self: "pyrogram.Client",
-            peer: Union[int, str],
-            random_id: Union[str, int],
-            rtmp_stream: Optional[bool],
-            title: Optional[Union[str, int]],
-            schedule_date: Optional[Union[int]]
+            chat_id: Union[int, str],
+            rtmp_stream: Optional[bool] = False,
+            title: Optional[Union[str, int]] = None,
+            schedule_date: Optional[int] = None
     ):
-        return await self.send(
+        return await self.invoke(
             raw.functions.phone.CreateGroupCall(
-                peer=await self.resolve_peer(peer),
-                random_id=random_id,
+                peer=await self.resolve_peer(chat_id),
+                random_id=random.randint(0, 2147483647),
                 rtmp_stream=rtmp_stream,
                 title=title,
                 schedule_date=schedule_date,
