@@ -21,6 +21,7 @@ from .archive_chats import ArchiveChats
 from .ban_chat_member import BanChatMember
 from .create_channel import CreateChannel
 from .create_group import CreateGroup
+from .create_group_call import CreateGroupCall
 from .create_supergroup import CreateSupergroup
 from .delete_channel import DeleteChannel
 from .delete_chat_photo import DeleteChatPhoto
@@ -34,6 +35,8 @@ from .get_chat_members_count import GetChatMembersCount
 from .get_chat_online_count import GetChatOnlineCount
 from .get_dialogs import GetDialogs
 from .get_dialogs_count import GetDialogsCount
+from .get_group_call_stream_channels import GetGroupCallStreamChannels
+from .get_group_call_stream_rtmp_url import GetGroupCallStreamRtmpUrl
 from .get_nearby_chats import GetNearbyChats
 from .get_send_as_chats import GetSendAsChats
 from .join_chat import JoinChat
@@ -46,8 +49,8 @@ from .set_administrator_title import SetAdministratorTitle
 from .set_chat_description import SetChatDescription
 from .set_chat_permissions import SetChatPermissions
 from .set_chat_photo import SetChatPhoto
-from .set_chat_reactions import SetChatReaction
 from .set_chat_protected_content import SetChatProtectedContent
+from .set_chat_reactions import SetChatReaction
 from .set_chat_title import SetChatTitle
 from .set_chat_username import SetChatUsername
 from .set_send_as_chat import SetSendAsChat
@@ -98,6 +101,8 @@ class Chats(
     GetSendAsChats,
     SetSendAsChat,
     SetChatReaction,
-    SetChatProtectedContent
+    SetChatProtectedContent,
+    CreateGroupCall,
+    GetGroupCallStreamChannels
 ):
     pass
