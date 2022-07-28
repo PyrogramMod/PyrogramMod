@@ -79,3 +79,6 @@ class MessageEntityType(AutoName):
 
     UNKNOWN = raw.types.MessageEntityUnknown
     "Unknown message entity type"
+
+    EMOJI = raw.types.MessageEntityCustomEmoji
+    "Text Emoji Animated"
