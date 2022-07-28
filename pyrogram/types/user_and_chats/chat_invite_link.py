@@ -104,12 +104,11 @@ class ChatInviteLink(Object):
         invite: "raw.base.ExportedChatInvite",
         users: Dict[int, "raw.types.User"] = None
     ) -> "ChatInviteLink":
-        if users is not None:
-            if not hasattr(invite, "admin_id"):
-                return None
-            creator = types.User._parse(client, users[invite.admin_id])
-        else:
-            creator = None
+        creator = (
+            types.User._parse(client, users[invite.admin_id])
+            if users is not None
+            else None
+        )
 
         return ChatInviteLink(
             invite_link=invite.link,

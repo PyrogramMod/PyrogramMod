@@ -85,7 +85,9 @@ def get_input_media_from_file_id(
 
 
 async def parse_messages(
-    client, messages: "raw.types.messages.Messages", replies: int = 1
+    client,
+    messages: "raw.types.messages.Messages",
+    replies: int = 1
 ) -> List["types.Message"]:
     users = {i.id: i for i in messages.users}
     chats = {i.id: i for i in messages.chats}
@@ -142,10 +144,10 @@ def parse_deleted_messages(client, update) -> List["types.Message"]:
             types.Message(
                 id=message,
                 chat=types.Chat(
-                    id=get_channel_id(channel_id), type=enums.ChatType.CHANNEL, client=client
-                )
-                if channel_id is not None
-                else None,
+                    id=get_channel_id(channel_id),
+                    type=enums.ChatType.CHANNEL,
+                    client=client
+                ) if channel_id is not None else None,
                 client=client
             )
         )
@@ -265,7 +267,8 @@ def xor(a: bytes, b: bytes) -> bytes:
 
 
 def compute_password_hash(
-    algo: raw.types.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow, password: str
+    algo: raw.types.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow,
+    password: str
 ) -> bytes:
     hash1 = sha256(algo.salt1 + password.encode() + algo.salt1)
     hash2 = sha256(algo.salt2 + hash1 + algo.salt2)
@@ -275,7 +278,10 @@ def compute_password_hash(
 
 
 # noinspection PyPep8Naming
-def compute_password_check(r: raw.types.account.Password, password: str) -> raw.types.InputCheckPasswordSRP:
+def compute_password_check(
+    r: raw.types.account.Password,
+    password: str
+) -> raw.types.InputCheckPasswordSRP:
     algo = r.current_algo
 
     p_bytes = algo.p
