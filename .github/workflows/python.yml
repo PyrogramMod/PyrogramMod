@@ -1,4 +1,4 @@
-name: Pyrogram - Mod
+name: Pyrogram
 
 on: [push, pull_request]
 
@@ -23,7 +23,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install tox
-          pip install async_lru
 
       - name: Generate API
         run: |
