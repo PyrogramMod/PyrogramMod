@@ -226,14 +226,6 @@ reply = create(reply_filter)
 """Filter messages that are replies to other messages."""
 
 
-# region reaction_filter
-async def reaction_filter (_, __, m: Message):
-    return bool(m.edit_hide)
-
-
-reaction = create(reaction_filter)
-"""Filter reactions."""
-
 # endregion
 
 # region forwarded_filter

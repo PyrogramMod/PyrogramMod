@@ -61,7 +61,7 @@ class Parser(HTMLParser):
             entity = raw.types.MessageEntityCode
         elif tag == "pre":
             entity = raw.types.MessageEntityPre
-            extra["language"] = ""
+            extra["language"] = attrs.get("language", "")
         elif tag == "spoiler":
             entity = raw.types.MessageEntitySpoiler
         elif tag == "a":
@@ -117,7 +117,8 @@ class HTML:
         self.client = client
 
     async def parse(self, text: str):
-        # Strip whitespace characters from the end of the message, but preserve closing tags
+        # Strip whitespaces from the beginning and the end, but preserve closing tags
+        text = re.sub(r"^\s*(<[\w<>=\s\"]*>)\s*", r"\1", text)
         text = re.sub(r"\s*(</[\w</>]*>)\s*$", r"\1", text)
 
         parser = Parser(self.client)
@@ -172,9 +173,13 @@ class HTML:
                 name = entity_type.name[0].lower()
                 start_tag = f"<{name}>"
                 end_tag = f"</{name}>"
+            elif entity_type == MessageEntityType.PRE:
+                name = entity_type.name.lower()
+                language = getattr(entity, "language", "") or ""
+                start_tag = f'<{name} language="{language}">' if language else f"<{name}>"
+                end_tag = f"</{name}>"
             elif entity_type in (
                 MessageEntityType.CODE,
-                MessageEntityType.PRE,
                 MessageEntityType.BLOCKQUOTE,
                 MessageEntityType.SPOILER,
             ):
