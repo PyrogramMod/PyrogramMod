@@ -16,42 +16,43 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-import logging
+from typing import Optional
 
 import pyrogram
-from pyrogram import raw
-from pyrogram import types
-
-log = logging.getLogger(__name__)
+from pyrogram import raw, types
 
 
-class RecoverPassword:
-    async def recover_password(
+class SetEmojiStatus:
+    async def set_emoji_status(
         self: "pyrogram.Client",
-        recovery_code: str
-    ) -> "types.User":
-        """Recover your password with a recovery code and log in.
+        emoji_status: Optional["types.EmojiStatus"] = None
+    ) -> bool:
+        """Set the emoji status.
 
         .. include:: /_includes/usable-by/users.rst
 
         Parameters:
-            recovery_code (``str``):
-                The recovery code sent via email.
+            emoji_status (:obj:`~pyrogram.types.EmojiStatus`, *optional*):
+                The emoji status to set. None to remove.
 
         Returns:
-            :obj:`~pyrogram.types.User`: On success, the authorized user is returned and the Two-Step Verification
-            password reset.
+            ``bool``: On success, True is returned.
 
-        Raises:
-            BadRequest: In case the recovery code is invalid.
+        Example:
+            .. code-block:: python
+
+                from pyrogram import types
+
+                await app.set_emoji_status(types.EmojiStatus(custom_emoji_id=1234567890987654321))
         """
-        r = await self.invoke(
-            raw.functions.auth.RecoverPassword(
-                code=recovery_code
+        await self.invoke(
+            raw.functions.account.UpdateEmojiStatus(
+                emoji_status=(
+                    emoji_status.write()
+                    if emoji_status
+                    else raw.types.EmojiStatusEmpty()
+                )
             )
         )
 
-        await self.storage.user_id(r.user.id)
-        await self.storage.is_bot(False)
-
-        return types.User._parse(self, r.user)
+        return True

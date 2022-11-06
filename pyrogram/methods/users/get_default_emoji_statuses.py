@@ -16,42 +16,32 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-import logging
+from typing import List
 
 import pyrogram
 from pyrogram import raw
 from pyrogram import types
 
-log = logging.getLogger(__name__)
 
-
-class RecoverPassword:
-    async def recover_password(
+class GetDefaultEmojiStatuses:
+    async def get_default_emoji_statuses(
         self: "pyrogram.Client",
-        recovery_code: str
-    ) -> "types.User":
-        """Recover your password with a recovery code and log in.
+    ) -> List["types.EmojiStatus"]:
+        """Get the default emoji statuses.
 
-        .. include:: /_includes/usable-by/users.rst
-
-        Parameters:
-            recovery_code (``str``):
-                The recovery code sent via email.
+        .. include:: /_includes/usable-by/users-bots.rst
 
         Returns:
-            :obj:`~pyrogram.types.User`: On success, the authorized user is returned and the Two-Step Verification
-            password reset.
+            List of :obj:`~pyrogram.types.EmojiStatus`: On success, a list of emoji statuses is returned.
 
-        Raises:
-            BadRequest: In case the recovery code is invalid.
+        Example:
+            .. code-block:: python
+
+                default_emoji_statuses = await app.get_default_emoji_statuses()
+                print(default_emoji_statuses)
         """
         r = await self.invoke(
-            raw.functions.auth.RecoverPassword(
-                code=recovery_code
-            )
+            raw.functions.account.GetDefaultEmojiStatuses(hash=0)
         )
 
-        await self.storage.user_id(r.user.id)
-        await self.storage.is_bot(False)
-
-        return types.User._parse(self, r.user)
+        return types.List([types.EmojiStatus._parse(self, i) for i in r.statuses])
