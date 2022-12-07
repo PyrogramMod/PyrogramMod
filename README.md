@@ -65,7 +65,7 @@ If you'd like to support Pyrogram, you can consider:
 ### Installing
 
 ``` bash
-pip3 install https://github.com/null-nick/Pyrogram-Mod/archive/refs/heads/master.zip
+pip3 install https://github.com/null-nick/Pyrogram-Mod/archive/refs/heads/main.zip
 ```
 
 ### Resources
