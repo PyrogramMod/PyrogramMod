@@ -89,7 +89,7 @@ pip3 install https://github.com/null-nick/Pyrogram-Mod/archive/refs/heads/main.z
 - 📕 Un-Official Repo: https://github.com/null-nick/Pyrogram-Mod/
 - 🗞 News: https://t.me/PyroGramMod
 - 💭 Support Group: https://t.me/PyroGramModChat
-- 📚 Docs: https://docs.documentations.ml
+- 📚 Docs: <s>https://docs.documentations.ml</s> <b>Offline</b>
 ------------------------------------------------------------
 - Check out the docs at https://docs.pyrogram.org to learn more about Pyrogram, get started right
 away and discover more in-depth material for building your client applications.
