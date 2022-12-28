@@ -20,18 +20,7 @@ import asyncio
 import ipaddress
 import logging
 import socket
-import time
-from typing import Optional
-
-try:
-    import socks
-except ImportError as e:
-    e.msg = (
-        "PySocks is missing and Pyrogram can't run without. "
-        "Please install it using \"pip3 install pysocks\"."
-    )
-
-    raise e
+import socks
 
 log = logging.getLogger(__name__)
 
@@ -42,9 +31,10 @@ class TCP:
     def __init__(self, ipv6: bool, proxy: dict):
         self.socket = None
 
-        self.reader = None  # type: asyncio.StreamReader
-        self.writer = None  # type: asyncio.StreamWriter
+        self.reader = None
+        self.writer = None
 
+        self.lock = asyncio.Lock()
         self.loop = asyncio.get_event_loop()
 
         if proxy:
@@ -68,55 +58,39 @@ class TCP:
                 password=proxy.get("password", None)
             )
 
-            log.info(f"Using proxy {hostname}")
+            log.info("Using proxy %s", hostname)
         else:
             self.socket = socket.socket(
                 socket.AF_INET6 if ipv6
                 else socket.AF_INET
             )
 
-        self.socket.settimeout(TCP.TIMEOUT)
-
-        self.send_queue = asyncio.Queue()
-        self.send_task = None
-
-    async def connect(self, address: tuple):
-        await asyncio.get_event_loop().sock_connect(self.socket, address)
-        self.reader, self.writer = await asyncio.open_connection(sock=self.socket)
-        self.send_task = asyncio.create_task(self.send_worker())
         self.socket.setblocking(False)
 
-    async def close(self):
-        await self.send_queue.put(None)
-
-        if self.send_task is not None:
-            await self.send_task
-
+    async def connect(self, address: tuple):
         try:
-            self.writer.close()
-        except AttributeError:
+            await asyncio.wait_for(asyncio.get_event_loop().sock_connect(self.socket, address), TCP.TIMEOUT)
+        except asyncio.TimeoutError:  # Re-raise as TimeoutError. asyncio.TimeoutError is deprecated in 3.11
+            raise TimeoutError("Connection timed out")
+
+        self.reader, self.writer = await asyncio.open_connection(sock=self.socket)
+
+    async def close(self):
+        try:
+            if self.writer is not None:
+                self.writer.close()
+                await asyncio.wait_for(self.writer.wait_closed(), TCP.TIMEOUT)
+        except Exception as e:
+            log.warning("Close exception: %s %s", type(e).__name__, e)
+
+    async def send(self, data: bytes):
+        async with self.lock:
             try:
-                self.socket.shutdown(socket.SHUT_RDWR)
-            except OSError:
-                pass
-            finally:
-                # A tiny sleep placed here helps avoiding .recv(n) hanging until the timeout.
-                # This is a workaround that seems to fix the occasional delayed stop of a client.
-                time.sleep(0.001)
-                self.socket.close()
-
-    async def send(self, data: Optional[bytes]):
-        await self.send_queue.put(data)
-
-    async def send_worker(self):
-        while True:
-            data = await self.send_queue.get()
-
-            if data is None:
-                break
-
-            self.writer.write(data)
-            await self.writer.drain()
+                if self.writer is not None:
+                    self.writer.write(data)
+                    await self.writer.drain()
+            except Exception as e:
+                log.warning("Send exception: %s %s", type(e).__name__, e)
 
     async def recv(self, length: int = 0):
         data = b""
