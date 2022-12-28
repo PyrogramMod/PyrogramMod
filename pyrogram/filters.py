@@ -234,7 +234,6 @@ async def reaction_filter(_, __, m: Message):
 reaction = create(reaction_filter)
 """Filter reactions."""
 
-
 # endregion
 
 # region forwarded_filter

@@ -60,7 +60,6 @@ class Session:
         is_media: bool = False,
         is_cdn: bool = False
     ):
-
         self.client = client
         self.dc_id = dc_id
         self.auth_key = auth_key
@@ -283,6 +282,9 @@ class Session:
         message = self.msg_factory(data)
         msg_id = message.msg_id
 
+        if wait_response:
+            self.results[msg_id] = Result()
+
         log.debug("Sent: %s", message)
 
         payload = await self.loop.run_in_executor(
@@ -295,11 +297,13 @@ class Session:
             self.auth_key_id
         )
 
-        await self.connection.send(payload)
+        try:
+            await self.connection.send(payload)
+        except OSError as e:
+            self.results.pop(msg_id, None)
+            raise e
 
         if wait_response:
-            self.results[msg_id] = Result()
-
             try:
                 await asyncio.wait_for(self.results[msg_id].event.wait(), timeout)
             except asyncio.TimeoutError:
