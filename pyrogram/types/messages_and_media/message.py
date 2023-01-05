@@ -136,6 +136,9 @@ class Message(Object, Update):
         has_protected_content (``bool``, *optional*):
             True, if the message can't be forwarded.
 
+        has_media_spoiler (``bool``, *optional*):
+            True, if the message media is covered by a spoiler animation.
+
         text (``str``, *optional*):
             For text messages, the actual UTF-8 text of the message, 0-4096 characters.
             If the message contains entities (bold, italic, ...) you can access *text.markdown* or
@@ -333,6 +336,7 @@ class Message(Object, Update):
         media_group_id: str = None,
         author_signature: str = None,
         has_protected_content: bool = None,
+        has_media_spoiler: bool = None,
         text: Str = None,
         entities: List["types.MessageEntity"] = None,
         caption_entities: List["types.MessageEntity"] = None,
@@ -410,6 +414,7 @@ class Message(Object, Update):
         self.media_group_id = media_group_id
         self.author_signature = author_signature
         self.has_protected_content = has_protected_content
+        self.has_media_spoiler = has_media_spoiler
         self.text = text
         self.entities = entities
         self.caption_entities = caption_entities
@@ -660,11 +665,13 @@ class Message(Object, Update):
 
             media = message.media
             media_type = None
+            has_media_spoiler = None
 
             if media:
                 if isinstance(media, raw.types.MessageMediaPhoto):
                     photo = types.Photo._parse(client, media.photo, media.ttl_seconds)
                     media_type = enums.MessageMediaType.PHOTO
+                    has_media_spoiler = media.spoiler
                 elif isinstance(media, raw.types.MessageMediaGeo):
                     location = types.Location._parse(client, media.geo)
                     media_type = enums.MessageMediaType.LOCATION
@@ -693,6 +700,7 @@ class Message(Object, Update):
                             video_attributes = attributes.get(raw.types.DocumentAttributeVideo, None)
                             animation = types.Animation._parse(client, doc, video_attributes, file_name)
                             media_type = enums.MessageMediaType.ANIMATION
+                            has_media_spoiler = media.spoiler
                         elif raw.types.DocumentAttributeSticker in attributes:
                             sticker = await types.Sticker._parse(client, doc, attributes)
                             media_type = enums.MessageMediaType.STICKER
@@ -705,6 +713,7 @@ class Message(Object, Update):
                             else:
                                 video = types.Video._parse(client, doc, video_attributes, file_name, media.ttl_seconds)
                                 media_type = enums.MessageMediaType.VIDEO
+                                has_media_spoiler = media.spoiler
                         elif raw.types.DocumentAttributeAudio in attributes:
                             audio_attributes = attributes[raw.types.DocumentAttributeAudio]
 
@@ -779,6 +788,7 @@ class Message(Object, Update):
                 ),
                 author_signature=message.post_author,
                 has_protected_content=message.noforwards,
+                has_media_spoiler=has_media_spoiler,
                 forward_from=forward_from,
                 forward_sender_name=forward_sender_name,
                 forward_from_chat=forward_from_chat,

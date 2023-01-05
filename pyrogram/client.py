@@ -358,6 +358,7 @@ class Client(Methods):
             enums.SentCodeType.CALL: "phone call",
             enums.SentCodeType.FLASH_CALL: "phone flash call",
             enums.SentCodeType.FRAGMENT_SMS: "Fragment SMS",
+            enums.SentCodeType.EMAIL_CODE: "email code"
         }
 
         print(f"The confirmation code has been sent via {sent_code_descriptions[sent_code.type]}")
@@ -486,7 +487,11 @@ class Client(Methods):
             if isinstance(peer, raw.types.User):
                 peer_id = peer.id
                 access_hash = peer.access_hash
-                username = (peer.username or "").lower() or None
+                username = (
+                    peer.username.lower() if peer.username
+                    else peer.usernames[0].username.lower() if peer.usernames
+                    else None
+                )
                 phone_number = peer.phone
                 peer_type = "bot" if peer.bot else "user"
             elif isinstance(peer, (raw.types.Chat, raw.types.ChatForbidden)):
