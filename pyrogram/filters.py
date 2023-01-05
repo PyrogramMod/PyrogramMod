@@ -234,7 +234,6 @@ async def reaction_filter(_, __, m: Message):
 reaction = create(reaction_filter)
 """Filter reactions."""
 
-
 # endregion
 
 # region forwarded_filter
@@ -432,6 +431,17 @@ async def dice_filter(_, __, m: Message):
 
 dice = create(dice_filter)
 """Filter messages that contain :obj:`~pyrogram.types.Dice` objects."""
+
+
+# endregion
+
+# region media_spoiler
+async def media_spoiler_filter(_, __, m: Message):
+    return bool(m.has_media_spoiler)
+
+
+media_spoiler = create(media_spoiler_filter)
+"""Filter media messages that contain a spoiler."""
 
 
 # endregion
