@@ -26,6 +26,7 @@ from .bot_command_scope_chat_administrators import BotCommandScopeChatAdministra
 from .bot_command_scope_chat_member import BotCommandScopeChatMember
 from .bot_command_scope_default import BotCommandScopeDefault
 from .callback_game import CallbackGame
+from .request_peer_type import RequestPeer
 from .callback_query import CallbackQuery
 from .force_reply import ForceReply
 from .game_high_score import GameHighScore
@@ -67,5 +68,6 @@ __all__ = [
     "MenuButtonCommands",
     "MenuButtonWebApp",
     "MenuButtonDefault",
-    "SentWebAppMessage"
+    "SentWebAppMessage",
+    "RequestPeer"
 ]

@@ -81,7 +81,9 @@ class InlineKeyboardButton(Object):
         user_id: int = None,
         switch_inline_query: str = None,
         switch_inline_query_current_chat: str = None,
-        callback_game: "types.CallbackGame" = None
+        callback_game: "types.CallbackGame" = None,
+        button_id: int = None,
+        peer_type: "types.RequestPeer" = None,
     ):
         super().__init__()
 
@@ -94,6 +96,8 @@ class InlineKeyboardButton(Object):
         self.switch_inline_query = switch_inline_query
         self.switch_inline_query_current_chat = switch_inline_query_current_chat
         self.callback_game = callback_game
+        self.button_id = button_id
+        self.peer_type = peer_type
         # self.pay = pay
 
     @staticmethod
@@ -155,6 +159,13 @@ class InlineKeyboardButton(Object):
                 )
             )
 
+        if isinstance(b, raw.types.KeyboardButtonRequestPeer):
+            return InlineKeyboardButton(
+                text=b.text,
+                button_id=b.button_id,
+                peer_type=b.peer_type
+            )
+
     async def write(self, client: "pyrogram.Client"):
         if self.callback_data is not None:
             # Telegram only wants bytes, but we are allowed to pass strings too, for convenience.
@@ -205,4 +216,11 @@ class InlineKeyboardButton(Object):
             return raw.types.KeyboardButtonWebView(
                 text=self.text,
                 url=self.web_app.url
+            )
+
+        if self.peer_type is not None:
+            return raw.types.KeyboardButtonRequestPeer(
+                text=self.text,
+                button_id=self.button_id,
+                peer_type=self.peer_type
             )

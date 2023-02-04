@@ -71,3 +71,6 @@ class MessageServiceType(AutoName):
 
     WEB_APP_DATA = auto()
     "Web app data"
+
+    ACTION_REQUEST_PEER = auto()
+    "Request Peer Data"

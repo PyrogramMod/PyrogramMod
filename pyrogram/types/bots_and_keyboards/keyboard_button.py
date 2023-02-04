@@ -50,7 +50,9 @@ class KeyboardButton(Object):
         text: str,
         request_contact: bool = None,
         request_location: bool = None,
-        web_app: "types.WebAppInfo" = None
+        web_app: "types.WebAppInfo" = None,
+        button_id: int = None,
+        peer_type = None
     ):
         super().__init__()
 
@@ -58,6 +60,8 @@ class KeyboardButton(Object):
         self.request_contact = request_contact
         self.request_location = request_location
         self.web_app = web_app
+        self.button_id = button_id
+        self.peer_type = peer_type
 
     @staticmethod
     def read(b):
@@ -84,6 +88,13 @@ class KeyboardButton(Object):
                 )
             )
 
+        if isinstance(b, raw.types.KeyboardButtonRequestPeer):
+            return KeyboardButton(
+                text=b.text,
+                button_id=b.button_id,
+                peer_type=b.peer_type
+            )
+
     def write(self):
         if self.request_contact:
             return raw.types.KeyboardButtonRequestPhone(text=self.text)
@@ -91,5 +102,7 @@ class KeyboardButton(Object):
             return raw.types.KeyboardButtonRequestGeoLocation(text=self.text)
         elif self.web_app:
             return raw.types.KeyboardButtonSimpleWebView(text=self.text, url=self.web_app.url)
+        elif self.peer_type:
+            return raw.types.KeyboardButtonRequestPeer(text=self.text, button_id=self.button_id, peer_type=self.peer_type)
         else:
             return raw.types.KeyboardButton(text=self.text)

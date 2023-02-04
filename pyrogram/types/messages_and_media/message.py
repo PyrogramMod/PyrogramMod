@@ -385,6 +385,7 @@ class Message(Object, Update):
             "types.ReplyKeyboardRemove",
             "types.ForceReply"
         ] = None,
+        request_peer: "types.RequestPeer" = None,
         reactions: List["types.Reaction"] = None
     ):
         super().__init__(client)
@@ -458,6 +459,7 @@ class Message(Object, Update):
         self.video_chat_ended = video_chat_ended
         self.video_chat_members_invited = video_chat_members_invited
         self.web_app_data = web_app_data
+        self.request_peer = request_peer
         self.reactions = reactions
 
     @staticmethod
@@ -509,6 +511,7 @@ class Message(Object, Update):
             video_chat_ended = None
             video_chat_members_invited = None
             web_app_data = None
+            request_peer = None
 
             service_type = None
 
@@ -558,6 +561,12 @@ class Message(Object, Update):
             elif isinstance(action, raw.types.MessageActionWebViewDataSentMe):
                 web_app_data = types.WebAppData._parse(action)
                 service_type = enums.MessageServiceType.WEB_APP_DATA
+            elif isinstance(action, raw.types.MessageActionRequestedPeer):
+                if isinstance(action.peer, raw.types.PeerChannel) or isinstance(action.peer, raw.types.PeerChat):
+                    request_peer = types.RequestPeerUser()._parse(action)
+                else:
+                    request_peer = types.RequestPeerChat()._parse(action)
+                service_type = enums.MessageServiceType.ACTION_REQUEST_PEER
 
             from_user = types.User._parse(client, users.get(user_id, None))
             sender_chat = types.Chat._parse(client, message, users, chats, is_chat=False) if not from_user else None
@@ -583,6 +592,7 @@ class Message(Object, Update):
                 video_chat_ended=video_chat_ended,
                 video_chat_members_invited=video_chat_members_invited,
                 web_app_data=web_app_data,
+                request_peer=request_peer,
                 client=client
                 # TODO: supergroup_chat_created
             )
