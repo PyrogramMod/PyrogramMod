@@ -750,6 +750,7 @@ async def linked_channel_filter(_, __, m: Message):
 linked_channel = create(linked_channel_filter)
 """Filter messages that are automatically forwarded from the linked channel to the group chat."""
 
+
 # endregion
 
 

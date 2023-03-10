@@ -992,6 +992,7 @@ class Message(Object, Update):
         caption: str = "",
         parse_mode: Optional["enums.ParseMode"] = None,
         caption_entities: List["types.MessageEntity"] = None,
+        has_spoiler: bool = None,
         duration: int = 0,
         width: int = 0,
         height: int = 0,
@@ -1044,6 +1045,9 @@ class Message(Object, Update):
 
             caption_entities (List of :obj:`~pyrogram.types.MessageEntity`):
                 List of special entities that appear in the caption, which can be specified instead of *parse_mode*.
+
+            has_spoiler (``bool``, *optional*):
+                Pass True if the animation needs to be covered with a spoiler animation.
 
             duration (``int``, *optional*):
                 Duration of sent animation in seconds.
@@ -1113,6 +1117,7 @@ class Message(Object, Update):
             caption=caption,
             parse_mode=parse_mode,
             caption_entities=caption_entities,
+            has_spoiler=has_spoiler,
             duration=duration,
             width=width,
             height=height,
@@ -1889,6 +1894,7 @@ class Message(Object, Update):
         caption: str = "",
         parse_mode: Optional["enums.ParseMode"] = None,
         caption_entities: List["types.MessageEntity"] = None,
+        has_spoiler: bool = None,
         ttl_seconds: int = None,
         disable_notification: bool = None,
         reply_to_message_id: int = None,
@@ -1938,6 +1944,9 @@ class Message(Object, Update):
 
             caption_entities (List of :obj:`~pyrogram.types.MessageEntity`):
                 List of special entities that appear in the caption, which can be specified instead of *parse_mode*.
+
+            has_spoiler (``bool``, *optional*):
+                Pass True if the photo needs to be covered with a spoiler animation.
 
             ttl_seconds (``int``, *optional*):
                 Self-Destruct Timer.
@@ -1997,6 +2006,7 @@ class Message(Object, Update):
             caption=caption,
             parse_mode=parse_mode,
             caption_entities=caption_entities,
+            has_spoiler=has_spoiler,
             ttl_seconds=ttl_seconds,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
@@ -2355,6 +2365,7 @@ class Message(Object, Update):
         caption: str = "",
         parse_mode: Optional["enums.ParseMode"] = None,
         caption_entities: List["types.MessageEntity"] = None,
+        has_spoiler: bool = None,
         ttl_seconds: int = None,
         duration: int = 0,
         width: int = 0,
@@ -2409,6 +2420,9 @@ class Message(Object, Update):
 
             caption_entities (List of :obj:`~pyrogram.types.MessageEntity`):
                 List of special entities that appear in the caption, which can be specified instead of *parse_mode*.
+
+            has_spoiler (``bool``, *optional*):
+                Pass True if the video needs to be covered with a spoiler animation.
 
             ttl_seconds (``int``, *optional*):
                 Self-Destruct Timer.
@@ -2486,6 +2500,7 @@ class Message(Object, Update):
             caption=caption,
             parse_mode=parse_mode,
             caption_entities=caption_entities,
+            has_spoiler=has_spoiler,
             ttl_seconds=ttl_seconds,
             duration=duration,
             width=width,
