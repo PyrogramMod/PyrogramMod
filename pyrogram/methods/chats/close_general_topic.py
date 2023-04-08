@@ -15,35 +15,38 @@
 #
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
-
-import logging
-
 import pyrogram
+from pyrogram import raw
+from pyrogram import types
+from typing import Union
 
-log = logging.getLogger(__name__)
 
-
-class Initialize:
-    async def initialize(
+class CloseGeneralTopic:
+    async def close_general_topic(
         self: "pyrogram.Client",
-    ):
-        """Initialize the client by starting up workers.
+        chat_id: Union[int, str]
+    ) -> bool:
+        """Close a forum topic.
 
-        This method will start updates and download workers.
-        It will also load plugins and start the internal dispatcher.
+        .. include:: /_includes/usable-by/users-bots.rst
 
-        Raises:
-            ConnectionError: In case you try to initialize a disconnected client or in case you try to initialize an
-                already initialized client.
+        Parameters:
+            chat_id (``int`` | ``str``):
+                Unique identifier (int) or username (str) of the target chat.
+
+        Returns:
+            `bool`: On success, a True is returned.
+
+        Example:
+            .. code-block:: python
+
+                await app.close_general_topic(chat_id)
         """
-        if not self.is_connected:
-            raise ConnectionError("Can't initialize a disconnected client")
-
-        if self.is_initialized:
-            raise ConnectionError("Client is already initialized")
-
-        self.load_plugins()
-
-        await self.dispatcher.start()
-
-        self.is_initialized = True
+        await self.invoke(
+            raw.functions.channels.EditForumTopic(
+                channel=await self.resolve_peer(chat_id),
+                topic_id=1,
+                closed=True
+            )
+        )
+        return True

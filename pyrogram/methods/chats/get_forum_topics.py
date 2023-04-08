@@ -15,42 +15,54 @@
 #
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
+
+import logging
+from typing import Union, Optional, AsyncGenerator
+
 import pyrogram
 from pyrogram import raw
 from pyrogram import types
-from typing import Union
+from pyrogram import utils
+
+log = logging.getLogger(__name__)
 
 
-class CloseForumTopic:
-    async def close_forum_topic(
+class GetForumTopics:
+    async def get_forum_topics(
         self: "pyrogram.Client",
         chat_id: Union[int, str],
-        topic_id: int
-    ) -> bool:
-        """Close a forum topic.
+        limit: int = 0
+    ) -> Optional[AsyncGenerator["types.ForumTopic", None]]:
+        """Get one or more topic from a chat.
 
-        .. include:: /_includes/usable-by/users-bots.rst
+        .. include:: /_includes/usable-by/users.rst
 
         Parameters:
             chat_id (``int`` | ``str``):
                 Unique identifier (int) or username (str) of the target chat.
 
-            topic_id (``int``):
-                Unique identifier (int) of the target forum topic.
+            limit (``int``, *optional*):
+                Limits the number of topics to be retrieved.
 
         Returns:
-            `bool`: On success, a Boolean is returned.
+            ``Generator``: On success, a generator yielding :obj:`~pyrogram.types.ForumTopic` objects is returned.
 
         Example:
             .. code-block:: python
 
-                await app.close_forum_topic(chat_id, topic_id)
+                # get all forum topics
+                async for topic in app.get_forum_topics(chat_id):
+                    print(topic)
+
+        Raises:
+            ValueError: In case of invalid arguments.
         """
-        await self.invoke(
-            raw.functions.channels.EditForumTopic(
-                channel=await self.resolve_peer(chat_id),
-                topic_id=topic_id,
-                closed=True
-            )
-        )
-        return True
+
+        peer = await self.resolve_peer(chat_id)
+
+        rpc = raw.functions.channels.GetForumTopics(channel=peer, offset_date=0, offset_id=0, offset_topic=0, limit=limit)
+
+        r = await self.invoke(rpc, sleep_threshold=-1)
+
+        for _topic in r.topics:
+            yield types.ForumTopic._parse(_topic)

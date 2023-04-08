@@ -22,6 +22,7 @@ from .chat_event import ChatEvent
 from .chat_event_filter import ChatEventFilter
 from .chat_invite_link import ChatInviteLink
 from .chat_join_request import ChatJoinRequest
+from .chat_joined_by_request import ChatJoinedByRequest
 from .chat_joiner import ChatJoiner
 from .chat_member import ChatMember
 from .chat_member_updated import ChatMemberUpdated
@@ -40,6 +41,8 @@ from .forum_topic_created import ForumTopicCreated
 from .forum_topic_closed import ForumTopicClosed
 from .forum_topic_reopened import ForumTopicReopened
 from .forum_topic_edited import ForumTopicEdited
+from .general_forum_topic_hidden import GeneralTopicHidden
+from .general_forum_topic_unhidden import GeneralTopicUnhidden
 from .peer_channel import PeerChannel
 from .peer_user import PeerUser
 from .video_chat_ended import VideoChatEnded
@@ -66,6 +69,8 @@ __all__ = [
     "ForumTopicClosed",
     "ForumTopicReopened",
     "ForumTopicEdited",
+    "GeneralTopicHidden",
+    "GeneralTopicUnhidden",
     "PeerChannel",
     "PeerUser",
     "VideoChatStarted",
@@ -74,6 +79,7 @@ __all__ = [
     "ChatMemberUpdated",
     "VideoChatScheduled",
     "ChatJoinRequest",
+    "ChatJoinedByRequest",
     "ChatPrivileges",
     "ChatJoiner",
     "EmojiStatus",

@@ -219,6 +219,8 @@ def pyrogram_api():
             get_chat_members_count
             get_dialogs
             get_dialogs_count
+            get_forum_topics
+            get_forum_topics_by_id
             set_chat_username
             get_nearby_chats
             archive_chats
@@ -241,6 +243,16 @@ def pyrogram_api():
             get_group_call_stream_rtmp_url
             create_group_call
             get_group_call_stream_channels
+            close_forum_topic
+            close_general_topic
+            create_forum_topic
+            delete_forum_topic
+            edit_forum_topic
+            edit_general_topic
+            hide_general_topic
+            reopen_forum_topic
+            reopen_general_topic
+            unhide_general_topic
         """,
         users="""
         Users
@@ -389,9 +401,13 @@ def pyrogram_api():
             ChatMemberUpdated
             ChatJoinRequest
             ChatJoiner
+            ChatJoinedByRequest
             Dialog
             Restriction
             EmojiStatus
+            ForumTopic
+            PeerUser
+            PeerChannel
         """,
         messages_media="""
         Messages & Media
@@ -422,6 +438,12 @@ def pyrogram_api():
             WebAppData
             MessageReactions
             ChatReactions
+            ForumTopicCreated
+            ForumTopicEdited
+            ForumTopicClosed
+            ForumTopicReopened
+            GeneralTopicHidden
+            GeneralTopicUnhidden
         """,
         bot_keyboards="""
         Bot keyboards
