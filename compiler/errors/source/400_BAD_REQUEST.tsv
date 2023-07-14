@@ -358,3 +358,5 @@ WEBDOCUMENT_URL_INVALID	The web document URL is invalid
 WEBPAGE_CURL_FAILED	Telegram server could not fetch the provided URL
 WEBPAGE_MEDIA_EMPTY	The URL doesn't contain any valid media
 YOU_BLOCKED_USER	You blocked this user
+TOPIC_DELETED	The specified topic was deleted
+TOPIC_CLOSED	This topic was closed, you can't send messages to it anymore
