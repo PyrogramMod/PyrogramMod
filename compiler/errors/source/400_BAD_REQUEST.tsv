@@ -361,3 +361,5 @@ WEBPAGE_MEDIA_EMPTY	The URL doesn't contain any valid media
 YOU_BLOCKED_USER	You blocked this user
 TOPIC_DELETED	The specified topic was deleted
 TOPIC_CLOSED	This topic was closed, you can't send messages to it anymore
+STORIES_NEVER_CREATED	You have never created any stories
+MEDIA_FILE_INVALID	The provided media file is invalid
