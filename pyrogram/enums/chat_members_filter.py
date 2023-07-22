@@ -40,3 +40,6 @@ class ChatMembersFilter(AutoName):
 
     ADMINISTRATORS = raw.types.ChannelParticipantsAdmins
     "Administrators"
+
+    DELETED = raw.types.ChannelParticipantsBanned
+    "Deleted accounts"

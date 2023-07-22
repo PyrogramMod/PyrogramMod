@@ -161,7 +161,7 @@ class SendPoll:
                 ),
                 message="",
                 silent=disable_notification,
-                reply_to_msg_id=reply_to_message_id,
+                reply_to=reply_to_message_id,
                 random_id=self.rnd_id(),
                 schedule_date=utils.datetime_to_timestamp(schedule_date),
                 noforwards=protect_content,
