@@ -168,6 +168,7 @@ MAX_QTS_INVALID	The provided QTS is invalid
 MD5_CHECKSUM_INVALID	The file's checksum did not match the md5_checksum parameter
 MEDIA_CAPTION_TOO_LONG	The media caption is too long
 MEDIA_EMPTY	The media you tried to send is invalid
+MEDIA_FILE_INVALID	The provided media file is invalid
 MEDIA_INVALID	The media is invalid
 MEDIA_NEW_INVALID	The new media to edit the message with is invalid
 MEDIA_PREV_INVALID	The previous media cannot be edited with anything else
@@ -362,6 +363,5 @@ YOU_BLOCKED_USER	You blocked this user
 TOPIC_DELETED	The specified topic was deleted
 TOPIC_CLOSED	This topic was closed, you can't send messages to it anymore
 STORIES_NEVER_CREATED	You have never created any stories
-MEDIA_FILE_INVALID	The provided media file is invalid
 STORIES_TOO_MUCH	Too many stories posted by the user
 GROUPCALL_FORBIDDEN	The group call has already ended.
