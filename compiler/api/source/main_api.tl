@@ -1,4 +1,5 @@
-// https://github.com/telegramdesktop/tdesktop/blob/dev/Telegram/Resources/tl/api.tl
+// https://github.com/telegramdesktop/tdesktop/blob/dev/Telegram/SourceFiles/mtproto/scheme/api.tl
+// https://github.com/telegramdesktop/tdesktop/blob/dev/Telegram/SourceFiles/mtproto/scheme/layer.tl
 
 ///////////////////////////////
 ///////// Main application API
