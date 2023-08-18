@@ -132,6 +132,9 @@ class Chat(Object):
         
         usernames (List of :obj:`~pyrogram.types.Username`, *optional*):
             The list of chat's collectible (and basic) usernames if availables.
+
+        full_name (``str``, *property*):
+            Full name of the other party in a private chat, for private chats and bots.
     """
 
     def __init__(
@@ -199,6 +202,10 @@ class Chat(Object):
         self.send_as_chat = send_as_chat
         self.available_reactions = available_reactions
         self.usernames = usernames
+
+    @property
+    def full_name(self) -> str:
+        return " ".join(filter(None, [self.first_name, self.last_name])) or None
 
     @staticmethod
     def _parse_user_chat(client, user: raw.types.User) -> "Chat":

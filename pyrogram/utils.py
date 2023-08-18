@@ -341,7 +341,7 @@ def compute_password_check(
 async def parse_text_entities(
     client: "pyrogram.Client",
     text: str,
-    parse_mode: enums.ParseMode,
+    parse_mode: Optional[enums.ParseMode],
     entities: List["types.MessageEntity"]
 ) -> Dict[str, Union[str, List[raw.base.MessageEntity]]]:
     if entities:
@@ -369,3 +369,22 @@ def timestamp_to_datetime(ts: Optional[int]) -> Optional[datetime]:
 
 def datetime_to_timestamp(dt: Optional[datetime]) -> Optional[int]:
     return int(dt.timestamp()) if dt else None
+
+
+def get_reply_head_fm(message_thread_id: int, reply_to_message_id: int) -> raw.types.InputReplyToMessage:
+    reply_to = None
+    if (
+        reply_to_message_id or
+        message_thread_id
+    ):
+        if not reply_to_message_id:
+            reply_to = raw.types.InputReplyToMessage(
+                reply_to_msg_id=message_thread_id,
+                top_msg_id=message_thread_id
+            )
+        else:
+            reply_to = raw.types.InputReplyToMessage(
+                reply_to_msg_id=reply_to_message_id,
+                top_msg_id=message_thread_id
+            )
+    return reply_to

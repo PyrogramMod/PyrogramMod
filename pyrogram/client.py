@@ -137,6 +137,11 @@ class Client(Methods):
             Number of maximum concurrent workers for handling incoming updates.
             Defaults to ``min(32, os.cpu_count() + 4)``.
 
+        message_cache (``int``, *optional*):
+            Number of maximum incoming messages to cache.
+            Cached messages are used in answering callback queries and replying to old messages.
+            Defaults to 10000 messages.
+
         workdir (``str``, *optional*):
             Define a custom working directory.
             The working directory is the location in the filesystem where Pyrogram will store the session files.
@@ -218,6 +223,7 @@ class Client(Methods):
         phone_code: str = None,
         password: str = None,
         workers: int = WORKERS,
+        message_cache: int = 10000,
         workdir: str = WORKDIR,
         plugins: dict = None,
         parse_mode: "enums.ParseMode" = enums.ParseMode.DEFAULT,
@@ -287,7 +293,7 @@ class Client(Methods):
 
         self.me: Optional[User] = None
 
-        self.message_cache = Cache(10000)
+        self.message_cache = Cache(message_cache)
 
         # Sometimes, for some reason, the server will stop sending updates and will only respond to pings.
         # This watchdog will invoke updates.GetState in order to wake up the server and enable it sending updates again
