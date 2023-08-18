@@ -30,8 +30,8 @@ class SendDice:
         chat_id: Union[int, str],
         emoji: str = "🎲",
         disable_notification: bool = None,
-        message_thread_id: int = None,
         reply_to_message_id: int = None,
+        message_thread_id: int = None,
         schedule_date: datetime = None,
         protect_content: bool = None,
         reply_markup: Union[
@@ -62,12 +62,11 @@ class SendDice:
                 Sends the message silently.
                 Users will receive a notification with no sound.
 
-            message_thread_id (``int``, *optional*):
-                Unique identifier for the target message thread (topic) of the forum.
-                for forum supergroups only.
-
             reply_to_message_id (``int``, *optional*):
                 If the message is a reply, ID of the original message.
+
+            message_thread_id (``int``, *optional*):
+                If the message is in a thread, ID of the original message.
 
             schedule_date (:py:obj:`~datetime.datetime`, *optional*):
                 Date when the message will be automatically sent.
@@ -95,12 +94,14 @@ class SendDice:
                 await app.send_dice(chat_id, "🏀")
         """
 
+        reply_to = utils.get_reply_head_fm(message_thread_id, reply_to_message_id)
+
         r = await self.invoke(
             raw.functions.messages.SendMedia(
                 peer=await self.resolve_peer(chat_id),
                 media=raw.types.InputMediaDice(emoticon=emoji),
                 silent=disable_notification or None,
-                reply_to_msg_id=reply_to_message_id or message_thread_id,
+                reply_to=reply_to,
                 random_id=self.rnd_id(),
                 schedule_date=utils.datetime_to_timestamp(schedule_date),
                 noforwards=protect_content,

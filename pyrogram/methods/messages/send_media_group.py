@@ -20,7 +20,6 @@ import logging
 import os
 import re
 from datetime import datetime
-from pymediainfo import MediaInfo
 from typing import Union, List
 
 import pyrogram
@@ -41,12 +40,11 @@ class SendMediaGroup:
             "types.InputMediaPhoto",
             "types.InputMediaVideo",
             "types.InputMediaAudio",
-            "types.InputMediaDocument",
-            "types.InputMediaAnimation"
+            "types.InputMediaDocument"
         ]],
         disable_notification: bool = None,
-        message_thread_id: int = None,
         reply_to_message_id: int = None,
+        message_thread_id: int = None,
         schedule_date: datetime = None,
         protect_content: bool = None,
     ) -> List["types.Message"]:
@@ -60,19 +58,18 @@ class SendMediaGroup:
                 For your personal cloud (Saved Messages) you can simply use "me" or "self".
                 For a contact that exists in your Telegram address book you can use his phone number (str).
 
-            media (List of :obj:`~pyrogram.types.InputMediaPhoto`, :obj:`~pyrogram.types.InputMediaVideo`, :obj:`~pyrogram.types.InputMediaAudio`, :obj:`~pyrogram.types.InputMediaDocument` and :obj:`~pyrogram.types.InputMediaAnimation`):
+            media (List of :obj:`~pyrogram.types.InputMediaPhoto`, :obj:`~pyrogram.types.InputMediaVideo`, :obj:`~pyrogram.types.InputMediaAudio` and :obj:`~pyrogram.types.InputMediaDocument`):
                 A list describing photos and videos to be sent, must include 2–10 items.
 
             disable_notification (``bool``, *optional*):
                 Sends the message silently.
                 Users will receive a notification with no sound.
 
-            message_thread_id (``int``, *optional*):
-                Unique identifier for the target message thread (topic) of the forum.
-                for forum supergroups only.
-
             reply_to_message_id (``int``, *optional*):
                 If the message is a reply, ID of the original message.
+
+            message_thread_id (``int``, *optional*):
+                If the message is in a thread, ID of the original message.
 
             schedule_date (:py:obj:`~datetime.datetime`, *optional*):
                 Date when the message will be automatically sent.
@@ -161,17 +158,9 @@ class SendMediaGroup:
                         ),
                         spoiler=i.has_spoiler
                     )
-            elif (
-                isinstance(i, types.InputMediaVideo)
-                or
-                isinstance(i, types.InputMediaAnimation)
-            ):
+            elif isinstance(i, types.InputMediaVideo):
                 if isinstance(i.media, str):
-                    is_animation = False
                     if os.path.isfile(i.media):
-                        videoInfo = MediaInfo.parse(i.media)
-                        if not any([track.track_type == 'Audio' for track in videoInfo.tracks]):
-                            is_animation = True
                         media = await self.invoke(
                             raw.functions.messages.UploadMedia(
                                 peer=await self.resolve_peer(chat_id),
@@ -180,16 +169,14 @@ class SendMediaGroup:
                                     thumb=await self.save_file(i.thumb),
                                     spoiler=i.has_spoiler,
                                     mime_type=self.guess_mime_type(i.media) or "video/mp4",
-                                    nosound_video=is_animation,
                                     attributes=[
                                         raw.types.DocumentAttributeVideo(
-                                            supports_streaming=True if is_animation else (i.supports_streaming or None),
+                                            supports_streaming=i.supports_streaming or None,
                                             duration=i.duration,
                                             w=i.width,
                                             h=i.height
                                         ),
-                                        raw.types.DocumentAttributeFilename(file_name=os.path.basename(i.media)),
-                                        raw.types.DocumentAttributeAnimated() if is_animation else None
+                                        raw.types.DocumentAttributeFilename(file_name=os.path.basename(i.media))
                                     ]
                                 )
                             )
@@ -403,16 +390,18 @@ class SendMediaGroup:
                 raw.types.InputSingleMedia(
                     media=media,
                     random_id=self.rnd_id(),
-                    **await self.parser.parse(i.caption, i.parse_mode)
+                    **await utils.parse_text_entities(self, i.caption, i.parse_mode, i.caption_entities)
                 )
             )
+
+        reply_to = utils.get_reply_head_fm(message_thread_id, reply_to_message_id)
 
         r = await self.invoke(
             raw.functions.messages.SendMultiMedia(
                 peer=await self.resolve_peer(chat_id),
                 multi_media=multi_media,
                 silent=disable_notification or None,
-                reply_to_msg_id=reply_to_message_id or message_thread_id,
+                reply_to=reply_to,
                 schedule_date=utils.datetime_to_timestamp(schedule_date),
                 noforwards=protect_content
             ),
