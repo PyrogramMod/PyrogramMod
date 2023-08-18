@@ -1537,7 +1537,7 @@ messagePeerVoteMultiple#4628f6e6 peer:Peer options:Vector<bytes> date:int = Mess
 
 sponsoredWebPage#3db8ec63 flags:# url:string site_name:string photo:flags.0?Photo = SponsoredWebPage;
 
-storyViews#c64c0b97 flags:# views_count:int reactions_count:int recent_viewers:flags.0?Vector<long> = StoryViews;
+storyViews#c64c0b97 flags:# has_viewers:flags.1?true views_count:int reactions_count:int recent_viewers:flags.0?Vector<long> = StoryViews;
 
 storyItemDeleted#51e6ee4f id:int = StoryItem;
 storyItemSkipped#ffadc913 flags:# close_friends:flags.8?true id:int date:int expire_date:int = StoryItem;
@@ -2108,6 +2108,7 @@ chatlists.hideChatlistUpdates#66e486fb chatlist:InputChatlist = Bool;
 chatlists.getLeaveChatlistSuggestions#fdbcd714 chatlist:InputChatlist = Vector<Peer>;
 chatlists.leaveChatlist#74fae13a chatlist:InputChatlist peers:Vector<InputPeer> = Updates;
 
+stories.canSendStory#b100d45d = Bool;
 stories.sendStory#d455fcec flags:# pinned:flags.2?true noforwards:flags.4?true media:InputMedia media_areas:flags.5?Vector<MediaArea> caption:flags.0?string entities:flags.1?Vector<MessageEntity> privacy_rules:Vector<InputPrivacyRule> random_id:long period:flags.3?int = Updates;
 stories.editStory#a9b91ae4 flags:# id:int media:flags.0?InputMedia media_areas:flags.3?Vector<MediaArea> caption:flags.1?string entities:flags.1?Vector<MessageEntity> privacy_rules:flags.2?Vector<InputPrivacyRule> = Updates;
 stories.deleteStories#b5d501d7 id:Vector<int> = Vector<int>;
