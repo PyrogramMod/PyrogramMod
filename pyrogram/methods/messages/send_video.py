@@ -57,6 +57,7 @@ class SendVideo:
             "types.ReplyKeyboardRemove",
             "types.ForceReply"
         ] = None,
+        nosound_video: bool = None,
         progress: Callable = None,
         progress_args: tuple = ()
     ) -> Optional["types.Message"]:
@@ -149,6 +150,9 @@ class SendVideo:
                 You can pass anything you need to be available in the progress callback scope; for example, a Message
                 object or a Client instance in order to edit the message with the updated progress status.
 
+            nosound_video (``bool``, *optional*):
+                Pass True, if the uploaded video is a video message with no sound.
+
         Other Parameters:
             current (``int``):
                 The amount of bytes transmitted so far.
@@ -195,6 +199,7 @@ class SendVideo:
                         ttl_seconds=ttl_seconds,
                         spoiler=has_spoiler,
                         thumb=thumb,
+                        nosound_video=nosound_video,
                         attributes=[
                             raw.types.DocumentAttributeVideo(
                                 supports_streaming=supports_streaming or None,
@@ -222,6 +227,7 @@ class SendVideo:
                     ttl_seconds=ttl_seconds,
                     spoiler=has_spoiler,
                     thumb=thumb,
+                    nosound_video=nosound_video,
                     attributes=[
                         raw.types.DocumentAttributeVideo(
                             supports_streaming=supports_streaming or None,
