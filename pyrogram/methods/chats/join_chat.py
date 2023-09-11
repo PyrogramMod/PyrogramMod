@@ -65,10 +65,17 @@ class JoinChat:
             elif isinstance(chat.chats[0], raw.types.Channel):
                 return types.Chat._parse_channel_chat(self, chat.chats[0])
         else:
-            chat = await self.invoke(
-                raw.functions.channels.JoinChannel(
-                    channel=await self.resolve_peer(chat_id.split('/')[-1])
+            try:
+                chat = await self.invoke(
+                    raw.functions.channels.JoinChannel(
+                        channel=await self.resolve_peer(chat_id.split('/')[-1])
+                    )
                 )
-            )
+            except AttributeError:
+                chat = await self.invoke(
+                    raw.functions.channels.JoinChannel(
+                        channel=await self.resolve_peer(chat_id)
+                    )
+                )
 
             return types.Chat._parse_channel_chat(self, chat.chats[0])
