@@ -31,8 +31,8 @@ class CopyMediaGroup:
         message_id: int,
         captions: Union[List[str], str] = None,
         disable_notification: bool = None,
-        reply_to_message_id: int = None,
         message_thread_id: int = None,
+        reply_to_message_id: int = None,
         schedule_date: datetime = None,
         partial_reply: str = None,
     ) -> List["types.Message"]:
@@ -67,6 +67,10 @@ class CopyMediaGroup:
                 Sends the message silently.
                 Users will receive a notification with no sound.
 
+            message_thread_id (``int``, *optional*):
+                Unique identifier for the target message thread (topic) of the forum.
+                for forum supergroups only.
+
             reply_to_message_id (``int``, *optional*):
                 If the message is a reply, ID of the original message.
 
@@ -90,7 +94,7 @@ class CopyMediaGroup:
                 await app.copy_media_group(to_chat, from_chat, 123)
 
                 await app.copy_media_group(to_chat, from_chat, 123, captions="single caption")
-                
+
                 await app.copy_media_group(to_chat, from_chat, 123,
                     captions=["caption 1", None, ""])
         """
@@ -118,8 +122,8 @@ class CopyMediaGroup:
                     **await self.parser.parse(
                         captions[i] if isinstance(captions, list) and i < len(captions) and captions[i] else
                         captions if isinstance(captions, str) and i == 0 else
-                        message.caption if message.caption and message.caption != "None" and not type(
-                            captions) is str else "")
+                        message.caption if message.caption and message.caption != "None" and type(
+                            captions) is not str else "")
                 )
             )
 

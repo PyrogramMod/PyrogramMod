@@ -35,6 +35,8 @@ from .dialog import Dialog
 from .emoji_status import EmojiStatus
 from .invite_link_importer import InviteLinkImporter
 from .restriction import Restriction
+from .peer_channel import PeerChannel
+from .peer_user import PeerUser
 from .user import User
 from .forum_topic import ForumTopic
 from .forum_topic_created import ForumTopicCreated
@@ -58,6 +60,8 @@ __all__ = [
     "ChatPhoto",
     "ChatPreview",
     "Dialog",
+    "PeerChannel",
+    "PeerUser",
     "User",
     "Username",
     "Restriction",

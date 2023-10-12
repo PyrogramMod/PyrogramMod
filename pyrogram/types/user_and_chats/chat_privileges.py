@@ -83,7 +83,7 @@ class ChatPrivileges(Object):
         can_edit_messages: bool = False,  # Channels only
         can_invite_users: bool = False,
         can_pin_messages: bool = False,  # Groups and supergroups only
-        can_manage_topics: bool = False, # supergroups only.
+        can_manage_topics: bool = False, # Supergroups only
         is_anonymous: bool = False
     ):
         super().__init__(None)

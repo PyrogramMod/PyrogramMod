@@ -42,24 +42,6 @@ class MessageServiceType(AutoName):
     DELETE_CHAT_PHOTO = auto()
     "Deleted chat photo"
 
-    GROUP_CHAT_CREATED = auto()
-    "Group chat created"
-
-    CHANNEL_CHAT_CREATED = auto()
-    "Channel chat created"
-
-    MIGRATE_TO_CHAT_ID = auto()
-    "Migrated to chat id"
-
-    MIGRATE_FROM_CHAT_ID = auto()
-    "Migrated from chat id"
-
-    PINNED_MESSAGE = auto()
-    "Pinned message"
-
-    GAME_HIGH_SCORE = auto()
-    "Game high score"
-
     FORUM_TOPIC_CREATED = auto()
     "a new forum topic created in the chat"
 
@@ -77,6 +59,24 @@ class MessageServiceType(AutoName):
 
     GENERAL_TOPIC_UNHIDDEN = auto()
     "a forum general topic unhidden in the chat"
+
+    GROUP_CHAT_CREATED = auto()
+    "Group chat created"
+
+    CHANNEL_CHAT_CREATED = auto()
+    "Channel chat created"
+
+    MIGRATE_TO_CHAT_ID = auto()
+    "Migrated to chat id"
+
+    MIGRATE_FROM_CHAT_ID = auto()
+    "Migrated from chat id"
+
+    PINNED_MESSAGE = auto()
+    "Pinned message"
+
+    GAME_HIGH_SCORE = auto()
+    "Game high score"
 
     VIDEO_CHAT_STARTED = auto()
     "Video chat started"

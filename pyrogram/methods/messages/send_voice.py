@@ -89,11 +89,12 @@ class SendVoice:
                 Sends the message silently.
                 Users will receive a notification with no sound.
 
+            message_thread_id (``int``, *optional*):
+                Unique identifier for the target message thread (topic) of the forum.
+                for forum supergroups only.
+
             reply_to_message_id (``int``, *optional*):
                 If the message is a reply, ID of the original message.
-
-            message_thread_id (``int``, *optional*):
-                If the message is in a thread, ID of the original message.
 
             partial_reply (``str``, *optional*):
                 Text to quote.

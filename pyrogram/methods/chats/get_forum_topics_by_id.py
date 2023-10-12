@@ -61,30 +61,30 @@ class GetForumTopicsByID:
         Raises:
             ValueError: In case of invalid arguments.
         """
-        ids, ids_type = (
-            (topic_ids, int) if topic_ids
-            else (None, None)
+        is_iterable = not isinstance(topic_ids, int)
+        ids = list(topic_ids) if is_iterable else [topic_ids]
+
+        r = await self.invoke(
+            raw.functions.channels.GetForumTopicsByID(
+                channel=await self.resolve_peer(chat_id),
+                topics=ids
+            )
         )
 
-        if ids is None:
-            raise ValueError("No argument supplied. Either pass topic_ids")
+        users = {i.id: i for i in r.users}
+        chats = {i.id: i for i in r.chats}
 
-        peer = await self.resolve_peer(chat_id)
+        messages = {}
 
-        is_iterable = not isinstance(ids, int)
-        ids = list(ids) if is_iterable else [ids]
-        ids = [i for i in ids]
+        for message in r.messages:
+            if isinstance(message, raw.types.MessageEmpty):
+                continue
 
-        rpc = raw.functions.channels.GetForumTopicsByID(channel=peer, topics=ids)
+            messages[message.id] = await types.Message._parse(self, message, users, chats)
 
-        r = await self.invoke(rpc, sleep_threshold=-1)
+        topics = types.List()
 
-        if is_iterable:
-            topic_list = []
-            for topic in r.topics:
-                topic_list.append(types.ForumTopic._parse(topic))
-            topics = types.List(topic_list)
-        else:
-            topics = types.ForumTopic._parse(r.topics[0])
+        for i in r.topics:
+            topics.append(types.ForumTopic._parse(self, i, messages, users, chats))
 
-        return topics
+        return topics if is_iterable else topics[0] if topics else None

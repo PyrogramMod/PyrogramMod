@@ -27,7 +27,9 @@ class EditForumTopic:
         chat_id: Union[int, str],
         topic_id: int,
         title: str = None,
-        icon_emoji_id: int = None
+        icon_emoji_id: int = None,
+        closed: bool = None,
+        hidden: bool = None
     ) -> bool:
         """Edit a forum topic.
 
@@ -44,7 +46,13 @@ class EditForumTopic:
                 The forum topic title.
 
             icon_emoji_id (``int``, *optional*):
-                Unique identifier of the custom emoji shown as the topic icon
+                Unique identifier of the custom emoji shown as the topic icon.
+
+            closed (``bool``, *optional*):
+                Close forum topic.
+
+            hidden (``bool``, *optional*):
+                Hide forum topic.
 
         Returns:
             `bool`: On success, a Boolean is returned.
@@ -59,7 +67,10 @@ class EditForumTopic:
                 channel=await self.resolve_peer(chat_id),
                 topic_id=topic_id,
                 title=title,
-                icon_emoji_id=icon_emoji_id
+                icon_emoji_id=icon_emoji_id,
+                closed=closed,
+                hidden=hidden
             )
         )
+
         return True

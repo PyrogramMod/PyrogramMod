@@ -16,29 +16,14 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from pyrogram import raw
 from ..object import Object
 
 
-class PeerUser(Object):
-    """A PeerUser.
+class GeneralTopicHidden(Object):
+    """A service message about a general topic hidden in the chat.
 
-
-    Parameters:
-        user_id (``int``):
-            Id of the user.
+    Currently holds no information.
     """
 
-    def __init__(
-        self, *,
-        user_id: int
-    ):
+    def __init__(self):
         super().__init__()
-
-        self.user_id = user_id
-
-    @staticmethod
-    def _parse(action: "raw.types.PeerUser") -> "PeerUser":
-        return PeerUser(
-            user_id=getattr(action, "user_id", None)
-        )

@@ -21,7 +21,7 @@ from datetime import datetime
 from typing import Union, List, Optional
 
 import pyrogram
-from pyrogram import types, enums
+from pyrogram import types, enums, utils
 
 log = logging.getLogger(__name__)
 
@@ -123,7 +123,8 @@ class CopyMessage:
             parse_mode=parse_mode,
             caption_entities=caption_entities,
             disable_notification=disable_notification,
-            reply_to_message_id=reply_to_message_id or message_thread_id,
+            message_thread_id=message_thread_id,
+            reply_to_message_id=reply_to_message_id,
             schedule_date=schedule_date,
             protect_content=protect_content,
             has_spoiler=has_spoiler,

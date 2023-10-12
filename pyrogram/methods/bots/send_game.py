@@ -28,8 +28,8 @@ class SendGame:
         chat_id: Union[int, str],
         game_short_name: str,
         disable_notification: bool = None,
-        reply_to_message_id: int = None,
         message_thread_id: int = None,
+        reply_to_message_id: int = None,
         protect_content: bool = None,
         reply_markup: Union[
             "types.InlineKeyboardMarkup",
@@ -54,6 +54,10 @@ class SendGame:
             disable_notification (``bool``, *optional*):
                 Sends the message silently.
                 Users will receive a notification with no sound.
+
+            message_thread_id (``int``, *optional*):
+                Unique identifier of a message thread to which the message belongs.
+                for supergroups only
 
             reply_to_message_id (``int``, *optional*):
                 If the message is a reply, ID of the original message.

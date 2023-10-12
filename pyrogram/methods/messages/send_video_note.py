@@ -38,8 +38,8 @@ class SendVideoNote:
         length: int = 1,
         thumb: Union[str, BinaryIO] = None,
         disable_notification: bool = None,
-        reply_to_message_id: int = None,
         message_thread_id: int = None,
+        reply_to_message_id: int = None,
         partial_reply: str = None,
         schedule_date: datetime = None,
         ttl_seconds: int = None,
@@ -86,11 +86,12 @@ class SendVideoNote:
                 Sends the message silently.
                 Users will receive a notification with no sound.
 
+            message_thread_id (``int``, *optional*):
+                Unique identifier for the target message thread (topic) of the forum.
+                for forum supergroups only.
+
             reply_to_message_id (``int``, *optional*):
                 If the message is a reply, ID of the original message.
-
-            message_thread_id (``int``, *optional*):
-                If the message is in a thread, ID of the original message.
 
             partial_reply (``str``, *optional*):
                 Text to quote.

@@ -94,10 +94,8 @@ async def parse_messages(
 ) -> List["types.Message"]:
     users = {i.id: i for i in messages.users}
     chats = {i.id: i for i in messages.chats}
-    if hasattr(messages, "topics"):
-        topics = {i.id: i for i in messages.topics}
-    else:
-        topics = None
+    topics = {i.id: i for i in messages.topics} if hasattr(messages, "topics") else None
+
     if not messages.messages:
         return types.List()
 
@@ -134,9 +132,6 @@ async def parse_messages(
 
                 for reply in reply_messages:
                     if reply.id == reply_id:
-                        #if reply.forum_topic_created:
-                        #    message.reply_to_message_id = None
-                        #else:
                         if not reply.forum_topic_created:
                             message.reply_to_message = reply
 
@@ -255,6 +250,17 @@ def get_peer_type(peer_id: int) -> str:
 
     raise ValueError(f"Peer id invalid: {peer_id}")
 
+def get_reply_to(
+    reply_to_message_id: Optional[int],
+    message_thread_id: Optional[int],
+) -> Optional[raw.types.InputReplyToMessage]:
+    if not any((reply_to_message_id, message_thread_id)):
+        return None
+
+    return raw.types.InputReplyToMessage(
+        reply_to_msg_id=reply_to_message_id or message_thread_id,  # type: ignore[arg-type]
+        top_msg_id=message_thread_id if reply_to_message_id else None,
+    )
 
 def get_channel_id(peer_id: int) -> int:
     return MAX_CHANNEL_ID - peer_id

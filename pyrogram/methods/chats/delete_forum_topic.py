@@ -46,14 +46,11 @@ class DeleteForumTopic:
 
                 await app.delete_forum_topic(chat_id, topic_id)
         """
-        try:
-            await self.invoke(
-                raw.functions.channels.DeleteTopicHistory(
-                    channel=await self.resolve_peer(chat_id),
-                    top_msg_id=topic_id
-                )
+        await self.invoke(
+            raw.functions.channels.DeleteTopicHistory(
+                channel=await self.resolve_peer(chat_id),
+                top_msg_id=topic_id
             )
-        except Exception as e:
-            print(e)
-            return False
+        )
+
         return True
