@@ -170,6 +170,9 @@ class Message(Object, Update):
         game (:obj:`~pyrogram.types.Game`, *optional*):
             Message is a game, information about the game.
 
+        story (:obj:`~pyrogram.types.Story`, *optional*):
+            Message is a story, information about the story.
+
         video (:obj:`~pyrogram.types.Video`, *optional*):
             Message is a video, information about the video.
 
@@ -346,6 +349,7 @@ class Message(Object, Update):
         sticker: "types.Sticker" = None,
         animation: "types.Animation" = None,
         game: "types.Game" = None,
+        story: "types.Story" = None,
         video: "types.Video" = None,
         voice: "types.Voice" = None,
         video_note: "types.VideoNote" = None,
@@ -652,6 +656,7 @@ class Message(Object, Update):
             contact = None
             venue = None
             game = None
+            story = None
             audio = None
             voice = None
             animation = None
@@ -684,6 +689,9 @@ class Message(Object, Update):
                 elif isinstance(media, raw.types.MessageMediaGame):
                     game = types.Game._parse(client, message)
                     media_type = enums.MessageMediaType.GAME
+                elif isinstance(media, raw.types.MessageMediaStory):
+                    story = types.Story._parse(client, media)
+                    media_type = enums.MessageMediaType.STORY
                 elif isinstance(media, raw.types.MessageMediaDocument):
                     doc = media.document
 
@@ -810,6 +818,7 @@ class Message(Object, Update):
                 voice=voice,
                 animation=animation,
                 game=game,
+                story=story,
                 video=video,
                 video_note=video_note,
                 sticker=sticker,

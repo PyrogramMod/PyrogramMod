@@ -16,58 +16,40 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from enum import auto
+import pyrogram
+from pyrogram import raw
+from ..object import Object
 
-from .auto_name import AutoName
 
+class Story(Object):
+    """A Story.
 
-class MessageMediaType(AutoName):
-    """Message media type enumeration used in :obj:`~pyrogram.types.Message`."""
+    Parameters:
+        peer: The peer of the story.
+        chat_id: The chat ID of the story.
+        via_mention: Whether the story is via mention.
 
-    AUDIO = auto()
-    "Audio media"
+    """
 
-    DOCUMENT = auto()
-    "Document media"
+    def __init__(
+            self,
+            *,
+            client: "pyrogram.Client" = None,
+            peer,
+            chat_id,
+            via_mention,
+    ):
+        super().__init__(client)
 
-    PHOTO = auto()
-    "Photo media"
+        self.peer = peer
+        self.chat_id = chat_id
+        self.via_mention = via_mention
 
-    STICKER = auto()
-    "Sticker media"
-
-    VIDEO = auto()
-    "Video media"
-
-    ANIMATION = auto()
-    "Animation media"
-
-    VOICE = auto()
-    "Voice media"
-
-    VIDEO_NOTE = auto()
-    "Video note media"
-
-    CONTACT = auto()
-    "Contact media"
-
-    LOCATION = auto()
-    "Location media"
-
-    VENUE = auto()
-    "Venue media"
-
-    POLL = auto()
-    "Poll media"
-
-    WEB_PAGE = auto()
-    "Web page media"
-
-    DICE = auto()
-    "Dice media"
-
-    GAME = auto()
-    "Game media"
-
-    STORY = auto()
-    "Story media"
+    @staticmethod
+    def _parse(client, story: "raw.types.MessageMediaStory"):
+        return Story(
+            client=client,
+            peer=story.peer,
+            chat_id=story.id,
+            via_mention=story.via_mention
+        )
