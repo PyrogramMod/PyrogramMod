@@ -46,6 +46,7 @@ class SendAudio:
         disable_notification: bool = None,
         reply_to_message_id: int = None,
         message_thread_id: int = None,
+        partial_reply: str = None,
         schedule_date: datetime = None,
         protect_content: bool = None,
         reply_markup: Union[
@@ -114,6 +115,10 @@ class SendAudio:
 
             message_thread_id (``int``, *optional*):
                 If the message is in a thread, ID of the original message.
+
+            partial_reply (``str``, *optional*):
+                Text to quote.
+                for reply_to_message only.
 
             schedule_date (:py:obj:`~datetime.datetime`, *optional*):
                 Date when the message will be automatically sent.
@@ -214,7 +219,7 @@ class SendAudio:
                     ]
                 )
 
-            reply_to = utils.get_reply_head_fm(message_thread_id, reply_to_message_id)
+            reply_to = utils.get_reply_head_fm(message_thread_id, reply_to_message_id, partial_reply)
 
             while True:
                 try:

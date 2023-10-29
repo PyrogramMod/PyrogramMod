@@ -371,7 +371,7 @@ def datetime_to_timestamp(dt: Optional[datetime]) -> Optional[int]:
     return int(dt.timestamp()) if dt else None
 
 
-def get_reply_head_fm(message_thread_id: int, reply_to_message_id: int) -> raw.types.InputReplyToMessage:
+def get_reply_head_fm(message_thread_id: int, reply_to_message_id: int, partial_reply: str = None) -> raw.types.InputReplyToMessage:
     reply_to = None
     if (
         reply_to_message_id or
@@ -385,6 +385,7 @@ def get_reply_head_fm(message_thread_id: int, reply_to_message_id: int) -> raw.t
         else:
             reply_to = raw.types.InputReplyToMessage(
                 reply_to_msg_id=reply_to_message_id,
-                top_msg_id=message_thread_id
+                top_msg_id=message_thread_id,
+                quote_text=partial_reply
             )
     return reply_to
