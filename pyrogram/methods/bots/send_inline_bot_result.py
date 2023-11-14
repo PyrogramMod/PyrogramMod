@@ -30,7 +30,8 @@ class SendInlineBotResult:
         result_id: str,
         disable_notification: bool = None,
         reply_to_message_id: int = None,
-        message_thread_id: int = None
+        message_thread_id: int = None,
+        partial_reply: str = None
     ) -> "raw.base.Updates":
         """Send an inline bot result.
         Bot results can be retrieved using :meth:`~pyrogram.Client.get_inline_bot_results`
@@ -58,6 +59,9 @@ class SendInlineBotResult:
 
             message_thread_id (``int``, *optional*):
                 If the message is in a thread, ID of the original message.
+            partial_reply (``str``, *optional*):
+                Text to quote.
+                for reply_to_message only.
 
         Returns:
             :obj:`~pyrogram.raw.base.Updates`: Currently, on success, a raw result is returned.
@@ -68,7 +72,7 @@ class SendInlineBotResult:
                 await app.send_inline_bot_result(chat_id, query_id, result_id)
         """
 
-        reply_to = utils.get_reply_head_fm(message_thread_id, reply_to_message_id)
+        reply_to = utils.get_reply_head_fm(message_thread_id, reply_to_message_id, partial_reply)
 
         return await self.invoke(
             raw.functions.messages.SendInlineBotResult(

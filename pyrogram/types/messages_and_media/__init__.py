@@ -22,6 +22,7 @@ from .contact import Contact
 from .dice import Dice
 from .document import Document
 from .game import Game
+from .giveaway import Giveaway
 from .location import Location
 from .message import Message
 from .message_entity import MessageEntity
@@ -30,6 +31,7 @@ from .poll import Poll
 from .poll_option import PollOption
 from .reaction import Reaction
 from .sticker import Sticker
+from .story import Story
 from .stripped_thumbnail import StrippedThumbnail
 from .thumbnail import Thumbnail
 from .venue import Venue
@@ -43,5 +45,5 @@ from .message_reactions import MessageReactions
 __all__ = [
     "Animation", "Audio", "Contact", "Document", "Game", "Location", "Message", "MessageEntity", "Photo", "Thumbnail",
     "StrippedThumbnail", "Poll", "PollOption", "Sticker", "Venue", "Video", "VideoNote", "Voice", "WebPage", "Dice",
-    "Reaction", "WebAppData", "MessageReactions"
+    "Reaction", "WebAppData", "MessageReactions", "Story", "Giveaway"
 ]

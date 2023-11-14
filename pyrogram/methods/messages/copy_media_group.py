@@ -118,7 +118,7 @@ class CopyMediaGroup:
                 )
             )
 
-        reply_to = utils.get_reply_head_fm(message_thread_id, reply_to_message_id)
+        reply_to = utils.get_reply_head_fm(message_thread_id, reply_to_message_id, partial_reply)
 
         r = await self.invoke(
             raw.functions.messages.SendMultiMedia(
