@@ -34,6 +34,7 @@ class CopyMediaGroup:
         reply_to_message_id: int = None,
         message_thread_id: int = None,
         schedule_date: datetime = None,
+        partial_reply: str = None,
     ) -> List["types.Message"]:
         """Copy a media group by providing one of the message ids.
 
@@ -74,6 +75,10 @@ class CopyMediaGroup:
 
             schedule_date (:py:obj:`~datetime.datetime`, *optional*):
                 Date when the message will be automatically sent.
+
+            partial_reply (``str``, *optional*):
+                Text to quote.
+                for reply_to_message only.
 
         Returns:
             List of :obj:`~pyrogram.types.Message`: On success, a list of copied messages is returned.
