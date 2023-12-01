@@ -700,7 +700,7 @@ class Message(Object, Update):
                     story = types.Story._parse(client, media)
                     media_type = enums.MessageMediaType.STORY
                 elif isinstance(media, raw.types.MessageMediaGiveaway):
-                    giveaway = types.Giveaway._parse(client, media)
+                    giveaway = types.Giveaway._parse(client, media, chats)
                     media_type = enums.MessageMediaType.GIVEAWAY
                 elif isinstance(media, raw.types.MessageMediaDocument):
                     doc = media.document
