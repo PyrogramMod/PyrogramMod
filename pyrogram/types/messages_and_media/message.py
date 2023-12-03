@@ -700,7 +700,7 @@ class Message(Object, Update):
                     story = types.Story._parse(client, media)
                     media_type = enums.MessageMediaType.STORY
                 elif isinstance(media, raw.types.MessageMediaGiveaway):
-                    giveaway = types.Giveaway._parse(client, media)
+                    giveaway = types.Giveaway._parse(client, media, chats)
                     media_type = enums.MessageMediaType.GIVEAWAY
                 elif isinstance(media, raw.types.MessageMediaDocument):
                     doc = media.document
@@ -3126,6 +3126,7 @@ class Message(Object, Update):
             reply_to_message_id: int = None,
             schedule_date: datetime = None,
             protect_content: bool = None,
+            has_spoiler: bool = None,
             reply_markup: Union[
                 "types.InlineKeyboardMarkup",
                 "types.ReplyKeyboardMarkup",
@@ -3181,6 +3182,9 @@ class Message(Object, Update):
             protect_content (``bool``, *optional*):
                 Protects the contents of the sent message from forwarding and saving.
 
+            has_spoiler (``bool``, *optional*):
+                True, if the message media is covered by a spoiler animation.
+
             reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup` | :obj:`~pyrogram.types.ReplyKeyboardMarkup` | :obj:`~pyrogram.types.ReplyKeyboardRemove` | :obj:`~pyrogram.types.ForceReply`, *optional*):
                 Additional interface options. An object for an inline keyboard, custom reply keyboard,
                 instructions to remove reply keyboard or to force a reply from the user.
@@ -3222,6 +3226,7 @@ class Message(Object, Update):
                 reply_to_message_id=reply_to_message_id,
                 schedule_date=schedule_date,
                 protect_content=protect_content,
+                has_spoiler=has_spoiler,
                 reply_markup=self.reply_markup if reply_markup is object else reply_markup
             )
 

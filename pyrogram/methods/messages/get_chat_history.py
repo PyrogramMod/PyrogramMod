@@ -29,10 +29,10 @@ async def get_chunk(
     chat_id: Union[int, str],
     limit: int = 0,
     offset: int = 0,
-    from_message_id: int = 0,
-    from_date: datetime = utils.zero_datetime(),
     min_id: int = 0,
-    max_id: int = 0
+    max_id: int = 0,
+    from_message_id: int = 0,
+    from_date: datetime = utils.zero_datetime()
 ):
     messages = await client.invoke(
         raw.functions.messages.GetHistory(
@@ -114,9 +114,9 @@ class GetChatHistory:
                 limit=limit,
                 offset=offset,
                 from_message_id=offset_id,
-                from_date=offset_date,
                 min_id=min_id,
-                max_id=max_id
+                max_id=max_id,
+                from_date=offset_date
             )
 
             if not messages:
