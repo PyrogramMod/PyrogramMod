@@ -241,6 +241,7 @@ def pyrogram_api():
             get_group_call_stream_rtmp_url
             create_group_call
             get_group_call_stream_channels
+            get_similar_channels
         """,
         users="""
         Users
