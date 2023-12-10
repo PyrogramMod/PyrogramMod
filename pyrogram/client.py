@@ -44,7 +44,7 @@ from pyrogram.errors import CDNFileHashMismatch
 from pyrogram.errors import (
     SessionPasswordNeeded,
     VolumeLocNotFound, ChannelPrivate,
-    BadRequest
+    BadRequest, AuthBytesInvalid
 )
 from pyrogram.handlers.handler import Handler
 from pyrogram.methods import Methods
@@ -801,6 +801,9 @@ class Client(Methods):
             if isinstance(e, asyncio.CancelledError):
                 raise e
 
+            if isinstance(e, pyrogram.errors.FloodWait):
+                raise e
+
             return None
         else:
             if in_memory:
@@ -868,31 +871,40 @@ class Client(Methods):
 
             dc_id = file_id.dc_id
 
-            session = Session(
-                self, dc_id,
-                await Auth(self, dc_id, await self.storage.test_mode()).create()
-                if dc_id != await self.storage.dc_id()
-                else await self.storage.auth_key(),
-                await self.storage.test_mode(),
-                is_media=True
-            )
-
             try:
-                await session.start()
-
-                if dc_id != await self.storage.dc_id():
-                    exported_auth = await self.invoke(
-                        raw.functions.auth.ExportAuthorization(
-                            dc_id=dc_id
-                        )
+                session = self.media_sessions.get(dc_id)
+                if not session:
+                    session = self.media_sessions[dc_id] = Session(
+                        self, dc_id,
+                        await Auth(self, dc_id, await self.storage.test_mode()).create()
+                        if dc_id != await self.storage.dc_id()
+                        else await self.storage.auth_key(),
+                        await self.storage.test_mode(),
+                        is_media=True
                     )
+                    await session.start()
 
-                    await session.invoke(
-                        raw.functions.auth.ImportAuthorization(
-                            id=exported_auth.id,
-                            bytes=exported_auth.bytes
-                        )
-                    )
+                    if dc_id != await self.storage.dc_id():
+                        for _ in range(3):
+                            exported_auth = await self.invoke(
+                                raw.functions.auth.ExportAuthorization(
+                                    dc_id=dc_id
+                                )
+                            )
+
+                            try:
+                                await session.invoke(
+                                    raw.functions.auth.ImportAuthorization(
+                                        id=exported_auth.id,
+                                        bytes=exported_auth.bytes
+                                    )
+                                )
+                            except AuthBytesInvalid:
+                                continue
+                            else:
+                                break
+                        else:
+                            raise AuthBytesInvalid
 
                 r = await session.invoke(
                     raw.functions.upload.GetFile(
@@ -1023,10 +1035,10 @@ class Client(Methods):
                         await cdn_session.stop()
             except pyrogram.StopTransmission:
                 raise
+            except pyrogram.errors.FloodWait:
+                raise
             except Exception as e:
                 log.exception(e)
-            finally:
-                await session.stop()
 
     def guess_mime_type(self, filename: str) -> Optional[str]:
         return self.mimetypes.guess_type(filename)[0]
