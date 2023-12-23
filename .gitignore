@@ -1,5 +1,4 @@
 # Development
-docs
 *.session
 config.ini
 main.py
@@ -129,3 +128,4 @@ venv.bak/
 # mypy
 .mypy_cache/
 docs_build.sh
+.buildinfo

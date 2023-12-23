@@ -1,0 +1,5 @@
+sphinx
+furo
+pygments
+sphinx_copybutton
+sphinx-autobuild
