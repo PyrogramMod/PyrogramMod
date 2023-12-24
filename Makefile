@@ -28,6 +28,11 @@ api:
 	cd compiler/api && ../../$(PYTHON) compiler.py
 	cd compiler/errors && ../../$(PYTHON) compiler.py
 
+docs:
+	cd compiler/docs && ../../$(PYTHON) compiler.py
+	$(VENV)/bin/sphinx-build \
+		-b html "docs/source" "docs/build/html" -j6
+
 build:
 	make clean
 	$(PYTHON) setup.py sdist

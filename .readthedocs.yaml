@@ -8,7 +8,7 @@ build:
     post_install:
       - pip install .[docs]
       - pip install sphinx furo pygments sphinx_copybutton sphinx-autobuild
-      - cd compiler/docs && python compiler.py
+      - make docs
 
 sphinx:
   configuration: docs/source/conf.py
