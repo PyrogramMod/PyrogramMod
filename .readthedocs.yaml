@@ -6,7 +6,7 @@ build:
     python: "3.11"
   jobs:
     post_install:
-      - pip install docs/requirements.txt
+      - pip install .[docs]
       - pip install sphinx furo pygments sphinx_copybutton sphinx-autobuild tgcrypto
       - cd compiler/docs && python compiler.py
 
