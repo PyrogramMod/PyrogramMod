@@ -64,7 +64,8 @@ suppress_warnings = ["image.not_readable"]
 
 html_title = "Pyrogram-Mod Documentation"
 html_theme = "furo"
-html_static_path = ["static"]
+html_static_path = [os.path.abspath("static")]
+print("ABSOLUTE PATH", os.path.abspath("static"))
 html_css_files = [
     "css/all.min.css",
     "css/custom.css",
@@ -114,7 +115,8 @@ html_theme_options = {
     ]
 }
 latex_engine = "xelatex"
-latex_logo = "../sources/static/img/pyrogram.png"
+latex_logo = os.path.abspath("static/img/pyrogram.png")
+print("latex_logo", latex_logo)
 
 latex_elements = {
     "pointsize": "12pt",
