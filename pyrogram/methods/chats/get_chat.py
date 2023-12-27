@@ -75,6 +75,10 @@ class GetChat:
             if isinstance(r.chat, raw.types.Channel):
                 chat_id = utils.get_channel_id(r.chat.id)
 
+        match2 = self.TME_PUBLIC_LINK_RE.match(str(chat_id))
+        if match2:
+            chat_id = match2.group(1)
+
         peer = await self.resolve_peer(chat_id)
 
         if isinstance(peer, raw.types.InputPeerChannel):
