@@ -1,23 +1,19 @@
 <p align="center">
     <a href="https://github.com/pyrogrammod/pyrogrammod">
-        <img src="https://docs.pyrogram.org/_static/pyrogram.png" alt="Pyrogram" width="128">
+        <img src="https://pyrogrammod.readthedocs.io/en/latest/_static/pyrogram.png" alt="Pyrogram" width="128">
     </a>
     <br>
-    <b>Telegram MTProto API Framework for Python</b>
+    <b>Telegram MTProto API Framework for Python</b> (Fork of <a href="github.com/pyrogram/pyrogram">Pyrogram</a>
     <br>
-    <a href="https://pyrogrammod.github.io">
+    <a href="https://pyrogrammod.readthedocs.io/">
         Homepage
     </a>
     •
-    <a href="https://pyrogrammod.github.io">
+    <a href="https://pyrogrammod.readthedocs.io/">
         Documentation
     </a>
     •
-    <a href="https://pyrogrammod.github.io/releases">
-        Releases
-    </a>
-    •
-    <a href="https://t.me/pyrogrammod">
+    <a href="https://t.me/pyrogrammodnews">
         News
     </a>
 </p>
