@@ -3,7 +3,7 @@
         <img src="https://pyrogrammod.readthedocs.io/en/latest/_static/pyrogram.png" alt="Pyrogram" width="128">
     </a>
     <br>
-    <b>Telegram MTProto API Framework for Python</b> (Fork of <a href="github.com/pyrogram/pyrogram">Pyrogram</a>
+    <b>Telegram MTProto API Framework for Python</b> (Fork of <a href="github.com/pyrogram/pyrogram">Pyrogram</a>)
     <br>
     <a href="https://pyrogrammod.readthedocs.io/">
         Homepage
