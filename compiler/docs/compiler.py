@@ -242,6 +242,7 @@ def pyrogram_api():
             set_chat_reactions
             create_group_call
             get_group_call_stream_channels
+            get_similar_channels
             close_forum_topic
             close_general_topic
             create_forum_topic
@@ -252,7 +253,6 @@ def pyrogram_api():
             reopen_forum_topic
             reopen_general_topic
             unhide_general_topic
-            get_similar_channels
         """,
         users="""
         Users
