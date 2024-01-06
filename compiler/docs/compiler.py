@@ -253,6 +253,7 @@ def pyrogram_api():
             reopen_forum_topic
             reopen_general_topic
             unhide_general_topic
+            get_similar_channels
         """,
         users="""
         Users
