@@ -43,7 +43,7 @@ class SetChatReaction:
         Example:
             .. code-block:: python
 
-                app.set_chat_reactions(chat_id, [❤️, 👍])
+                app.set_chat_reactions(chat_id, ["❤️", "👍"])
         """
         try:
             await self.invoke(

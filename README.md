@@ -1,23 +1,19 @@
 <p align="center">
-    <a href="https://github.com/pyrogram/pyrogram">
-        <img src="https://docs.pyrogram.org/_static/pyrogram.png" alt="Pyrogram" width="128">
+    <a href="https://github.com/pyrogrammod/pyrogrammod">
+        <img src="https://pyrogrammod.readthedocs.io/en/latest/_static/pyrogram.png" alt="Pyrogram" width="128">
     </a>
     <br>
-    <b>Telegram MTProto API Framework for Python</b>
+    <b>Telegram MTProto API Framework for Python</b> (Fork of <a href="github.com/pyrogram/pyrogram">Pyrogram</a>)
     <br>
-    <a href="https://pyrogram.org">
+    <a href="https://pyrogrammod.readthedocs.io/">
         Homepage
     </a>
     •
-    <a href="https://docs.pyrogram.org">
+    <a href="https://pyrogrammod.readthedocs.io/">
         Documentation
     </a>
     •
-    <a href="https://docs.pyrogram.org/releases">
-        Releases
-    </a>
-    •
-    <a href="https://t.me/pyrogram">
+    <a href="https://t.me/pyrogrammodnews">
         News
     </a>
 </p>
@@ -65,7 +61,7 @@ If you'd like to support Pyrogram, you can consider:
 ### Installing
 
 ``` bash
-pip3 install https://github.com/null-nick/PyrogramMod/archive/refs/heads/develop/topic.zip
+pip3 install https://github.com/PyrogramMod/PyrogramMod/archive/refs/heads/main.zip
 ```
 
 ### Resources
@@ -86,10 +82,10 @@ pip3 install https://github.com/null-nick/PyrogramMod/archive/refs/heads/develop
 - 💭 Support Group: https://t.me/pyrogramchat
 - 📚 Docs: https://docs.pyrogram.org
 ------------------------------------------------------------
-- 📕 Un-Official Repo: https://github.com/null-nick/Pyrogram-Mod/
+- 📕 Un-Official Repo: https://github.com/PyrogramMod/PyrogramMod/
 - 🗞 News: https://t.me/PyroGramMod
-- 💭 Support Group: https://t.me/PyroGramModChat
-- 📚 Docs: <s>https://docs.documentations.ml</s> <b>Offline</b>
+- 💭 Support Group: https://t.me/pyrogramodchat
+- 📚 Docs: https://pyrogrammod.readthedocs.io/
 ------------------------------------------------------------
 
 - Check out the docs at https://docs.pyrogram.org to learn more about Pyrogram, get started right

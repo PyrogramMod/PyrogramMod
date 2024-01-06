@@ -240,7 +240,6 @@ def pyrogram_api():
             set_send_as_chat
             set_chat_protected_content
             set_chat_reactions
-            get_group_call_stream_rtmp_url
             create_group_call
             get_group_call_stream_channels
             close_forum_topic
@@ -253,6 +252,7 @@ def pyrogram_api():
             reopen_forum_topic
             reopen_general_topic
             unhide_general_topic
+            get_similar_channels
         """,
         users="""
         Users

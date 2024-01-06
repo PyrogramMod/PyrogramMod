@@ -43,10 +43,10 @@ from .get_chat_member import GetChatMember
 from .get_chat_members import GetChatMembers
 from .get_chat_members_count import GetChatMembersCount
 from .get_chat_online_count import GetChatOnlineCount
+from .get_similar_channels import GetSimilarChannels
 from .get_dialogs import GetDialogs
 from .get_dialogs_count import GetDialogsCount
 from .get_group_call_stream_channels import GetGroupCallStreamChannels
-from .get_group_call_stream_rtmp_url import GetGroupCallStreamRtmpUrl
 from .get_forum_topics import GetForumTopics
 from .get_forum_topics_by_id import GetForumTopicsByID
 from .get_nearby_chats import GetNearbyChats
@@ -122,6 +122,7 @@ class Chats(
     MarkChatUnread,
     GetChatEventLog,
     GetChatOnlineCount,
+    GetSimilarChannels,
     GetSendAsChats,
     SetSendAsChat,
     SetChatReaction,
