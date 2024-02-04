@@ -52,6 +52,9 @@ class Chat(Object):
         is_fake (``bool``, *optional*):
             True, if this chat has been flagged for impersonation.
 
+        is_forum (``bool``, *optional*):
+            True, if the supergroup chat is a forum
+
         is_support (``bool``):
             True, if this chat is part of the Telegram support team. Users and bots only.
 
@@ -87,6 +90,9 @@ class Chat(Object):
         has_protected_content (``bool``, *optional*):
             True, if messages from the chat can't be forwarded to other chats.
 
+        has_hidden_members (``bool``, *optional*):
+            True, if non-administrators can only get the list of bots and administrators in the chat.
+
         invite_link (``str``, *optional*):
             Chat invite link, for groups, supergroups and channels.
             Returned only in :meth:`~pyrogram.Client.get_chat`.
@@ -94,6 +100,9 @@ class Chat(Object):
         pinned_message (:obj:`~pyrogram.types.Message`, *optional*):
             Pinned message, for groups, supergroups channels and own chat.
             Returned only in :meth:`~pyrogram.Client.get_chat`.
+
+        has_visible_history (``bool``, *optional*):
+            True, if new chat members will have access to old messages; available only to chat administrators.
 
         sticker_set_name (``str``, *optional*):
             For supergroups, name of group sticker set.
@@ -169,7 +178,10 @@ class Chat(Object):
         linked_chat: "types.Chat" = None,
         send_as_chat: "types.Chat" = None,
         available_reactions: Optional["types.ChatReactions"] = None,
-        usernames: List["types.Username"] = None
+        usernames: List["types.Username"] = None,
+        has_visible_history: bool = None,
+        has_hidden_members: bool = None,
+        is_forum: bool = None,
     ):
         super().__init__(client)
 
@@ -202,6 +214,9 @@ class Chat(Object):
         self.send_as_chat = send_as_chat
         self.available_reactions = available_reactions
         self.usernames = usernames
+        self.has_visible_history = has_visible_history
+        self.has_hidden_members = has_hidden_members
+        self.is_forum = is_forum
 
     @property
     def full_name(self) -> str:
@@ -272,7 +287,8 @@ class Chat(Object):
             dc_id=getattr(getattr(channel, "photo", None), "dc_id", None),
             has_protected_content=getattr(channel, "noforwards", None),
             usernames=types.List([types.Username._parse(r) for r in usernames]) or None,
-            client=client
+            client=client,
+            is_forum=getattr(channel, "forum"), 
         )
 
     @staticmethod
@@ -328,8 +344,12 @@ class Chat(Object):
                 parsed_chat = Chat._parse_chat_chat(client, chat_raw)
                 parsed_chat.description = full_chat.about or None
 
-                if isinstance(full_chat.participants, raw.types.ChatParticipants):
-                    parsed_chat.members_count = len(full_chat.participants.participants)
+                parsed_chat.members_count = getattr(full_chat, "participants_count")
+                if parsed_chat.members_count:
+                    parsed_chat.members_count = int(parsed_chat.members_count)
+                
+                parsed_chat.has_visible_history = not getattr(full_chat, "hidden_prehistory", False)
+                parsed_chat.has_hidden_members = not getattr(full_chat, "can_view_participants", True)
             else:
                 parsed_chat = Chat._parse_channel_chat(client, chat_raw)
                 parsed_chat.members_count = full_chat.participants_count
