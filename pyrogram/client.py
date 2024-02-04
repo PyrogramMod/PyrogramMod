@@ -632,7 +632,7 @@ class Client(Methods):
         if session_empty:
             if not self.api_id or not self.api_hash:
                 raise AttributeError("The API key is required for new authorizations. "
-                                     "More info: https://pyrogrammod.github.io/start/auth")
+                                     "More info: https://pyrogrammod.readthedocs.io/start/auth")
 
             await self.storage.api_id(self.api_id)
 

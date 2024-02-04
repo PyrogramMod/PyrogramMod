@@ -58,7 +58,7 @@ To strictly use this mode, pass :obj:`~pyrogram.enums.ParseMode.MARKDOWN` to the
 
     ||spoiler||
 
-    [text URL](https://pyrogrammod.github.io/)
+    [text URL](https://pyrogrammod.readthedocs.io/)
 
     [text user mention](tg://user?id=123456789)
 
@@ -112,7 +112,7 @@ To strictly use this mode, pass :obj:`~pyrogram.enums.HTML` to the *parse_mode* 
 
     <spoiler>spoiler</spoiler>
 
-    <a href="https://pyrogrammod.github.io/">text URL</a>
+    <a href="https://pyrogrammod.readthedocs.io/">text URL</a>
 
     <a href="tg://user?id=123456789">inline mention</a>
 
@@ -140,7 +140,7 @@ To strictly use this mode, pass :obj:`~pyrogram.enums.HTML` to the *parse_mode* 
             "<u>underline</u>, "
             "<s>strike</s>, "
             "<spoiler>spoiler</spoiler>, "
-            "<a href=\"https://pyrogrammod.github.io/\">URL</a>, "
+            "<a href=\"https://pyrogrammod.readthedocs.io/\">URL</a>, "
             "<code>code</code>\n\n"
             "<pre>"
             "for i in range(10):\n"
