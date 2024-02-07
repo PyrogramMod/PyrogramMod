@@ -288,7 +288,7 @@ class Chat(Object):
             has_protected_content=getattr(channel, "noforwards", None),
             usernames=types.List([types.Username._parse(r) for r in usernames]) or None,
             client=client,
-            is_forum=getattr(channel, "forum"), 
+            is_forum=getattr(channel, "forum", None),
         )
 
     @staticmethod
