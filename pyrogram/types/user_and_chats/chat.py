@@ -344,7 +344,7 @@ class Chat(Object):
                 parsed_chat = Chat._parse_chat_chat(client, chat_raw)
                 parsed_chat.description = full_chat.about or None
 
-                parsed_chat.members_count = getattr(full_chat, "participants_count")
+                parsed_chat.members_count = getattr(full_chat, "participants_count", 0)
                 if parsed_chat.members_count:
                     parsed_chat.members_count = int(parsed_chat.members_count)
                 
