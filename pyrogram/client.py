@@ -48,9 +48,13 @@ from pyrogram.errors import CDNFileHashMismatch, AuthBytesInvalid, ChannelInvali
 from pyrogram.errors import (
     SessionPasswordNeeded,
     VolumeLocNotFound, ChannelPrivate,
-    BadRequest,
-    FloodWait,
-    FloodPremiumWait
+    BadRequest, 
+    AuthBytesInvalid,
+    FloodWait, 
+    FloodPremiumWait,
+    ChannelInvalid, 
+    PersistentTimestampInvalid, 
+    PersistentTimestampOutdated
 )
 from pyrogram.handlers.handler import Handler
 from pyrogram.methods import Methods
@@ -619,7 +623,7 @@ class Client(Methods):
                                     limit=pts
                                 )
                             )
-                        except ChannelPrivate:
+                        except (ChannelPrivate, PersistentTimestampOutdated, PersistentTimestampInvalid):
                             pass
                         else:
                             if not isinstance(diff, raw.types.updates.ChannelDifferenceEmpty):
