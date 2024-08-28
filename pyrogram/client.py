@@ -620,7 +620,8 @@ class Client(Methods):
                                         )]
                                     ),
                                     pts=pts - pts_count,
-                                    limit=pts
+                                    limit=pts,
+                                    force=False
                                 )
                             )
                         except (ChannelPrivate, PersistentTimestampOutdated, PersistentTimestampInvalid):
