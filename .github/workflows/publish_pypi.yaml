@@ -1,0 +1,42 @@
+# This is the workflow to make and push wheels to PyPi
+
+name: Build Wheels
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish to PyPi'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+
+      - name: Build wheel
+        run: python3.12 -m pip wheel . --no-deps --wheel-dir wheels
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: program-mod-wheel
+          path: ./wheels/py_tgcalls*.whl
+          if-no-files-found: error
+
+      - name: Publish a Python distribution to PyPI.
+        if: github.event.inputs.publish == 'true'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
+          packages-dir: wheels/
