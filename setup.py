@@ -14,7 +14,7 @@
 #  GNU Lesser General Public License for more details.
 #
 #  You should have received a copy of the GNU Lesser General Public License
-#  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
+#  along with Pyrogram.  If not, see <https://www.gnu.org/licenses/>.
 
 import re
 from sys import argv
@@ -38,15 +38,15 @@ if len(argv) > 1 and argv[1] in ["bdist_wheel", "install", "develop"]:
     errors_compiler.start()
 
 setup(
-    name="Pyrogram",
+    name="Pyrogram-Mod",
     version=version,
-    description="Elegant, modern and asynchronous Telegram MTProto API framework in Python for users and bots",
+    description="Modified version of the Pyrogram Telegram MTProto API framework in Python for users and bots.",
     long_description=readme,
     long_description_content_type="text/markdown",
-    url="https://github.com/pyrogram",
-    download_url="https://github.com/pyrogram/pyrogram/releases/latest",
-    author="Dan",
-    author_email="dan@pyrogram.org",
+    url="https://github.com/PyrogramMod/PyrogramMod",
+    download_url="https://github.com/PyrogramMod/PyrogramMod/releases/latest",
+    author="Dan (original author), PyrogramMod (Fork Maintainer)",
+    author_email="",
     license="LGPLv3",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
@@ -73,10 +73,10 @@ setup(
     ],
     keywords="telegram chat messenger mtproto api client library python",
     project_urls={
-        "Tracker": "https://github.com/pyrogram/pyrogram/issues",
-        "Community": "https://t.me/pyrogram",
-        "Source": "https://github.com/pyrogram/pyrogram",
-        "Documentation": "https://docs.pyrogram.org",
+        "Tracker": "https://github.com/PyrogramMod/PyrogramMod/issues",
+        "Community": "https://t.me/pyrogramodchat",
+        "Source": "https://github.com/PyrogramMod/PyrogramMod",
+        "Documentation": "https://pyrogrammod.readthedocs.io",
     },
     python_requires="~=3.8",
     package_data={
