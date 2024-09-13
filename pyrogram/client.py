@@ -157,7 +157,7 @@ class Client(Methods):
 
         config_file (``str``, *optional*):
             Path of the configuration file.
-            Defaults to ./config.ini
+            If not provided, the default behavior is to not use any configuration file.
 
         plugins (``dict``, *optional*):
             Smart Plugins settings as dict, e.g.: *dict(root="plugins")*.
@@ -243,7 +243,7 @@ class Client(Methods):
         workers: int = WORKERS,
         message_cache: int = 10000,
         workdir: str = WORKDIR,
-        config_file: str = CONFIG_FILE,
+        config_file: str = None,
         plugins: dict = None,
         parse_mode: "enums.ParseMode" = enums.ParseMode.DEFAULT,
         no_updates: bool = None,
@@ -666,6 +666,9 @@ class Client(Methods):
             log.info(updates)
 
     async def load_config(self):
+        if self.config_file is None:
+            return
+
         if not os.path.isfile(self.config_file):
             raise FileNotFoundError(f"The configuration file at {self.config_file} does not exist.")
 
