@@ -32,7 +32,7 @@ from importlib import import_module
 from io import StringIO, BytesIO
 from mimetypes import MimeTypes
 from pathlib import Path
-from typing import Union, List, Optional, Callable, AsyncGenerator, Type
+from typing import Union, List, Optional, Callable, AsyncGenerator, Type, Tuple
 
 import pyrogram
 from pyrogram import __version__, __license__
@@ -40,7 +40,8 @@ from pyrogram import enums
 from pyrogram import raw
 from pyrogram import utils
 from pyrogram.crypto import aes
-from pyrogram.errors import CDNFileHashMismatch, AuthBytesInvalid
+from pyrogram.errors import CDNFileHashMismatch, AuthBytesInvalid, ChannelInvalid, PersistentTimestampInvalid, \
+    PersistentTimestampOutdated
 from pyrogram.errors import (
     SessionPasswordNeeded,
     VolumeLocNotFound, ChannelPrivate,
@@ -186,7 +187,7 @@ class Client(Methods):
             Defaults to False, because ``getpass`` (the library used) is known to be problematic in some
             terminal environments.
 
-        max_concurrent_transmissions (``bool``, *optional*):
+        max_concurrent_transmissions (``int``, *optional*):
             Set the maximum amount of concurrent transmissions (uploads & downloads).
             A value that is too high may result in network related issues.
             Defaults to 1.
@@ -576,14 +577,14 @@ class Client(Methods):
                 pts = getattr(update, "pts", None)
                 pts_count = getattr(update, "pts_count", None)
 
-                if pts:
+                if pts and not self.skip_updates:
                     await self.storage.update_state(
                         (
-                            utils.get_channel_id(channel_id) if channel_id else self.me.id,
+                            utils.get_channel_id(channel_id) if channel_id else 0,
                             pts,
                             None,
                             updates.date,
-                            None
+                            updates.seq
                         )
                     )
 
@@ -617,15 +618,16 @@ class Client(Methods):
 
                 self.dispatcher.updates_queue.put_nowait((update, users, chats))
         elif isinstance(updates, (raw.types.UpdateShortMessage, raw.types.UpdateShortChatMessage)):
-            await self.storage.update_state(
-                (
-                    self.me.id,
-                    updates.pts,
-                    None,
-                    updates.date,
-                    None
+            if not self.skip_updates:
+                await self.storage.update_state(
+                    (
+                        0,
+                        updates.pts,
+                        None,
+                        updates.date,
+                        None
+                    )
                 )
-            )
 
             diff = await self.invoke(
                 raw.functions.updates.GetDifference(
@@ -652,6 +654,92 @@ class Client(Methods):
             self.dispatcher.updates_queue.put_nowait((updates.update, {}, {}))
         elif isinstance(updates, raw.types.UpdatesTooLong):
             log.info(updates)
+
+    async def recover_gaps(self) -> Tuple[int, int]:
+        states = await self.storage.update_state()
+
+        message_updates_counter = 0
+        other_updates_counter = 0
+
+        if not states:
+            log.info("No states found, skipping recovery.")
+            return message_updates_counter, other_updates_counter
+
+        for state in states:
+            id, local_pts, _, local_date, _ = state
+
+            prev_pts = 0
+
+            while True:
+                try:
+                    diff = await self.invoke(
+                        raw.functions.updates.GetChannelDifference(
+                            channel=await self.resolve_peer(id),
+                            filter=raw.types.ChannelMessagesFilterEmpty(),
+                            pts=local_pts,
+                            limit=10000,
+                            force=False
+                        ) if id < 0 else
+                        raw.functions.updates.GetDifference(
+                            pts=local_pts,
+                            date=local_date,
+                            qts=0
+                        )
+                    )
+                except (ChannelPrivate, ChannelInvalid, PersistentTimestampOutdated, PersistentTimestampInvalid):
+                    break
+
+                if isinstance(diff, raw.types.updates.DifferenceEmpty):
+                    break
+                elif isinstance(diff, raw.types.updates.DifferenceTooLong):
+                    break
+                elif isinstance(diff, raw.types.updates.Difference):
+                    local_pts = diff.state.pts
+                elif isinstance(diff, raw.types.updates.DifferenceSlice):
+                    local_pts = diff.intermediate_state.pts
+                    local_date = diff.intermediate_state.date
+
+                    if prev_pts == local_pts:
+                        break
+
+                    prev_pts = local_pts
+                elif isinstance(diff, raw.types.updates.ChannelDifferenceEmpty):
+                    break
+                elif isinstance(diff, raw.types.updates.ChannelDifferenceTooLong):
+                    break
+                elif isinstance(diff, raw.types.updates.ChannelDifference):
+                    local_pts = diff.pts
+
+                users = {i.id: i for i in diff.users}
+                chats = {i.id: i for i in diff.chats}
+
+                for message in diff.new_messages:
+                    message_updates_counter += 1
+                    self.dispatcher.updates_queue.put_nowait(
+                        (
+                            raw.types.UpdateNewMessage(
+                                message=message,
+                                pts=local_pts,
+                                pts_count=-1
+                            ),
+                            users,
+                            chats
+                        )
+                    )
+
+                for update in diff.other_updates:
+                    other_updates_counter += 1
+                    self.dispatcher.updates_queue.put_nowait(
+                        (update, users, chats)
+                    )
+
+                if isinstance(diff, (raw.types.updates.Difference, raw.types.updates.ChannelDifference)):
+                    break
+
+            await self.storage.update_state(id)
+
+        log.info("Recovered %s messages and %s updates.", message_updates_counter, other_updates_counter)
+        return message_updates_counter, other_updates_counter
 
     async def load_session(self):
         await self.storage.open()
