@@ -38,7 +38,7 @@ if len(argv) > 1 and argv[1] in ["bdist_wheel", "install", "develop"]:
     errors_compiler.start()
 
 setup(
-    name="Pyrogram-Mod",
+    name="pyrogrammod",
     version=version,
     description="Modified version of the Pyrogram Telegram MTProto API framework in Python for users and bots.",
     long_description=readme,

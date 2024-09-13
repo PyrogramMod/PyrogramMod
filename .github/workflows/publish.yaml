@@ -40,7 +40,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: program-mod-wheel
-          path: ./wheels/Pyrogram_Mod*.whl
+          path: ./wheels/pyrogrammod*.whl
           if-no-files-found: error
 
       - name: Publish a Python distribution to PyPI
