@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/pyrogrammod/pyrogrammod">
-        <img src="https://pyrogrammod.readthedocs.io/en/latest/_static/pyrogram.png" alt="Pyrogram" width="128">
+        <img src="https://pyrogrammod.readthedocs.io/_static/pyrogram.png" alt="Pyrogram" width="128">
     </a>
     <br>
     <b>Telegram MTProto API Framework for Python</b> (Fork of <a href="github.com/pyrogram/pyrogram">Pyrogram</a>)
@@ -83,7 +83,7 @@ pip3 install https://github.com/PyrogramMod/PyrogramMod/archive/refs/heads/main.
 - 📚 Docs: https://docs.pyrogram.org
 ------------------------------------------------------------
 - 📕 Un-Official Repo: https://github.com/PyrogramMod/PyrogramMod/
-- 🗞 News: https://t.me/PyroGramMod
+- 🗞 News: https://t.me/PyroGramModNews
 - 💭 Support Group: https://t.me/pyrogramodchat
 - 📚 Docs: https://pyrogrammod.readthedocs.io/
 ------------------------------------------------------------
