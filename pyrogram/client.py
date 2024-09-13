@@ -666,6 +666,9 @@ class Client(Methods):
             log.info(updates)
 
     async def load_config(self):
+        if not os.path.isfile(self.config_file):
+            raise FileNotFoundError(f"The configuration file at {self.config_file} does not exist.")
+
         async with aiofiles.open(self.config_file, mode='r') as file:
             contents = await file.read()
 
