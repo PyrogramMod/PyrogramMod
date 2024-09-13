@@ -26,6 +26,7 @@ import re
 import shutil
 import sys
 from concurrent.futures.thread import ThreadPoolExecutor
+from configparser import ConfigParser
 from datetime import datetime, timedelta
 from hashlib import sha256
 from importlib import import_module
@@ -33,6 +34,8 @@ from io import StringIO, BytesIO
 from mimetypes import MimeTypes
 from pathlib import Path
 from typing import Union, List, Optional, Callable, AsyncGenerator, Type, Tuple
+
+import aiofiles
 
 import pyrogram
 from pyrogram import __version__, __license__
@@ -152,6 +155,10 @@ class Client(Methods):
             The working directory is the location in the filesystem where Pyrogram will store the session files.
             Defaults to the parent directory of the main script.
 
+        config_file (``str``, *optional*):
+            Path of the configuration file.
+            Defaults to ./config.ini
+
         plugins (``dict``, *optional*):
             Smart Plugins settings as dict, e.g.: *dict(root="plugins")*.
 
@@ -193,7 +200,7 @@ class Client(Methods):
             Defaults to 1.
     """
 
-    APP_VERSION = f"Pyrogram {__version__}"
+    APP_VERSION = f"PyrogramMod {__version__}"
     DEVICE_MODEL = f"{platform.python_implementation()} {platform.python_version()}"
     SYSTEM_VERSION = f"{platform.system()} {platform.release()}"
 
@@ -205,6 +212,7 @@ class Client(Methods):
     TME_PUBLIC_LINK_RE = re.compile(r"^(?:https?://)?(?:www|([\w-]+)\.)?(?:t(?:elegram)?\.(?:org|me|dog))/?([\w-]+)?$")
     WORKERS = min(32, (os.cpu_count() or 0) + 4)  # os.cpu_count() can be None
     WORKDIR = PARENT_DIR
+    CONFIG_FILE = PARENT_DIR / "config.ini"
 
     # Interval of seconds in which the updates watchdog will kick in
     UPDATES_WATCHDOG_INTERVAL = 15 * 60
@@ -235,6 +243,7 @@ class Client(Methods):
         workers: int = WORKERS,
         message_cache: int = 10000,
         workdir: str = WORKDIR,
+        config_file: str = CONFIG_FILE,
         plugins: dict = None,
         parse_mode: "enums.ParseMode" = enums.ParseMode.DEFAULT,
         no_updates: bool = None,
@@ -318,6 +327,7 @@ class Client(Methods):
         self.last_update_time = datetime.now()
 
         self.loop = asyncio.get_event_loop()
+        self.config_file = config_file
 
     def __enter__(self):
         return self.start()
@@ -654,6 +664,34 @@ class Client(Methods):
             self.dispatcher.updates_queue.put_nowait((updates.update, {}, {}))
         elif isinstance(updates, raw.types.UpdatesTooLong):
             log.info(updates)
+
+    async def load_config(self):
+        async with aiofiles.open(self.config_file, mode='r') as file:
+            contents = await file.read()
+
+        parser = ConfigParser()
+        parser.read_string(contents)
+
+        if not self.bot_token:
+            self.bot_token = parser.get("pyrogram_mod", "bot_token", fallback=None)
+
+        if not (self.api_id and self.api_hash):
+            if parser.has_section("pyrogram_mod"):
+                self.api_id = parser.getint("pyrogram_mod", "api_id")
+                self.api_hash = parser.get("pyrogram_mod", "api_hash")
+            else:
+                raise AttributeError("No API Key found. More info: https://pyrogrammod.readthedocs.io/start/setup.html")
+
+        for option in ["app_version", "device_model", "system_version", "lang_code"]:
+            if not getattr(self, option):
+                if parser.has_section("pyrogram_mod"):
+                    setattr(self, option, parser.get(
+                        "pyrogram_mod",
+                        option,
+                        fallback=getattr(Client, option.upper())
+                    ))
+                else:
+                    setattr(self, option, getattr(Client, option.upper()))
 
     async def recover_gaps(self) -> Tuple[int, int]:
         states = await self.storage.update_state()
