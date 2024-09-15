@@ -18,7 +18,7 @@
     </a>
 </p>
 
-## Pyrogram
+# PyrogramMod <br>[![PyPI](https://img.shields.io/pypi/v/pyrogrammod.svg?logo=python&logoColor=%23959DA5&label=pypi&labelColor=%23282f37)](https://pypi.org/project/pyrogrammod/) [![Downloads](https://pepy.tech/badge/pyrogrammod)](https://pepy.tech/project/pyrogrammod)
 
 > Elegant, modern and asynchronous Telegram MTProto API framework in Python for users and bots
 
