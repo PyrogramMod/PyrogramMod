@@ -458,8 +458,12 @@ media_spoiler = create(media_spoiler_filter)
 # endregion
 
 # region private_filter
-async def private_filter(_, __, m: Message):
-    m = m.message if isinstance(m, CallbackQuery) else m
+async def private_filter(_, __, m: Union[Message, CallbackQuery]) -> bool:
+    m = getattr(m, "message", None) if isinstance(m, CallbackQuery) else m
+    if not m:
+        raise ValueError(
+            "filters.private is not supported here "
+        )
     return bool(m.chat and m.chat.type in {enums.ChatType.PRIVATE, enums.ChatType.BOT})
 
 
