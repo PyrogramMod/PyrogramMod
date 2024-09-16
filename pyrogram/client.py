@@ -609,23 +609,33 @@ class Client(Methods):
                     message = update.message
 
                     if not isinstance(message, raw.types.MessageEmpty):
-                        try:
-                            diff = await self.invoke(
-                                raw.functions.updates.GetChannelDifference(
-                                    channel=await self.resolve_peer(utils.get_channel_id(channel_id)),
-                                    filter=raw.types.ChannelMessagesFilter(
-                                        ranges=[raw.types.MessageRange(
-                                            min_id=update.message.id,
-                                            max_id=update.message.id
-                                        )]
-                                    ),
-                                    pts=pts - pts_count,
-                                    limit=pts,
-                                    force=False
+                        retries = 5
+                        while retries > 0:
+                            try:
+                                diff = await self.invoke(
+                                    raw.functions.updates.GetChannelDifference(
+                                        channel=await self.resolve_peer(utils.get_channel_id(channel_id)),
+                                        filter=raw.types.ChannelMessagesFilter(
+                                            ranges=[raw.types.MessageRange(
+                                                min_id=update.message.id,
+                                                max_id=update.message.id
+                                            )]
+                                        ),
+                                        pts=pts - pts_count,
+                                        limit=pts,
+                                        force=False
+                                    )
                                 )
-                            )
-                        except (ChannelPrivate, PersistentTimestampOutdated, PersistentTimestampInvalid):
-                            pass
+                                break
+                            except (ChannelPrivate, PersistentTimestampOutdated, PersistentTimestampInvalid):
+                                pass
+                            except OSError as e:
+                                log.error(f"Connection error while fetching ChannelDifference: {e}. Retrying...")
+                                retries -= 1
+                                if retries == 0:
+                                    log.error(f"Max retries reached for ChannelDifference: {e}")
+                                    raise
+                                await asyncio.sleep(5)
                         else:
                             if not isinstance(diff, raw.types.updates.ChannelDifferenceEmpty):
                                 users.update({u.id: u for u in diff.users})
@@ -644,13 +654,24 @@ class Client(Methods):
                     )
                 )
 
-            diff = await self.invoke(
-                raw.functions.updates.GetDifference(
-                    pts=updates.pts - updates.pts_count,
-                    date=updates.date,
-                    qts=-1
-                )
-            )
+            retries = 5
+            while retries > 0:
+                try:
+                    diff = await self.invoke(
+                        raw.functions.updates.GetDifference(
+                            pts=updates.pts - updates.pts_count,
+                            date=updates.date,
+                            qts=-1
+                        )
+                    )
+                    break
+                except OSError as e:
+                    log.error(f"Connection error during GetDifference: {e}. Retrying...")
+                    retries -= 1
+                    if retries == 0:
+                        log.error(f"Max retries reached for GetDifference: {e}")
+                        raise
+                    await asyncio.sleep(5)
 
             if diff.new_messages:
                 self.dispatcher.updates_queue.put_nowait((
@@ -712,7 +733,7 @@ class Client(Methods):
 
         if not states:
             log.info("No states found, skipping recovery.")
-            return message_updates_counter, other_updates_counter
+            return (message_updates_counter, other_updates_counter)
 
         for state in states:
             id, local_pts, _, local_date, _ = state
@@ -788,7 +809,7 @@ class Client(Methods):
             await self.storage.update_state(id)
 
         log.info("Recovered %s messages and %s updates.", message_updates_counter, other_updates_counter)
-        return message_updates_counter, other_updates_counter
+        return (message_updates_counter, other_updates_counter)
 
     async def load_session(self):
         await self.storage.open()
