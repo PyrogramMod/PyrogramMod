@@ -74,6 +74,7 @@ CHANNEL_TOO_LARGE	Channel is too large to be deleted; this error is issued when 
 CHATLIST_EXCLUDE_INVALID	The specified `exclude_peers` are invalid.
 CHAT_ABOUT_NOT_MODIFIED	About text has not changed.
 CHAT_ABOUT_TOO_LONG	Chat about too long.
+CHAT_ACTION_FORBIDDEN	You cannot execute this action.
 CHAT_ADMIN_INVITE_REQUIRED	You do not have the rights to do this.
 CHAT_ADMIN_REQUIRED	You must be an admin in this chat to do this.
 CHAT_DISCUSSION_UNALLOWED	You can't enable forum topics in a discussion group linked to a channel.
@@ -505,4 +506,5 @@ WEBPAGE_URL_INVALID	The specified webpage `url` is invalid.
 WEBPUSH_AUTH_INVALID	The specified web push authentication secret is invalid.
 WEBPUSH_KEY_INVALID	The specified web push elliptic curve Diffie-Hellman public key is invalid.
 WEBPUSH_TOKEN_INVALID	The specified web push token is invalid.
+YOUR_PRIVACY_RESTRICTED	You cannot fetch the read date of this message because you have disallowed other users to do so for *your* messages; to fix, allow other users to see *your* exact last online date OR purchase a [Telegram Premium](https://core.telegram.org/api/premium) subscription.
 YOU_BLOCKED_USER	You blocked this user.

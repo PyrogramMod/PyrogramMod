@@ -51,6 +51,7 @@ BROADCAST_FORBIDDEN	Channel poll voters and reactions cannot be fetched to preve
 BROADCAST_ID_INVALID	Broadcast ID invalid.
 BROADCAST_PUBLIC_VOTERS_FORBIDDEN	You can't forward polls with public voters.
 BROADCAST_REQUIRED	This method can only be called on a channel, please use stats.getMegagroupStats for supergroups.
+BUSINESS_ADDRESS_ACTIVE	The user is currently advertising a [Business Location](https://core.telegram.org/api/business#location), the location may only be changed (or removed) using [account.updateBusinessLocation »](https://core.telegram.org/method/account.updateBusinessLocation).  .
 BUTTON_DATA_INVALID	The data of one or more of the buttons you provided is invalid.
 BUTTON_TEXT_INVALID	The specified button text is invalid.
 BUTTON_TYPE_INVALID	The type of one or more of the buttons you provided is invalid.
@@ -334,6 +335,7 @@ POLL_OPTION_INVALID	Invalid poll option provided.
 POLL_QUESTION_INVALID	One of the poll questions is not acceptable.
 POLL_VOTE_REQUIRED	Cast a vote in the poll before calling this method.
 PREMIUM_ACCOUNT_REQUIRED	A premium account is required to execute this action.
+PREMIUM_CURRENTLY_UNAVAILABLE	You cannot currently purchase a Premium subscription.
 PREMIUM_GIFTCODE_WAS_REFUNDED	This gift code can't be redeemed because the giveaway organizer requested a refund
 PREMIUM_SUB_ACTIVE_UNTIL_X	You already have a premium subscription active until unixtime {value} .
 PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_XMIN	Import for this chat is already in progress, wait {value} minutes before starting a new one.
@@ -467,6 +469,7 @@ TTL_MEDIA_INVALID	Invalid media Time To Live was provided.
 TTL_PERIOD_INVALID	The specified TTL period is invalid.
 TYPES_EMPTY	No top peer type was provided.
 UNTIL_DATE_INVALID	Invalid until date provided.
+UPDATE_APP_TO_LOGIN	Please update to the latest version of MadelineProto to login.
 URL_INVALID	Invalid URL provided.
 USAGE_LIMIT_INVALID	The specified usage limit is invalid.
 USERNAMES_ACTIVE_TOO_MUCH	The maximum number of active usernames was reached.
