@@ -1,8 +1,7 @@
 name: Scrape Errors
 on:
-  workflow_dispatch: {} # Allow manually kicking off builds
-  schedule:
-    - cron:  '0 12 * * *' # Every day at 12:00 (noon). Ref https://crontab.guru/examples.html
+  workflow_dispatch: {}
+
 jobs:
   build:
     name: scrape-errors
@@ -11,6 +10,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
+    
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
@@ -24,15 +24,12 @@ jobs:
           python sort.py scrape
           python sort.py sort
 
-    - name: Open Pull Request
-      uses: peter-evans/create-pull-request@v4
-      with:
-        commit-message: >
-          Update unknown_errors
-        title: >
-          Update Telegram API errors
-        body: >
-          This is an automated PR. Please check the diff, and the action logs, to check for any funky behaviour.
-        branch: automated/api-error-scrape
-        labels: automated
-        delete-branch: true
+    - name: Commit and Push changes
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "GitHub Actions Bot"
+        git add .
+        git commit -m "Automated update of unknown_errors"
+        git push origin main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
