@@ -179,6 +179,9 @@ class Message(Object, Update):
         video (:obj:`~pyrogram.types.Video`, *optional*):
             Message is a video, information about the video.
 
+        alternative_videos (List of :obj:`~pyrogram.types.AlternativeVideo`, *optional*):
+            Alternative qualities of the video, if the message is a video.
+
         voice (:obj:`~pyrogram.types.Voice`, *optional*):
             Message is a voice message, information about the file.
 
@@ -393,7 +396,8 @@ class Message(Object, Update):
                 "types.ReplyKeyboardRemove",
                 "types.ForceReply"
             ] = None,
-            reactions: List["types.Reaction"] = None
+            reactions: List["types.Reaction"] = None,
+            alternative_videos: List["types.AlternativeVideo"] = None,
     ):
         super().__init__(client)
 
@@ -433,6 +437,7 @@ class Message(Object, Update):
         self.animation = animation
         self.game = game
         self.video = video
+        self.alternative_videos = alternative_videos
         self.voice = voice
         self.story = story
         self.giveaway = giveaway
@@ -668,6 +673,7 @@ class Message(Object, Update):
             voice = None
             animation = None
             video = None
+            alternative_videos = []
             video_note = None
             sticker = None
             document = None
@@ -732,6 +738,22 @@ class Message(Object, Update):
                                 video = types.Video._parse(client, doc, video_attributes, file_name, media.ttl_seconds)
                                 media_type = enums.MessageMediaType.VIDEO
                                 has_media_spoiler = media.spoiler
+
+                                altdocs = media.alt_documents or []
+                                for altdoc in altdocs:
+                                    if isinstance(altdoc, raw.types.Document):
+                                        altdoc_attributes = {type(i): i for i in altdoc.attributes}
+
+                                        altdoc_file_name = getattr(
+                                            altdoc_attributes.get(
+                                                raw.types.DocumentAttributeFilename, None
+                                            ), "file_name", None
+                                        )
+                                        altdoc_video_attribute = altdoc_attributes.get(raw.types.DocumentAttributeVideo, None)
+                                        if altdoc_video_attribute:
+                                            alternative_videos.append(
+                                                types.AlternativeVideo._parse(client, altdoc, altdoc_video_attribute, altdoc_file_name)
+                                            )
                         elif raw.types.DocumentAttributeAudio in attributes:
                             audio_attributes = attributes[raw.types.DocumentAttributeAudio]
 
@@ -831,6 +853,7 @@ class Message(Object, Update):
                 story=story,
                 giveaway=giveaway,
                 video=video,
+                alternative_videos=types.List(alternative_videos) if alternative_videos else None,
                 video_note=video_note,
                 sticker=sticker,
                 document=document,

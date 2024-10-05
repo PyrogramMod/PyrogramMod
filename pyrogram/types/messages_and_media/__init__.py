@@ -16,6 +16,7 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from .alternative_video import AlternativeVideo
 from .animation import Animation
 from .audio import Audio
 from .contact import Contact
@@ -45,5 +46,5 @@ from .message_reactions import MessageReactions
 __all__ = [
     "Animation", "Audio", "Contact", "Document", "Game", "Location", "Message", "MessageEntity", "Photo", "Thumbnail",
     "StrippedThumbnail", "Poll", "PollOption", "Sticker", "Venue", "Video", "VideoNote", "Voice", "WebPage", "Dice",
-    "Reaction", "WebAppData", "MessageReactions", "Story", "Giveaway"
+    "Reaction", "WebAppData", "MessageReactions", "Story", "Giveaway", "AlternativeVideo"
 ]

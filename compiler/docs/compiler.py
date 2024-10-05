@@ -399,6 +399,7 @@ def pyrogram_api():
             MessageEntity
             Photo
             Thumbnail
+            AlternativeVideo
             Audio
             Document
             Animation
