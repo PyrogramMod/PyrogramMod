@@ -1569,7 +1569,7 @@ defaultHistoryTTL#43b46b20 period:int = DefaultHistoryTTL;
 exportedContactToken#41bf109b url:string expires:int = ExportedContactToken;
 
 requestPeerTypeUser#5f3b8a00 flags:# bot:flags.0?Bool premium:flags.1?Bool = RequestPeerType;
-requestPeerTypeChat#c9f06e1b flags:# creator:flags.0?true has_username:flags.3?Bool forum:flags.4?Bool user_admin_rights:flags.1?ChatAdminRights bot_admin_rights:flags.2?ChatAdminRights bot_participant:flags.5?true = RequestPeerType;
+requestPeerTypeChat#c9f06e1b flags:# creator:flags.0?true has_username:flags.3?Bool forum:flags.4?Bool user_admin_rights:flags.1?ChatAdminRights bot_participant:flags.5?true bot_admin_rights:flags.2?ChatAdminRights = RequestPeerType;
 requestPeerTypeBroadcast#339bef6c flags:# creator:flags.0?true has_username:flags.3?Bool user_admin_rights:flags.1?ChatAdminRights bot_admin_rights:flags.2?ChatAdminRights = RequestPeerType;
 
 emojiListNotModified#481eadfa = EmojiList;
@@ -2574,6 +2574,7 @@ phone.leaveGroupCallPresentation#1c50d144 call:InputGroupCall = Updates;
 phone.getGroupCallStreamChannels#1ab21940 call:InputGroupCall = phone.GroupCallStreamChannels;
 phone.getGroupCallStreamRtmpUrl#deb3abbf peer:InputPeer revoke:Bool = phone.GroupCallStreamRtmpUrl;
 phone.saveCallLog#41248786 peer:InputPhoneCall file:InputFile = Bool;
+phone.createConferenceCall#93087553 peer:InputGroupCall = PhoneCall;
 
 langpack.getLangPack#f2f2330a lang_pack:string lang_code:string = LangPackDifference;
 langpack.getStrings#efea3803 lang_pack:string lang_code:string keys:Vector<string> = Vector<LangPackString>;
