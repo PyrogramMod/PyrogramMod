@@ -14,7 +14,7 @@ Welcome to PyrogramMod
         <b>Telegram MTProto API Framework for Python</b>
 
         <br>
-        <a href="https://pyrogrammod.github.io">
+        <a href="https://pyrogrammod.readthedocs.io">
             Homepage
         </a>
         •
