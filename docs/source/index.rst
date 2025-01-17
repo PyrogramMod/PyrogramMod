@@ -18,11 +18,11 @@ Welcome to PyrogramMod
             Homepage
         </a>
         •
-        <a href="https://github.com/pyrogram/pyrogram">
+        <a href="https://github.com/pyrogrammod/pyrogrammod">
             Development
         </a>
         •
-        <a href="https://t.me/pyrogram">
+        <a href="https://t.me/pyrogramodchat">
             News
         </a>
     </p>

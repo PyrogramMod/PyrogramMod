@@ -44,16 +44,16 @@ class JoinChat:
             .. code-block:: python
 
                 # Join chat via invite link
-                await app.join_chat("https://t.me/+AbCdEf0123456789")
+                await app.join_chat("https://t.me/+PtU-zNsbDNU3ODA8")
 
                 # Join chat via username
-                await app.join_chat("pyrogram")
+                await app.join_chat("pyrogramodchat")
 
                 # Join chat via Telegram Public Link
-                await app.join_chat("https://t.me/pyrogram")
+                await app.join_chat("https://t.me/pyrogramodchat")
 
                 # Join a linked chat
-                await app.join_chat(app.get_chat("pyrogram").linked_chat.id)
+                await app.join_chat(app.get_chat("pyrogramodchat").linked_chat.id)
         """
         match = self.INVITE_LINK_RE.match(str(chat_id))
 
