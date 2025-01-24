@@ -14,15 +14,15 @@ Welcome to PyrogramMod
         <b>Telegram MTProto API Framework for Python</b>
 
         <br>
-        <a href="https://pyrogrammod.github.io">
+        <a href="https://pyrogrammod.readthedocs.io">
             Homepage
         </a>
         •
-        <a href="https://github.com/pyrogram/pyrogram">
+        <a href="https://github.com/pyrogrammod/pyrogrammod">
             Development
         </a>
         •
-        <a href="https://t.me/pyrogram">
+        <a href="https://t.me/pyrogramodchat">
             News
         </a>
     </p>

@@ -6,12 +6,6 @@ The next few steps serve as a quick start to see Pyrogram in action as fast as p
 Get Pyrogram Real Fast
 ----------------------
 
-.. admonition :: Cloud Credits
-    :class: tip
-
-    If you need a cloud server to host your applications, try Hetzner Cloud. You can sign up with
-    `this link <https://hetzner.cloud/?ref=9CyT92gZEINU>`_ to get €20 in cloud credits.
-
 1. Install Pyrogram with ``pip3 install -U https://github.com/pyrogrammod/pyrogrammod/archive/main.zip``.
 
 2. Get your own Telegram API key from https://my.telegram.org/apps.
@@ -53,4 +47,4 @@ we have just done above.
 If you are feeling eager to continue you can take a shortcut to :doc:`../start/invoking` and come back
 later to learn some more details.
 
-.. _community: https://t.me/Pyrogram
+.. _community: https://t.me/pyrogramodchat

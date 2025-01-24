@@ -31,7 +31,7 @@ list of the basic styles currently supported by Pyrogram.
 - :strike:`strike`
 - :underline:`underline`
 - spoiler
-- `text URL <https://pyrogrammod.github.io>`_
+- `text URL <https://pyrogrammod.readthedocs.io>`_
 - `user text mention <tg://user?id=123456789>`_
 - ``inline fixed-width code``
 - .. code-block:: text
@@ -84,7 +84,7 @@ To strictly use this mode, pass :obj:`~pyrogram.enums.ParseMode.MARKDOWN` to the
             "--underline--, "
             "~~strike~~, "
             "||spoiler||, "
-            "[URL](https://pyrogrammod.github.io), "
+            "[URL](https://pyrogrammod.readthedocs.io), "
             "`code`, "
             "```"
             "for i in range(10):\n"
