@@ -41,8 +41,7 @@ class Reaction(Object):
             Available for chosen reactions.
 
         is_paid (``bool``, *optional*):
-            True, if this is a paid reaction.
-
+            True, if reaction is paid.
     """
 
     def __init__(
@@ -67,7 +66,7 @@ class Reaction(Object):
     def _parse(
         client: "pyrogram.Client",
         reaction: "raw.base.Reaction"
-    ) -> Optional["Reaction"]:
+    ) -> "Reaction":
         if isinstance(reaction, raw.types.ReactionEmoji):
             return Reaction(
                 client=client,
@@ -86,19 +85,13 @@ class Reaction(Object):
                 is_paid=True
             )
 
-        return None
-
     @staticmethod
     def _parse_count(
         client: "pyrogram.Client",
-        reaction_count: Optional["raw.base.ReactionCount"]
-    ) -> Optional["Reaction"]:
-        if not reaction_count:
-            return None
-
+        reaction_count: "raw.base.ReactionCount"
+    ) -> "Reaction":
         reaction = Reaction._parse(client, reaction_count.reaction)
-        if reaction:
-            reaction.count = reaction_count.count if reaction_count else 0
-            reaction.chosen_order = reaction_count.chosen_order
+        reaction.count = reaction_count.count
+        reaction.chosen_order = reaction_count.chosen_order
 
         return reaction
