@@ -18,7 +18,9 @@ ARTICLE_TITLE_EMPTY	The title of the article is empty.
 AUDIO_CONTENT_URL_EMPTY	The remote URL specified in the content field is empty.
 AUDIO_TITLE_EMPTY	An empty audio title was provided.
 AUTH_BYTES_INVALID	The provided authorization is invalid.
+AUTH_KEY_UNSYNCHRONIZED	Internal error, please repeat the method call.
 AUTH_RESTART	Restart the authorization process.
+AUTH_RESTART_X	Internal error (debug info {value}), please repeat the method call.
 AUTH_TOKEN_ALREADY_ACCEPTED	The specified auth token was already accepted.
 AUTH_TOKEN_EXCEPTION	An error occurred while importing the auth token.
 AUTH_TOKEN_EXPIRED	The authorization token has expired.
@@ -485,6 +487,7 @@ TOPIC_NOT_MODIFIED	The updated topic info is equal to the current topic info, no
 TOPIC_TITLE_EMPTY	The specified topic title is empty.
 TO_LANG_INVALID	The specified destination language is invalid.
 TRANSCRIPTION_FAILED	Audio transcription failed.
+TRANSLATE_REQ_FAILED	Translation failed, please try again later.
 TTL_DAYS_INVALID	The provided TTL is invalid.
 TTL_MEDIA_INVALID	Invalid media Time To Live was provided.
 TTL_PERIOD_INVALID	The specified TTL period is invalid.

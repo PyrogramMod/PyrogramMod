@@ -105,6 +105,7 @@ CHAT_SEND_VIDEOS_FORBIDDEN	You can't send videos in this chat.
 CHAT_SEND_VOICES_FORBIDDEN	You can't send voice recordings in this chat.
 CHAT_TITLE_EMPTY	No chat title provided.
 CHAT_TOO_BIG	This method is not available for groups with more than `chat_read_mark_size_threshold` members, [see client configuration &raquo;](https://core.telegram.org/api/config#client-configuration).
+CHAT_TYPE_INVALID	The specified user type is invalid.
 CHAT_WRITE_FORBIDDEN	You can't write in this chat.
 CODE_EMPTY	The provided code is empty.
 CODE_HASH_INVALID	Code hash invalid.
