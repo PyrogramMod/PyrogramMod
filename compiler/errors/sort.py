@@ -42,45 +42,73 @@ if sys.argv[1] == "sort":
                     f.write("\n")
 
 elif sys.argv[1] == "scrape":
-    b = "https://core.telegram.org"
-    c = "/api/errors"
-    a = requests.get(b + c)
-    d = a.text
-    e = r"\<a\ href\=\"(.*)\"\>here.*\<\/a\>"
-    f = re.search(e, d)
-    if f:
-        a = requests.get(
-            b + f.group(1)
-        )
-        d = a.json()
-        e = d.get("errors", [])
-        for h in e:
-            dct = {}
+    base_url = "https://core.telegram.org"
+    errors_api_path = "/api/errors"
+    errors_data = None
+    html_content = None
 
-            j = d.get("errors").get(h)
-            for k in j:
-                if k.endswith("_*"):
-                    continue
-                g = d.get("descriptions")
-                l = g.get(k)
-                m = k.replace("_%d", "_X")
-                l = l.replace("%d", "{value}")
-                l = l.replace("&raquo;", "»")
-                l = l.replace("&laquo;", "«")
-                l = l.replace("](/api/", f"]({b}/api/")
-                dct[m] = l
+    try:
+        response = requests.get(base_url + errors_api_path)
+        response.raise_for_status()
+        html_content = response.text
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching errors page: {e}")
 
-            for p in Path("source/").glob(f"{h}*.tsv"):
-                with open(p) as f:
-                    reader = csv.reader(f, delimiter="\t")
-                    for k, v in reader:
-                        if k != "id":
-                            dct[k] = v
+    match = re.search(r'<a href=\"(.*?)\">here.*?</a>', html_content)
+    if not match:
+        print("Link to errors JSON not found.")
 
-            keys = sorted(dct)
+    errors_json_url = base_url + match.group(1)
+    try:
+        response = requests.get(errors_json_url)
+        response.raise_for_status()
+        errors_data = response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching errors JSON: {e}")
+    except ValueError:
+        print("Error decoding JSON response.")
 
-            for p in Path("source/").glob(f"{h}*.tsv"):
-                with open(p, "w") as f:
-                    f.write("id\tmessage\n")
-                    for i, item in enumerate(keys, start=1):
-                        f.write(f"{item}\t{dct[item]}\n")
+    error_categories = errors_data.get("errors", [])
+    if not error_categories:
+        print("No error categories found in JSON.")
+
+    source_dir = Path("source/")
+    source_dir.mkdir(exist_ok=True)
+
+    for error_type in error_categories:
+        data_dict = {}
+
+        for tsv_path in source_dir.glob(f"{error_type}*.tsv"):
+            with open(tsv_path, 'r') as tsv_file:
+                reader = csv.DictReader(tsv_file, delimiter='\t')
+                for row in reader:
+                    if row['id'] != 'id':
+                        data_dict[row['id']] = row['message']
+
+        error_details = errors_data["errors"].get(error_type, {})
+        descriptions = errors_data["descriptions"]
+
+        for error_code in error_details:
+            if error_code.endswith("_*"):
+                continue
+
+            description = descriptions.get(error_code, "")
+            if description:
+                processed_description = (
+                    description.replace("%d", "{value}")
+                    .replace("\"", "'")
+                    .replace("»", "»")
+                    .replace("«", "«")
+                    .replace(" »", "")
+                    .replace("](/api/", f"]({base_url}/api/")
+                )
+                data_dict[error_code.replace("_%d", "_X")] = processed_description
+
+        sorted_keys = sorted(data_dict.keys())
+
+        for tsv_path in source_dir.glob(f"{error_type}*.tsv"):
+            print(f"Writing to {tsv_path}")
+            with open(tsv_path, 'w', newline='') as tsv_file:
+                writer = csv.writer(tsv_file, delimiter='\t')
+                writer.writerow(["id", "message"])
+                writer.writerows([(key, data_dict[key]) for key in sorted_keys])
