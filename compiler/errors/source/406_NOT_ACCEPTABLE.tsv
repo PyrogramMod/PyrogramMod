@@ -17,7 +17,7 @@ ARTICLE_TITLE_EMPTY	The title of the article is empty.
 AUDIO_CONTENT_URL_EMPTY	The remote URL specified in the content field is empty.
 AUDIO_TITLE_EMPTY	An empty audio title was provided.
 AUTH_BYTES_INVALID	The provided authorization is invalid.
-AUTH_KEY_DUPLICATED	The same authorization key (session file) was used in more than one place simultaneously. You must delete your session file and log in again with your phone number or bot token
+AUTH_KEY_DUPLICATED	Concurrent usage of the current session from multiple connections was detected, the current session was invalidated by the server for security reasons!
 AUTH_RESTART	Restart the authorization process.
 AUTH_TOKEN_ALREADY_ACCEPTED	The specified auth token was already accepted.
 AUTH_TOKEN_EXCEPTION	An error occurred while importing the auth token.
@@ -51,7 +51,7 @@ BROADCAST_FORBIDDEN	Channel poll voters and reactions cannot be fetched to preve
 BROADCAST_ID_INVALID	Broadcast ID invalid.
 BROADCAST_PUBLIC_VOTERS_FORBIDDEN	You can't forward polls with public voters.
 BROADCAST_REQUIRED	This method can only be called on a channel, please use stats.getMegagroupStats for supergroups.
-BUSINESS_ADDRESS_ACTIVE	The user is currently advertising a [Business Location](https://core.telegram.org/api/business#location), the location may only be changed (or removed) using [account.updateBusinessLocation »](https://core.telegram.org/method/account.updateBusinessLocation).  .
+BUSINESS_ADDRESS_ACTIVE	The user is currently advertising a [Business Location](https://core.telegram.org/api/business#location), the location may only be changed (or removed) using [account.updateBusinessLocation &raquo;](https://core.telegram.org/method/account.updateBusinessLocation).  .
 BUTTON_DATA_INVALID	The data of one or more of the buttons you provided is invalid.
 BUTTON_TEXT_INVALID	The specified button text is invalid.
 BUTTON_TYPE_INVALID	The type of one or more of the buttons you provided is invalid.
@@ -469,7 +469,7 @@ TTL_MEDIA_INVALID	Invalid media Time To Live was provided.
 TTL_PERIOD_INVALID	The specified TTL period is invalid.
 TYPES_EMPTY	No top peer type was provided.
 UNTIL_DATE_INVALID	Invalid until date provided.
-UPDATE_APP_TO_LOGIN	Please update to the latest version of MadelineProto to login.
+UPDATE_APP_TO_LOGIN	Please update your client to login.
 URL_INVALID	Invalid URL provided.
 USAGE_LIMIT_INVALID	The specified usage limit is invalid.
 USERNAMES_ACTIVE_TOO_MUCH	The maximum number of active usernames was reached.

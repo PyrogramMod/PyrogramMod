@@ -78,9 +78,9 @@ CHAT_ACTION_FORBIDDEN	You cannot execute this action.
 CHAT_ADMIN_INVITE_REQUIRED	You do not have the rights to do this.
 CHAT_ADMIN_REQUIRED	You must be an admin in this chat to do this.
 CHAT_DISCUSSION_UNALLOWED	You can't enable forum topics in a discussion group linked to a channel.
-CHAT_FORBIDDEN	You cannot write in this chat
+CHAT_FORBIDDEN	This chat is not available to the current user.
 CHAT_FORWARDS_RESTRICTED	You can't forward messages from a protected chat.
-CHAT_GUEST_SEND_FORBIDDEN	You join the discussion group before commenting, see [here &raquo;](/api/discussion#requiring-users-to-join-the-group) for more info.
+CHAT_GUEST_SEND_FORBIDDEN	You join the discussion group before commenting, see [here &raquo;](https://core.telegram.org/api/discussion#requiring-users-to-join-the-group) for more info.
 CHAT_ID_EMPTY	The provided chat ID is empty.
 CHAT_ID_INVALID	The provided chat id is invalid.
 CHAT_INVALID	Invalid chat.
@@ -99,12 +99,13 @@ CHAT_SEND_MEDIA_FORBIDDEN	You can't send media in this chat.
 CHAT_SEND_PHOTOS_FORBIDDEN	You can't send photos in this chat.
 CHAT_SEND_PLAIN_FORBIDDEN	You can't send non-media (text) messages in this chat.
 CHAT_SEND_POLL_FORBIDDEN	You can't send polls in this chat.
-CHAT_SEND_ROUNDVIDEOS_FORBIDDEN	You cannot send video notes in this chat
+CHAT_SEND_ROUNDVIDEOS_FORBIDDEN	You can't send round videos to this chat.
 CHAT_SEND_STICKERS_FORBIDDEN	You can't send stickers in this chat.
 CHAT_SEND_VIDEOS_FORBIDDEN	You can't send videos in this chat.
 CHAT_SEND_VOICES_FORBIDDEN	You can't send voice recordings in this chat.
 CHAT_TITLE_EMPTY	No chat title provided.
 CHAT_TOO_BIG	This method is not available for groups with more than `chat_read_mark_size_threshold` members, [see client configuration &raquo;](https://core.telegram.org/api/config#client-configuration).
+CHAT_TYPE_INVALID	The specified user type is invalid.
 CHAT_WRITE_FORBIDDEN	You can't write in this chat.
 CODE_EMPTY	The provided code is empty.
 CODE_HASH_INVALID	Code hash invalid.
@@ -266,7 +267,7 @@ NEW_SALT_INVALID	The new salt is invalid.
 NEW_SETTINGS_EMPTY	No password is set on the current account, and no new password was specified in `new_settings`.
 NEW_SETTINGS_INVALID	The new password settings are invalid.
 NEXT_OFFSET_INVALID	The specified offset is longer than 64 bytes.
-NOT_ELIGIBLE	You are not eligible to take part in Telegram's Premium for SMS initiative
+NOT_ELIGIBLE	The current user is not eligible to join the Peer-to-Peer Login Program.
 OFFSET_INVALID	The provided offset is invalid.
 OFFSET_PEER_ID_INVALID	The provided offset peer is invalid.
 OPTIONS_TOO_MUCH	Too many options provided.
@@ -423,7 +424,7 @@ STORY_SEND_FLOOD_WEEKLY_X	You've hit the weekly story limit as specified by the 
 SWITCH_PM_TEXT_EMPTY	The switch_pm.text field was empty.
 TAKEOUT_INIT_DELAY_X	Sorry, for security reasons, you will be able to begin downloading your data in {value} seconds. We have notified all your devices about the export request to make sure it's authorized and to give you time to react if it's not.
 TAKEOUT_INVALID	The specified takeout ID is invalid.
-TAKEOUT_REQUIRED	A [takeout](https://core.telegram.org/api/takeout) session needs to be initialized first, [see here &raquo; for more info](/api/takeout).
+TAKEOUT_REQUIRED	A [takeout](https://core.telegram.org/api/takeout) session needs to be initialized first, [see here &raquo; for more info](https://core.telegram.org/api/takeout).
 TASK_ALREADY_EXISTS	An email reset was already requested.
 TEMP_AUTH_KEY_ALREADY_BOUND	The passed temporary key is already bound to another **perm_auth_key_id**.
 TEMP_AUTH_KEY_EMPTY	No temporary auth key provided.
