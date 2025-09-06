@@ -3566,6 +3566,9 @@ class Message(Object, Update):
             file_name: str = "",
             in_memory: bool = False,
             block: bool = True,
+            workers: int = 4,
+            chunk_size: int = 1024 * 1024,
+            use_experimental_download_boost: bool = False,
             progress: Callable = None,
             progress_args: tuple = ()
     ) -> str:
@@ -3632,6 +3635,9 @@ class Message(Object, Update):
             file_name=file_name,
             in_memory=in_memory,
             block=block,
+            workers=workers,
+            chunk_size=chunk_size,
+            use_experimental_download_boost=use_experimental_download_boost,
             progress=progress,
             progress_args=progress_args,
         )
