@@ -488,6 +488,7 @@ TOPIC_TITLE_EMPTY	The specified topic title is empty.
 TO_LANG_INVALID	The specified destination language is invalid.
 TRANSCRIPTION_FAILED	Audio transcription failed.
 TRANSLATE_REQ_FAILED	Translation failed, please try again later.
+TRANSLATION_TIMEOUT	A timeout occurred while translating the specified text.
 TTL_DAYS_INVALID	The provided TTL is invalid.
 TTL_MEDIA_INVALID	Invalid media Time To Live was provided.
 TTL_PERIOD_INVALID	The specified TTL period is invalid.

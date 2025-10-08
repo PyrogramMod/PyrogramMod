@@ -10,7 +10,9 @@ ADMIN_RANK_EMOJI_NOT_ALLOWED	An admin rank cannot contain emojis.
 ADMIN_RANK_INVALID	The specified admin rank is invalid.
 ADMIN_RIGHTS_EMPTY	The chatAdminRights constructor passed in keyboardButtonRequestPeer.peer_type.user_admin_rights has no rights set (i.e. flags is 0).
 ALBUM_PHOTOS_TOO_MANY	You have uploaded too many profile photos, delete some before retrying.
+ALLOW_PAYMENT_REQUIRED	This peer only accepts [paid messages &raquo;](https://core.telegram.org/api/paid-messages): this error is only emitted for older layers without paid messages support, so the client must be updated in order to use paid messages.  .
 ANONYMOUS_REACTIONS_DISABLED	Sorry, anonymous administrators cannot leave reactions or participate in polls.
+API_GIFT_RESTRICTED_UPDATE_APP	Please update the app to access the gift API.
 API_ID_INVALID	API ID invalid.
 API_ID_PUBLISHED_FLOOD	This API id was published somewhere, you can't use it now.
 ARTICLE_TITLE_EMPTY	The title of the article is empty.
@@ -156,7 +158,7 @@ ERROR_TEXT_EMPTY	The provided error message is empty.
 EXPIRE_DATE_INVALID	The specified expiration date is invalid.
 EXPORT_CARD_INVALID	Provided card is invalid.
 EXTERNAL_URL_INVALID	External URL invalid.
-FILEREF_UPGRADE_NEEDED	The client has to be updated in order to support [file references](https://core.telegram.org/api/file_reference).
+FILEREF_UPGRADE_NEEDED	The client has to be updated in order to support [file references](https://core.telegram.org/api/file-references).
 FILE_CONTENT_TYPE_INVALID	File content-type is invalid.
 FILE_EMTPY	An empty file was provided.
 FILE_ID_INVALID	The provided file id is invalid.
@@ -334,6 +336,7 @@ POLL_OPTION_DUPLICATE	Duplicate poll options provided.
 POLL_OPTION_INVALID	Invalid poll option provided.
 POLL_QUESTION_INVALID	One of the poll questions is not acceptable.
 POLL_VOTE_REQUIRED	Cast a vote in the poll before calling this method.
+PRECHECKOUT_FAILED	Precheckout failed, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here &raquo;](https://core.telegram.org/api/errors#406-not-acceptable).
 PREMIUM_ACCOUNT_REQUIRED	A premium account is required to execute this action.
 PREMIUM_CURRENTLY_UNAVAILABLE	You cannot currently purchase a Premium subscription.
 PREMIUM_GIFTCODE_WAS_REFUNDED	This gift code can't be redeemed because the giveaway organizer requested a refund
@@ -405,6 +408,8 @@ SLUG_INVALID	The specified invoice slug is invalid.
 SMS_CODE_CREATE_FAILED	An error occurred while creating the SMS code.
 SRP_ID_INVALID	Invalid SRP ID provided.
 SRP_PASSWORD_CHANGED	Password has changed.
+STARGIFT_EXPORT_IN_PROGRESS	A gift export is in progress, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here &raquo;](https://core.telegram.org/api/errors#406-not-acceptable).
+STARS_FORM_AMOUNT_MISMATCH	The form amount has changed, please fetch the new form using [payments.getPaymentForm](https://core.telegram.org/method/payments.getPaymentForm) and restart the process.
 START_PARAM_EMPTY	The start parameter is empty.
 START_PARAM_INVALID	Start parameter invalid.
 START_PARAM_TOO_LONG	Start parameter is too long.
@@ -464,6 +469,7 @@ TOPIC_NOT_MODIFIED	The updated topic info is equal to the current topic info, no
 TOPIC_TITLE_EMPTY	The specified topic title is empty.
 TO_LANG_INVALID	The specified destination language is invalid.
 TRANSCRIPTION_FAILED	Audio transcription failed.
+TRANSLATIONS_DISABLED	Translations are unavailable, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here &raquo;](https://core.telegram.org/api/errors#406-not-acceptable).
 TTL_DAYS_INVALID	The provided TTL is invalid.
 TTL_MEDIA_INVALID	Invalid media Time To Live was provided.
 TTL_PERIOD_INVALID	The specified TTL period is invalid.
