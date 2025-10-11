@@ -1,10 +1,14 @@
 name: Pyrogram - Mod
 
-on: [push, pull_request]
+permissions:
+  contents: read
+
+on:
+  push:
+  pull_request:
 
 jobs:
   build:
-
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -12,23 +16,26 @@ jobs:
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+          cache: "pip"
 
-      - name: Install dependencies
+      - name: Upgrade pip and install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install tox
+          pip install --upgrade tox wheel setuptools
 
       - name: Generate API
         run: |
           make venv
           make api
 
-      - name: Run tests
-        run: |
-          tox
+      - name: Run tests with tox
+        env:
+          PYTHONWARNINGS: "ignore"
+        run: tox

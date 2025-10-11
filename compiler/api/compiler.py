@@ -20,6 +20,8 @@ import json
 import os
 import re
 import shutil
+import urllib.request
+import urllib.error
 from functools import partial
 from pathlib import Path
 from typing import NamedTuple, List, Tuple
@@ -64,11 +66,15 @@ try:
     with open("docs.json") as f:
         docs = json.load(f)
 except FileNotFoundError:
-    docs = {
-        "type": {},
-        "constructor": {},
-        "method": {}
-    }
+    try:
+        with urllib.request.urlopen("https://github.com/PyrogramMod/PyrogramMod/raw/refs/heads/main/compiler/api/docs.json") as r:
+            docs = json.load(r)
+    except (urllib.error.URLError, json.JSONDecodeError):
+        docs = {
+            "type": {},
+            "constructor": {},
+            "method": {}
+        }
 
 
 class Combinator(NamedTuple):

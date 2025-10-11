@@ -1,0 +1,90 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling>=1.27.0"]
+
+[project]
+name = "pyrogrammod"
+description = "Modified version of the Pyrogram Telegram MTProto API framework in Python for users and bots."
+readme = "README.md"
+authors = [
+    { name = "Dan (original author)" },
+    { name = "PyrogramMod (Fork Maintainer)" }
+]
+dynamic = ["version"]
+keywords = ["telegram", "chat", "messenger", "mtproto", "api", "client", "library", "python"]
+
+dependencies = [
+    "aiofiles>=24.1.0",
+    "pyaes==1.6.1",
+    "pysocks==1.7.1",
+    "tgcrypto>=1.2.5"
+]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Communications",
+    "Topic :: Communications :: Chat",
+    "Topic :: Internet",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+[project.optional-dependencies]
+docs = [
+    "furo>=2024.8.6",
+    "pygments>=2.19.1",
+    "sphinx<8.0.0",
+    "sphinx-autobuild>=2024.10.3",
+    "sphinx-copybutton>=0.5.2"
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=1.2.0",
+    "pytest-cov>=7.0.0"
+]
+py_tgcalls = [
+    "py-tgcalls>=2.2.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/PyrogramMod/PyrogramMod"
+Tracker = "https://github.com/PyrogramMod/PyrogramMod/issues"
+Community = "https://t.me/pyrogramodchat"
+Source = "https://github.com/PyrogramMod/PyrogramMod"
+Documentation = "https://pyrogrammod.readthedocs.io"
+
+[tool.hatch.version]
+path = "pyrogram/__init__.py"
+
+[tool.hatch.build.hooks.custom]
+module = "scripts.hatch_gen_api"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    ".gitignore",
+    "docs/",
+    "tests/"
+]
+
+[tool.hatch.build.targets.wheel]
+ignore-vcs = true
+packages = ["pyrogram"]

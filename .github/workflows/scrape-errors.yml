@@ -9,6 +9,8 @@ jobs:
   scrape_and_commit:
     name: Scrape and Update Error Lists
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
