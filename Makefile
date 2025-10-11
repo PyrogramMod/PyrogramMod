@@ -1,11 +1,17 @@
 VENV := venv
 PYTHON := $(VENV)/bin/python
-HOST = $(shell ifconfig | grep "inet " | tail -1 | cut -d\  -f2)
-TAG = v$(shell grep -E '__version__ = ".*"' pyrogram/__init__.py | cut -d\" -f2)
+ifeq ($(OS),Windows_NT)
+    PYTHON := $(VENV)/Scripts/python.exe
+endif
+
+HOST := $(shell ifconfig | grep "inet " | tail -1 | cut -d\  -f2 2>/dev/null || echo "127.0.0.1")
+TAG := v$(shell grep -E '__version__ = ".*"' pyrogram/__init__.py | cut -d\" -f2)
 
 RM := rm -rf
 
-.PHONY: venv clean-build clean-api clean api build docs clean-docs
+NUM_CORES := $(shell $(PYTHON) -c "import os; print(os.cpu_count())")
+
+.PHONY: venv clean-build clean-api clean api build docs clean-docs tag dtag
 
 venv:
 	$(RM) $(VENV)
@@ -20,9 +26,7 @@ clean-build:
 clean-api:
 	$(RM) pyrogram/errors/exceptions pyrogram/raw/all.py pyrogram/raw/base pyrogram/raw/functions pyrogram/raw/types
 
-clean:
-	make clean-build
-	make clean-api
+clean: clean-build clean-api
 
 clean-docs:
 	$(RM) docs/build
@@ -35,8 +39,8 @@ api:
 docs:
 	make clean-docs
 	cd compiler/docs && ../../$(PYTHON) compiler.py
-	$(VENV)/bin/sphinx-build \
-		-b html "docs/source" "docs/build/html" -j6
+	$(PYTHON) -m sphinx \
+		-b html "docs/source" "docs/build/html" -j$(NUM_CORES)
 
 build:
 	make clean

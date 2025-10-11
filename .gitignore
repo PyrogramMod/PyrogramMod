@@ -129,3 +129,4 @@ venv.bak/
 .mypy_cache/
 docs_build.sh
 .buildinfo
+json_docs.py
