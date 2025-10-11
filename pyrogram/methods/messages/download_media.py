@@ -35,6 +35,9 @@ class DownloadMedia:
         file_name: str = DEFAULT_DOWNLOAD_DIR,
         in_memory: bool = False,
         block: bool = True,
+        workers: int = 4,
+        chunk_size: int = 1024 * 1024,
+        use_experimental_download_boost: bool = False,
         progress: Callable = None,
         progress_args: tuple = ()
     ) -> Optional[Union[str, BinaryIO]]:
@@ -178,7 +181,7 @@ class DownloadMedia:
             )
 
         downloader = self.handle_download(
-            (file_id_obj, directory, file_name, in_memory, file_size, progress, progress_args)
+            (file_id_obj, directory, file_name, in_memory, file_size, progress, progress_args, workers, chunk_size, use_experimental_download_boost)
         )
 
         if block:
