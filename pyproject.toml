@@ -60,7 +60,6 @@ dev = [
 ]
 py-tgcalls = [
     "py-tgcalls>=2.2.5",
-    "ntgcalls>=2.0.6"
 ]
 
 [project.urls]
