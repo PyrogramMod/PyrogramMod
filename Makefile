@@ -26,7 +26,14 @@ clean-build:
 clean-api:
 	$(RM) pyrogram/errors/exceptions pyrogram/raw/all.py pyrogram/raw/base pyrogram/raw/functions pyrogram/raw/types
 
-clean: clean-build clean-api
+clean-pyc:
+	find . -name "*.pyc" -exec $(RM) {} + || true
+	find . -name "__pycache__" -exec $(RM) {} + || true
+
+clean-ds_store:
+	find . -name ".DS_Store" -exec $(RM) {} \;
+
+clean: clean-build clean-api clean-pyc clean-ds_store clean-docs
 
 clean-docs:
 	$(RM) docs/build
@@ -39,8 +46,7 @@ api:
 docs:
 	make clean-docs
 	cd compiler/docs && ../../$(PYTHON) compiler.py
-	$(PYTHON) -m sphinx \
-		-b html "docs/source" "docs/build/html" -j$(NUM_CORES)
+	$(PYTHON) -m sphinx -b html "docs/source" "docs/build/html" -j$(NUM_CORES)
 
 build:
 	make clean
