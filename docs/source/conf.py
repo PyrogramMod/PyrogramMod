@@ -24,14 +24,13 @@ from pyrogram import __version__
 sys.path.insert(0, os.path.abspath("../.."))
 
 project = "Pyrogram-Mod"
-copyright = f"2017-present, Dan"
-author = "Dan"
+copyright = f"2017-present, Dan (Original Author), Fork Maintainer: Pyrogram-Mod Developers"
+author = "Dan (Original Author), Fork Maintainer: Pyrogram-Mod Developers"
 
 version = ".".join(__version__.split(".")[:-1])
 
 extensions = [
     "sphinx.ext.autodoc",
-    "sphinx.ext.viewcode",
     "sphinx.ext.autosummary",
     "sphinx.ext.napoleon",
     "sphinx.ext.intersphinx",
@@ -47,21 +46,8 @@ source_suffix = ".rst"
 autodoc_member_order = "bysource"
 
 templates_path = ["../resources/templates"]
+
 html_copy_source = False
-
-napoleon_use_rtype = False
-napoleon_use_param = False
-
-# The name of the Pygments (syntax highlighting) style to use.
-pygments_style = "sphinx"
-
-# Decides the language used for syntax highlighting of code blocks.
-highlight_language = "python3"
-
-copybutton_prompt_text = "$ "
-
-suppress_warnings = ["image.not_readable"]
-
 html_title = "Pyrogram-Mod Documentation"
 html_theme = "furo"
 html_static_path = [os.path.abspath("static")]
@@ -77,7 +63,6 @@ html_theme_options = {
     "navigation_with_keys": True,
     "footer_icons": [
         {
-            # Telegram channel logo
             "name": "Telegram Channel",
             "url": "https://t.me/PyrogramModNews/",
             "html": (
@@ -114,6 +99,7 @@ html_theme_options = {
         },
     ]
 }
+
 latex_engine = "xelatex"
 latex_logo = os.path.abspath("static/img/pyrogram.png")
 print("latex_logo", latex_logo)
@@ -126,3 +112,13 @@ latex_elements = {
         \setmonofont{Ubuntu Mono}
         """
 }
+
+napoleon_use_rtype = False
+napoleon_use_param = False
+
+pygments_style = "sphinx"
+highlight_language = "python3"
+
+copybutton_prompt_text = "$ "
+
+suppress_warnings = ["image.not_readable"]
