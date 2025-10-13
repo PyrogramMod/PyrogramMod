@@ -60,3 +60,22 @@ tag:
 dtag:
 	git tag -d $(TAG)
 	git push origin -d $(TAG)
+
+tagall:
+	echo "Creating automatic tags for all version bumps..."
+	for hash in $$(git log --grep="Bump version\|Version bump\|v[0-9]\+\.[0-9]\+\.[0-9]\+" --format="%H"); do \
+	    msg=$$(git log -1 --format="%s" $$hash); \
+	    versions=$$(echo "$$msg" | grep -o "v[0-9]\+\.[0-9]\+\.[0-9]\+"); \
+	    for version in $$versions; do \
+	        if [ -n "$$version" ]; then \
+	            if git show-ref --tags --quiet --verify "refs/tags/$$version"; then \
+	                echo "Tag $$version already exists, skipping."; \
+	            else \
+	                echo "Creating tag $$version for commit $$hash"; \
+	                git tag -a "$$version" "$$hash" -m "Automatic tag $$version"; \
+	            fi; \
+	        fi; \
+	    done; \
+	done
+	echo "Pushing all tags to the remote..."
+	git push origin --tags
