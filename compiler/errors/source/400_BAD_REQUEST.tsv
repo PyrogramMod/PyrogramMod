@@ -238,6 +238,7 @@ GROUPCALL_FORBIDDEN	The group call has already ended.
 GROUPCALL_INVALID	The specified group call is invalid.
 GROUPCALL_JOIN_MISSING	You haven't joined this group call.
 GROUPCALL_NOT_MODIFIED	Group call settings weren't modified.
+GROUPCALL_MESSAGE_FORBIDDEN	You are not allowed to send group call messages.
 GROUPCALL_SSRC_DUPLICATE_MUCH	The app needs to retry joining the group call with a new SSRC value.
 GROUPED_MEDIA_INVALID	Invalid grouped media.
 GROUP_CALL_INVALID	The group call is invalid
@@ -408,6 +409,7 @@ PRICING_CHAT_INVALID	The pricing for the [subscription](https://core.telegram.or
 PRIVACY_KEY_INVALID	The privacy key is invalid.
 PRIVACY_TOO_LONG	Too many privacy rules were specified, the current limit is 1000.
 PRIVACY_VALUE_INVALID	The specified privacy rule combination is invalid.
+PUBLIC_KEY_INVALID	The specified public key is invalid.
 PUBLIC_KEY_REQUIRED	A public key is required.
 PURPOSE_INVALID	The specified payment purpose is invalid.
 QUERY_ID_EMPTY	The query ID is empty.
@@ -421,6 +423,7 @@ QUIZ_CORRECT_ANSWERS_TOO_MUCH	You specified too many correct answers in a quiz, 
 QUIZ_CORRECT_ANSWER_INVALID	An invalid value was provided to the correct_answers field.
 QUIZ_MULTIPLE_INVALID	Quizzes can't have the multiple_choice flag set!
 QUOTE_TEXT_INVALID	The specified `reply_to`.`quote_text` field is invalid.
+TEXTDRAFT_PEER_INVALID	The draft peer specified for the request is invalid.
 RAISE_HAND_FORBIDDEN	You cannot raise your hand.
 RANDOM_ID_EMPTY	Random ID empty.
 RANDOM_ID_EXPIRED	The specified `random_id` was expired (most likely it didn't follow the required `uint64_t random_id = (time() << 32) | ((uint64_t)random_uint32_t())` format, or the specified time is too far in the past).

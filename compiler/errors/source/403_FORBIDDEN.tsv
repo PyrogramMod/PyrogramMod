@@ -3,6 +3,7 @@ id	message
 ABOUT_TOO_LONG	About string too long.
 ACCESS_TOKEN_EXPIRED	Access token expired.
 ACCESS_TOKEN_INVALID	Access token invalid.
+ACCESS_DENIED	Access denied.
 ADDRESS_INVALID	The specified geopoint address is invalid.
 ADMINS_TOO_MUCH	There are too many admins.
 ADMIN_ID_INVALID	The specified admin ID is invalid.
@@ -38,6 +39,7 @@ BOT_CHANNELS_NA	Bots can't edit admin privileges.
 BOT_COMMAND_DESCRIPTION_INVALID	The specified command description is invalid.
 BOT_COMMAND_INVALID	The specified command is invalid.
 BOT_DOMAIN_INVALID	Bot domain invalid.
+BOT_FORUM_CREATE_FORBIDDEN	Bots are not allowed to create forum topics in this chat.
 BOT_GROUPS_BLOCKED	This bot can't be added to groups.
 BOT_INLINE_DISABLED	This bot can't be used in inline mode.
 BOT_INVALID	This is not a valid bot.
