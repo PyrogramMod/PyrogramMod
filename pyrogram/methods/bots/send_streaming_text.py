@@ -33,7 +33,7 @@ class SendStreamingText:
     async def send_streaming_text(
             self: "pyrogram.Client",
             chat_id: Union[int, str],
-            streaming_text: Sequence[str],
+            streaming_text: Union[str, Sequence[str]],
             delay: float = 2.0,
             parse_mode: Optional["enums.ParseMode"] = None,
             entities: Optional[List["types.MessageEntity"]] = None,
@@ -56,8 +56,9 @@ class SendStreamingText:
             chat_id (``int`` | ``str``):
                 Unique identifier (int) or username (str) of the target chat.
 
-            streaming_text (Sequence of ``str``):
-                Text chunks to send as streaming “thinking” updates.
+            streaming_text (``str`` | Sequence of ``str``):
+                Text or text chunks to send as streaming “thinking” updates.
+                When a single string is passed, it is sent as one update.
 
             delay (``float``, *optional*):
                 Delay (in seconds) between successive streaming updates. Defaults to 2.0.
@@ -92,9 +93,19 @@ class SendStreamingText:
                     message_thread_id=message.message_thread_id,
                     delay=2.0
                 )
+
+                # Single chunk variant
+                await app.send_streaming_text(
+                    message.chat.id,
+                    streaming_text="Hello! Let me think…",
+                    message_thread_id=message.message_thread_id
+                )
         """
 
-        chunks = list(streaming_text)
+        if isinstance(streaming_text, str):
+            chunks = [streaming_text]
+        else:
+            chunks = list(streaming_text)
 
         if not chunks:
             return False

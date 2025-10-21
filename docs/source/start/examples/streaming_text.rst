@@ -2,7 +2,7 @@ Streaming replies
 =================
 Telegram bots can now keep independent threaded conversations so AI assistants handle multiple topics in parallel. While an answer is being generated you can stream intermediate text, letting Telegram display the native “Thinking…” chip exactly like the official AI bot experience.
 
-See the official announcement_ for a quick overview.
+See the official announcement_ for a quick overview. You can pass either a single string or a list of strings to ``send_streaming_text``—each string becomes one chunk in the typing stream.
 
 .. _announcement: https://telegram.org/blog/comments-in-video-chats-threads-for-bots/it?setln=en#threads-and-streaming-responses-for-ai-bots
 
@@ -27,5 +27,7 @@ See the official announcement_ for a quick overview.
             streaming_text=streaming_chunks,
             message_thread_id=message.message_thread_id
         )
+        # Or, for a single status update:
+        # await client.send_streaming_text(chat_id=message.chat.id, streaming_text="Hello! Let me think…")
 
     app.run()
