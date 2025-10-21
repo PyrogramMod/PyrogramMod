@@ -106,6 +106,9 @@ class Message(Object, Update):
             For replies, the original message. Note that the Message object in this field will not contain
             further reply_to_message fields even if it itself is a reply.
 
+        message_thread_id (``int``, *optional*):
+            Identifier of the forum topic this message belongs to, if any.
+
         mentioned (``bool``, *optional*):
             The message contains a mention.
 
@@ -334,6 +337,7 @@ class Message(Object, Update):
             reply_to_message_id: int = None,
             reply_to_top_message_id: int = None,
             reply_to_message: "Message" = None,
+            message_thread_id: int = None,
             mentioned: bool = None,
             empty: bool = None,
             service: "enums.MessageServiceType" = None,
@@ -415,6 +419,14 @@ class Message(Object, Update):
         self.reply_to_message_id = reply_to_message_id
         self.reply_to_top_message_id = reply_to_top_message_id
         self.reply_to_message = reply_to_message
+        if message_thread_id is not None:
+            self.message_thread_id = message_thread_id
+        else:
+            self.message_thread_id = None
+            if reply_to_top_message_id is not None:
+                self.message_thread_id = reply_to_top_message_id
+            elif chat and getattr(chat, "is_forum", False):
+                self.message_thread_id = id
         self.mentioned = mentioned
         self.empty = empty
         self.service = service
@@ -875,6 +887,8 @@ class Message(Object, Update):
                 if isinstance(message.reply_to, raw.types.MessageReplyHeader):
                     parsed_message.reply_to_message_id = message.reply_to.reply_to_msg_id
                     parsed_message.reply_to_top_message_id = message.reply_to.reply_to_top_id
+                    if message.reply_to.reply_to_top_id:
+                        parsed_message.message_thread_id = message.reply_to.reply_to_top_id
                 if isinstance(message.reply_to, raw.types.MessageReplyStoryHeader):
                     parsed_message.reply_to_message_id = message.reply_to.story_id
 
@@ -893,6 +907,11 @@ class Message(Object, Update):
                         parsed_message.reply_to_message = reply_to_message
                     except MessageIdsEmpty:
                         pass
+
+            if getattr(parsed_message.chat, "is_forum", False) and parsed_message.message_thread_id is None:
+                parsed_message.message_thread_id = (
+                    parsed_message.reply_to_top_message_id or parsed_message.id
+                )
 
             if not parsed_message.poll:  # Do not cache poll messages
                 client.message_cache[(parsed_message.chat.id, parsed_message.id)] = parsed_message
@@ -1031,6 +1050,7 @@ class Message(Object, Update):
             disable_web_page_preview=disable_web_page_preview,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             schedule_date=schedule_date,
             protect_content=protect_content,
@@ -1183,6 +1203,7 @@ class Message(Object, Update):
             thumb=thumb,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             reply_markup=reply_markup,
             progress=progress,
@@ -1328,6 +1349,7 @@ class Message(Object, Update):
             thumb=thumb,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             reply_markup=reply_markup,
             progress=progress,
@@ -1422,6 +1444,7 @@ class Message(Object, Update):
             caption_entities=caption_entities,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             reply_markup=reply_markup
         )
@@ -1550,6 +1573,7 @@ class Message(Object, Update):
             vcard=vcard,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             reply_markup=reply_markup
         )
@@ -1695,6 +1719,7 @@ class Message(Object, Update):
             force_document=force_document,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             schedule_date=schedule_date,
             reply_markup=reply_markup,
@@ -1768,6 +1793,7 @@ class Message(Object, Update):
             game_short_name=game_short_name,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             reply_markup=reply_markup
         )
 
@@ -1838,6 +1864,7 @@ class Message(Object, Update):
             result_id=result_id,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply
         )
 
@@ -1918,6 +1945,7 @@ class Message(Object, Update):
             longitude=longitude,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             reply_markup=reply_markup
         )
@@ -1986,6 +2014,7 @@ class Message(Object, Update):
             media=media,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply
         )
 
@@ -2117,6 +2146,7 @@ class Message(Object, Update):
             ttl_seconds=ttl_seconds,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             reply_markup=reply_markup,
             progress=progress,
@@ -2269,6 +2299,7 @@ class Message(Object, Update):
             disable_notification=disable_notification,
             protect_content=protect_content,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             schedule_date=schedule_date,
             reply_markup=reply_markup
@@ -2374,6 +2405,7 @@ class Message(Object, Update):
             sticker=sticker,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             reply_markup=reply_markup,
             progress=progress,
@@ -2480,6 +2512,7 @@ class Message(Object, Update):
             foursquare_type=foursquare_type,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             reply_markup=reply_markup
         )
@@ -2640,6 +2673,7 @@ class Message(Object, Update):
             supports_streaming=supports_streaming,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             reply_markup=reply_markup,
             progress=progress,
@@ -2764,6 +2798,7 @@ class Message(Object, Update):
             thumb=thumb,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             reply_markup=reply_markup,
             progress=progress,
@@ -2891,6 +2926,7 @@ class Message(Object, Update):
             duration=duration,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
             partial_reply=partial_reply,
             reply_markup=reply_markup,
             progress=progress,
@@ -3237,6 +3273,7 @@ class Message(Object, Update):
                 disable_web_page_preview=not self.web_page,
                 disable_notification=disable_notification,
                 reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
                 schedule_date=schedule_date,
                 protect_content=protect_content,
                 reply_markup=self.reply_markup if reply_markup is object else reply_markup
@@ -3247,6 +3284,7 @@ class Message(Object, Update):
                 chat_id=chat_id,
                 disable_notification=disable_notification,
                 reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
                 schedule_date=schedule_date,
                 protect_content=protect_content,
                 has_spoiler=has_spoiler,

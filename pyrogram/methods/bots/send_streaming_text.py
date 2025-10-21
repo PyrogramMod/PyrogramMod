@@ -39,7 +39,6 @@ class SendStreamingText:
             disable_web_page_preview: Optional[bool] = None,
             disable_notification: Optional[bool] = None,
             reply_to_message_id: Optional[int] = None,
-            reply_to_message: Optional["types.Message"] = None,
             message_thread_id: Optional[int] = None,
             schedule_date: Optional[datetime] = None,
             protect_content: Optional[bool] = None,
@@ -89,12 +88,8 @@ class SendStreamingText:
             reply_to_message_id (``int``, *optional*):
                 ID of the original message to reply to.
 
-            reply_to_message (:obj:`~pyrogram.types.Message`, *optional*):
-                Message object to reply to. If provided, *reply_to_message_id* and *message_thread_id*
-                are inferred automatically when possible.
-
             message_thread_id (``int``, *optional*):
-                Forum topic ID. Required for threaded replies when *reply_to_message* is not supplied.
+                Forum topic ID. Required for threaded replies in forum chats.
 
             schedule_date (:py:obj:`~datetime.datetime`, *optional*):
                 Date when the *final_text* will be automatically sent.
@@ -125,16 +120,6 @@ class SendStreamingText:
                     final_text="✅ Done!"
                 )
         """
-
-        if reply_to_message:
-            if reply_to_message_id is None:
-                reply_to_message_id = reply_to_message.id
-
-            if message_thread_id is None:
-                if reply_to_message.reply_to_top_message_id:
-                    message_thread_id = reply_to_message.reply_to_top_message_id
-                elif reply_to_message.chat and getattr(reply_to_message.chat, "is_forum", False):
-                    message_thread_id = reply_to_message.id
 
         peer = await self.resolve_peer(chat_id)
         reply_to = utils.get_reply_head_fm(message_thread_id, reply_to_message_id)
@@ -214,6 +199,9 @@ class SendStreamingText:
                 date=utils.timestamp_to_datetime(r.date),
                 outgoing=r.out,
                 reply_markup=reply_markup,
+                reply_to_message_id=reply_to_message_id,
+                reply_to_top_message_id=message_thread_id,
+                message_thread_id=message_thread_id,
                 entities=[
                     types.MessageEntity._parse(None, entity, {})
                     for entity in entities

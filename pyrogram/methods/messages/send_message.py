@@ -169,6 +169,9 @@ class SendMessage:
                 date=utils.timestamp_to_datetime(r.date),
                 outgoing=r.out,
                 reply_markup=reply_markup,
+                reply_to_message_id=reply_to_message_id,
+                reply_to_top_message_id=message_thread_id,
+                message_thread_id=message_thread_id,
                 entities=[
                     types.MessageEntity._parse(None, entity, {})
                     for entity in entities
