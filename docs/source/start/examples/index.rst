@@ -26,6 +26,7 @@ to give you a basic idea.
     :doc:`inline_queries`, "Handle inline queries (as bot) and answer with results"
     :doc:`use_inline_bots`, "Query an inline bot (as user) and send a result to a chat"
     :doc:`bot_keyboards`, "Send normal and inline keyboards using regular bots"
+    :doc:`streaming_text`, "Stream typing updates for conversational bots"
     :doc:`raw_updates`, "Handle raw updates (old, should be avoided)"
 
 For more advanced examples, see https://github.com/ColinShark/Pyrogram-Snippets.
@@ -43,4 +44,5 @@ For more advanced examples, see https://github.com/ColinShark/Pyrogram-Snippets.
     inline_queries
     use_inline_bots
     bot_keyboards
+    streaming_text
     raw_updates
