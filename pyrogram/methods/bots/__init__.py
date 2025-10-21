@@ -28,6 +28,7 @@ from .get_inline_bot_results import GetInlineBotResults
 from .request_callback_answer import RequestCallbackAnswer
 from .send_game import SendGame
 from .send_inline_bot_result import SendInlineBotResult
+from .send_streaming_text import SendStreamingText
 from .set_bot_commands import SetBotCommands
 from .set_bot_default_privileges import SetBotDefaultPrivileges
 from .set_chat_menu_button import SetChatMenuButton
@@ -50,6 +51,7 @@ class Bots(
     GetBotDefaultPrivileges,
     SetChatMenuButton,
     GetChatMenuButton,
-    AnswerWebAppQuery
+    AnswerWebAppQuery,
+    SendStreamingText
 ):
     pass

@@ -222,6 +222,21 @@ def pyrogram_api():
             export_session_string
             set_parse_mode
         """,
+        decorators="""
+        Decorators
+            on_message
+            on_edited_message
+            on_callback_query
+            on_inline_query
+            on_chosen_inline_result
+            on_poll
+            on_user_status
+            on_deleted_messages
+            on_chat_member_updated
+            on_raw_update
+            on_disconnect
+            on_chat_join_request
+        """,
         messages="""
         Messages
             send_message
@@ -242,6 +257,7 @@ def pyrogram_api():
             send_contact
             send_cached_media
             send_reaction
+            send_paid_reaction
             edit_message_text
             edit_message_caption
             edit_message_media
@@ -387,6 +403,7 @@ def pyrogram_api():
             set_chat_menu_button
             get_chat_menu_button
             answer_web_app_query
+            send_streaming_text
         """,
         authorization="""
         Authorization

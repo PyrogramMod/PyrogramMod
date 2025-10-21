@@ -31,6 +31,19 @@ Utilities
 
     {utilities}
 
+Decorators
+----------
+
+.. autosummary::
+    :nosignatures:
+
+    {decorators}
+
+.. toctree::
+    :hidden:
+
+    {decorators}
+
 .. currentmodule:: pyrogram
 
 .. autosummary::
