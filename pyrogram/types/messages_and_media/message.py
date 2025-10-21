@@ -394,6 +394,16 @@ class Message(Object, Update):
             video_chat_ended: "types.VideoChatEnded" = None,
             video_chat_members_invited: "types.VideoChatMembersInvited" = None,
             web_app_data: "types.WebAppData" = None,
+            show_caption_above_media: bool = None,
+            silent: bool = None,
+            legacy: bool = None,
+            pinned: bool = None,
+            unread_media: bool = None,
+            from_offline: bool = None,
+            video_processing_pending: bool = None,
+            paid_suggested_post_stars: bool = None,
+            paid_suggested_post_ton: bool = None,
+            channel_post: bool = None,
             reply_markup: Union[
                 "types.InlineKeyboardMarkup",
                 "types.ReplyKeyboardMarkup",
@@ -480,6 +490,16 @@ class Message(Object, Update):
         self.matches = matches
         self.command = command
         self.reply_markup = reply_markup
+        self.show_caption_above_media = show_caption_above_media
+        self.silent = silent
+        self.legacy = legacy
+        self.pinned = pinned
+        self.unread_media = unread_media
+        self.from_offline = from_offline
+        self.video_processing_pending = video_processing_pending
+        self.paid_suggested_post_stars = paid_suggested_post_stars
+        self.paid_suggested_post_ton = paid_suggested_post_ton
+        self.channel_post = channel_post
         self.video_chat_scheduled = video_chat_scheduled
         self.video_chat_started = video_chat_started
         self.video_chat_ended = video_chat_ended
@@ -809,13 +829,57 @@ class Message(Object, Update):
 
             from_user = types.User._parse(client, users.get(user_id, None))
             sender_chat = types.Chat._parse(client, message, users, chats, is_chat=False) if not from_user else None
+            chat_obj = types.Chat._parse(client, message, users, chats, is_chat=True)
+
+            reply_to_message_id = None
+            reply_to_top_message_id = None
+            reply_to_checklist_task_id = None
+            reply_to_story_id = None
+            reply_to_story_user_id = None
+            message_thread_id = None
+            topic_message = None
+            quote = None
+
+            if message.reply_to:
+                if isinstance(message.reply_to, raw.types.MessageReplyHeader):
+                    header = message.reply_to
+                    reply_to_message_id = header.reply_to_msg_id
+                    reply_to_top_message_id = header.reply_to_top_id
+                    reply_to_checklist_task_id = header.todo_item_id
+
+                    if header.forum_topic:
+                        topic_message = True
+                        if header.reply_to_top_id:
+                            message_thread_id = header.reply_to_top_id
+                        elif header.reply_to_msg_id:
+                            message_thread_id = header.reply_to_msg_id
+                        else:
+                            message_thread_id = 1
+                        if (
+                            header.reply_to_msg_id is not None and
+                            header.reply_to_top_id is not None and
+                            header.reply_to_msg_id == header.reply_to_top_id
+                        ):
+                            reply_to_message_id = None
+                    elif header.reply_to_top_id:
+                        message_thread_id = header.reply_to_top_id
+
+                    if header.quote:
+                        quote = getattr(message.reply_to, "quote", None)
+                elif isinstance(message.reply_to, raw.types.MessageReplyStoryHeader):
+                    reply_to_message_id = message.reply_to.story_id
+                    reply_to_story_id = message.reply_to.story_id
+                    reply_to_story_user_id = utils.get_peer_id(message.reply_to.peer)
+
+            if reply_to_message_id is not None and getattr(chat_obj, "is_forum", False) and reply_to_top_message_id is None:
+                reply_to_top_message_id = 1
 
             reactions = types.MessageReactions._parse(client, message.reactions)
 
             parsed_message = Message(
                 id=message.id,
                 date=utils.timestamp_to_datetime(message.date),
-                chat=types.Chat._parse(client, message, users, chats, is_chat=True),
+                chat=chat_obj,
                 from_user=from_user,
                 sender_chat=sender_chat,
                 text=(
@@ -876,42 +940,67 @@ class Message(Object, Update):
                 forwards=message.forwards,
                 via_bot=types.User._parse(client, users.get(message.via_bot_id, None)),
                 outgoing=message.out,
+                show_caption_above_media=message.invert_media,
+                silent=message.silent,
+                legacy=message.legacy,
+                pinned=message.pinned,
+                unread_media=message.media_unread,
+                from_offline=message.offline,
+                video_processing_pending=message.video_processing_pending,
+                paid_suggested_post_stars=message.paid_suggested_post_stars,
+                paid_suggested_post_ton=message.paid_suggested_post_ton,
+                channel_post=message.post,
                 reply_markup=reply_markup,
                 reactions=reactions,
                 client=client
             )
 
-            if message.reply_to:
-                parsed_message.reply_to_message_id = None
-                parsed_message.reply_to_top_message_id = None
-                if isinstance(message.reply_to, raw.types.MessageReplyHeader):
-                    parsed_message.reply_to_message_id = message.reply_to.reply_to_msg_id
-                    parsed_message.reply_to_top_message_id = message.reply_to.reply_to_top_id
-                    if message.reply_to.reply_to_top_id:
-                        parsed_message.message_thread_id = message.reply_to.reply_to_top_id
-                if isinstance(message.reply_to, raw.types.MessageReplyStoryHeader):
-                    parsed_message.reply_to_message_id = message.reply_to.story_id
+            if reply_to_message_id is not None:
+                parsed_message.reply_to_message_id = reply_to_message_id
 
-                if replies:
-                    try:
-                        key = (parsed_message.chat.id, parsed_message.reply_to_message_id)
-                        reply_to_message = client.message_cache[key]
+            if reply_to_top_message_id is not None:
+                parsed_message.reply_to_top_message_id = reply_to_top_message_id
 
-                        if not reply_to_message:
-                            reply_to_message = await client.get_messages(
-                                parsed_message.chat.id,
-                                reply_to_message_ids=message.id,
-                                replies=replies - 1
-                            )
+            if reply_to_checklist_task_id is not None:
+                parsed_message.reply_to_checklist_task_id = reply_to_checklist_task_id
 
-                        parsed_message.reply_to_message = reply_to_message
-                    except MessageIdsEmpty:
-                        pass
+            if topic_message:
+                parsed_message.topic_message = True
 
-            if getattr(parsed_message.chat, "is_forum", False) and parsed_message.message_thread_id is None:
-                parsed_message.message_thread_id = (
-                    parsed_message.reply_to_top_message_id or parsed_message.id
-                )
+            if quote is not None:
+                parsed_message.quote = quote
+
+            if message_thread_id is not None:
+                parsed_message.message_thread_id = message_thread_id
+
+            if reply_to_story_id is not None:
+                parsed_message.reply_to_story_id = reply_to_story_id
+                parsed_message.reply_to_story_user_id = reply_to_story_user_id
+
+            if message.reply_to and replies and parsed_message.reply_to_message_id is not None:
+                try:
+                    key = (parsed_message.chat.id, parsed_message.reply_to_message_id)
+                    reply_to_message = client.message_cache[key]
+
+                    if not reply_to_message:
+                        reply_to_message = await client.get_messages(
+                            parsed_message.chat.id,
+                            reply_to_message_ids=message.id,
+                            replies=replies - 1
+                        )
+
+                    parsed_message.reply_to_message = reply_to_message
+                except MessageIdsEmpty:
+                    pass
+
+            if getattr(parsed_message.chat, "is_forum", False):
+                if parsed_message.message_thread_id is None or parsed_message.message_thread_id == parsed_message.id:
+                    if parsed_message.reply_to_top_message_id is not None:
+                        parsed_message.message_thread_id = parsed_message.reply_to_top_message_id
+                    elif getattr(parsed_message.reply_to_message, "message_thread_id", None) is not None:
+                        parsed_message.message_thread_id = parsed_message.reply_to_message.message_thread_id
+                    else:
+                        parsed_message.message_thread_id = 1
 
             if not parsed_message.poll:  # Do not cache poll messages
                 client.message_cache[(parsed_message.chat.id, parsed_message.id)] = parsed_message

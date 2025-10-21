@@ -181,7 +181,31 @@ class User(Object, Update):
         phone_number: str = None,
         photo: "types.ChatPhoto" = None,
         restrictions: List["types.Restriction"] = None,
-        usernames: List["types.Username"] = None
+        usernames: List["types.Username"] = None,
+        bot_chat_history: bool = None,
+        bot_nochats: bool = None,
+        bot_inline_geo: bool = None,
+        apply_min_photo: bool = None,
+        bot_attach_menu: bool = None,
+        attach_menu_enabled: bool = None,
+        bot_can_edit: bool = None,
+        close_friend: bool = None,
+        stories_hidden: bool = None,
+        stories_unavailable: bool = None,
+        contact_require_premium: bool = None,
+        bot_business: bool = None,
+        bot_has_main_app: bool = None,
+        bot_forum_view: bool = None,
+        access_hash: int = None,
+        bot_info_version: int = None,
+        bot_inline_placeholder: str = None,
+        stories_max_id: int = None,
+        color: "types.PeerColor" = None,
+        profile_color: "types.PeerColor" = None,
+        bot_active_users: int = None,
+        bot_verification_icon: int = None,
+        send_paid_messages_stars: int = None,
+        restriction_reason: List["types.Restriction"] = None
     ):
         super().__init__(client)
 
@@ -210,6 +234,30 @@ class User(Object, Update):
         self.photo = photo
         self.restrictions = restrictions
         self.usernames = usernames
+        self.bot_chat_history = bot_chat_history
+        self.bot_nochats = bot_nochats
+        self.bot_inline_geo = bot_inline_geo
+        self.apply_min_photo = apply_min_photo
+        self.bot_attach_menu = bot_attach_menu
+        self.attach_menu_enabled = attach_menu_enabled
+        self.bot_can_edit = bot_can_edit
+        self.close_friend = close_friend
+        self.stories_hidden = stories_hidden
+        self.stories_unavailable = stories_unavailable
+        self.contact_require_premium = contact_require_premium
+        self.bot_business = bot_business
+        self.bot_has_main_app = bot_has_main_app
+        self.bot_forum_view = bot_forum_view
+        self.access_hash = access_hash
+        self.bot_info_version = bot_info_version
+        self.bot_inline_placeholder = bot_inline_placeholder
+        self.stories_max_id = stories_max_id
+        self.color = color
+        self.profile_color = profile_color
+        self.bot_active_users = bot_active_users
+        self.bot_verification_icon = bot_verification_icon
+        self.send_paid_messages_stars = send_paid_messages_stars
+        self.restriction_reason = restriction_reason or restrictions
 
     @property
     def full_name(self) -> str:
@@ -227,6 +275,8 @@ class User(Object, Update):
     def _parse(client, user: "raw.base.User") -> Optional["User"]:
         if user is None or isinstance(user, raw.types.UserEmpty):
             return None
+
+        parsed_restrictions = types.List([types.Restriction._parse(r) for r in user.restriction_reason]) or None
 
         return User(
             id=user.id,
@@ -250,8 +300,32 @@ class User(Object, Update):
             dc_id=getattr(user.photo, "dc_id", None),
             phone_number=user.phone,
             photo=types.ChatPhoto._parse(client, user.photo, user.id, user.access_hash),
-            restrictions=types.List([types.Restriction._parse(r) for r in user.restriction_reason]) or None,
+            restrictions=parsed_restrictions,
+            restriction_reason=parsed_restrictions,
             usernames=types.List([types.Username._parse(r) for r in user.usernames]) or None,
+            bot_chat_history=getattr(user, "bot_chat_history", None),
+            bot_nochats=getattr(user, "bot_nochats", None),
+            bot_inline_geo=getattr(user, "bot_inline_geo", None),
+            apply_min_photo=getattr(user, "apply_min_photo", None),
+            bot_attach_menu=getattr(user, "bot_attach_menu", None),
+            attach_menu_enabled=getattr(user, "attach_menu_enabled", None),
+            bot_can_edit=getattr(user, "bot_can_edit", None),
+            close_friend=getattr(user, "close_friend", None),
+            stories_hidden=getattr(user, "stories_hidden", None),
+            stories_unavailable=getattr(user, "stories_unavailable", None),
+            contact_require_premium=getattr(user, "contact_require_premium", None),
+            bot_business=getattr(user, "bot_business", None),
+            bot_has_main_app=getattr(user, "bot_has_main_app", None),
+            bot_forum_view=getattr(user, "bot_forum_view", None),
+            access_hash=getattr(user, "access_hash", None),
+            bot_info_version=getattr(user, "bot_info_version", None),
+            bot_inline_placeholder=getattr(user, "bot_inline_placeholder", None),
+            stories_max_id=getattr(user, "stories_max_id", None),
+            color=types.PeerColor._parse(getattr(user, "color", None)),
+            profile_color=types.PeerColor._parse(getattr(user, "profile_color", None)),
+            bot_active_users=getattr(user, "bot_active_users", None),
+            bot_verification_icon=getattr(user, "bot_verification_icon", None),
+            send_paid_messages_stars=getattr(user, "send_paid_messages_stars", None),
             client=client
         )
 

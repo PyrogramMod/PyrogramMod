@@ -34,6 +34,7 @@ from .dialog import Dialog
 from .emoji_status import EmojiStatus
 from .invite_link_importer import InviteLinkImporter
 from .restriction import Restriction
+from .peer_color import PeerColor
 from .user import User
 from .username import Username
 from .video_chat_ended import VideoChatEnded
@@ -65,5 +66,6 @@ __all__ = [
     "ChatPrivileges",
     "ChatJoiner",
     "EmojiStatus",
-    "ChatReactions"
+    "ChatReactions",
+    "PeerColor"
 ]

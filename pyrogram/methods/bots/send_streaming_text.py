@@ -114,8 +114,9 @@ class SendStreamingText:
 
                 # Send thinking stream followed by final message
                 await app.send_streaming_text(
-                    "me",
+                    message.chat.id,
                     streaming_text=["Thinking...", "Composing reply...", "Finalizing..."],
+                    message_thread_id=message.message_thread_id,
                     delay=2.0,
                     final_text="✅ Done!"
                 )

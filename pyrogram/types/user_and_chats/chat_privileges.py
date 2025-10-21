@@ -16,6 +16,8 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Optional
+
 from pyrogram import raw
 from ..object import Object
 
@@ -78,6 +80,9 @@ class ChatPrivileges(Object):
         can_manage_topics (``bool``, *optional*):
             True, if the user is allowed to create, rename, close, and reopen forum topics.
             supergroups only
+
+        can_manage_direct_messages (``bool``, *optional*):
+            True, if the administrator can manage direct messages in the chat's.
     """
 
     def __init__(
@@ -98,6 +103,7 @@ class ChatPrivileges(Object):
         can_edit_stories: bool = False,  # Channels only
         can_delete_stories: bool = False,  # Channels only
         can_manage_topics: bool = False,  # supergroups only
+        can_manage_direct_messages: bool = False,
     ):
         super().__init__(None)
 
@@ -116,9 +122,13 @@ class ChatPrivileges(Object):
         self.can_edit_stories: bool = can_edit_stories
         self.can_delete_stories: bool = can_delete_stories
         self.can_manage_topics: bool = can_manage_topics
+        self.can_manage_direct_messages: bool = can_manage_direct_messages
 
     @staticmethod
-    def _parse(admin_rights: "raw.base.ChatAdminRights") -> "ChatPrivileges":
+    def _parse(admin_rights: "raw.base.ChatAdminRights") -> Optional["ChatPrivileges"]:
+        if admin_rights is None:
+            return None
+
         return ChatPrivileges(
             can_change_info=admin_rights.change_info,
             can_post_messages=admin_rights.post_messages,
@@ -134,5 +144,6 @@ class ChatPrivileges(Object):
             can_manage_topics=admin_rights.manage_topics,
             can_post_stories=admin_rights.post_stories,
             can_edit_stories=admin_rights.edit_stories,
-            can_delete_stories=admin_rights.delete_stories
+            can_delete_stories=admin_rights.delete_stories,
+            can_manage_direct_messages=getattr(admin_rights, "manage_direct_messages", False)
         )
