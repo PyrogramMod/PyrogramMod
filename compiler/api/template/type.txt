@@ -6,6 +6,9 @@ from typing import Union
 from pyrogram import raw
 
 {name} = Union[{types}]
-{name}.__doc__ = """
+try:
+    {name}.__doc__ = """
     {docstring}
-"""
+    """
+except (AttributeError, TypeError):
+    pass
