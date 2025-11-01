@@ -66,22 +66,24 @@ class SendReaction:
                 # Retract a reaction
                 await app.send_reaction(chat_id, message_id=message_id)
         """
-        if isinstance(emoji, list):
-            emoji = [
+        if not emoji:
+            reaction = None
+        elif isinstance(emoji, list):
+            reaction = [
                 raw.types.ReactionCustomEmoji(document_id=i)
                 if isinstance(i, int)
                 else raw.types.ReactionEmoji(emoticon=i)
                 for i in emoji
             ]
         else:
-            emoji = [raw.types.ReactionEmoji(emoticon=emoji)] if emoji else []
+            reaction = [raw.types.ReactionEmoji(emoticon=emoji)]
 
         if message_id is not None:
             await self.invoke(
                 raw.functions.messages.SendReaction(
                     peer=await self.resolve_peer(chat_id),
                     msg_id=message_id,
-                    reaction=emoji,
+                    reaction=reaction,
                     big=big
                 )
             )
