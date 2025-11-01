@@ -330,7 +330,7 @@ class Client(Methods):
         self.updates_watchdog_event = asyncio.Event()
         self.last_update_time = datetime.now()
 
-        self.loop = asyncio.get_event_loop()
+        self.loop = None
         self.config_file = config_file
 
     def __enter__(self):

@@ -16,6 +16,7 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+import asyncio
 import logging
 
 import pyrogram
@@ -55,6 +56,8 @@ class Start:
 
                 app.run(main())
         """
+        self.loop = asyncio.get_running_loop()
+
         is_authorized = await self.connect()
 
         try:

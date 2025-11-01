@@ -102,9 +102,11 @@ class Session:
 
         self.is_started = asyncio.Event()
 
-        self.loop = asyncio.get_event_loop()
+        self.loop = None
 
     async def start(self):
+        self.loop = asyncio.get_running_loop()
+
         while True:
             self.connection = self.client.connection_factory(
                 dc_id=self.dc_id,
@@ -119,6 +121,9 @@ class Session:
                 await self.connection.connect()
 
                 self.recv_task = self.loop.create_task(self.recv_worker())
+
+                if hasattr(self.recv_task, "_log_destroy_pending"):
+                    self.recv_task._log_destroy_pending = False
 
                 await self.send(raw.functions.Ping(ping_id=0), timeout=self.START_TIMEOUT)
 
@@ -141,6 +146,9 @@ class Session:
                     )
 
                 self.ping_task = self.loop.create_task(self.ping_worker())
+
+                if hasattr(self.ping_task, "_log_destroy_pending"):
+                    self.ping_task._log_destroy_pending = False
 
                 log.info("Session initialized: Layer %s", layer)
                 log.info("Device: %s - %s", self.client.device_model, self.client.app_version)
@@ -185,6 +193,8 @@ class Session:
 
         log.info("Session stopped")
 
+        self.loop = None
+
     async def restart(self):
         now = datetime.now()
         if (
@@ -209,7 +219,10 @@ class Session:
             )
         except ValueError as e:
             log.debug(e)
-            self.loop.create_task(self.restart())
+            restart_task = self.loop.create_task(self.restart())
+
+            if hasattr(restart_task, "_log_destroy_pending"):
+                restart_task._log_destroy_pending = False
             return
 
         messages = (
@@ -271,7 +284,10 @@ class Session:
                 msg_id = msg.body.msg_id
             else:
                 if self.client is not None:
-                    self.loop.create_task(self.client.handle_updates(msg.body))
+                    update_task = self.loop.create_task(self.client.handle_updates(msg.body))
+
+                    if hasattr(update_task, "_log_destroy_pending"):
+                        update_task._log_destroy_pending = False
 
             if msg_id in self.results:
                 self.results[msg_id].value = getattr(msg.body, "result", msg.body)
@@ -305,7 +321,10 @@ class Session:
                     ), False
                 )
             except OSError:
-                self.loop.create_task(self.restart())
+                restart_task = self.loop.create_task(self.restart())
+
+                if hasattr(restart_task, "_log_destroy_pending"):
+                    restart_task._log_destroy_pending = False
                 break
             except RPCError:
                 pass
@@ -334,11 +353,17 @@ class Session:
                     )
 
                 if self.is_started.is_set():
-                    self.loop.create_task(self.restart())
+                    restart_task = self.loop.create_task(self.restart())
+
+                    if hasattr(restart_task, "_log_destroy_pending"):
+                        restart_task._log_destroy_pending = False
 
                 break
 
-            self.loop.create_task(self.handle_packet(packet))
+            packet_task = self.loop.create_task(self.handle_packet(packet))
+
+            if hasattr(packet_task, "_log_destroy_pending"):
+                packet_task._log_destroy_pending = False
 
         log.info("NetworkTask stopped")
 

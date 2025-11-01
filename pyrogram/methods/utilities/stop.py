@@ -16,6 +16,8 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+import asyncio
+
 import pyrogram
 
 
@@ -60,10 +62,12 @@ class Stop:
         async def do_it():
             await self.terminate()
             await self.disconnect()
+            self.loop = None
 
         if block:
             await do_it()
         else:
-            self.loop.create_task(do_it())
+            loop = self.loop or asyncio.get_running_loop()
+            loop.create_task(do_it())
 
         return self

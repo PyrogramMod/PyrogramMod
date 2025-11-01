@@ -49,4 +49,7 @@ class Initialize:
 
         self.updates_watchdog_task = asyncio.create_task(self.updates_watchdog())
 
+        if hasattr(self.updates_watchdog_task, "_log_destroy_pending"):
+            self.updates_watchdog_task._log_destroy_pending = False
+
         self.is_initialized = True
