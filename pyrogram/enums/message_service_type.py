@@ -71,3 +71,15 @@ class MessageServiceType(AutoName):
 
     WEB_APP_DATA = auto()
     "Web app data"
+
+    STAR_GIFT = auto()
+    "Star gift received"
+
+    STAR_GIFT_UNIQUE = auto()
+    "Unique/collectible star gift"
+
+    NEW_CREATOR_PENDING = auto()
+    "New creator transfer pending"
+
+    CHANGE_CREATOR = auto()
+    "Creator changed"

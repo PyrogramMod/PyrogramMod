@@ -573,6 +573,14 @@ class Message(Object, Update):
             elif isinstance(action, raw.types.MessageActionWebViewDataSentMe):
                 web_app_data = types.WebAppData._parse(action)
                 service_type = enums.MessageServiceType.WEB_APP_DATA
+            elif isinstance(action, raw.types.MessageActionStarGift):
+                service_type = enums.MessageServiceType.STAR_GIFT
+            elif isinstance(action, raw.types.MessageActionStarGiftUnique):
+                service_type = enums.MessageServiceType.STAR_GIFT_UNIQUE
+            elif isinstance(action, raw.types.MessageActionNewCreatorPending):
+                service_type = enums.MessageServiceType.NEW_CREATOR_PENDING
+            elif isinstance(action, raw.types.MessageActionChangeCreator):
+                service_type = enums.MessageServiceType.CHANGE_CREATOR
 
             from_user = types.User._parse(client, users.get(user_id, None))
             sender_chat = types.Chat._parse(client, message, users, chats, is_chat=False) if not from_user else None
