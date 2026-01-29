@@ -42,9 +42,10 @@ from .voice import Voice
 from .web_app_data import WebAppData
 from .web_page import WebPage
 from .message_reactions import MessageReactions
+from .star_gift import StarGift, StarGiftUnique
 
 __all__ = [
     "Animation", "Audio", "Contact", "Document", "Game", "Location", "Message", "MessageEntity", "Photo", "Thumbnail",
     "StrippedThumbnail", "Poll", "PollOption", "Sticker", "Venue", "Video", "VideoNote", "Voice", "WebPage", "Dice",
-    "Reaction", "WebAppData", "MessageReactions", "Story", "Giveaway", "AlternativeVideo"
+    "Reaction", "WebAppData", "MessageReactions", "Story", "Giveaway", "AlternativeVideo", "StarGift", "StarGiftUnique"
 ]
