@@ -37,7 +37,10 @@ def _ensure_event_loop():
         pass
 
     try:
-        return asyncio.get_event_loop()
+        loop = asyncio.get_event_loop_policy().get_event_loop()
+        if loop.is_closed():
+            raise RuntimeError("Event loop is closed")
+        return loop
     except RuntimeError:
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
