@@ -30,18 +30,31 @@ class Dice(Object):
 
         value (``int``):
             Value of the dice, 1-6 for currently supported base emoji.
+
+        game_outcome (``int``, *optional*):
+            Usually for the casino-style slot machine (🎰) emoji.
+            The value is the index of the winning combination (0-64).
     """
 
-    def __init__(self, *, client: "pyrogram.Client" = None, emoji: str, value: int):
+    def __init__(
+        self,
+        *,
+        client: "pyrogram.Client" = None,
+        emoji: str,
+        value: int,
+        game_outcome: int = None
+    ):
         super().__init__(client)
 
         self.emoji = emoji
         self.value = value
+        self.game_outcome = game_outcome
 
     @staticmethod
     def _parse(client, dice: "raw.types.MessageMediaDice") -> "Dice":
         return Dice(
             emoji=dice.emoticon,
             value=dice.value,
+            game_outcome=getattr(dice, "game_outcome", None),
             client=client
         )

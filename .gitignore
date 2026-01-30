@@ -130,3 +130,4 @@ venv.bak/
 docs_build.sh
 .buildinfo
 json_docs.py
+*.session-journal

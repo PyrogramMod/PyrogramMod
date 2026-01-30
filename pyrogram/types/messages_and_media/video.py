@@ -66,6 +66,18 @@ class Video(Object):
 
         thumbs (List of :obj:`~pyrogram.types.Thumbnail`, *optional*):
             Video thumbnails.
+
+        nosound (``bool``, *optional*):
+            True, if the video has no sound.
+
+        video_start_ts (``float``, *optional*):
+            The timestamp in seconds of the video frame to use as photo profile preview.
+
+        video_codec (``str``, *optional*):
+            Video codec.
+
+        preload_prefix_size (``int``, *optional*):
+            The size of the video preload prefix.
     """
 
     def __init__(
@@ -83,7 +95,11 @@ class Video(Object):
         supports_streaming: bool = None,
         ttl_seconds: int = None,
         date: datetime = None,
-        thumbs: List["types.Thumbnail"] = None
+        thumbs: List["types.Thumbnail"] = None,
+        nosound: bool = None,
+        video_start_ts: float = None,
+        video_codec: str = None,
+        preload_prefix_size: int = None
     ):
         super().__init__(client)
 
@@ -99,6 +115,10 @@ class Video(Object):
         self.ttl_seconds = ttl_seconds
         self.date = date
         self.thumbs = thumbs
+        self.nosound = nosound
+        self.video_start_ts = video_start_ts
+        self.video_codec = video_codec
+        self.preload_prefix_size = preload_prefix_size
 
     @staticmethod
     def _parse(
@@ -130,5 +150,9 @@ class Video(Object):
             date=utils.timestamp_to_datetime(video.date),
             ttl_seconds=ttl_seconds,
             thumbs=types.Thumbnail._parse(client, video),
+            nosound=getattr(video_attributes, "nosound", None),
+            video_start_ts=getattr(video_attributes, "video_start_ts", None),
+            video_codec=getattr(video_attributes, "video_codec", None),
+            preload_prefix_size=getattr(video_attributes, "preload_prefix_size", None),
             client=client
         )

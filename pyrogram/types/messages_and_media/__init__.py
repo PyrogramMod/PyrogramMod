@@ -21,19 +21,24 @@ from .animation import Animation
 from .audio import Audio
 from .contact import Contact
 from .dice import Dice
+from .disallowed_gifts_settings import DisallowedGiftsSettings
 from .document import Document
+from .fact_check import FactCheck
 from .game import Game
 from .giveaway import Giveaway
 from .location import Location
 from .message import Message
+from .message_effect import MessageEffect
 from .message_entity import MessageEntity
 from .photo import Photo
 from .poll import Poll
 from .poll_option import PollOption
 from .reaction import Reaction
 from .sticker import Sticker
+from .sticker_set import StickerSet
 from .story import Story
 from .stripped_thumbnail import StrippedThumbnail
+from .suggested_post import SuggestedPost
 from .thumbnail import Thumbnail
 from .venue import Venue
 from .video import Video
@@ -42,9 +47,14 @@ from .voice import Voice
 from .web_app_data import WebAppData
 from .web_page import WebPage
 from .message_reactions import MessageReactions
+from .star_gift import StarGift, StarGiftUnique
+from .star_gift_attribute import StarGiftAttribute, StarGiftAttributeRarity
+from .paid_media import PaidMedia
 
 __all__ = [
-    "Animation", "Audio", "Contact", "Document", "Game", "Location", "Message", "MessageEntity", "Photo", "Thumbnail",
-    "StrippedThumbnail", "Poll", "PollOption", "Sticker", "Venue", "Video", "VideoNote", "Voice", "WebPage", "Dice",
-    "Reaction", "WebAppData", "MessageReactions", "Story", "Giveaway", "AlternativeVideo"
+    "Animation", "Audio", "Contact", "DisallowedGiftsSettings", "Document", "FactCheck", "Game", "Location", "Message", "MessageEffect",
+    "MessageEntity", "Photo", "Thumbnail", "StrippedThumbnail", "Poll", "PollOption", "Sticker", "SuggestedPost",
+    "Venue", "Video", "VideoNote", "Voice", "WebPage", "Dice", "Reaction", "WebAppData", "MessageReactions",
+    "Story", "Giveaway", "AlternativeVideo", "StarGift", "StarGiftUnique", "StarGiftAttribute", "StarGiftAttributeRarity",
+    "PaidMedia", "StickerSet"
 ]

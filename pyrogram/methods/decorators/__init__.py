@@ -27,7 +27,10 @@ from .on_inline_query import OnInlineQuery
 from .on_message import OnMessage
 from .on_poll import OnPoll
 from .on_raw_update import OnRawUpdate
+from .on_story import OnStory
 from .on_user_status import OnUserStatus
+from .on_chat_boost import OnChatBoost
+from .on_business_connection import OnBusinessConnection
 
 
 class Decorators(
@@ -42,6 +45,9 @@ class Decorators(
     OnPoll,
     OnChosenInlineResult,
     OnChatMemberUpdated,
-    OnChatJoinRequest
+    OnChatJoinRequest,
+    OnStory,
+    OnChatBoost,
+    OnBusinessConnection
 ):
     pass

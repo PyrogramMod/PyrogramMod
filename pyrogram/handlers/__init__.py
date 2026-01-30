@@ -27,4 +27,25 @@ from .inline_query_handler import InlineQueryHandler
 from .message_handler import MessageHandler
 from .poll_handler import PollHandler
 from .raw_update_handler import RawUpdateHandler
+from .story_handler import StoryHandler
 from .user_status_handler import UserStatusHandler
+from .chat_boost_handler import ChatBoostHandler
+from .business_connection_handler import BusinessConnectionHandler
+
+__all__ = [
+    "CallbackQueryHandler",
+    "ChatJoinRequestHandler",
+    "ChatMemberUpdatedHandler",
+    "ChosenInlineResultHandler",
+    "DeletedMessagesHandler",
+    "DisconnectHandler",
+    "EditedMessageHandler",
+    "InlineQueryHandler",
+    "MessageHandler",
+    "PollHandler",
+    "RawUpdateHandler",
+    "StoryHandler",
+    "UserStatusHandler",
+    "ChatBoostHandler",
+    "BusinessConnectionHandler"
+]

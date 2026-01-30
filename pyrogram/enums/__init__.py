@@ -16,6 +16,8 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from .boost_type import BoostType
+from .business_away_message_schedule import BusinessAwayMessageSchedule
 from .chat_action import ChatAction
 from .chat_event_action import ChatEventAction
 from .chat_member_status import ChatMemberStatus
@@ -28,10 +30,14 @@ from .messages_filter import MessagesFilter
 from .next_code_type import NextCodeType
 from .parse_mode import ParseMode
 from .poll_type import PollType
+from .privacy_key_type import PrivacyKeyType
 from .sent_code_type import SentCodeType
+from .story_privacy_type import StoryPrivacyType
 from .user_status import UserStatus
 
 __all__ = [
+    'BoostType',
+    'BusinessAwayMessageSchedule',
     'ChatAction', 
     'ChatEventAction', 
     'ChatMemberStatus', 
@@ -44,6 +50,8 @@ __all__ = [
     'NextCodeType', 
     'ParseMode', 
     'PollType', 
+    'PrivacyKeyType',
     'SentCodeType', 
+    'StoryPrivacyType',
     'UserStatus'
 ]

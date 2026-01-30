@@ -18,12 +18,14 @@
 
 from io import BytesIO
 from json import dumps
-from typing import cast, List, Any, Union, Dict
+from typing import cast, List, Any, Union, Dict, Generic, TypeVar
 
 from ..all import objects
 
+T = TypeVar("T")
 
-class TLObject:
+
+class TLObject(Generic[T]):
     __slots__: List[str] = []
 
     QUALNAME = "Base"

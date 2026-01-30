@@ -26,9 +26,30 @@ from pyrogram.methods import Methods
 from pyrogram.methods.utilities import idle as idle_module, compose as compose_module
 
 
+def _ensure_event_loop():
+    """
+    Python 3.14 no longer creates an implicit event loop for the main thread.
+    Reproduce the old behaviour by instantiating and setting one on-demand.
+    """
+    try:
+        return asyncio.get_running_loop()
+    except RuntimeError:
+        pass
+
+    try:
+        loop = asyncio.get_event_loop_policy().get_event_loop()
+        if loop.is_closed():
+            raise RuntimeError("Event loop is closed")
+        return loop
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        return loop
+
+
 def async_to_sync(obj, name):
     function = getattr(obj, name)
-    main_loop = asyncio.get_event_loop()
+    main_loop = _ensure_event_loop()
 
     def async_to_sync_gen(agen, loop, is_main_thread):
         async def anext(agen):
