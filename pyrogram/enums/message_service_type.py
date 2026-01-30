@@ -83,3 +83,54 @@ class MessageServiceType(AutoName):
 
     CHANGE_CREATOR = auto()
     "Creator changed"
+
+    GIFT_CODE = auto()
+    "Gift code"
+
+    GIVEAWAY_LAUNCH = auto()
+    "Giveaway launched"
+
+    GIVEAWAY_RESULTS = auto()
+    "Giveaway results"
+
+    BOOST_APPLY = auto()
+    "Boost apply"
+
+    TODO_COMPLETIONS = auto()
+    "Todo completions"
+
+    TODO_APPEND_TASKS = auto()
+    "Todo append tasks"
+
+    CONFERENCE_CALL = auto()
+    "Conference call"
+
+    GIFT_STARS = auto()
+    "Gift stars"
+
+    PRIZE_STARS = auto()
+    "Prize stars"
+
+    STAR_GIFT_PURCHASE_OFFER = auto()
+    "Star gift purchase offer"
+
+    STAR_GIFT_PURCHASE_OFFER_DECLINED = auto()
+    "Star gift purchase offer declined"
+
+    SUGGESTED_POST_APPROVAL = auto()
+    "Suggested post approval"
+
+    SUGGESTED_POST_SUCCESS = auto()
+    "Suggested post success"
+
+    SUGGESTED_POST_REFUND = auto()
+    "Suggested post refund"
+
+    PAID_MESSAGES_REFUNDED = auto()
+    "Paid messages refunded"
+
+    PAID_MESSAGES_PRICE = auto()
+    "Paid messages price"
+
+    SUGGEST_BIRTHDAY = auto()
+    "Suggest birthday"

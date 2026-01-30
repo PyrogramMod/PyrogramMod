@@ -312,6 +312,27 @@ class Message(Object, Update):
 
         link (``str``, *property*):
             Generate a link to this message, only for groups and channels.
+
+        saved_peer_id (:obj:`~pyrogram.types.Chat`, *optional*):
+             Saved peer.
+
+        from_boosts_applied (``int``, *optional*):
+            Number of boosts applied from the sender.
+
+        quick_reply_shortcut_id (``int``, *optional*):
+            Quick reply shortcut ID.
+
+        effect_id (``int``, *optional*):
+             Message effect ID.
+
+        fact_check (:obj:`~pyrogram.types.FactCheck`, *optional*):
+             Fact check information.
+
+        paid_message_stars (:obj:`~pyrogram.types.StarsAmount`, *optional*):
+             Price of the paid message in stars.
+
+        suggested_post (:obj:`~pyrogram.types.SuggestedPost`, *optional*):
+             Suggested post information.
     """
 
     # TODO: Add game missing field. Also invoice, successful_payment, connected_website
@@ -357,6 +378,9 @@ class Message(Object, Update):
             game: "types.Game" = None,
             story: "types.Story" = None,
             giveaway: "types.Giveaway" = None,
+            giveaway_results: "types.GiveawayResults" = None,
+            paid_media: "types.PaidMedia" = None,
+            todo: "types.TodoList" = None,
             video: "types.Video" = None,
             voice: "types.Voice" = None,
             video_note: "types.VideoNote" = None,
@@ -398,6 +422,13 @@ class Message(Object, Update):
             ] = None,
             reactions: List["types.Reaction"] = None,
             alternative_videos: List["types.AlternativeVideo"] = None,
+            saved_peer_id: "types.Chat" = None,
+            from_boosts_applied: int = None,
+            quick_reply_shortcut_id: int = None,
+            effect_id: int = None,
+            fact_check: "types.FactCheck" = None,
+            paid_message_stars: "types.StarsAmount" = None,
+            suggested_post: "types.SuggestedPost" = None
     ):
         super().__init__(client)
 
@@ -441,6 +472,9 @@ class Message(Object, Update):
         self.voice = voice
         self.story = story
         self.giveaway = giveaway
+        self.giveaway_results = giveaway_results
+        self.paid_media = paid_media
+        self.todo = todo
         self.video_note = video_note
         self.caption = caption
         self.contact = contact
@@ -474,6 +508,13 @@ class Message(Object, Update):
         self.video_chat_members_invited = video_chat_members_invited
         self.web_app_data = web_app_data
         self.reactions = reactions
+        self.saved_peer_id = saved_peer_id
+        self.from_boosts_applied = from_boosts_applied
+        self.quick_reply_shortcut_id = quick_reply_shortcut_id
+        self.effect_id = effect_id
+        self.fact_check = fact_check
+        self.paid_message_stars = paid_message_stars
+        self.suggested_post = suggested_post
 
     @staticmethod
     async def _parse(
@@ -581,6 +622,40 @@ class Message(Object, Update):
                 service_type = enums.MessageServiceType.NEW_CREATOR_PENDING
             elif isinstance(action, raw.types.MessageActionChangeCreator):
                 service_type = enums.MessageServiceType.CHANGE_CREATOR
+            elif isinstance(action, raw.types.MessageActionGiftCode):
+                service_type = enums.MessageServiceType.GIFT_CODE
+            elif isinstance(action, raw.types.MessageActionGiveawayLaunch):
+                service_type = enums.MessageServiceType.GIVEAWAY_LAUNCH
+            elif isinstance(action, raw.types.MessageActionGiveawayResults):
+                service_type = enums.MessageServiceType.GIVEAWAY_RESULTS
+            elif isinstance(action, raw.types.MessageActionBoostApply):
+                service_type = enums.MessageServiceType.BOOST_APPLY
+            elif isinstance(action, raw.types.MessageActionTodoCompletions):
+                service_type = enums.MessageServiceType.TODO_COMPLETIONS
+            elif isinstance(action, raw.types.MessageActionTodoAppendTasks):
+                service_type = enums.MessageServiceType.TODO_APPEND_TASKS
+            elif isinstance(action, raw.types.MessageActionConferenceCall):
+                service_type = enums.MessageServiceType.CONFERENCE_CALL
+            elif isinstance(action, raw.types.MessageActionGiftStars):
+                service_type = enums.MessageServiceType.GIFT_STARS
+            elif isinstance(action, raw.types.MessageActionPrizeStars):
+                service_type = enums.MessageServiceType.PRIZE_STARS
+            elif isinstance(action, raw.types.MessageActionStarGiftPurchaseOffer):
+                service_type = enums.MessageServiceType.STAR_GIFT_PURCHASE_OFFER
+            elif isinstance(action, raw.types.MessageActionStarGiftPurchaseOfferDeclined):
+                service_type = enums.MessageServiceType.STAR_GIFT_PURCHASE_OFFER_DECLINED
+            elif isinstance(action, raw.types.MessageActionSuggestedPostApproval):
+                service_type = enums.MessageServiceType.SUGGESTED_POST_APPROVAL
+            elif isinstance(action, raw.types.MessageActionSuggestedPostSuccess):
+                service_type = enums.MessageServiceType.SUGGESTED_POST_SUCCESS
+            elif isinstance(action, raw.types.MessageActionSuggestedPostRefund):
+                service_type = enums.MessageServiceType.SUGGESTED_POST_REFUND
+            elif isinstance(action, raw.types.MessageActionPaidMessagesRefunded):
+                service_type = enums.MessageServiceType.PAID_MESSAGES_REFUNDED
+            elif isinstance(action, raw.types.MessageActionPaidMessagesPrice):
+                service_type = enums.MessageServiceType.PAID_MESSAGES_PRICE
+            elif isinstance(action, raw.types.MessageActionSuggestBirthday):
+                service_type = enums.MessageServiceType.SUGGEST_BIRTHDAY
 
             from_user = types.User._parse(client, users.get(user_id, None))
             sender_chat = types.Chat._parse(client, message, users, chats, is_chat=False) if not from_user else None
@@ -677,6 +752,9 @@ class Message(Object, Update):
             game = None
             story = None
             giveaway = None
+            giveaway_results = None
+            paid_media = None
+            todo = None
             audio = None
             voice = None
             animation = None
@@ -716,6 +794,15 @@ class Message(Object, Update):
                 elif isinstance(media, raw.types.MessageMediaGiveaway):
                     giveaway = types.Giveaway._parse(client, media, chats)
                     media_type = enums.MessageMediaType.GIVEAWAY
+                elif isinstance(media, raw.types.MessageMediaGiveawayResults):
+                    giveaway_results = types.GiveawayResults._parse(client, media, users, chats)
+                    media_type = enums.MessageMediaType.GIVEAWAY_RESULTS
+                elif isinstance(media, raw.types.MessageMediaPaidMedia):
+                    paid_media = types.PaidMedia._parse(client, media, users, chats)
+                    media_type = enums.MessageMediaType.PAID_MEDIA
+                elif isinstance(media, raw.types.MessageMediaToDo):
+                    todo = types.TodoList._parse_media(client, media, users)
+                    media_type = enums.MessageMediaType.TODO
                 elif isinstance(media, raw.types.MessageMediaDocument):
                     doc = media.document
 
@@ -808,6 +895,21 @@ class Message(Object, Update):
 
             reactions = types.MessageReactions._parse(client, message.reactions)
 
+            saved_peer_id = None
+
+            if message.saved_peer_id:
+                saved_peer_raw = None
+
+                if isinstance(message.saved_peer_id, raw.types.PeerUser):
+                    saved_peer_raw = users.get(message.saved_peer_id.user_id)
+                elif isinstance(message.saved_peer_id, raw.types.PeerChat):
+                    saved_peer_raw = chats.get(message.saved_peer_id.chat_id)
+                elif isinstance(message.saved_peer_id, raw.types.PeerChannel):
+                    saved_peer_raw = chats.get(message.saved_peer_id.channel_id)
+
+                if saved_peer_raw:
+                    saved_peer_id = types.Chat._parse_chat(client, saved_peer_raw)
+
             parsed_message = Message(
                 id=message.id,
                 date=utils.timestamp_to_datetime(message.date),
@@ -860,6 +962,9 @@ class Message(Object, Update):
                 game=game,
                 story=story,
                 giveaway=giveaway,
+                giveaway_results=giveaway_results,
+                paid_media=paid_media,
+                todo=todo,
                 video=video,
                 alternative_videos=types.List(alternative_videos) if alternative_videos else None,
                 video_note=video_note,
@@ -874,6 +979,13 @@ class Message(Object, Update):
                 outgoing=message.out,
                 reply_markup=reply_markup,
                 reactions=reactions,
+                saved_peer_id=saved_peer_id,
+                from_boosts_applied=message.from_boosts_applied,
+                quick_reply_shortcut_id=message.quick_reply_shortcut_id,
+                effect_id=message.effect,
+                fact_check=types.FactCheck._parse(client, message.factcheck),
+                paid_message_stars=types.StarsAmount._parse(client, message.paid_message_stars),
+                suggested_post=types.SuggestedPost._parse(client, message.suggested_post),
                 client=client
             )
 

@@ -52,11 +52,7 @@ def async_to_sync(obj, name):
     def async_to_sync_wrap(*args, **kwargs):
         coroutine = function(*args, **kwargs)
 
-        try:
-            loop = asyncio.get_event_loop()
-        except RuntimeError:
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
+        loop = _ensure_event_loop()
 
         if threading.current_thread() is threading.main_thread() or not main_loop.is_running():
             if loop.is_running():

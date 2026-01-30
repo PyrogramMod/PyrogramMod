@@ -187,4 +187,4 @@ class DownloadMedia:
         if block:
             return await downloader
         else:
-            asyncio.get_event_loop().create_task(downloader)
+            asyncio.get_running_loop().create_task(downloader)
