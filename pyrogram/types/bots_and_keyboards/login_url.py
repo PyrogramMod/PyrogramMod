@@ -49,7 +49,7 @@ class LoginUrl(Object):
             See `Linking your domain to the bot <https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot>`_
             for more details.
 
-        request_write_access (``str``, *optional*):
+        request_write_access (``bool``, *optional*):
             Pass True to request the permission for your bot to send messages to the user.
 
         button_id (``int``):
@@ -61,7 +61,7 @@ class LoginUrl(Object):
         url: str,
         forward_text: str = None,
         bot_username: str = None,
-        request_write_access: str = None,
+        request_write_access: bool = None,
         button_id: int = None
     ):
         super().__init__()
@@ -80,11 +80,12 @@ class LoginUrl(Object):
             button_id=b.button_id
         )
 
-    def write(self, text: str, bot: "raw.types.InputUser"):
+    def write(self, text: str, bot: "raw.types.InputUser", style: "raw.types.KeyboardButtonStyle" = None):
         return raw.types.InputKeyboardButtonUrlAuth(
             text=text,
             url=self.url,
             bot=bot,
             fwd_text=self.forward_text,
-            request_write_access=self.request_write_access
+            request_write_access=self.request_write_access,
+            style=style
         )
