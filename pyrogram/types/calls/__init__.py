@@ -19,9 +19,14 @@
 from .group_call import GroupCall
 from .group_call_participant import GroupCallParticipant
 from .conference_call import ConferenceCall
+from .group_call_message import GroupCallMessage
+from .group_call_stream_channel import GroupCallStreamChannel
+
 
 __all__ = [
     "GroupCall",
     "GroupCallParticipant",
-    "ConferenceCall"
+    "ConferenceCall",
+    "GroupCallMessage",
+    "GroupCallStreamChannel"
 ]

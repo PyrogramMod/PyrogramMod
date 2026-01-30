@@ -384,6 +384,19 @@ business = create(business_filter)
 
 # endregion
 
+
+# region boost_filter
+async def boost_filter(_, __, update: Update):
+    from pyrogram.types import ChatBoostUpdated
+    return isinstance(update, ChatBoostUpdated)
+
+
+boost = create(boost_filter)
+"""Filter chat boost updates."""
+
+
+# endregion
+
 # region video_filter
 async def video_filter(_, __, m: Message):
     return bool(m.video)

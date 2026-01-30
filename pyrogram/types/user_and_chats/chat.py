@@ -548,6 +548,9 @@ class Chat(Object):
             parsed_chat.business_greeting_message = types.BusinessGreetingMessage._parse(client, getattr(full_user, "business_greeting_message", None))
             parsed_chat.business_away_message = types.BusinessAwayMessage._parse(client, getattr(full_user, "business_away_message", None))
             parsed_chat.stargifts_count = getattr(full_user, "stargifts_count", None)
+            parsed_chat.starref_program = types.StarRefProgram._parse(client, getattr(full_user, "starref_program", None))
+            parsed_chat.send_paid_messages_stars = getattr(full_user, "send_paid_messages_stars", None)
+            parsed_chat.disallowed_gifts = types.DisallowedGiftsSettings._parse(client, getattr(full_user, "disallowed_gifts", None))
 
             if getattr(full_user, "personal_channel_id", None):
                 personal_channel = chats.get(full_user.personal_channel_id)
@@ -603,6 +606,7 @@ class Chat(Object):
                 parsed_chat.boosts_applied = getattr(full_chat, "boosts_applied", parsed_chat.boosts_applied)
                 parsed_chat.unrestrict_boost_count = getattr(full_chat, "boosts_unrestrict", parsed_chat.unrestrict_boost_count)
                 parsed_chat.stargifts_count = getattr(full_chat, "stargifts_count", parsed_chat.stargifts_count)
+                parsed_chat.emojiset = types.StickerSet._parse(client, getattr(full_chat, "emojiset", None))
             if getattr(full_chat, "default_banned_rights", None):
                 parsed_chat.permissions = types.ChatPermissions._parse(full_chat.default_banned_rights)
             if getattr(full_chat, "banned_rights", None):

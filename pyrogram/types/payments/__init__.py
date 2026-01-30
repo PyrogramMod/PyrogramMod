@@ -24,6 +24,8 @@ from .stars_revenue_status import StarsRevenueStatus
 from .stars_topup_option import StarsTopupOption
 from .stars_gift_option import StarsGiftOption
 from .paid_reaction_privacy import PaidReactionPrivacy
+from .premium_gift_code_option import PremiumGiftCodeOption
+from .star_ref_program import StarRefProgram
 from .star_gift_auction_round import StarGiftAuctionRound
 from .star_gift_auction_user_state import StarGiftAuctionUserState
 from .star_gift_auction_state import StarGiftAuctionState
@@ -43,5 +45,7 @@ __all__ = [
     "StarGiftAuctionRound",
     "StarGiftAuctionUserState",
     "StarGiftAuctionState",
-    "AuctionBidLevel"
+    "AuctionBidLevel",
+    "PremiumGiftCodeOption",
+    "StarRefProgram"
 ]

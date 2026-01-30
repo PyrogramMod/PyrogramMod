@@ -35,6 +35,7 @@ from .poll import Poll
 from .poll_option import PollOption
 from .reaction import Reaction
 from .sticker import Sticker
+from .sticker_set import StickerSet
 from .story import Story
 from .stripped_thumbnail import StrippedThumbnail
 from .suggested_post import SuggestedPost
@@ -55,5 +56,5 @@ __all__ = [
     "MessageEntity", "Photo", "Thumbnail", "StrippedThumbnail", "Poll", "PollOption", "Sticker", "SuggestedPost",
     "Venue", "Video", "VideoNote", "Voice", "WebPage", "Dice", "Reaction", "WebAppData", "MessageReactions",
     "Story", "Giveaway", "AlternativeVideo", "StarGift", "StarGiftUnique", "StarGiftAttribute", "StarGiftAttributeRarity",
-    "PaidMedia"
+    "PaidMedia", "StickerSet"
 ]

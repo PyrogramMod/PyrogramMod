@@ -101,3 +101,55 @@ ChatJoinRequest
 
     {chat_join_request_toctree}
 
+StoryItem
+---------
+
+.. hlist::
+    :columns: 3
+
+    {story_item_hlist}
+
+.. toctree::
+    :hidden:
+
+    {story_item_toctree}
+
+QuickReply
+----------
+
+.. hlist::
+    :columns: 2
+
+    {quick_reply_hlist}
+
+.. toctree::
+    :hidden:
+
+    {quick_reply_toctree}
+
+BusinessChatLink
+----------------
+
+.. hlist::
+    :columns: 2
+
+    {business_chat_link_hlist}
+
+.. toctree::
+    :hidden:
+
+    {business_chat_link_toctree}
+
+SavedDialog
+-----------
+
+.. hlist::
+    :columns: 2
+
+    {saved_dialog_hlist}
+
+.. toctree::
+    :hidden:
+
+    {saved_dialog_toctree}
+

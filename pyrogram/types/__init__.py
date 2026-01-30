@@ -28,6 +28,7 @@ from .list import List
 from .messages_and_media import *
 from .object import Object
 from .payments import *
+from .saved_messages import *
 from .stats import *
 from .stories import *
 from .todo import *
