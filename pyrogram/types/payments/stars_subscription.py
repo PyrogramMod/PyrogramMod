@@ -107,7 +107,7 @@ class StarsSubscription(Object):
         *,
         client: "pyrogram.Client" = None,
         id: str,
-        peer: types.User = None,
+        peer: "types.User" = None,
         until_date: datetime = None,
         pricing: "StarsSubscriptionPricing" = None,
         title: str = None,
