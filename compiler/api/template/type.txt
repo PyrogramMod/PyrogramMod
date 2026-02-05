@@ -6,9 +6,11 @@ from typing import Union
 from pyrogram import raw
 
 {name} = Union[{types}]
+_doc = """{docstring}"""
 try:
-    {name}.__doc__ = """
-    {docstring}
-    """
+    _t = type({name})
+    # typing.Union (and UnionType) can have a read-only __doc__ on newer Python versions
+    if _t.__module__ != "typing" and not (_t.__module__ == "types" and _t.__name__ == "UnionType"):
+        {name}.__doc__ = _doc
 except (AttributeError, TypeError):
     pass
