@@ -209,7 +209,9 @@ class Session:
 
     async def handle_packet(self, packet):
         try:
-            data = await self.loop.run_in_executor(
+            loop = self.loop or asyncio.get_running_loop()
+
+            data = await loop.run_in_executor(
                 pyrogram.crypto_executor,
                 mtproto.unpack,
                 BytesIO(packet),
@@ -219,7 +221,8 @@ class Session:
             )
         except ValueError as e:
             log.debug(e)
-            restart_task = self.loop.create_task(self.restart())
+            loop = self.loop or asyncio.get_running_loop()
+            restart_task = loop.create_task(self.restart())
 
             if hasattr(restart_task, "_log_destroy_pending"):
                 restart_task._log_destroy_pending = False
@@ -376,7 +379,9 @@ class Session:
 
         log.debug("Sent: %s", message)
 
-        payload = await self.loop.run_in_executor(
+        loop = self.loop or asyncio.get_running_loop()
+
+        payload = await loop.run_in_executor(
             pyrogram.crypto_executor,
             mtproto.pack,
             message,
