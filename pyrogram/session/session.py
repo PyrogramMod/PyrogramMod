@@ -103,9 +103,38 @@ class Session:
         self.is_started = asyncio.Event()
 
         self.loop = None
+        self.restart_task = None
+
+    def _get_loop(self):
+        return self.loop or asyncio.get_running_loop()
+
+    def _create_task(self, coro):
+        task = self._get_loop().create_task(coro)
+
+        if hasattr(task, "_log_destroy_pending"):
+            task._log_destroy_pending = False
+
+        return task
+
+    def _schedule_restart(self):
+        if self.restart_task is not None and not self.restart_task.done():
+            return self.restart_task
+
+        async def do_restart():
+            try:
+                await self.restart()
+            finally:
+                current = asyncio.current_task()
+
+                if self.restart_task is current:
+                    self.restart_task = None
+
+        self.restart_task = self._create_task(do_restart())
+        return self.restart_task
 
     async def start(self):
-        self.loop = asyncio.get_running_loop()
+        loop = asyncio.get_running_loop()
+        self.loop = loop
 
         while True:
             self.connection = self.client.connection_factory(
@@ -120,7 +149,7 @@ class Session:
             try:
                 await self.connection.connect()
 
-                self.recv_task = self.loop.create_task(self.recv_worker())
+                self.recv_task = loop.create_task(self.recv_worker())
 
                 if hasattr(self.recv_task, "_log_destroy_pending"):
                     self.recv_task._log_destroy_pending = False
@@ -145,7 +174,7 @@ class Session:
                         timeout=self.START_TIMEOUT
                     )
 
-                self.ping_task = self.loop.create_task(self.ping_worker())
+                self.ping_task = loop.create_task(self.ping_worker())
 
                 if hasattr(self.ping_task, "_log_destroy_pending"):
                     self.ping_task._log_destroy_pending = False
@@ -221,11 +250,7 @@ class Session:
             )
         except ValueError as e:
             log.debug(e)
-            loop = self.loop or asyncio.get_running_loop()
-            restart_task = loop.create_task(self.restart())
-
-            if hasattr(restart_task, "_log_destroy_pending"):
-                restart_task._log_destroy_pending = False
+            self._schedule_restart()
             return
 
         messages = (
@@ -287,10 +312,7 @@ class Session:
                 msg_id = msg.body.msg_id
             else:
                 if self.client is not None:
-                    update_task = self.loop.create_task(self.client.handle_updates(msg.body))
-
-                    if hasattr(update_task, "_log_destroy_pending"):
-                        update_task._log_destroy_pending = False
+                    self._create_task(self.client.handle_updates(msg.body))
 
             if msg_id in self.results:
                 self.results[msg_id].value = getattr(msg.body, "result", msg.body)
@@ -324,10 +346,7 @@ class Session:
                     ), False
                 )
             except OSError:
-                restart_task = self.loop.create_task(self.restart())
-
-                if hasattr(restart_task, "_log_destroy_pending"):
-                    restart_task._log_destroy_pending = False
+                self._schedule_restart()
                 break
             except RPCError:
                 pass
@@ -356,17 +375,11 @@ class Session:
                     )
 
                 if self.is_started.is_set():
-                    restart_task = self.loop.create_task(self.restart())
-
-                    if hasattr(restart_task, "_log_destroy_pending"):
-                        restart_task._log_destroy_pending = False
+                    self._schedule_restart()
 
                 break
 
-            packet_task = self.loop.create_task(self.handle_packet(packet))
-
-            if hasattr(packet_task, "_log_destroy_pending"):
-                packet_task._log_destroy_pending = False
+            self._create_task(self.handle_packet(packet))
 
         log.info("NetworkTask stopped")
 
@@ -395,6 +408,8 @@ class Session:
             await self.connection.send(payload)
         except OSError as e:
             self.results.pop(msg_id, None)
+            if self.is_started.is_set():
+                self._schedule_restart()
             raise e
 
         if wait_response:
