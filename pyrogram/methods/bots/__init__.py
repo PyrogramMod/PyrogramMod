@@ -33,6 +33,9 @@ from .set_bot_commands import SetBotCommands
 from .set_bot_default_privileges import SetBotDefaultPrivileges
 from .set_chat_menu_button import SetChatMenuButton
 from .set_game_score import SetGameScore
+from .get_bot_access_settings import GetBotAccessSettings
+from .edit_bot_access_settings import EditBotAccessSettings
+from .confirm_bot_connection import ConfirmBotConnection
 
 
 class Bots(
@@ -52,6 +55,9 @@ class Bots(
     SetChatMenuButton,
     GetChatMenuButton,
     AnswerWebAppQuery,
-    SendStreamingText
+    SendStreamingText,
+    GetBotAccessSettings,
+    EditBotAccessSettings,
+    ConfirmBotConnection
 ):
     pass

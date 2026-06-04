@@ -49,6 +49,7 @@ from .set_administrator_title import SetAdministratorTitle
 from .set_chat_description import SetChatDescription
 from .set_chat_permissions import SetChatPermissions
 from .set_chat_photo import SetChatPhoto
+from .set_chat_guard_bot import SetChatGuardBot
 from .set_chat_protected_content import SetChatProtectedContent
 from .set_chat_reactions import SetChatReaction
 from .set_chat_title import SetChatTitle
@@ -102,6 +103,7 @@ class Chats(
     GetSendAsChats,
     SetSendAsChat,
     SetChatReaction,
+    SetChatGuardBot,
     SetChatProtectedContent,
     CreateGroupCall,
     GetGroupCallStreamChannels

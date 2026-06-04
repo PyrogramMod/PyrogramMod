@@ -65,6 +65,11 @@ from .stop_poll import StopPoll
 from .stream_media import StreamMedia
 from .vote_poll import VotePoll
 from .send_paid_reaction import SendPaidReaction
+from .get_web_browser_settings import GetWebBrowserSettings
+from .update_web_browser_settings import UpdateWebBrowserSettings
+from .toggle_web_browser_exception import ToggleWebBrowserException
+from .delete_web_browser_exceptions import DeleteWebBrowserExceptions
+from .get_poll_stats import GetPollStats
 
 
 class Messages(
@@ -116,6 +121,11 @@ class Messages(
     GetDiscussionRepliesCount,
     StreamMedia,
     GetCustomEmojiStickers,
-    SendPaidReaction
+    SendPaidReaction,
+    GetWebBrowserSettings,
+    UpdateWebBrowserSettings,
+    ToggleWebBrowserException,
+    DeleteWebBrowserExceptions,
+    GetPollStats
 ):
     pass
