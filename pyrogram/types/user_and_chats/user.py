@@ -100,6 +100,18 @@ class User(Object, Update):
         is_premium (``bool``, *optional*):
             True, if this user is a premium user.
 
+        bot_forum_can_manage_topics (``bool``, *optional*):
+            True, if this bot can manage forum topics.
+
+        bot_can_manage_bots (``bool``, *optional*):
+            True, if this bot can manage other bots.
+
+        bot_guestchat (``bool``, *optional*):
+            True, if this bot supports guest chat.
+
+        bot_guard (``bool``, *optional*):
+            True, if this bot can act as a guard bot for channels/supergroups.
+
         first_name (``str``, *optional*):
             User's or bot's first name.
 
@@ -196,6 +208,10 @@ class User(Object, Update):
         bot_business: bool = None,
         bot_has_main_app: bool = None,
         bot_forum_view: bool = None,
+        bot_forum_can_manage_topics: bool = None,
+        bot_can_manage_bots: bool = None,
+        bot_guestchat: bool = None,
+        bot_guard: bool = None,
         access_hash: int = None,
         bot_info_version: int = None,
         bot_inline_placeholder: str = None,
@@ -248,6 +264,10 @@ class User(Object, Update):
         self.bot_business = bot_business
         self.bot_has_main_app = bot_has_main_app
         self.bot_forum_view = bot_forum_view
+        self.bot_forum_can_manage_topics = bot_forum_can_manage_topics
+        self.bot_can_manage_bots = bot_can_manage_bots
+        self.bot_guestchat = bot_guestchat
+        self.bot_guard = bot_guard
         self.access_hash = access_hash
         self.bot_info_version = bot_info_version
         self.bot_inline_placeholder = bot_inline_placeholder
@@ -317,6 +337,10 @@ class User(Object, Update):
             bot_business=getattr(user, "bot_business", None),
             bot_has_main_app=getattr(user, "bot_has_main_app", None),
             bot_forum_view=getattr(user, "bot_forum_view", None),
+            bot_forum_can_manage_topics=getattr(user, "bot_forum_can_manage_topics", None),
+            bot_can_manage_bots=getattr(user, "bot_can_manage_bots", None),
+            bot_guestchat=getattr(user, "bot_guestchat", None),
+            bot_guard=getattr(user, "bot_guard", None),
             access_hash=getattr(user, "access_hash", None),
             bot_info_version=getattr(user, "bot_info_version", None),
             bot_inline_placeholder=getattr(user, "bot_inline_placeholder", None),

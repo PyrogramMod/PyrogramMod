@@ -196,6 +196,9 @@ class Chat(Object):
         send_paid_messages_stars (``int``, *optional*):
             Number of Stars required to send paid messages in the chat.
 
+        guard_bot_id (``int``, *optional*):
+            Identifier of the guard bot set for this channel/supergroup.
+
         linked_monoforum_id (``int``, *optional*):
             Identifier of the linked monoforum, if any.
 
@@ -260,6 +263,7 @@ class Chat(Object):
         subscription_until_date: datetime = None,
         bot_verification_icon: int = None,
         send_paid_messages_stars: int = None,
+        guard_bot_id: int = None,
         linked_monoforum_id: int = None,
         restriction_reason: List["types.Restriction"] = None,
     ):
@@ -315,6 +319,7 @@ class Chat(Object):
         self.subscription_until_date = subscription_until_date
         self.bot_verification_icon = bot_verification_icon
         self.send_paid_messages_stars = send_paid_messages_stars
+        self.guard_bot_id = guard_bot_id
         self.linked_monoforum_id = linked_monoforum_id
         self.restriction_reason = restriction_reason or restrictions
 
@@ -524,6 +529,7 @@ class Chat(Object):
                 parsed_chat.subscription_until_date = utils.timestamp_to_datetime(getattr(full_chat, "subscription_until_date", None)) or parsed_chat.subscription_until_date
                 parsed_chat.bot_verification_icon = getattr(full_chat, "bot_verification_icon", parsed_chat.bot_verification_icon)
                 parsed_chat.send_paid_messages_stars = getattr(full_chat, "send_paid_messages_stars", parsed_chat.send_paid_messages_stars)
+                parsed_chat.guard_bot_id = getattr(full_chat, "guard_bot_id", parsed_chat.guard_bot_id)
                 parsed_chat.linked_monoforum_id = getattr(full_chat, "linked_monoforum_id", parsed_chat.linked_monoforum_id)
             if getattr(full_chat, "default_banned_rights", None):
                 parsed_chat.permissions = types.ChatPermissions._parse(full_chat.default_banned_rights)
