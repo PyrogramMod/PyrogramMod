@@ -96,7 +96,9 @@ class PromoteChatMember:
                     manage_topics=privileges.can_manage_topics,
                     post_stories=privileges.can_post_stories,
                     edit_stories=privileges.can_edit_stories,
-                    delete_stories=privileges.can_delete_stories
+                    delete_stories=privileges.can_delete_stories,
+                    manage_direct_messages=privileges.can_manage_direct_messages or None,
+                    manage_ranks=privileges.can_manage_ranks or None,
                 ),
                 rank=rank or ""
             )

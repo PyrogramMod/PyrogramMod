@@ -82,7 +82,11 @@ class ChatPrivileges(Object):
             supergroups only
 
         can_manage_direct_messages (``bool``, *optional*):
-            True, if the administrator can manage direct messages in the chat's.
+            True, if the administrator can manage direct messages and decline suggested posts.
+            channels only
+
+        can_manage_ranks (``bool``, *optional*):
+            True, if the administrator can manage member ranks/titles.
     """
 
     def __init__(
@@ -104,6 +108,7 @@ class ChatPrivileges(Object):
         can_delete_stories: bool = False,  # Channels only
         can_manage_topics: bool = False,  # supergroups only
         can_manage_direct_messages: bool = False,
+        can_manage_ranks: bool = False,
     ):
         super().__init__(None)
 
@@ -123,6 +128,7 @@ class ChatPrivileges(Object):
         self.can_delete_stories: bool = can_delete_stories
         self.can_manage_topics: bool = can_manage_topics
         self.can_manage_direct_messages: bool = can_manage_direct_messages
+        self.can_manage_ranks: bool = can_manage_ranks
 
     @staticmethod
     def _parse(admin_rights: "raw.base.ChatAdminRights") -> Optional["ChatPrivileges"]:
@@ -145,5 +151,6 @@ class ChatPrivileges(Object):
             can_post_stories=admin_rights.post_stories,
             can_edit_stories=admin_rights.edit_stories,
             can_delete_stories=admin_rights.delete_stories,
-            can_manage_direct_messages=getattr(admin_rights, "manage_direct_messages", False)
+            can_manage_direct_messages=getattr(admin_rights, "manage_direct_messages", False),
+            can_manage_ranks=getattr(admin_rights, "manage_ranks", False),
         )
