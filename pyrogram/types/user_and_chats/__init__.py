@@ -22,6 +22,7 @@ from .chat_event import ChatEvent
 from .chat_event_filter import ChatEventFilter
 from .chat_invite_link import ChatInviteLink
 from .chat_join_request import ChatJoinRequest
+from .guard_bot_query import GuardBotQuery
 from .chat_joiner import ChatJoiner
 from .chat_member import ChatMember
 from .chat_member_updated import ChatMemberUpdated
@@ -67,5 +68,6 @@ __all__ = [
     "ChatJoiner",
     "EmojiStatus",
     "ChatReactions",
-    "PeerColor"
+    "PeerColor",
+    "GuardBotQuery",
 ]
