@@ -139,12 +139,23 @@ class Session:
         return task
 
     def _schedule_restart(self):
-        if self.restart_task is not None and not self.restart_task.done():
+        # When called from inside the running restart task (start() failing
+        # during a reconnect attempt), the task is "not done" but is about to
+        # finish without retrying: a new task must be scheduled, otherwise the
+        # session stays stopped forever.
+        if (
+            self.restart_task is not None
+            and not self.restart_task.done()
+            and self.restart_task is not asyncio.current_task()
+        ):
             return self.restart_task
 
         async def do_restart():
             try:
                 await self.restart()
+            except Exception as e:
+                log.warning("Unable to restart the session: %s", e)
+                raise
             finally:
                 current = asyncio.current_task()
 
