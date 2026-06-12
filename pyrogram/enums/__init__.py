@@ -28,22 +28,26 @@ from .messages_filter import MessagesFilter
 from .next_code_type import NextCodeType
 from .parse_mode import ParseMode
 from .poll_type import PollType
+from .rich_block_type import RichBlockType
+from .rich_text_type import RichTextType
 from .sent_code_type import SentCodeType
 from .user_status import UserStatus
 
 __all__ = [
-    'ChatAction', 
-    'ChatEventAction', 
-    'ChatMemberStatus', 
-    'ChatMembersFilter', 
-    'ChatType', 
-    'MessageEntityType', 
-    'MessageMediaType', 
-    'MessageServiceType', 
-    'MessagesFilter', 
-    'NextCodeType', 
-    'ParseMode', 
-    'PollType', 
-    'SentCodeType', 
-    'UserStatus'
+    'ChatAction',
+    'ChatEventAction',
+    'ChatMemberStatus',
+    'ChatMembersFilter',
+    'ChatType',
+    'MessageEntityType',
+    'MessageMediaType',
+    'MessageServiceType',
+    'MessagesFilter',
+    'NextCodeType',
+    'ParseMode',
+    'PollType',
+    'RichBlockType',
+    'RichTextType',
+    'SentCodeType',
+    'UserStatus',
 ]

@@ -44,6 +44,10 @@ class ChatJoinRequest(Object, Update):
 
         invite_link (:obj:`~pyrogram.types.ChatInviteLink`, *optional*):
             Chat invite link that was used by the user to send the join request.
+
+        query_id (``int``, *optional*):
+            Guard-bot query ID. Present when the join request was routed through a guard bot.
+            Pass to :meth:`~pyrogram.Client.answer_chat_join_request_query`.
     """
 
     def __init__(
@@ -54,7 +58,8 @@ class ChatJoinRequest(Object, Update):
         from_user: "types.User",
         date: datetime,
         bio: str = None,
-        invite_link: "types.ChatInviteLink" = None
+        invite_link: "types.ChatInviteLink" = None,
+        query_id: int = None,
     ):
         super().__init__(client)
 
@@ -63,6 +68,7 @@ class ChatJoinRequest(Object, Update):
         self.date = date
         self.bio = bio
         self.invite_link = invite_link
+        self.query_id = query_id
 
     @staticmethod
     def _parse(
@@ -79,6 +85,7 @@ class ChatJoinRequest(Object, Update):
             date=utils.timestamp_to_datetime(update.date),
             bio=update.about,
             invite_link=types.ChatInviteLink._parse(client, update.invite, users),
+            query_id=getattr(update, "query_id", None),
             client=client
         )
 
@@ -137,3 +144,35 @@ class ChatJoinRequest(Object, Update):
             chat_id=self.chat.id,
             user_id=self.from_user.id
         )
+
+    async def answer(self, action: str, url: str = None) -> None:
+        """Answer this join request via the guard-bot query system.
+
+        Requires :attr:`query_id` to be set (join request routed through a guard bot).
+
+        Shortcut for :meth:`~pyrogram.Client.answer_chat_join_request_query`.
+
+        Parameters:
+            action (``str``):
+                One of ``"approve"``, ``"decline"``, ``"queue"``, ``"web_view"``.
+
+            url (``str``, *optional*):
+                WebApp URL. Required when ``action="web_view"``.
+
+        Raises:
+            ValueError: If ``query_id`` is not set.
+        """
+        if self.query_id is None:
+            raise ValueError("query_id is not set on this ChatJoinRequest")
+        await self._client.answer_chat_join_request_query(self.query_id, action, url=url)
+
+    async def answer_web_app(self, url: str) -> None:
+        """Open a WebApp for the joining user via guard-bot query.
+
+        Shortcut for :meth:`~pyrogram.Client.send_chat_join_request_web_app`.
+
+        Parameters:
+            url (``str``):
+                HTTPS URL of the WebApp.
+        """
+        await self.answer("web_view", url=url)

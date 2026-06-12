@@ -29,11 +29,12 @@ class EditMessageText:
         self: "pyrogram.Client",
         chat_id: Union[int, str],
         message_id: int,
-        text: str,
+        text: str = "",
         parse_mode: Optional["enums.ParseMode"] = None,
         entities: List["types.MessageEntity"] = None,
         disable_web_page_preview: bool = None,
-        reply_markup: "types.InlineKeyboardMarkup" = None
+        reply_markup: "types.InlineKeyboardMarkup" = None,
+        rich_message: Optional["types.InputRichMessage"] = None,
     ) -> "types.Message":
         """Edit the text of messages.
 
@@ -64,6 +65,9 @@ class EditMessageText:
             reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
                 An InlineKeyboardMarkup object.
 
+            rich_message (:obj:`~pyrogram.types.InputRichMessage`, *optional*):
+                Replace the message with a rich formatted message.
+
         Returns:
             :obj:`~pyrogram.types.Message`: On success, the edited message is returned.
 
@@ -85,6 +89,7 @@ class EditMessageText:
                 id=message_id,
                 no_webpage=disable_web_page_preview or None,
                 reply_markup=await reply_markup.write(self) if reply_markup else None,
+                rich_message=rich_message.write() if rich_message else None,
                 **await utils.parse_text_entities(self, text, parse_mode, entities)
             )
         )

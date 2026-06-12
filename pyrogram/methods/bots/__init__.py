@@ -37,6 +37,8 @@ from .answer_guard_bot_query import AnswerGuardBotQuery
 from .get_bot_access_settings import GetBotAccessSettings
 from .edit_bot_access_settings import EditBotAccessSettings
 from .confirm_bot_connection import ConfirmBotConnection
+from .answer_chat_join_request_query import AnswerChatJoinRequestQuery
+from .send_chat_join_request_web_app import SendChatJoinRequestWebApp
 
 
 class Bots(
@@ -60,6 +62,8 @@ class Bots(
     AnswerGuardBotQuery,
     GetBotAccessSettings,
     EditBotAccessSettings,
-    ConfirmBotConnection
+    ConfirmBotConnection,
+    AnswerChatJoinRequestQuery,
+    SendChatJoinRequestWebApp,
 ):
     pass

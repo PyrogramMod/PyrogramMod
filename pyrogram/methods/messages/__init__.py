@@ -70,6 +70,8 @@ from .update_web_browser_settings import UpdateWebBrowserSettings
 from .toggle_web_browser_exception import ToggleWebBrowserException
 from .delete_web_browser_exceptions import DeleteWebBrowserExceptions
 from .get_poll_stats import GetPollStats
+from .send_rich_message import SendRichMessage
+from .send_rich_message_draft import SendRichMessageDraft
 
 
 class Messages(
@@ -126,6 +128,8 @@ class Messages(
     UpdateWebBrowserSettings,
     ToggleWebBrowserException,
     DeleteWebBrowserExceptions,
-    GetPollStats
+    GetPollStats,
+    SendRichMessage,
+    SendRichMessageDraft,
 ):
     pass
