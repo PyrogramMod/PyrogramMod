@@ -38,5 +38,5 @@ class DeleteWebBrowserExceptions:
         """
 
         return await self.invoke(
-            raw.functions.messages.DeleteWebBrowserSettingsExceptions()
+            raw.functions.account.DeleteWebBrowserSettingsExceptions()
         )

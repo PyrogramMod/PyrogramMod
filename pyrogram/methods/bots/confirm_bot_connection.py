@@ -46,8 +46,14 @@ class ConfirmBotConnection:
                 await app.confirm_bot_connection("@mybot")
         """
 
+        peer = await self.resolve_peer(bot)
+        if isinstance(peer, raw.types.InputPeerUser):
+            input_user = raw.types.InputUser(user_id=peer.user_id, access_hash=peer.access_hash)
+        else:
+            input_user = peer
+
         return await self.invoke(
-            raw.functions.messages.ConfirmBotConnection(
-                bot_id=await self.resolve_peer(bot)
+            raw.functions.account.ConfirmBotConnection(
+                bot_id=input_user
             )
         )

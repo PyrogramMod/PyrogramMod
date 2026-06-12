@@ -63,7 +63,13 @@ class SetChatGuardBot:
                 await app.set_chat_guard_bot(chat_id, None)
         """
 
-        guard_bot = await self.resolve_peer(bot) if bot is not None else None
+        guard_bot = None
+        if bot is not None:
+            peer = await self.resolve_peer(bot)
+            if isinstance(peer, raw.types.InputPeerUser):
+                guard_bot = raw.types.InputUser(user_id=peer.user_id, access_hash=peer.access_hash)
+            else:
+                guard_bot = peer
 
         await self.invoke(
             raw.functions.channels.ToggleJoinRequest(

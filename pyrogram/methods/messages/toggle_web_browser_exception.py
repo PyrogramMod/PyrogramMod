@@ -58,7 +58,7 @@ class ToggleWebBrowserException:
         """
 
         await self.invoke(
-            raw.functions.messages.ToggleWebBrowserSettingsException(
+            raw.functions.account.ToggleWebBrowserSettingsException(
                 url=url,
                 open_external_browser=open_external_browser,
                 delete=delete

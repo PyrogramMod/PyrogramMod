@@ -39,5 +39,5 @@ class GetWebBrowserSettings:
         """
 
         return await self.invoke(
-            raw.functions.messages.GetWebBrowserSettings(hash=0)
+            raw.functions.account.GetWebBrowserSettings(hash=0)
         )

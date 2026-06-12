@@ -13,29 +13,24 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: "pip"
 
-      - name: Upgrade pip and install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install --upgrade tox wheel setuptools
+      - name: Install dependencies
+        run: uv sync --extra dev
 
       - name: Generate API
-        run: |
-          make venv
-          make api
+        run: make api
 
-      - name: Run tests with tox
+      - name: Run tests
         env:
           PYTHONWARNINGS: "ignore"
-        run: tox
+        run: uv run pytest

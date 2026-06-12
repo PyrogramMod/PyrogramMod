@@ -45,8 +45,12 @@ class GetBotAccessSettings:
                 print(settings.restricted, settings.add_users)
         """
 
+        peer = await self.resolve_peer(bot)
+        if isinstance(peer, raw.types.InputPeerUser):
+            peer = raw.types.InputUser(user_id=peer.user_id, access_hash=peer.access_hash)
+
         return await self.invoke(
             raw.functions.bots.GetAccessSettings(
-                bot=await self.resolve_peer(bot)
+                bot=peer
             )
         )

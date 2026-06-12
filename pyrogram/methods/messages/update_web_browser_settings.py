@@ -49,7 +49,7 @@ class UpdateWebBrowserSettings:
         """
 
         return await self.invoke(
-            raw.functions.messages.UpdateWebBrowserSettings(
+            raw.functions.account.UpdateWebBrowserSettings(
                 open_external_browser=open_external_browser,
                 display_close_button=display_close_button
             )

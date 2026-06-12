@@ -56,13 +56,20 @@ class EditBotAccessSettings:
                 await app.edit_bot_access_settings("@mybot", add_users=["@user1", "@user2"])
         """
 
+        def to_input_user(peer):
+            if isinstance(peer, raw.types.InputPeerUser):
+                return raw.types.InputUser(user_id=peer.user_id, access_hash=peer.access_hash)
+            return peer
+
+        bot_peer = to_input_user(await self.resolve_peer(bot))
+
         resolved_users = None
         if add_users is not None:
-            resolved_users = [await self.resolve_peer(u) for u in add_users]
+            resolved_users = [to_input_user(await self.resolve_peer(u)) for u in add_users]
 
         await self.invoke(
             raw.functions.bots.EditAccessSettings(
-                bot=await self.resolve_peer(bot),
+                bot=bot_peer,
                 restricted=restricted,
                 add_users=resolved_users
             )
