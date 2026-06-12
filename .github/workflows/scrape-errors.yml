@@ -26,13 +26,10 @@ jobs:
       - name: Install Python dependencies and run scripts
         run: |
           set -e
-          echo "-------------------- Installing dependencies --------------------"
-          uv pip install --system requests
           echo "-------------------- Running scrape script --------------------"
-          cd compiler/errors/
-          python sort.py scrape
+          uv run --with requests compiler/errors/sort.py scrape
           echo "-------------------- Running sort script --------------------"
-          python sort.py sort
+          uv run --with requests compiler/errors/sort.py sort
 
       - name: Check for changes and commit
         run: |
