@@ -1,24 +1,18 @@
-VENV := venv
-PYTHON := $(VENV)/bin/python
-ifeq ($(OS),Windows_NT)
-    PYTHON := $(VENV)/Scripts/python.exe
-endif
-
 HOST := $(shell ifconfig | grep "inet " | tail -1 | cut -d\  -f2 2>/dev/null || echo "127.0.0.1")
 TAG := v$(shell grep -E '__version__ = ".*"' pyrogram/__init__.py | cut -d\" -f2)
 
 RM := rm -rf
 
-NUM_CORES := $(shell $(PYTHON) -c "import os; print(os.cpu_count())")
+NUM_CORES := $(shell uv run python -c "import os; print(os.cpu_count())" 2>/dev/null || echo 1)
 
-.PHONY: venv clean-build clean-api clean api build docs clean-docs tag dtag
+.PHONY: venv test clean-build clean-api clean api build docs clean-docs tag dtag tagall
 
 venv:
-	$(RM) $(VENV)
-	python3 -m venv $(VENV)
-	$(PYTHON) -m pip install -U pip wheel setuptools
-	$(PYTHON) -m pip install -U -r requirements.txt -r dev-requirements.txt
-	@echo "Created venv with $$($(PYTHON) --version)"
+	uv sync --extra dev --extra docs
+	@echo "Synced venv with $$(uv run python --version)"
+
+test:
+	uv run pytest
 
 clean-build:
 	$(RM) *.egg-info build dist
@@ -40,18 +34,17 @@ clean-docs:
 	$(RM) docs/source/api/bound-methods docs/source/api/methods docs/source/api/types docs/source/telegram
 
 api:
-	cd compiler/api && ../../$(PYTHON) compiler.py
-	cd compiler/errors && ../../$(PYTHON) compiler.py
+	cd compiler/api && uv run python compiler.py
+	cd compiler/errors && uv run python compiler.py
 
 docs:
 	make clean-docs
-	cd compiler/docs && ../../$(PYTHON) compiler.py
-	$(PYTHON) -m sphinx -b html "docs/source" "docs/build/html" -j$(NUM_CORES)
+	cd compiler/docs && uv run python compiler.py
+	uv run python -m sphinx -b html "docs/source" "docs/build/html" -j$(NUM_CORES)
 
 build:
 	make clean
-	$(PYTHON) setup.py sdist
-	$(PYTHON) setup.py bdist_wheel
+	uv build
 
 tag:
 	git tag $(TAG)

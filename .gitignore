@@ -132,3 +132,4 @@ docs_build.sh
 json_docs.py
 /scripts
 /tests
+/uv.lock
