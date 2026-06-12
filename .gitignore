@@ -133,3 +133,4 @@ json_docs.py
 /scripts
 /tests
 /uv.lock
+/examples
