@@ -2246,8 +2246,6 @@ inputRichMessageMarkdown#4b572c flags:# rtl:flags.0?true noautolink:flags.1?true
 
 richMessage#baf39d8b flags:# rtl:flags.0?true part:flags.1?true blocks:Vector<PageBlock> photos:Vector<Photo> documents:Vector<Document> = RichMessage;
 
-pagelistitemblocks.226#25e073fc blocks:Vector<PageBlock> = PageListItemBlocks;
-
 messages.messageEmpty#3f4e0648 = messages.MessageEmpty;
 
 premiumGiftOption#79c059f7 flags:# months:int currency:string amount:long bot_url:flags.1?string store_product:flags.0?string = PremiumGiftOption;

@@ -605,6 +605,7 @@ def start(format: bool = False):
         d[c.namespace].append(c.name)
 
     for namespace, types in namespaces_to_types.items():
+        os.makedirs(DESTINATION_PATH / "base" / namespace, exist_ok=True)
         with open(DESTINATION_PATH / "base" / namespace / "__init__.py", "w") as f:
             f.write(f"{notice}\n\n")
             f.write(f"{WARNING}\n\n")
