@@ -72,6 +72,9 @@ from .delete_web_browser_exceptions import DeleteWebBrowserExceptions
 from .get_poll_stats import GetPollStats
 from .send_rich_message import SendRichMessage
 from .send_rich_message_draft import SendRichMessageDraft
+from .translate_rich_message import TranslateRichMessage
+from .compose_rich_message_with_ai import ComposeRichMessageWithAI
+from .request_chat_join_web_view import RequestChatJoinWebView
 
 
 class Messages(
@@ -131,5 +134,8 @@ class Messages(
     GetPollStats,
     SendRichMessage,
     SendRichMessageDraft,
+    TranslateRichMessage,
+    ComposeRichMessageWithAI,
+    RequestChatJoinWebView,
 ):
     pass

@@ -20,8 +20,10 @@ from .advanced import Advanced
 from .auth import Auth
 from .bots import Bots
 from .chats import Chats
+from .communities import Communities
 from .contacts import Contacts
 from .decorators import Decorators
+from .ephemeral import Ephemeral
 from .invite_links import InviteLinks
 from .messages import Messages
 from .password import Password
@@ -33,7 +35,9 @@ class Methods(
     Advanced,
     Auth,
     Bots,
+    Communities,
     Contacts,
+    Ephemeral,
     Password,
     Chats,
     Users,

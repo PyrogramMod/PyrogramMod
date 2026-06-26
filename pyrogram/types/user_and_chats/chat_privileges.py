@@ -87,6 +87,9 @@ class ChatPrivileges(Object):
 
         can_manage_ranks (``bool``, *optional*):
             True, if the administrator can manage member ranks/titles.
+
+        can_manage_linked_peers (``bool``, *optional*):
+            True, if the administrator can manage linked peers in a community.
     """
 
     def __init__(
@@ -109,6 +112,7 @@ class ChatPrivileges(Object):
         can_manage_topics: bool = False,  # supergroups only
         can_manage_direct_messages: bool = False,
         can_manage_ranks: bool = False,
+        can_manage_linked_peers: bool = False,
     ):
         super().__init__(None)
 
@@ -129,6 +133,7 @@ class ChatPrivileges(Object):
         self.can_manage_topics: bool = can_manage_topics
         self.can_manage_direct_messages: bool = can_manage_direct_messages
         self.can_manage_ranks: bool = can_manage_ranks
+        self.can_manage_linked_peers: bool = can_manage_linked_peers
 
     @staticmethod
     def _parse(admin_rights: "raw.base.ChatAdminRights") -> Optional["ChatPrivileges"]:
@@ -153,4 +158,5 @@ class ChatPrivileges(Object):
             can_delete_stories=admin_rights.delete_stories,
             can_manage_direct_messages=getattr(admin_rights, "manage_direct_messages", False),
             can_manage_ranks=getattr(admin_rights, "manage_ranks", False),
+            can_manage_linked_peers=getattr(admin_rights, "manage_linked_peers", False),
         )

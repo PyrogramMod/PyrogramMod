@@ -80,6 +80,9 @@ class ChatPermissions(Object):
 
         can_send_reactions (``bool``, *optional*):
             True, if the user is allowed to add reactions to messages.
+
+        can_manage_linked_peers (``bool``, *optional*):
+            True, if the user is allowed to manage linked peers in a community.
     """
 
     def __init__(
@@ -101,7 +104,8 @@ class ChatPermissions(Object):
         can_send_voice_notes: bool = None,
         can_send_documents: bool = None,
         can_send_plain_text: bool = None,
-        can_send_reactions: bool = None
+        can_send_reactions: bool = None,
+        can_manage_linked_peers: bool = None
     ):
         super().__init__(None)
 
@@ -122,6 +126,7 @@ class ChatPermissions(Object):
         self.can_send_documents = can_send_documents
         self.can_send_plain_text = can_send_plain_text
         self.can_send_reactions = can_send_reactions
+        self.can_manage_linked_peers = can_manage_linked_peers
 
     @staticmethod
     def _parse(denied_permissions: "raw.base.ChatBannedRights") -> "ChatPermissions":
@@ -148,5 +153,6 @@ class ChatPermissions(Object):
                 can_send_voice_notes=not denied_permissions.send_voices,
                 can_send_documents=not denied_permissions.send_docs,
                 can_send_plain_text=not denied_permissions.send_plain,
-                can_send_reactions=not denied_permissions.send_reactions
+                can_send_reactions=not denied_permissions.send_reactions,
+                can_manage_linked_peers=not getattr(denied_permissions, "manage_linked_peers", True)
             )
