@@ -288,6 +288,16 @@ def pyrogram_api():
             get_discussion_replies
             get_discussion_replies_count
             get_custom_emoji_stickers
+            get_poll_stats
+            send_rich_message
+            send_rich_message_draft
+            translate_rich_message
+            compose_rich_message_with_ai
+            request_chat_join_web_view
+            get_web_browser_settings
+            update_web_browser_settings
+            toggle_web_browser_exception
+            delete_web_browser_exceptions
         """,
         chats="""
         Chats
@@ -334,6 +344,7 @@ def pyrogram_api():
             create_group_call
             get_group_call_stream_channels
             get_similar_channels
+            set_chat_guard_bot
         """,
         users="""
         Users
@@ -404,6 +415,31 @@ def pyrogram_api():
             get_chat_menu_button
             answer_web_app_query
             send_streaming_text
+            get_bot_access_settings
+            edit_bot_access_settings
+            confirm_bot_connection
+            answer_guard_bot_query
+            answer_chat_join_request_query
+            send_chat_join_request_web_app
+        """,
+        communities="""
+        Communities
+            create_community
+            get_joined_communities
+            toggle_community_peer_link
+            approve_community_peer_link
+            approve_all_community_peer_links
+            get_community_peer_link_requests
+            ban_community_participant
+            toggle_community_collapsed
+            get_community_participant_chats
+        """,
+        ephemeral="""
+        Ephemeral Messages
+            send_ephemeral_message
+            delete_ephemeral_message
+            get_ephemeral_callback_answer
+            report_ephemeral_message
         """,
         authorization="""
         Authorization

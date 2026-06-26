@@ -151,6 +151,32 @@ Bots
 
     {bots}
 
+Communities
+-----------
+
+.. autosummary::
+    :nosignatures:
+
+    {communities}
+
+.. toctree::
+    :hidden:
+
+    {communities}
+
+Ephemeral Messages
+------------------
+
+.. autosummary::
+    :nosignatures:
+
+    {ephemeral}
+
+.. toctree::
+    :hidden:
+
+    {ephemeral}
+
 Authorization
 -------------
 
