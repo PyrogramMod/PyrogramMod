@@ -7,34 +7,34 @@
       }
     },
     "AiComposeTone": {
-      "desc": "{schema}",
+      "desc": "A custom AI composer tone », used to rephrase messages in a specific style with the AI message composer.",
       "params": {
-        "access_hash": "",
-        "author_id": "",
-        "creator": "",
-        "emoji_id": "",
-        "example_english": "",
+        "access_hash": "Tone access hash",
+        "author_id": "ID of the user that created this tone, if made public by the author.",
+        "creator": "Whether the current user is the creator of this tone",
+        "emoji_id": "Custom emoji ID of the tone's icon",
+        "example_english": "An example showing how a sample English message is rephrased by this tone; use aicompose.getToneExample to fetch more examples.",
         "flags": "Flags, see TL conditional fields",
-        "id": "",
-        "installs_count": "",
-        "prompt": "",
-        "slug": "",
-        "title": ""
+        "id": "Tone identifier",
+        "installs_count": "Number of users that have installed this tone",
+        "prompt": "The prompt that describes how the AI should rephrase messages using this tone, up to aicompose_tone_prompt_length_max » UTF-8 characters long; only present for tones created by the current user",
+        "slug": "Unique tone slug, used to share and install the tone via AI compose tone links »",
+        "title": "Human-readable tone name, up to aicompose_tone_title_length_max » UTF-8 characters long"
       }
     },
     "AiComposeToneDefault": {
-      "desc": "{schema}",
+      "desc": "A built-in, default AI composer tone », identified by a string identifier rather than by a numeric ID.",
       "params": {
-        "emoji_id": "",
-        "title": "",
-        "tone": ""
+        "emoji_id": "Custom emoji ID of the tone's icon",
+        "title": "Localized, human-readable name of the tone",
+        "tone": "String identifier of the built-in tone, to be passed to inputAiComposeToneDefault"
       }
     },
     "AiComposeToneExample": {
-      "desc": "{schema}",
+      "desc": "An example showing how an AI composer tone » rephrases a message, used as a preview in the tone picker.",
       "params": {
-        "from": "",
-        "to": ""
+        "from": "The original, un-transformed sample message",
+        "to": "The same sample message after being rephrased with this tone"
       }
     },
     "AttachMenuBot": {
@@ -692,7 +692,7 @@
         "slowmode_enabled": "Whether slow mode is enabled for groups to prevent flood in chat. Changes to this flag should invalidate the local channelFull cache for this channel/supergroup ID, see here » for more info.",
         "stories_hidden": "Whether we have hidden all stories posted by this channel ».",
         "stories_hidden_min": "If set, indicates that the stories_hidden flag was not populated, and its value must cannot be relied on; use the previously cached value, or re-fetch the constructor using channels.getChannels to obtain the latest value of the stories_hidden flag.",
-        "stories_max_id": "ID of the maximum read story.",
+        "stories_max_id": "Summary of the channel or supergroup's active stories ».",
         "stories_unavailable": "No stories from the channel are visible.",
         "subscription_until_date": "Expiration date of the Telegram Star subscription » the current user has bought to gain access to this channel.",
         "title": "Title",
@@ -1059,7 +1059,7 @@
         "delete": "Message deletion events",
         "demote": "Admin demotion events",
         "edit": "Message edit events",
-        "edit_rank": "",
+        "edit_rank": "Events where a participant's custom tag (rank) » was changed (channelAdminLogEventActionParticipantEditRank).",
         "flags": "Flags, see TL conditional fields",
         "forums": "Forum-related events",
         "group_call": "Group call events",
@@ -1105,7 +1105,7 @@
         "boosts_unrestrict": "The number of boosts this supergroup requires to bypass slowmode and other restrictions, see here » for more info.",
         "bot_info": "Info about bots in the channel/supergroup",
         "bot_verification": "Bot verification icon",
-        "call": "Livestream or group call information",
+        "call": "Active or scheduled video chat/livestream » associated with this supergroup/channel",
         "can_delete_channel": "Can we delete this channel?",
         "can_set_location": "Can we set the geolocation of this group (for geogroups)",
         "can_set_stickers": "Can we associate a stickerpack to the supergroup?",
@@ -1121,7 +1121,7 @@
         "flags": "Flags, see TL conditional fields",
         "flags2": "Flags, see TL conditional fields",
         "folder_id": "Peer folder ID, for more info click here",
-        "groupcall_default_join_as": "When using phone.getGroupCallJoinAs to get a list of peers that can be used to join a group call, this field indicates the peer that should be selected by default.",
+        "groupcall_default_join_as": "Explicitly saved default peer used to join this supergroup/channel's video chat/livestream »; if absent, the current user is used",
         "has_scheduled": "Whether scheduled messages are available",
         "hidden_prehistory": "Is the history before we joined hidden to us?",
         "id": "ID of the channel",
@@ -1176,7 +1176,7 @@
       "params": {}
     },
     "ChannelMessagesFilter": {
-      "desc": "Filter for getting only certain types of channel messages",
+      "desc": "Filter for getting only certain types of channel messages.",
       "params": {
         "exclude_new_messages": "Whether to exclude new messages from the search",
         "flags": "Flags, see TL conditional fields",
@@ -1328,9 +1328,9 @@
         "edit_stories": "If set, allows the admin to edit stories posted by the other admins of the channel.",
         "flags": "Flags, see TL conditional fields",
         "invite_users": "If set, allows the admin to invite users in the channel/supergroup",
-        "manage_call": "If set, allows the admin to change group call/livestream settings",
+        "manage_call": "If set, allows the admin to create and administer video chats/livestreams »",
         "manage_direct_messages": "If set, allows the admin to manage the direct messages monoforum » and decline suggested posts ».",
-        "manage_ranks": "",
+        "manage_ranks": "If set, allows the admin to modify the member tag » of any user.",
         "manage_topics": "If set, allows the admin to create, delete or modify forum topics ».",
         "other": "Set this flag if none of the other flags are set, but you still want the user to be an admin: if this or any of the other flags are set, the admin can get the chat admin log, get chat statistics, get message statistics in channels, get channel members, see anonymous administrators in supergroups and ignore slow mode.",
         "pin_messages": "If set, allows the admin to pin messages in the channel/supergroup",
@@ -1350,7 +1350,7 @@
       "desc": "Represents the rights of a normal user in a supergroup/channel/chat. In this case, the flags are inverted: if set, a flag does not allow a user to do X.",
       "params": {
         "change_info": "If set, does not allow a user to change the description of a supergroup/chat",
-        "edit_rank": "",
+        "edit_rank": "If set, does not allow a user to edit their own custom tag (rank) » in a supergroup/chat.",
         "embed_links": "If set, does not allow a user to embed links in the messages of a supergroup/chat",
         "flags": "Flags, see TL conditional fields",
         "invite_users": "If set, does not allow a user to invite users in a supergroup/chat",
@@ -1366,7 +1366,7 @@
         "send_photos": "If set, does not allow a user to send photos in a supergroup/chat.",
         "send_plain": "If set, does not allow a user to send text messages in a supergroup/chat.",
         "send_polls": "If set, does not allow a user to send polls in a supergroup/chat",
-        "send_reactions": "",
+        "send_reactions": "If set, does not allow a user to react to messages in a chat.",
         "send_roundvideos": "If set, does not allow a user to send round videos in a supergroup/chat.",
         "send_stickers": "If set, does not allow a user to send stickers in a supergroup/chat",
         "send_videos": "If set, does not allow a user to send videos in a supergroup/chat.",
@@ -1394,13 +1394,13 @@
         "about": "About string for this chat",
         "available_reactions": "Allowed message reactions »",
         "bot_info": "Info about bots that are in this chat",
-        "call": "Group call information",
+        "call": "Active or scheduled video chat » associated with this basic group",
         "can_set_username": "Can we change the username of this chat",
         "chat_photo": "Chat photo",
         "exported_invite": "Chat invite",
         "flags": "Flags, see TL conditional fields",
         "folder_id": "Peer folder ID, for more info click here",
-        "groupcall_default_join_as": "When using phone.getGroupCallJoinAs to get a list of peers that can be used to join a group call, this field indicates the peer that should be selected by default.",
+        "groupcall_default_join_as": "Explicitly saved default peer used to join this group's video chat »; if absent, the current user is used",
         "has_scheduled": "Whether scheduled messages are available",
         "id": "ID of the chat",
         "notify_settings": "Notification settings",
@@ -1475,6 +1475,10 @@
         "user_id": "The user",
         "via_chatlist": "The participant joined by importing a chat folder deep link »."
       }
+    },
+    "ChatInviteJoinResultWebView": {
+      "desc": "",
+      "params": {}
     },
     "ChatInvitePeek": {
       "desc": "A chat invitation that also allows peeking into the group to read messages without joining it.",
@@ -1577,7 +1581,7 @@
     "ChatThemeUniqueGift": {
       "desc": "A chat theme based on a collectible gift ».",
       "params": {
-        "gift": "The owned collectible gift on which this theme is based, as a starGiftUnique constructor.",
+        "gift": "The owned or hosted collectible gift » on which this theme is based, as a starGiftUnique constructor.",
         "theme_settings": "Theme settings."
       }
     },
@@ -1595,6 +1599,26 @@
         "token": "Used only by official iOS apps for Firebase auth: device token for apple push.",
         "unknown_number": "Set this flag if there is a SIM card in the current device, but it is not possible to check whether the specified phone number matches the SIM's phone number."
       }
+    },
+    "Community": {
+      "desc": "",
+      "params": {}
+    },
+    "CommunityForbidden": {
+      "desc": "",
+      "params": {}
+    },
+    "CommunityFull": {
+      "desc": "",
+      "params": {}
+    },
+    "CommunityPeer": {
+      "desc": "",
+      "params": {}
+    },
+    "CommunityPeerRequest": {
+      "desc": "",
+      "params": {}
     },
     "Config": {
       "desc": "Current configuration",
@@ -1614,7 +1638,7 @@
         "dc_options": "DC IP list",
         "dc_txt_domain_name": "Domain name for fetching encrypted DC list from DNS TXT record",
         "default_p2p_contacts": "Whether the client should use P2P by default for phone calls with contacts",
-        "edit_time_limit": "Only messages with age smaller than the one specified can be edited",
+        "edit_time_limit": "Only messages with age (in seconds) smaller than the one specified in this field can be edited",
         "expires": "Expiration date of this config: when it expires it'll have to be refetched using help.getConfig",
         "flags": "Flags, see TL conditional fields",
         "force_try_ipv6": "Whether to forcefully connect using IPv6 dcOptions, even if the client knows that IPv4 is available.",
@@ -1644,7 +1668,7 @@
         "suggested_lang_code": "Suggested language code",
         "test_mode": "Whether we're connected to the test DCs",
         "this_dc": "ID of the DC that returned the reply",
-        "tmp_sessions": "Temporary passport sessions",
+        "tmp_sessions": "Number of parallel sessions the client may open to the main connection of its home DC to increase throughput; if absent or ≤ 1, a single main session must be used",
         "venue_search_username": "Username of the bot to use to search for venues",
         "webfile_dc_id": "DC ID to use to download webfiles"
       }
@@ -1738,10 +1762,14 @@
         "unread_count": "Number of unread messages",
         "unread_mark": "Whether the chat was manually marked as unread",
         "unread_mentions_count": "Number of unread mentions",
-        "unread_poll_votes_count": "",
+        "unread_poll_votes_count": "Number of unread votes cast in non-anonymous polls » owned by the user in this dialog.",
         "unread_reactions_count": "Number of unread reactions to messages you sent",
         "view_forum_as_messages": "Users may also choose to display messages from all topics of a forum as if they were sent to a normal group, using a \"View as messages\" setting in the local client.  This setting only affects the current account, and is synced to other logged in sessions using the channels.toggleViewForumAsMessages method; invoking this method will update the value of this flag."
       }
+    },
+    "DialogCommunity": {
+      "desc": "",
+      "params": {}
     },
     "DialogFilter": {
       "desc": "Dialog filter AKA folder",
@@ -1809,6 +1837,10 @@
       "params": {
         "peer": "Peer"
       }
+    },
+    "DialogPeerCommunity": {
+      "desc": "",
+      "params": {}
     },
     "DialogPeerFolder": {
       "desc": "Peer folder",
@@ -2043,7 +2075,7 @@
       }
     },
     "EmojiStatusCollectible": {
-      "desc": "An owned collectible gift » as emoji status.",
+      "desc": "An owned or hosted collectible gift » as emoji status.",
       "params": {
         "center_color": "Color of the center of the profile backdrop in RGB24 format, from the gift's starGiftAttributeBackdrop.",
         "collectible_id": "ID of the collectible (from starGiftUnique.id).",
@@ -2150,6 +2182,10 @@
         "random_id": "Random message ID, assigned by the author of message"
       }
     },
+    "EphemeralMessage": {
+      "desc": "",
+      "params": {}
+    },
     "ExportedChatlistInvite": {
       "desc": "Exported chat folder deep link ».",
       "params": {
@@ -2230,17 +2266,17 @@
         "id": "Topic ID",
         "my": "Whether the topic was created by the current user",
         "notify_settings": "Notification settings",
-        "peer": "Contains the supergroup/private chat where the topic is located.",
+        "peer": "Contains the supergroup/private chat where the topic is located.  This field is useful especially when this object is returned by methods like messages.getMessages, which can return messages and forum topics belonging to different (private chat) peers in the same method call, making it impossible to tell the topic's peer based on the method call parameters or surrounding context.",
         "pinned": "Whether the topic is pinned",
         "read_inbox_max_id": "Position up to which all incoming messages are read.",
         "read_outbox_max_id": "Position up to which all outgoing messages are read.",
         "short": "Whether this constructor is a reduced version of the full topic information. If set, only the my, closed, id, date, title, icon_color, icon_emoji_id and from_id parameters will contain valid information. Reduced info is usually only returned in topic-related admin log events » and in the messages.channelMessages constructor: if needed, full information can be fetched using messages.getForumTopicsByID.",
         "title": "Topic title",
-        "title_missing": "",
+        "title_missing": "If set, the topic has no user-defined title, can only be set for the per-user topics of bot forums; if this field is set, the topic title likely needs to be changed by the bot.",
         "top_message": "ID of the last message that was sent to this topic",
         "unread_count": "Number of unread messages",
         "unread_mentions_count": "Number of unread mentions",
-        "unread_poll_votes_count": "",
+        "unread_poll_votes_count": "Number of unread votes cast in non-anonymous polls » owned by the user in this forum topic.",
         "unread_reactions_count": "Number of unread reactions to messages you sent"
       }
     },
@@ -2309,39 +2345,39 @@
       }
     },
     "GroupCall": {
-      "desc": "Info about a group call.",
+      "desc": "Describes a group call.",
       "params": {
         "access_hash": "Group call access hash",
-        "can_change_join_muted": "Whether the current user can change the value of the join_muted flag using phone.toggleGroupCallSettings",
-        "can_change_messages_enabled": "",
-        "can_start_video": "Whether you can start streaming video into the call",
+        "can_change_join_muted": "Whether the current user can change the value of the join_muted flag using phone.toggleGroupCallSettings. Must be ignored if the min flag is set.",
+        "can_change_messages_enabled": "Whether the current user may enable or disable the in-call message overlay ». Must be ignored if the min flag is set.",
+        "can_start_video": "Whether you can start streaming video into the call. Must be ignored if the min flag is set.",
         "conference": "Whether this is an E2E conference call.",
-        "creator": "Whether we're created this group call.",
-        "default_send_as": "",
+        "creator": "Whether the current user created this group call. Must be ignored if the min flag is set.",
+        "default_send_as": "Default peer displayed as the author of live story comments and reactions ». Must be ignored if the min flag is set.",
         "flags": "Flags, see TL conditional fields",
         "id": "Group call ID",
-        "invite_link": "Invitation link for the conference.",
-        "join_date_asc": "Specifies the ordering to use when locally sorting by date and displaying in the UI group call participants.",
-        "join_muted": "Whether the user should be muted upon joining the call",
+        "invite_link": "Invitation link for a conference call ». Must be ignored if the min flag is set.",
+        "join_date_asc": "Specifies the ordering to use when locally sorting by date and displaying in the UI group call participants. Set only when the call is created and never changed afterwards, so it is not applied from a min constructor.",
+        "join_muted": "Whether the user should be muted upon joining the call. Must be ignored if the min flag is set.",
         "listeners_hidden": "Whether the listeners list is hidden and cannot be fetched using phone.getGroupParticipants. The phone.groupParticipants.count and groupCall.participants_count counters will still include listeners.",
-        "messages_enabled": "",
-        "min": "",
+        "messages_enabled": "Whether the in-call message overlay » is enabled",
+        "min": "Whether this is a partial constructor that must be merged into a previously cached non-min constructor, following the rules described above.",
         "participants_count": "Participant count",
         "record_start_date": "When was the recording started",
         "record_video_active": "Whether the group call is currently being recorded",
-        "rtmp_stream": "Whether RTMP streams are allowed",
+        "rtmp_stream": "Whether this call uses RTMP livestream mode »",
         "schedule_date": "When is the call scheduled to start",
-        "schedule_start_subscribed": "Whether we subscribed to the scheduled call",
-        "send_paid_messages_stars": "",
-        "stream_dc_id": "DC ID to be used for livestream chunks",
+        "schedule_start_subscribed": "Whether we subscribed to the scheduled call. Must be ignored if the min flag is set.",
+        "send_paid_messages_stars": "Minimum Stars donation required from users other than the live story owner to send a paid comment »; 0 or no value allows free comments",
+        "stream_dc_id": "Media DC ID to use for RTMP stream requests ». Must be ignored if the min flag is set.",
         "title": "Group call title",
-        "unmuted_video_count": "Number of people currently streaming video into the call",
-        "unmuted_video_limit": "Maximum number of people allowed to stream video into the call",
-        "version": "Version"
+        "unmuted_video_count": "Number of people currently streaming video into the call. Must be ignored if the min flag is set.",
+        "unmuted_video_limit": "Maximum number of people allowed to stream video into the call. Must be ignored if the min flag is set.",
+        "version": "Revision used to apply group call updates »"
       }
     },
     "GroupCallDiscarded": {
-      "desc": "An ended group call.",
+      "desc": "Describes an ended group call.",
       "params": {
         "access_hash": "Group call access hash",
         "duration": "Group call duration",
@@ -2349,29 +2385,29 @@
       }
     },
     "GroupCallDonor": {
-      "desc": "{schema}",
+      "desc": "Describes a live story donor in the donation leaderboard ».",
       "params": {
         "flags": "Flags, see TL conditional fields",
-        "my": "",
-        "peer_id": "",
-        "stars": "",
-        "top": ""
+        "my": "Whether this entry describes the current user's donations",
+        "peer_id": "Donor displayed in the leaderboard",
+        "stars": "Total Stars donated by this donor",
+        "top": "Whether this donor is included in the top-donor leaderboard"
       }
     },
     "GroupCallMessage": {
-      "desc": "{schema}",
+      "desc": "Represents an in-call message », emoji reaction, paid live story comment or standalone paid live story donation.",
       "params": {
-        "date": "",
+        "date": "Message date",
         "flags": "Flags, see TL conditional fields",
-        "from_admin": "",
-        "from_id": "",
-        "id": "",
-        "message": "",
-        "paid_message_stars": ""
+        "from_admin": "Whether the message was sent by a group call admin",
+        "from_id": "Displayed message author",
+        "id": "Message ID",
+        "message": "Message text or emoji reaction; empty for standalone paid live story donations. Must be at most group_call_message_length_limit » UTF-8 characters long. For paid chats, use stars_groupcall_message_limits » to source limits according to the passed value of paid_message_stars, instead.",
+        "paid_message_stars": "Number of Telegram Stars donated with the message or standalone donation"
       }
     },
     "GroupCallParticipant": {
-      "desc": "Info about a group call participant",
+      "desc": "Describes a group call participant and their current state, see applying group call updates ».",
       "params": {
         "about": "Info about this participant",
         "active_date": "When was this participant last active in the group call",
@@ -2379,20 +2415,20 @@
         "date": "When did this participant join the group call",
         "flags": "Flags, see TL conditional fields",
         "just_joined": "Whether the participant has just joined",
-        "left": "Whether the participant has left",
+        "left": "Whether the participant left the media layer; in conferences, another participant must then prune them from the E2E blockchain",
         "min": "If not set, the volume and muted_by_you fields can be safely used to overwrite locally cached information; otherwise, volume will contain valid information only if volume_by_admin is set both in the cache and in the received constructor.",
         "muted": "Whether the participant is muted",
         "muted_by_you": "Whether this participant was muted by the current user",
-        "paid_stars_total": "",
-        "peer": "Peer information",
+        "paid_stars_total": "Total Stars donated by this participant in a live story",
+        "peer": "Peer represented by this participant",
         "presentation": "Info about the screen sharing stream the participant is currently broadcasting",
         "raise_hand_rating": "Specifies the UI visualization order of peers with raised hands: peers with a higher rating should be showed first in the list.",
         "self": "Whether this participant is the current user",
-        "source": "Source ID",
-        "versioned": "If set, and updateGroupCallParticipants.version < locally stored call.version, info about this participant should be ignored. If (...), and updateGroupCallParticipants.version > call.version+1, the participant list should be refetched using phone.getGroupParticipants.",
+        "source": "Source ID of the participant's main audio stream",
+        "versioned": "If set, the application logic for this update is slightly different, see here » for more info on the full flow.",
         "video": "Info about the video stream the participant is currently broadcasting",
         "video_joined": "Whether this participant is currently broadcasting video",
-        "volume": "Volume, if not set the volume is set to 100%.",
+        "volume": "Volume, between 1 and 20000; 10000 represents 100% volume. If not set, the volume is set to 100%.",
         "volume_by_admin": "Whether our volume can only changed by an admin"
       }
     },
@@ -2414,11 +2450,11 @@
       }
     },
     "GroupCallStreamChannel": {
-      "desc": "Info about an RTMP stream in a group call or livestream",
+      "desc": "Describes an available RTMP stream channel and its current playback timestamp, see playing an RTMP livestream ».",
       "params": {
-        "channel": "Channel ID",
+        "channel": "Stream channel ID, used as a source of the synthetic unified video source group and as inputGroupCallStream.video_channel when fetching the corresponding video segment",
         "last_timestamp_ms": "Last seen timestamp to easily start fetching livestream chunks using inputGroupCallStream",
-        "scale": "Specifies the duration of the video segment to fetch in milliseconds, by bitshifting 1000 to the right scale times: duration_ms := 1000 >> scale."
+        "scale": "Specifies the duration of the media segment to fetch. To obtain this value in milliseconds, bitshift 1000 to the right scale times: duration_ms := 1000 >> scale."
       }
     },
     "HighScore": {
@@ -2475,22 +2511,26 @@
       "params": {}
     },
     "InputAiComposeToneDefault": {
-      "desc": "{schema}",
+      "desc": "References a built-in, default AI composer tone » by its string identifier.",
       "params": {
-        "tone": ""
+        "tone": "String identifier of the built-in tone, as returned in aiComposeToneDefault.tone"
       }
     },
     "InputAiComposeToneID": {
-      "desc": "{schema}",
+      "desc": "References a custom AI composer tone » by its ID and access hash.",
       "params": {
-        "access_hash": "",
-        "id": ""
+        "access_hash": "Tone access hash, as returned in aiComposeTone.access_hash",
+        "id": "Tone identifier, as returned in aiComposeTone.id"
       }
     },
+    "InputAiComposeToneSingleUse": {
+      "desc": "",
+      "params": {}
+    },
     "InputAiComposeToneSlug": {
-      "desc": "{schema}",
+      "desc": "References a custom AI composer tone » by its public slug, used when opening an AI compose tone link ».",
       "params": {
-        "slug": ""
+        "slug": "Public tone slug, as returned in aiComposeTone.slug"
       }
     },
     "InputAppEvent": {
@@ -2772,7 +2812,7 @@
       "params": {}
     },
     "InputChatThemeUniqueGift": {
-      "desc": "Set a theme based on an owned collectible gift », returned by account.getUniqueGiftChatThemes.",
+      "desc": "Set a theme based on an owned or hosted collectible gift », returned by account.getUniqueGiftChatThemes.",
       "params": {
         "slug": "The slug from starGiftUnique.slug."
       }
@@ -2830,6 +2870,10 @@
         "peer": "Peer"
       }
     },
+    "InputDialogPeerCommunity": {
+      "desc": "",
+      "params": {}
+    },
     "InputDialogPeerFolder": {
       "desc": "All peers in a peer folder",
       "params": {
@@ -2858,7 +2902,7 @@
       }
     },
     "InputEmojiStatusCollectible": {
-      "desc": "An owned collectible gift » as emoji status: can only be used in account.updateEmojiStatus, is never returned by the API.",
+      "desc": "An owned or hosted collectible gift » as emoji status: can only be used in account.updateEmojiStatus, is never returned by the API.",
       "params": {
         "collectible_id": "ID of the collectible (from starGiftUnique.id).",
         "flags": "Flags, see TL conditional fields",
@@ -2866,9 +2910,9 @@
       }
     },
     "InputEncryptedChat": {
-      "desc": "Creates an encrypted chat.",
+      "desc": "An e2e encrypted chat.",
       "params": {
-        "access_hash": "Checking sum from constructor encryptedChat, encryptedChatWaiting or encryptedChatRequested",
+        "access_hash": "Access hash from encryptedChat, encryptedChatWaiting or encryptedChatRequested",
         "chat_id": "Chat ID"
       }
     },
@@ -2981,25 +3025,25 @@
       }
     },
     "InputGroupCallInviteMessage": {
-      "desc": "Join a group call through a messageActionConferenceCall invitation message.",
+      "desc": "Identifies a conference call » using its messageActionConferenceCall invitation service message.",
       "params": {
         "msg_id": "ID of the messageActionConferenceCall."
       }
     },
     "InputGroupCallSlug": {
-      "desc": "Join a conference call through an invitation link ».",
+      "desc": "Identify a conference call » using the slug from its invitation link.",
       "params": {
         "slug": "Slug from the conference link »."
       }
     },
     "InputGroupCallStream": {
-      "desc": "Chunk of a livestream",
+      "desc": "Identifies a media chunk of an RTMP-mode video chat, livestream or live story, see playing an RTMP livestream ».",
       "params": {
-        "call": "Livestream info",
+        "call": "RTMP-mode group call",
         "flags": "Flags, see TL conditional fields",
-        "scale": "Specifies the duration of the video segment to fetch in milliseconds, by bitshifting 1000 to the right scale times: duration_ms := 1000 >> scale",
-        "time_ms": "Timestamp in milliseconds",
-        "video_channel": "Selected video channel",
+        "scale": "Specifies the duration of the media segment to fetch in milliseconds, by bitshifting 1000 to the right scale times: duration_ms := 1000 >> scale",
+        "time_ms": "Timestamp of the chunk to fetch, in milliseconds",
+        "video_channel": "groupCallStreamChannel.channel value of the video channel to fetch; unified video uses channel 1. Omit together with video_quality to fetch audio",
         "video_quality": "Selected video quality (0 = lowest, 1 = medium, 2 = best)"
       }
     },
@@ -3190,7 +3234,7 @@
         "id": "The document to be forwarded.",
         "query": "Text query or emoji that was used by the user to find this sticker or GIF: used to improve search result relevance.",
         "spoiler": "Whether this media should be hidden behind a spoiler warning",
-        "ttl_seconds": "Time to live of self-destructing document",
+        "ttl_seconds": "Time to live of self-destructing document, can be 0 to disable self-destruction, 0x7FFFFFFF to self-destruct the document immediately after it's played; otherwise self-destructs ttl_seconds after it's played.",
         "video_cover": "Custom video cover.",
         "video_timestamp": "Start playing the video at the specified timestamp (seconds)."
       }
@@ -3200,7 +3244,7 @@
       "params": {
         "flags": "Flags, see TL conditional fields",
         "spoiler": "Whether this media should be hidden behind a spoiler warning",
-        "ttl_seconds": "Self-destruct time to live of document",
+        "ttl_seconds": "Time to live of self-destructing document, can be 0 to disable self-destruction, 0x7FFFFFFF to self-destruct the document immediately after it's played; otherwise self-destructs ttl_seconds after it's played.",
         "url": "URL of the document",
         "video_cover": "Custom video cover.",
         "video_timestamp": "Start playing the video at the specified timestamp (seconds)."
@@ -3262,10 +3306,10 @@
       "params": {
         "flags": "Flags, see TL conditional fields",
         "id": "Photo to be forwarded",
-        "live_photo": "",
+        "live_photo": "Whether this is a live photo, i.e. a still photo paired with the short video clip captured alongside it",
         "spoiler": "Whether this media should be hidden behind a spoiler warning",
-        "ttl_seconds": "Time to live in seconds of self-destructing photo",
-        "video": ""
+        "ttl_seconds": "Time to live of self-destructing photo, can be 0 to disable self-destruction, 0x7FFFFFFF to self-destruct the document immediately after it's played; otherwise self-destructs ttl_seconds after it's played.",
+        "video": "The short video clip of the live photo"
       }
     },
     "InputMediaPhotoExternal": {
@@ -3273,28 +3317,28 @@
       "params": {
         "flags": "Flags, see TL conditional fields",
         "spoiler": "Whether this media should be hidden behind a spoiler warning",
-        "ttl_seconds": "Self-destruct time to live of photo",
+        "ttl_seconds": "Time to live of self-destructing photo, can be 0 to disable self-destruction, 0x7FFFFFFF to self-destruct the photo immediately after it's played; otherwise self-destructs ttl_seconds after it's played.",
         "url": "URL of the photo"
       }
     },
     "InputMediaPoll": {
       "desc": "A poll",
       "params": {
-        "attached_media": "",
-        "correct_answers": "Correct answer IDs (for quiz polls)",
+        "attached_media": "Optional media attachment to display alongside the poll",
+        "correct_answers": "0-based indices of the correct answers in the answers vector (for quiz polls)",
         "flags": "Flags, see TL conditional fields",
         "poll": "The poll to send",
-        "solution": "Explanation of quiz solution",
-        "solution_entities": "Message entities for styled text",
-        "solution_media": ""
+        "solution": "Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds.",
+        "solution_entities": "Styled text message entities for the solution explanation.",
+        "solution_media": "Optional media attachment shown alongside the quiz solution explanation"
       }
     },
     "InputMediaStakeDice": {
-      "desc": "{schema}",
+      "desc": "Dice game media.",
       "params": {
-        "client_seed": "",
-        "game_hash": "",
-        "ton_amount": ""
+        "client_seed": "Client seed.",
+        "game_hash": "Game hash.",
+        "ton_amount": "Amount."
       }
     },
     "InputMediaStory": {
@@ -3322,7 +3366,7 @@
         "spoiler": "Whether this media should be hidden behind a spoiler warning",
         "stickers": "Attached stickers",
         "thumb": "Thumbnail of the document, uploaded as for the file",
-        "ttl_seconds": "Time to live in seconds of self-destructing document",
+        "ttl_seconds": "Time to live of self-destructing document, can be 0 to disable self-destruction, 0x7FFFFFFF to self-destruct the document immediately after it's played; otherwise self-destructs ttl_seconds after it's played.",
         "video_cover": "Start playing the video at the specified timestamp (seconds).",
         "video_timestamp": "Start playing the video at the specified timestamp (seconds)."
       }
@@ -3332,11 +3376,11 @@
       "params": {
         "file": "The uploaded file",
         "flags": "Flags, see TL conditional fields",
-        "live_photo": "",
+        "live_photo": "Whether this is a live photo, i.e. a still photo paired with the short video clip captured alongside it",
         "spoiler": "Whether this media should be hidden behind a spoiler warning",
         "stickers": "Attached mask stickers",
-        "ttl_seconds": "Time to live in seconds of self-destructing photo",
-        "video": ""
+        "ttl_seconds": "Time to live of self-destructing photo, can be 0 to disable self-destruction, 0x7FFFFFFF to self-destruct the photo immediately after it's played; otherwise self-destructs ttl_seconds after it's played.",
+        "video": "The short video clip of the live photo"
       }
     },
     "InputMediaVenue": {
@@ -3386,14 +3430,14 @@
       "params": {}
     },
     "InputMessageReadMetric": {
-      "desc": "{schema}",
+      "desc": "Read metric for a single message exposure, describing how long the message was visible in the chat viewport.",
       "params": {
-        "active_time_in_view_ms": "",
-        "height_to_viewport_ratio_permille": "",
-        "msg_id": "",
-        "seen_range_ratio_permille": "",
-        "time_in_view_ms": "",
-        "view_id": ""
+        "active_time_in_view_ms": "Part of time_in_view_ms accumulated while the user is active",
+        "height_to_viewport_ratio_permille": "round(max_message_height * 1000 / max_viewport_height), may exceed 1000 when the message is taller than the viewport",
+        "msg_id": "ID of the message",
+        "seen_range_ratio_permille": "round(max_seen_vertical_range * 1000 / max_message_height), clamped to the 0–1000 range",
+        "time_in_view_ms": "Total exposure time in milliseconds of at least one pixel of the message, after the 300 ms entry grace period",
+        "view_id": "Random non-zero 64-bit ID generated for this exposure"
       }
     },
     "InputMessageReplyTo": {
@@ -3458,7 +3502,7 @@
       "params": {}
     },
     "InputMessagesFilterPoll": {
-      "desc": "{schema}",
+      "desc": "Filter for poll messages, see searching for polls »",
       "params": {}
     },
     "InputMessagesFilterRoundVideo": {
@@ -3489,6 +3533,10 @@
       "desc": "Notifications generated by all groups.",
       "params": {}
     },
+    "InputNotifyCommunity": {
+      "desc": "",
+      "params": {}
+    },
     "InputNotifyForumTopic": {
       "desc": "Notifications generated by a topic in a forum.",
       "params": {
@@ -3511,9 +3559,9 @@
       "params": {}
     },
     "InputPasskeyCredentialFirebasePNV": {
-      "desc": "{schema}",
+      "desc": "Alternative passkey credential that proves ownership of the account's phone number through a Firebase Phone Number Verification (PNV) token, used on official apps where a full WebAuthn public-key passkey cannot be created, in a way similar to Firebase SMS authentication ».",
       "params": {
-        "pnv_token": ""
+        "pnv_token": "Firebase Phone Number Verification token attesting that the user controls the phone number associated with the account."
       }
     },
     "InputPasskeyCredentialPublicKey": {
@@ -3690,11 +3738,11 @@
       }
     },
     "InputPollAnswer": {
-      "desc": "{schema}",
+      "desc": "An answer option to add to an open-answer poll »",
       "params": {
         "flags": "Flags, see TL conditional fields",
-        "media": "",
-        "text": ""
+        "media": "Optional media attachment to display alongside the answer",
+        "text": "The answer text"
       }
     },
     "InputPrivacyKeyAbout": {
@@ -3821,12 +3869,16 @@
         "shortcut_id": "Shortcut ID."
       }
     },
+    "InputReplyToEphemeralMessage": {
+      "desc": "",
+      "params": {}
+    },
     "InputReplyToMessage": {
       "desc": "Reply to a message.",
       "params": {
         "flags": "Flags, see TL conditional fields",
         "monoforum_peer_id": "Must be set to the ID of the topic when replying to a message within a monoforum topic.",
-        "poll_option": "",
+        "poll_option": "If set, sends the message as a reply to a specific poll answer option », containing the option bytes of the desired answer.",
         "quote_entities": "Message entities for styled text from the quote_text field.",
         "quote_offset": "Offset of the message quote_text within the original message (in UTF-16 code units).",
         "quote_text": "Used to quote-reply to only a certain section (specified here) of the original message. The maximum UTF-8 length for quotes is specified in the quote_length_max config key.",
@@ -4092,7 +4144,7 @@
         "flags": "Flags, see TL conditional fields",
         "phone_code_hash": "phone_code_hash returned by auth.sendCode.",
         "phone_number": "Phone number.",
-        "premium_days": "",
+        "premium_days": "Duration in days of the Telegram Premium subscription granted by this purchase, as indicated in auth.sentCodePaymentRequired.premium_days.",
         "restore": "Set this flag to restore a previously made purchase."
       }
     },
@@ -4390,7 +4442,7 @@
       }
     },
     "KeyboardButtonCopy": {
-      "desc": "Clipboard button: when clicked, the attached text must be copied to the clipboard.",
+      "desc": "Clipboard button",
       "params": {
         "copy_text": "The text that will be copied to the clipboard",
         "flags": "Flags, see TL conditional fields",
@@ -4434,7 +4486,7 @@
       }
     },
     "KeyboardButtonRequestPoll": {
-      "desc": "A button that allows the user to create and send a poll when pressed; available only in private",
+      "desc": "Button to request a poll from the user",
       "params": {
         "flags": "Flags, see TL conditional fields",
         "quiz": "If set, only quiz polls can be sent",
@@ -4468,7 +4520,7 @@
       }
     },
     "KeyboardButtonSwitchInline": {
-      "desc": "Button to force a user to switch to inline mode: pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field.",
+      "desc": "Button to switch the user to inline mode",
       "params": {
         "flags": "Flags, see TL conditional fields",
         "peer_types": "Filter to use when selecting chats.",
@@ -4676,12 +4728,12 @@
         "from_scheduled": "Whether this is a scheduled message",
         "fwd_from": "Info about forwarded messages",
         "grouped_id": "Multiple media messages sent using messages.sendMultiMedia with the same grouped ID indicate an album or media group",
-        "guestchat_via_from": "",
+        "guestchat_via_from": "If the message was posted by a guest bot », the peer on whose behalf the bot sent the message.",
         "id": "ID of the message",
         "invert_media": "If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.",
         "legacy": "This is a legacy message: it has to be refetched with the new layer",
         "media": "Media attachment",
-        "media_unread": "Whether there are unread media attachments in this message",
+        "media_unread": "Whether there are unread media attachments in this message, see here » for more info on how to clear this flag.",
         "mentioned": "Whether we were mentioned in this message",
         "message": "The message",
         "noforwards": "Whether this message is protected and thus cannot be forwarded; clients should also prevent users from saving attached media (i.e. videos should only be streamed, photos should be kept in RAM, et cetera).",
@@ -4689,7 +4741,7 @@
         "out": "Is this an outgoing message",
         "paid_message_stars": "The amount of stars the sender has paid to send the message, see here » for more info.",
         "paid_suggested_post_stars": "Set if this is a suggested channel post » that was paid using Telegram Stars.",
-        "paid_suggested_post_ton": "Set if this is a suggested channel post » that was paid using Toncoins.",
+        "paid_suggested_post_ton": "Set if this is a suggested channel post » that was paid using Grams.",
         "peer_id": "Peer ID, the chat where this message was sent",
         "pinned": "Whether this message is pinned",
         "post": "Whether this is a channel post",
@@ -4705,7 +4757,7 @@
         "schedule_repeat_period": "Once sent, this message will be automatically re-scheduled to be re-sent again this many seconds in the future, see here » for more info on repeating scheduled messages.",
         "silent": "Whether this is a silent message (no notification triggered)",
         "suggested_post": "Used to suggest a post to a channel, see here » for more info on the full flow.",
-        "summary_from_language": "",
+        "summary_from_language": "If set, clients should offer a summarization button » for this message; contains the two-letter ISO 639-1 language code of the inferred language of the current message.",
         "ttl_period": "Time To Live of the message, once message.date+message.ttl_period === time(), the message will be deleted on the server, and must be deleted locally as well.",
         "via_bot_id": "ID of the inline bot that generated the message",
         "via_business_bot_id": "Whether the message was sent by the business bot specified in via_bot_id on behalf of the user.",
@@ -4728,6 +4780,10 @@
         "flags": "Flags, see TL conditional fields",
         "from_request": "We have allowed the bot to send us messages using bots.allowSendMessage »."
       }
+    },
+    "MessageActionChangeCommunity": {
+      "desc": "",
+      "params": {}
     },
     "MessageActionChangeCreator": {
       "desc": "Service message: emitted to a supergroup when ownership transfer completes after the old owner left the group » (7 days after the old owner left without rejoining), indicating that ownership has been transferred to a new owner.",
@@ -4800,7 +4856,7 @@
       }
     },
     "MessageActionConferenceCall": {
-      "desc": "Represents a conference call (or an invitation to a conference call, if neither the missed nor active flags are set).",
+      "desc": "Represents a conference call », or an invitation to one if neither the missed nor active flags are set.",
       "params": {
         "active": "Whether the user is currently in the conference call.",
         "call_id": "Call ID.",
@@ -4885,10 +4941,10 @@
       }
     },
     "MessageActionGiftTon": {
-      "desc": "You were gifted some toncoins.",
+      "desc": "You were gifted some Grams.",
       "params": {
         "amount": "FIAT currency equivalent (in the currency specified in currency) of the amount specified in crypto_amount.",
-        "crypto_amount": "Amount in the smallest unit of the cryptocurrency (for TONs, one billionth of a ton, AKA a nanoton).",
+        "crypto_amount": "Amount in the smallest unit of the cryptocurrency (for TONs, one billionth of a ton, AKA a nanogram).",
         "crypto_currency": "Name of the cryptocurrency.",
         "currency": "Name of a localized FIAT currency.",
         "flags": "Flags, see TL conditional fields",
@@ -4914,7 +4970,7 @@
     "MessageActionGroupCall": {
       "desc": "A video chat/livestream was started or terminated.",
       "params": {
-        "call": "Group call",
+        "call": "Video chat/livestream that started or ended",
         "duration": "Duration of the group call in seconds, for terminated calls.",
         "flags": "Flags, see TL conditional fields"
       }
@@ -4922,7 +4978,7 @@
     "MessageActionGroupCallScheduled": {
       "desc": "A video chat/livestream was scheduled.",
       "params": {
-        "call": "The group call",
+        "call": "Scheduled video chat/livestream",
         "schedule_date": "When is the group call scheduled to start"
       }
     },
@@ -4931,9 +4987,9 @@
       "params": {}
     },
     "MessageActionInviteToGroupCall": {
-      "desc": "A set of users was invited to a group call.",
+      "desc": "A set of users was invited to a video chat/livestream ».",
       "params": {
-        "call": "The group call",
+        "call": "Video chat/livestream to which the users were invited",
         "users": "The invited users"
       }
     },
@@ -4942,9 +4998,9 @@
       "params": {}
     },
     "MessageActionManagedBotCreated": {
-      "desc": "{schema}",
+      "desc": "Service message sent by a user to a manager bot when a new managed bot » is created through it, by invoking messages.sendBotRequestedPeer with a requestPeerTypeCreateBot, see here » for more info.",
       "params": {
-        "bot_id": ""
+        "bot_id": "ID of the newly created managed bot"
       }
     },
     "MessageActionNewCreatorPending": {
@@ -5041,15 +5097,15 @@
       "params": {}
     },
     "MessageActionPollAppendAnswer": {
-      "desc": "{schema}",
+      "desc": "A new answer option was added to an open-answer poll »",
       "params": {
-        "answer": ""
+        "answer": "The answer that was added"
       }
     },
     "MessageActionPollDeleteAnswer": {
-      "desc": "{schema}",
+      "desc": "An answer option was removed from an open-answer poll »",
       "params": {
-        "answer": ""
+        "answer": "The answer that was removed"
       }
     },
     "MessageActionPrizeStars": {
@@ -5128,7 +5184,7 @@
         "from_id": "Sender of the gift (unset for anonymous gifts).",
         "gift": "Info about the gift",
         "gift_msg_id": "For separate upgrades, the identifier of the message with the gift whose upgrade was prepaid (only valid for the receiver of the service message).",
-        "gift_num": "",
+        "gift_num": "For gifts acquired in an auction », the collectible number of the won collectible gift »; this field is disjoint from auction_acquired because only auction collectibles won before this field was introduced in the API will not have this flag set.",
         "message": "Additional message from the sender of the gift",
         "name_hidden": "If set, the name of the sender of the gift will be hidden if the destination user decides to display the gift on their profile",
         "peer": "Receiver of the gift.",
@@ -5137,7 +5193,7 @@
         "refunded": "This gift is not available anymore because a request to refund the payment related to this gift was made, and the money was returned.",
         "saved": "Whether this gift was added to the destination user's profile (may be toggled using payments.saveStarGift and fetched using payments.getSavedStarGifts)",
         "saved_id": "For channel gifts, ID to use in inputSavedStarGiftChat constructors.",
-        "to_id": "",
+        "to_id": "For gifts acquired in an auction » (i.e. when auction_acquired is set), the peer the gift was assigned to; only present if the target peer is different from the bidder, in which case it will only be present to the messageActionStarGift sent to the bidder, not to the messageActionStarGift sent to the target peer.",
         "upgrade_msg_id": "If set, this gift was upgraded to a collectible gift, and the corresponding messageActionStarGiftUnique is available at the specified message ID.",
         "upgrade_separate": "This service message is the notification of a separate pre-payment for the upgrade of a gift we own.",
         "upgrade_stars": "The number of Telegram Stars the user can pay to convert the gift into a collectible gift ».",
@@ -5167,7 +5223,7 @@
     "MessageActionStarGiftUnique": {
       "desc": "A gift » was upgraded to a collectible gift ».",
       "params": {
-        "assigned": "This collectible gift was assigned from the TON blockchain ».",
+        "assigned": "This collectible gift was linked from the TON blockchain to a Telegram profile ».",
         "can_craft_at": "If set, this gift can be used for crafting » only starting from the specified unixtime.",
         "can_export_at": "If set, indicates that the current gift can't be exported to the TON blockchain » yet: the owner will be able to export it at the specified unixtime.",
         "can_resell_at": "If set, indicates that the current gift can't be resold » yet: the owner will be able to put it up for sale at the specified unixtime.",
@@ -5249,7 +5305,7 @@
         "icon_color": "If no custom emoji icon is specified, specifies the color of the fallback topic icon (RGB), one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F.",
         "icon_emoji_id": "ID of the custom emoji used as topic icon.",
         "title": "Topic name.",
-        "title_missing": ""
+        "title_missing": "If set, the topic has no user-defined title, can only be set for the per-user topics of bot forums; if this field is set, the topic title likely needs to be changed by the bot."
       }
     },
     "MessageActionTopicEdit": {
@@ -5524,7 +5580,7 @@
       "params": {
         "emoticon": "The emoji, for now ,  and  are supported",
         "flags": "Flags, see TL conditional fields",
-        "game_outcome": "",
+        "game_outcome": "Dice game outcome.",
         "value": "Dice value"
       }
     },
@@ -5537,7 +5593,7 @@
         "nopremium": "Whether this is a normal sticker, if not set this is a premium sticker and a premium sticker animation must be played.",
         "round": "Whether this is a round video.",
         "spoiler": "Whether this media should be hidden behind a spoiler warning",
-        "ttl_seconds": "Time to live of self-destructing document",
+        "ttl_seconds": "Time to live of self-destructing document, can be 0 to disable self-destruction, 0x7FFFFFFF to self-destruct the document immediately after it's played; otherwise self-destructs ttl_seconds after it's played.",
         "video": "Whether this is a video.",
         "video_cover": "Custom video cover.",
         "video_timestamp": "Start playing the video at the specified timestamp (seconds).",
@@ -5630,17 +5686,17 @@
       "desc": "Attached photo.",
       "params": {
         "flags": "Flags, see TL conditional fields",
-        "live_photo": "",
+        "live_photo": "Whether this is a live photo, i.e. a still photo paired with the short video clip captured alongside it",
         "photo": "Photo",
         "spoiler": "Whether this media should be hidden behind a spoiler warning",
-        "ttl_seconds": "Time to live in seconds of self-destructing photo",
-        "video": ""
+        "ttl_seconds": "Time to live of self-destructing photo, can be 0 to disable self-destruction, 0x7FFFFFFF to self-destruct the photo immediately after it's played; otherwise self-destructs ttl_seconds after it's played.",
+        "video": "The short video clip of the live photo"
       }
     },
     "MessageMediaPoll": {
       "desc": "Poll",
       "params": {
-        "attached_media": "",
+        "attached_media": "Optional media attachment displayed alongside the poll",
         "flags": "Flags, see TL conditional fields",
         "poll": "The poll",
         "results": "The results of the poll"
@@ -5680,11 +5736,11 @@
       }
     },
     "MessageMediaVideoStream": {
-      "desc": "{schema}",
+      "desc": "Identifies the active group call associated with a live story ».",
       "params": {
-        "call": "",
+        "call": "Active live story group call",
         "flags": "Flags, see TL conditional fields",
-        "rtmp_stream": ""
+        "rtmp_stream": "Whether the live story uses RTMP livestream mode »"
       }
     },
     "MessageMediaWebPage": {
@@ -5781,7 +5837,7 @@
       "params": {
         "flags": "Flags, see TL conditional fields",
         "forum_topic": "Whether this message was sent in a forum topic (except for the General topic).",
-        "poll_option": "",
+        "poll_option": "If the message is a reply to a specific poll answer option », the option bytes of the answer the reply is directed at.",
         "quote": "Whether this message is quoting a part of another message.",
         "quote_entities": "Message entities for styled text from the quote_text field.",
         "quote_offset": "Offset of the message quote_text within the original message (in UTF-16 code units).",
@@ -5910,6 +5966,10 @@
     },
     "NotifyChats": {
       "desc": "Notifications generated by all groups.",
+      "params": {}
+    },
+    "NotifyCommunity": {
+      "desc": "",
       "params": {}
     },
     "NotifyForumTopic": {
@@ -6458,7 +6518,7 @@
       "params": {
         "access_hash": "Access hash",
         "admin_id": "User ID of the creator of the call",
-        "conference_supported": "If set, the other party supports upgrading of the call to a conference call.",
+        "conference_supported": "If set, the other party supports migrating the call to a conference call »; clients should only offer the migrate/\"Add participants\" option in the call UI when this flag is set.",
         "connections": "List of endpoints the user can connect to exchange call data",
         "custom_parameters": "Custom JSON-encoded call parameters to be passed to tgcalls.",
         "date": "Date of creation of the call",
@@ -6611,7 +6671,7 @@
       "params": {
         "bytes": "Binary data, file content",
         "h": "Image height",
-        "type": "Thumbnail type",
+        "type": "PhotoSize.type value »",
         "w": "Image width"
       }
     },
@@ -6624,8 +6684,8 @@
     "PhotoPathSize": {
       "desc": "Messages with animated stickers can have a compressed svg (< 300 bytes) to show the outline of the sticker before fetching the actual lottie animation.",
       "params": {
-        "bytes": "Compressed SVG path payload, see here for decompression instructions",
-        "type": "Always j"
+        "bytes": "Compressed SVG path payload, see vector thumbnails »",
+        "type": "Always j »"
       }
     },
     "PhotoSize": {
@@ -6633,14 +6693,14 @@
       "params": {
         "h": "Image height",
         "size": "File size",
-        "type": "Thumbnail type »",
+        "type": "PhotoSize.type value »",
         "w": "Image width"
       }
     },
     "PhotoSizeEmpty": {
       "desc": "Empty constructor. Image with this thumbnail is unavailable.",
       "params": {
-        "type": "Thumbnail type »"
+        "type": "PhotoSize.type value »"
       }
     },
     "PhotoSizeProgressive": {
@@ -6648,47 +6708,47 @@
       "params": {
         "h": "Photo height",
         "sizes": "Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image.",
-        "type": "Photosize type »",
+        "type": "PhotoSize.type value »",
         "w": "Photo width"
       }
     },
     "PhotoStrippedSize": {
       "desc": "A low-resolution compressed JPG payload",
       "params": {
-        "bytes": "Thumbnail data, see here for more info on decompression »",
-        "type": "Thumbnail type"
+        "bytes": "Thumbnail data, see stripped thumbnails »",
+        "type": "PhotoSize.type value »"
       }
     },
     "Poll": {
       "desc": "Poll",
       "params": {
         "answers": "The possible answers (2-poll_answers_max), vote using messages.sendVote.",
-        "close_date": "Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future; can't be used together with close_period.",
-        "close_period": "Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.",
+        "close_date": "Point in time (Unix timestamp) when the poll will be automatically closed. Up to poll_close_period_max » seconds in the future; can't be used together with close_period.",
+        "close_period": "Amount of time in seconds the poll will be active after creation, up to poll_close_period_max » seconds. Can't be used together with close_date.",
         "closed": "Whether the poll is closed and doesn't accept any more answers",
-        "countries_iso2": "",
-        "creator": "",
+        "countries_iso2": "If set, only users from the specified ISO 3166-1 alpha-2 country codes may vote, see country-restricted polls »; a user may vote only if the phone_country_iso2 » configuration parameter is contained in this list.",
+        "creator": "Whether the current user created this poll",
         "flags": "Flags, see TL conditional fields",
-        "hash": "",
-        "hide_results_until_close": "",
+        "hash": "Hash for use with messages.getPollResults",
+        "hide_results_until_close": "Whether vote results are hidden from all participants until the poll is closed",
         "id": "ID of the poll",
         "multiple_choice": "Whether multiple options can be chosen as answer",
-        "open_answers": "",
+        "open_answers": "Whether users can add new answer options after the poll is created, see open-answer polls »",
         "public_voters": "Whether cast votes are publicly visible to all users (non-anonymous poll)",
         "question": "The question of the poll (only Premium users can use custom emoji entities here).",
-        "quiz": "Whether this is a quiz (with wrong and correct answers, results shown in the return type)",
-        "revoting_disabled": "",
-        "shuffle_answers": "",
-        "subscribers_only": ""
+        "quiz": "Whether this is a quiz (with wrong and correct answers, results shown in the return type). When creating a poll, the correct answers are specified in inputMediaPoll.correct_answers.",
+        "revoting_disabled": "If set, users cannot change their vote after casting it",
+        "shuffle_answers": "Whether answer options are displayed in a randomized order to each user",
+        "subscribers_only": "Whether only subscribers can vote: a user may vote only if they are currently a member of the channel/supergroup and joined it at least 24 hours before the poll was posted, see subscriber-only polls »."
       }
     },
     "PollAnswer": {
       "desc": "A possible answer of a poll",
       "params": {
-        "added_by": "",
-        "date": "",
+        "added_by": "The peer who added this answer; only set for answers dynamically added to an open-answer poll, see polls »",
+        "date": "When this answer was added; only set for answers dynamically added to an open-answer poll",
         "flags": "Flags, see TL conditional fields",
-        "media": "",
+        "media": "Optional media attachment displayed alongside the answer",
         "option": "The param that has to be passed to messages.sendVote.",
         "text": "Textual representation of the answer (only Premium users can use custom emoji entities here)."
       }
@@ -6700,22 +6760,22 @@
         "correct": "For quizzes, whether the option we have chosen is correct",
         "flags": "Flags, see TL conditional fields",
         "option": "The param that has to be passed to messages.sendVote.",
-        "recent_voters": "",
+        "recent_voters": "Peers of the most recent voters for this option; mutually exclusive with voters",
         "voters": "How many users voted for this option"
       }
     },
     "PollResults": {
       "desc": "Results of poll",
       "params": {
-        "can_view_stats": "",
+        "can_view_stats": "Whether the current user can view detailed poll statistics »",
         "flags": "Flags, see TL conditional fields",
-        "has_unread_votes": "",
+        "has_unread_votes": "Whether there are unread votes in this non-anonymous poll, see polls »",
         "min": "Similar to min objects, used for poll constructors that are the same for all users so they don't have the option chosen by the current user (you can use messages.getPollResults to get the full poll results).",
         "recent_voters": "IDs of the last users that recently voted in the poll",
         "results": "Poll results",
         "solution": "Explanation of quiz solution",
         "solution_entities": "Message entities for styled text in quiz solution",
-        "solution_media": "",
+        "solution_media": "Optional media attachment shown alongside the quiz solution explanation",
         "total_voters": "Total number of people that voted in the poll"
       }
     },
@@ -7012,7 +7072,7 @@
       "params": {
         "flags": "Flags, see TL conditional fields",
         "messages_notify_from": "Message reaction notification settings, if not set completely disables notifications/updates about message reactions.",
-        "poll_votes_notify_from": "",
+        "poll_votes_notify_from": "Non-anonymous poll vote » notification settings, if not set completely disables notifications/updates about votes cast in the user's non-anonymous polls.",
         "show_previews": "If false, push notifications » about message/story reactions will only be of type REACT_HIDDEN/REACT_STORY_HIDDEN, without any information about the reacted-to story or the reaction itself.",
         "sound": "Notification sound for reactions »",
         "stories_notify_from": "Story reaction notification settings, if not set completely disables notifications/updates about reactions to stories."
@@ -7067,15 +7127,15 @@
       }
     },
     "RecentStory": {
-      "desc": "{schema}",
+      "desc": "Summary of a peer's active stories », embedded in user.stories_max_id and channel.stories_max_id and returned by stories.getPeerMaxIDs.",
       "params": {
         "flags": "Flags, see TL conditional fields",
-        "live": "",
-        "max_id": ""
+        "live": "Whether the peer is currently broadcasting a live story ».",
+        "max_id": "If live is set, ID of the peer's active live story »; otherwise, ID of the peer's maximum active story."
       }
     },
     "ReplyInlineMarkup": {
-      "desc": "Bot or inline keyboard",
+      "desc": "Represents an inline keyboard",
       "params": {
         "rows": "Bot or inline keyboard rows"
       }
@@ -7090,14 +7150,14 @@
       }
     },
     "ReplyKeyboardHide": {
-      "desc": "Hide sent bot keyboard",
+      "desc": "Hide sent reply keyboard",
       "params": {
         "flags": "Flags, see TL conditional fields",
         "selective": "Use this flag if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet"
       }
     },
     "ReplyKeyboardMarkup": {
-      "desc": "Bot keyboard",
+      "desc": "Represents a reply keyboard",
       "params": {
         "flags": "Flags, see TL conditional fields",
         "persistent": "Requests clients to always show the keyboard when the regular keyboard is hidden.",
@@ -7150,12 +7210,12 @@
       }
     },
     "RequestPeerTypeCreateBot": {
-      "desc": "{schema}",
+      "desc": "Used in a keyboardButtonRequestPeer by a manager bot to ask a user to create a new managed bot », see here » for more info.",
       "params": {
-        "bot_managed": "",
+        "bot_managed": "If set, requests to create a managed bot; must always be set.",
         "flags": "Flags, see TL conditional fields",
-        "suggested_name": "",
-        "suggested_username": ""
+        "suggested_name": "If set, the name to pre-fill in the managed bot creation flow",
+        "suggested_username": "If set, the username to pre-fill in the managed bot creation flow"
       }
     },
     "RequestPeerTypeUser": {
@@ -7835,7 +7895,7 @@
         "bid_amount": "The amount in Telegram Stars that was bid in order to obtain the gift.",
         "date": "When was the gift obtained.",
         "flags": "Flags, see TL conditional fields",
-        "gift_num": "If set, the collectible number of the won gift among all collectibles of the same type.",
+        "gift_num": "If set, the collectible number of the won gift among all collectibles of the same type. This field is optional because only auction collectibles won before this field was introduced in the API will not have this flag set.",
         "message": "Optional message that attached with the gift, passed when making the bid.",
         "name_hidden": "If set, your name will be hidden if the destination peer decides to display the gift on their profile (they will still see that you sent the gift).",
         "peer": "The peer that received the gift.",
@@ -7935,7 +7995,7 @@
         "flags": "Flags, see TL conditional fields",
         "gift_address": "For NFTs on the TON blockchain, contains the address of the NFT (append it to the ton_blockchain_explorer_url client configuration value » to obtain a link with information about the address).",
         "gift_id": "ID of the regular gift from which this gift was upgraded (all collectible gifts upgraded from the same gift will have the same gift_id, with different attributes).",
-        "host_id": "If set, the gift is currently hosted on the specified user or channel profile even though ownership belongs to a TON wallet. The owner may transfer, resell or export the gift, while the host or owner may show it on the profile, use it as a theme/status and add it to a collection.",
+        "host_id": "If set, the gift is currently hosted on the specified user or channel profile », while ownership remains with the TON wallet in owner_address.",
         "id": "Unique identifier of this collectible gift.",
         "num": "Unique identifier of this collectible gift among all (already upgraded) collectible gifts of the same type.",
         "offer_min_stars": "If set, you can send a purchase offer for this gift »: the minimum offer price is specified in this flag.",
@@ -7945,7 +8005,7 @@
         "peer_color": "Can contain a collectible message palette ».",
         "released_by": "This gift was released by the specified peer.",
         "require_premium": "This gift can only be bought by users with a Premium subscription.",
-        "resale_ton_only": "Whether the gift can be bought only using Toncoins.",
+        "resale_ton_only": "Whether the gift can be bought only using Grams.",
         "resell_amount": "Resale price of the gift.",
         "slug": "Slug that can be used to create a collectible gift deep link », or elsewhere in the API where a collectible slug is accepted.",
         "theme_available": "A chat theme associated to this gift is available, see here » for more info on how to use it.",
@@ -8062,9 +8122,9 @@
       }
     },
     "StarsTonAmount": {
-      "desc": "Describes an amount of toncoin in nanotons (i.e. 1/1_000_000_000 of a toncoin).",
+      "desc": "Describes an amount of Gram in nanograms (i.e. 1/1_000_000_000 of a Gram).",
       "params": {
-        "amount": "The amount in nanotons."
+        "amount": "The amount in nanograms."
       }
     },
     "StarsTopupOption": {
@@ -8100,7 +8160,7 @@
         "paid_messages": "This transaction is related to the reception or transmission of a paid message ».",
         "peer": "Source of the incoming transaction, or its recipient for outgoing transactions.",
         "pending": "The transaction is currently pending.",
-        "phonegroup_message": "",
+        "phonegroup_message": "Represents payment for a paid text message sent during a group call or live video stream ».",
         "photo": "For transactions with bots, photo of the bought product.",
         "posts_search": "Represents payment for a paid global post search ».",
         "premium_gift_months": "This transaction indicates the payment for a gifted Telegram Premium subscription ».",
@@ -8339,7 +8399,7 @@
         "media": "Story media.",
         "media_areas": "List of media areas, see here » for more info on media areas.",
         "min": "Full information about this story was omitted for space and performance reasons; use stories.getStoriesByID to fetch full info about this story when and if needed.",
-        "music": "",
+        "music": "If set, the audio track played as background music for the story.",
         "noforwards": "Whether this story is protected and thus cannot be forwarded; clients should also prevent users from saving attached media (i.e. videos should only be streamed, photos should be kept in RAM, et cetera).",
         "out": "indicates whether we sent this story.",
         "pinned": "Whether this story is pinned on the user's profile",
@@ -8364,7 +8424,7 @@
         "expire_date": "When does the story expire.",
         "flags": "Flags, see TL conditional fields",
         "id": "Story ID",
-        "live": ""
+        "live": "Whether this story is a live video stream »."
       }
     },
     "StoryReaction": {
@@ -8488,6 +8548,10 @@
       "params": {}
     },
     "TextDate": {
+      "desc": "",
+      "params": {}
+    },
+    "TextDiff": {
       "desc": "",
       "params": {}
     },
@@ -8674,7 +8738,7 @@
       "params": {}
     },
     "TopPeerCategoryBotsGuestChat": {
-      "desc": "{schema}",
+      "desc": "Top guest bots », i.e. bots most frequently invoked as guests in chats.",
       "params": {}
     },
     "TopPeerCategoryBotsInline": {
@@ -8718,7 +8782,7 @@
       "params": {}
     },
     "UpdateAiComposeTones": {
-      "desc": "{schema}",
+      "desc": "The list of saved AI composer tones » of the current user has changed, and should be refetched using aicompose.getTones.",
       "params": {}
     },
     "UpdateAttachMenuBots": {
@@ -8796,13 +8860,13 @@
       }
     },
     "UpdateBotGuestChatQuery": {
-      "desc": "{schema}",
+      "desc": "Sent to guest bots » when a user invokes the bot as a guest in a chat. The bot should reply by invoking messages.setBotGuestChatResult, see here » for more info.",
       "params": {
         "flags": "Flags, see TL conditional fields",
-        "message": "",
-        "qts": "",
-        "query_id": "",
-        "reference_messages": ""
+        "message": "The message that triggered the query",
+        "qts": "Persistent timestamp (qts) of the update, used by bots to receive updates of this type",
+        "query_id": "Query identifier, to be passed to messages.setBotGuestChatResult when replying",
+        "reference_messages": "Additional context messages referenced by the triggering message (for example replied-to messages)"
       }
     },
     "UpdateBotInlineQuery": {
@@ -9040,7 +9104,7 @@
       }
     },
     "UpdateChatParticipant": {
-      "desc": "A user has joined or left a specific basic group »",
+      "desc": "A user has joined or left a specific basic group »: this update can only be received by bots, see here » for the user version of this update.",
       "params": {
         "actor_id": "User that triggered the change (inviter, admin that kicked the user, or the even the user_id itself)",
         "chat_id": "Chat ID",
@@ -9126,11 +9190,15 @@
         "pts_count": "Number of events that were generated"
       }
     },
+    "UpdateDeleteEphemeralMessages": {
+      "desc": "",
+      "params": {}
+    },
     "UpdateDeleteGroupCallMessages": {
-      "desc": "{schema}",
+      "desc": "Indicates that messages were deleted from the in-call message overlay » of a video chat/livestream or live story, including in RTMP mode.",
       "params": {
-        "call": "",
-        "messages": ""
+        "call": "Video chat/livestream or live story from which the messages were deleted",
+        "messages": "IDs of the deleted in-call messages"
       }
     },
     "UpdateDeleteMessages": {
@@ -9217,6 +9285,10 @@
         "pts_count": "Number of events that were generated"
       }
     },
+    "UpdateEditEphemeralMessage": {
+      "desc": "",
+      "params": {}
+    },
     "UpdateEditMessage": {
       "desc": "A message was edited",
       "params": {
@@ -9226,9 +9298,9 @@
       }
     },
     "UpdateEmojiGameInfo": {
-      "desc": "{schema}",
+      "desc": "Dice game update.",
       "params": {
-        "info": ""
+        "info": "Dice game information."
       }
     },
     "UpdateEncryptedChatTyping": {
@@ -9272,52 +9344,52 @@
       }
     },
     "UpdateGroupCall": {
-      "desc": "Info about a group call was updated.",
+      "desc": "Indicates that group call information changed, see applying group call updates ».",
       "params": {
         "call": "Info about the group call or livestream",
         "flags": "Flags, see TL conditional fields",
-        "live_story": "",
-        "peer": ""
+        "live_story": "Whether this update belongs to a live story »",
+        "peer": "Peer associated with the group call"
       }
     },
     "UpdateGroupCallChainBlocks": {
-      "desc": "Contains updates to the blockchain of a conference call, see here » for more info.",
+      "desc": "Contains conference call blockchain blocks, see handling E2E group call updates ».",
       "params": {
-        "blocks": "Blocks.",
-        "call": "The conference call.",
-        "next_offset": "Offset of the next block.",
-        "sub_chain_id": "Subchain ID."
+        "blocks": "Serialized subchain blocks with the server-adjusted constructor IDs described in the subchain documentation »",
+        "call": "Conference whose specified subchain received these blocks",
+        "next_offset": "Height of the block located after the last block in blocks; the first returned block has height next_offset - blocks.length",
+        "sub_chain_id": "0 for the main state blockchain, 1 for the call verification subchain"
       }
     },
     "UpdateGroupCallConnection": {
-      "desc": "New WebRTC connection parameters for the currently joined group call.",
+      "desc": "Connection parameters returned after joining a group call, see presentations » and RTMP livestreams ».",
       "params": {
         "flags": "Flags, see TL conditional fields",
-        "params": "WebRTC parameters",
-        "presentation": "Are these parameters related to the screen capture session currently in progress?"
+        "params": "RTC join response parameters or broadcast-stream metadata, as described above",
+        "presentation": "Whether these parameters belong to the separate presentation connection instead of the main connection"
       }
     },
     "UpdateGroupCallEncryptedMessage": {
-      "desc": "A new E2E-encrypted message was received in a conference call, sent using phone.sendGroupCallEncryptedMessage.",
+      "desc": "A new E2E-encrypted message or emoji reaction was received in a conference call, see here » for the decryption process.",
       "params": {
-        "call": "",
-        "encrypted_message": "",
-        "from_id": ""
+        "call": "Conference call that received the encrypted message",
+        "encrypted_message": "Complete encrypted packet",
+        "from_id": "Sender whose blockchain public key must be used to verify the encrypted packet"
       }
     },
     "UpdateGroupCallMessage": {
-      "desc": "A new in-call message was received in a group call or livestream, sent using phone.sendGroupCallMessage.",
+      "desc": "A new message, reaction, paid comment or donation was received through the in-call message overlay ».",
       "params": {
-        "call": "",
-        "message": ""
+        "call": "Group call that received the message",
+        "message": "Received in-call message"
       }
     },
     "UpdateGroupCallParticipants": {
       "desc": "The participant list of a group call has changed.",
       "params": {
-        "call": "Group call",
-        "participants": "New participant list",
-        "version": "Version"
+        "call": "Group call whose participants changed",
+        "participants": "Participants whose state changed",
+        "version": "Group call revision used by the update application rules »"
       }
     },
     "UpdateInlineBotCallbackQuery": {
@@ -9353,11 +9425,11 @@
       "params": {}
     },
     "UpdateManagedBot": {
-      "desc": "{schema}",
+      "desc": "Manager bots only: a bot managed by the currently logged in bot was created or updated.",
       "params": {
-        "bot_id": "",
-        "qts": "",
-        "user_id": ""
+        "bot_id": "The ID of the managed bot.",
+        "qts": "New qts value, see updates » for more info.",
+        "user_id": "The ID of the user that owns of the newly created or edited managed bot."
       }
     },
     "UpdateMessageExtendedMedia": {
@@ -9379,12 +9451,12 @@
       "desc": "The results of a poll have changed",
       "params": {
         "flags": "Flags, see TL conditional fields",
-        "msg_id": "",
-        "peer": "",
+        "msg_id": "Message ID of the poll",
+        "peer": "Peer of the message containing the poll",
         "poll": "If the server knows the client hasn't cached this poll yet, the poll itself",
         "poll_id": "Poll ID",
         "results": "New poll results",
-        "top_msg_id": ""
+        "top_msg_id": "If the poll is in a forum topic, the ID of the top message of the topic"
       }
     },
     "UpdateMessagePollVote": {
@@ -9393,7 +9465,7 @@
         "options": "Chosen option(s)",
         "peer": "The peer that voted in the poll",
         "poll_id": "Poll ID",
-        "positions": "",
+        "positions": "0-based indices of the voted options within the answers vector, corresponding element-by-element to options",
         "qts": "New qts value, see updates » for more info."
       }
     },
@@ -9455,6 +9527,10 @@
         "message": "Message",
         "qts": "New qts value, see updates » for more info."
       }
+    },
+    "UpdateNewEphemeralMessage": {
+      "desc": "",
+      "params": {}
     },
     "UpdateNewMessage": {
       "desc": "New message in a private chat or in a basic group.",
@@ -10091,11 +10167,11 @@
         "bot_attach_menu": "Whether this bot offers an attachment menu web app",
         "bot_business": "Whether this bot can be connected to a user as specified here ».",
         "bot_can_edit": "Whether we can edit the profile picture, name, about text and description of this bot because we own it. When updating the local peer database, do not apply changes to this field if the min flag is set. Changes to this flag (if min is not set) should invalidate the local userFull cache for this user ID.",
-        "bot_can_manage_bots": "",
+        "bot_can_manage_bots": "If set, this bot is a manager bot that can create and manage managed bots » on behalf of the user.",
         "bot_chat_history": "Can the bot see all messages in groups?",
         "bot_forum_can_manage_topics": "If set, this bot supports bot forum topics », and users (not just the bot!) are allowed to create and manage bot forum topics in their private chat with the bot.",
         "bot_forum_view": "If set, this bot supports bot forum topics ».",
-        "bot_guestchat": "",
+        "bot_guestchat": "If set, this bot can be invoked as a guest in chats ».",
         "bot_has_main_app": "If set, this bot has configured a Main Mini App ».",
         "bot_info_version": "Version of the bot_info field in userFull, incremented every time it changes. Changes to this flag should invalidate the local userFull cache for this user ID, see here » for more info.",
         "bot_inline_geo": "Whether the bot can request our geolocation in inline mode",
@@ -10128,7 +10204,7 @@
         "send_paid_messages_stars": "If set, the user has enabled paid messages », we might need to pay the specified amount of Stars to send them messages, depending on the configured exceptions: check userFull.send_paid_messages_stars or users.getRequirementsToContact to see if the currently logged in user actually has to pay or not, see here » for the full flow.",
         "status": "Online status of user. When updating the local peer database, apply changes to this field only if: - The min flag is not set OR - The min flag is set AND -- The min flag of the locally cached user entry is set OR -- The locally cached user entry is equal to userStatusEmpty.",
         "stories_hidden": "Whether we have hidden » all active stories of this user. When updating the local peer database, do not apply changes to this field if the min flag is set.",
-        "stories_max_id": "ID of the maximum read story.  When updating the local peer database, do not apply changes to this field if the min flag of the incoming constructor is set.",
+        "stories_max_id": "Summary of the user's active stories ».  When updating the local peer database, do not apply changes to this field if the min flag of the incoming constructor is set.",
         "stories_unavailable": "No stories from this user are visible.",
         "support": "Whether this is an official support user",
         "username": "Main active username. When updating the local peer database, apply changes to this field only if: - The min flag is not set OR - The min flag is set AND -- The min flag of the locally cached user entry is set. Changes to this flag should invalidate the local userFull cache for this user ID if the above conditions are respected and the bot_can_edit flag is also set.",
@@ -10153,7 +10229,7 @@
         "bot_can_manage_emoji_status": "If set, this is a bot that can change our emoji status »",
         "bot_group_admin_rights": "A suggested set of administrator rights for the bot, to be shown when adding the bot as admin to a group, see here for more info on how to handle them ».",
         "bot_info": "For bots, info about the bot (bot commands, etc)",
-        "bot_manager_id": "",
+        "bot_manager_id": "If this user is a managed bot », the ID of the user or manager bot that manages it.",
         "bot_verification": "Describes a bot verification icon ».",
         "business_away_message": "Telegram Business away message ».",
         "business_greeting_message": "Telegram Business greeting message ».",
@@ -10200,7 +10276,7 @@
         "theme": "The chat theme associated with this user ».",
         "translations_disabled": "Whether the real-time chat translation popup should be hidden.",
         "ttl_period": "Time To Live of all messages in this chat; once a message is this many seconds old, it must be deleted.",
-        "unofficial_security_risk": "",
+        "unofficial_security_risk": "If set, this user uses an unofficial Telegram client, and messages sent to them may be less secure; clients should display a warning in the user's profile.",
         "video_calls_available": "Whether the user can receive video calls",
         "voice_messages_forbidden": "Whether this user doesn't allow sending voice messages in a private chat with them",
         "wallpaper": "Wallpaper to use in the private chat with the user.",
@@ -10278,7 +10354,7 @@
         "flags": "Flags, see TL conditional fields",
         "h": "Video height",
         "size": "File size",
-        "type": "u for animated profile pictures, and v for trimmed and downscaled video previews",
+        "type": "videoSize.type value »",
         "video_start_ts": "Timestamp that should be shown as static preview to the user (seconds)",
         "w": "Video width"
       }
@@ -10396,15 +10472,15 @@
         "photo": "Image representing the content",
         "site_name": "Short name of the site (e.g., Google Docs, App Store)",
         "title": "Title of the content",
-        "type": "Type of the web page. One of the following: - app- article- document- gif- photo- profile- telegram_album- telegram_auction- telegram_background- telegram_bot- telegram_botapp- telegram_call- telegram_channel- telegram_channel_boost- telegram_channel_direct- telegram_channel_request- telegram_chat- telegram_chat_request- telegram_chatlist- telegram_collection- telegram_community- telegram_giftcode- telegram_group_boost- telegram_livestream- telegram_megagroup- telegram_megagroup_request- telegram_message- telegram_newbot- telegram_nft- telegram_stickerset- telegram_story- telegram_story_album- telegram_theme- telegram_user- telegram_videochat- telegram_voicechat- video",
+        "type": "Type of the web page, which influences how the preview is rendered (i.e. which extra action button is offered, where the media is taken from, and which WebPageAttribute is present in the attributes field). See above for the list of possible values.",
         "url": "URL of previewed webpage",
         "video_cover_photo": "Represents a custom video cover."
       }
     },
     "WebPageAttributeAiComposeTone": {
-      "desc": "{schema}",
+      "desc": "Webpage attribute attached to a webPage of type telegram_aicomposetone, generated when previewing a shared AI composer tone » via an AI compose tone link ».",
       "params": {
-        "emoji_id": ""
+        "emoji_id": "Custom emoji ID of the tone's icon"
       }
     },
     "WebPageAttributeStarGiftAuction": {
@@ -10776,15 +10852,15 @@
       "params": {}
     },
     "aicompose.Tones": {
-      "desc": "{schema}",
+      "desc": "The list of saved AI composer tones » of the current user.",
       "params": {
-        "hash": "",
-        "tones": "",
-        "users": ""
+        "hash": "Hash for pagination, for more info click here",
+        "tones": "The saved AI composer tones",
+        "users": "Mentioned users (i.e. the authors of the tones)"
       }
     },
     "aicompose.TonesNotModified": {
-      "desc": "{schema}",
+      "desc": "The list of saved AI composer tones » hasn't changed since the last time it was fetched (i.e. the hash passed to aicompose.getTones is still valid).",
       "params": {}
     },
     "auth.Authorization": {
@@ -10794,7 +10870,7 @@
         "future_auth_token": "A future auth token",
         "otherwise_relogin_days": "If and only if setup_password_required is set and the user declines to set a 2-step verification password, they will be able to log into their account via SMS again only after this many days pass.",
         "setup_password_required": "Suggests the user to set up a 2-step verification password to be able to log in again",
-        "tmp_sessions": "Temporary passport sessions",
+        "tmp_sessions": "Number of parallel sessions the client may open to the main connection of its home DC to increase throughput; if absent or ≤ 1, a single main session must be used",
         "user": "Info on authorized user"
       }
     },
@@ -10887,7 +10963,7 @@
         "amount": "Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
         "currency": "Three-letter ISO 4217 currency code.",
         "phone_code_hash": "Phone code hash, to be stored and later re-used with auth.signIn",
-        "premium_days": "",
+        "premium_days": "Duration in days of the Telegram Premium subscription granted by this purchase.",
         "store_product": "For official apps, tore identifier of the Telegram Premium subscription.",
         "support_email_address": "An email address that can be contacted for more information about this request.",
         "support_email_subject": "The mandatory subject for the email."
@@ -10984,11 +11060,11 @@
       }
     },
     "bots.AccessSettings": {
-      "desc": "{schema}",
+      "desc": "Access restriction settings for a managed bot ».",
       "params": {
-        "add_users": "",
+        "add_users": "Additional users (max 10, excluding the owner) who can access the managed bot; only present when restricted is set",
         "flags": "Flags, see TL conditional fields",
-        "restricted": ""
+        "restricted": "If set, only the owner and the users in add_users can access the managed bot"
       }
     },
     "bots.BotInfo": {
@@ -11000,9 +11076,9 @@
       }
     },
     "bots.ExportedBotToken": {
-      "desc": "{schema}",
+      "desc": "The bot token of a managed bot », exported by the manager bot.",
       "params": {
-        "token": ""
+        "token": "The bot token of the managed bot"
       }
     },
     "bots.PopularAppBots": {
@@ -11021,9 +11097,9 @@
       }
     },
     "bots.RequestedButton": {
-      "desc": "{schema}",
+      "desc": "Contains the request ID a bot should pass to a Mini App after preparing a peer request button with bots.requestWebViewButton, see here » for more info.",
       "params": {
-        "webapp_req_id": ""
+        "webapp_req_id": "Mini App request ID, to be passed by the bot to the Mini App and then back to bots.getRequestedWebViewButton and messages.sendBotRequestedPeer"
       }
     },
     "channels.AdminLogResults": {
@@ -11695,26 +11771,26 @@
       }
     },
     "messages.EmojiGameDiceInfo": {
-      "desc": "{schema}",
+      "desc": "Dice game information.",
       "params": {
-        "current_streak": "",
+        "current_streak": "Current streak.",
         "flags": "Flags, see TL conditional fields",
-        "game_hash": "",
-        "params": "",
-        "plays_left": "",
-        "prev_stake": ""
+        "game_hash": "Game hash.",
+        "params": "Parameters.",
+        "plays_left": "Plays left.",
+        "prev_stake": "Previous stake."
       }
     },
     "messages.EmojiGameOutcome": {
-      "desc": "{schema}",
+      "desc": "Dice game outcome.",
       "params": {
-        "seed": "",
-        "stake_ton_amount": "",
-        "ton_amount": ""
+        "seed": "Seed.",
+        "stake_ton_amount": "Staked amount.",
+        "ton_amount": "Amount."
       }
     },
     "messages.EmojiGameUnavailable": {
-      "desc": "{schema}",
+      "desc": "Dice game information.",
       "params": {}
     },
     "messages.EmojiGroups": {
@@ -11892,7 +11968,7 @@
       "params": {
         "chats": "List of chats mentioned in dialogs",
         "messages": "List of messages",
-        "topics": "",
+        "topics": "Forum topics the returned messages belong to.",
         "users": "List of users mentioned in messages and chats"
       }
     },
@@ -11913,7 +11989,7 @@
         "next_rate": "Rate to use in the offset_rate parameter in the next call to messages.searchGlobal",
         "offset_id_offset": "Indicates the absolute position of messages[0] within the total result set with count count. This is useful, for example, if the result was fetched using offset_id, and we need to display a progress/total counter (like photo 134 of 200, for all media in a chat, we could simply use photo ${offset_id_offset} of ${count}).",
         "search_flood": "For global post searches », the remaining amount of free searches, here query_is_free is related to the current call only, not to the next paginated call, and all subsequent pagination calls will always be free.",
-        "topics": "",
+        "topics": "Forum topics the returned messages belong to.",
         "users": "List of users mentioned in messages and chats"
       }
     },
@@ -12537,7 +12613,7 @@
       }
     },
     "phone.GroupCall": {
-      "desc": "Contains info about a group call, and partial info about its participants.",
+      "desc": "Contains group call information and an initial participant page, see getting info about a group call ».",
       "params": {
         "call": "Info about the group call",
         "chats": "Chats mentioned in the participants vector",
@@ -12547,40 +12623,40 @@
       }
     },
     "phone.GroupCallStars": {
-      "desc": "{schema}",
+      "desc": "Contains a live story's total donations and top donors, see paid live story donations ».",
       "params": {
-        "chats": "",
-        "top_donors": "",
-        "total_stars": "",
-        "users": ""
+        "chats": "Chats mentioned in top_donors",
+        "top_donors": "Top donors",
+        "total_stars": "Total Stars donated to the live story",
+        "users": "Users mentioned in top_donors"
       }
     },
     "phone.GroupCallStreamChannels": {
-      "desc": "Info about RTMP streams in a group call or livestream",
+      "desc": "Contains the available channels of an RTMP-mode group call, see playing an RTMP livestream ».",
       "params": {
-        "channels": "RTMP streams"
+        "channels": "Available RTMP stream channels; may be empty while the external publisher is not sending media"
       }
     },
     "phone.GroupCallStreamRtmpUrl": {
-      "desc": "RTMP URL and stream key to be used in streaming software",
+      "desc": "Contains the RTMP publishing URL and secret stream key, see creating and publishing an RTMP livestream ».",
       "params": {
-        "key": "Stream key",
+        "key": "Secret stream key",
         "url": "RTMP URL"
       }
     },
     "phone.GroupParticipants": {
-      "desc": "Info about the participants of a group call or livestream",
+      "desc": "Contains a page of group call participants, see getting info about a group call ».",
       "params": {
         "chats": "Mentioned chats",
         "count": "Number of participants",
         "next_offset": "If not empty, the specified list of participants is partial, and more participants can be fetched specifying this parameter as offset in phone.getGroupParticipants.",
         "participants": "List of participants",
         "users": "Mentioned users",
-        "version": "Version info"
+        "version": "Current participant-list version, used to apply and detect gaps in versioned updateGroupCallParticipants updates"
       }
     },
     "phone.JoinAsPeers": {
-      "desc": "A list of peers that can be used to join a group call, presenting yourself as a specific user/channel.",
+      "desc": "Contains the peers that may be used to join a video chat/livestream, see joining on behalf of owned channels ».",
       "params": {
         "chats": "Chats mentioned in the peers vector",
         "peers": "Peers",
@@ -12728,9 +12804,9 @@
       }
     },
     "stats.PollStats": {
-      "desc": "{schema}",
+      "desc": "Statistics for a poll sent in a message.",
       "params": {
-        "votes_graph": ""
+        "votes_graph": "A graph containing the number of votes cast in the poll over time"
       }
     },
     "stats.PublicForwards": {
@@ -13329,7 +13405,7 @@
       }
     },
     "account.GetCollectibleEmojiStatuses": {
-      "desc": "Obtain a list of emoji statuses » for owned collectible gifts.",
+      "desc": "Obtain a list of emoji statuses » for owned or hosted collectible gifts ».",
       "params": {
         "hash": "Hash for pagination"
       }
@@ -13473,7 +13549,7 @@
       }
     },
     "account.GetUniqueGiftChatThemes": {
-      "desc": "Obtain all chat themes » associated to owned collectible gifts ».",
+      "desc": "Obtain all chat themes » associated to owned or hosted collectible gifts ».",
       "params": {
         "hash": "Hash from a previously returned account.chatThemes constructor, to avoid returning any result if the theme list hasn't changed.",
         "limit": "Maximum number of results to return, see pagination. Note that the server may return less than limit results, even if the actual number of remaining results is >= limit, paginate to fetch them all.",
@@ -13971,56 +14047,56 @@
       }
     },
     "aicompose.CreateTone": {
-      "desc": "{schema}",
+      "desc": "Create a new custom AI composer tone ».",
       "params": {
-        "display_author": "",
-        "emoji_id": "",
+        "display_author": "If set, the current user will be publicly credited as the author of the tone",
+        "emoji_id": "Custom emoji ID of the tone's icon",
         "flags": "Flags, see TL conditional fields",
-        "prompt": "",
-        "title": ""
+        "prompt": "The prompt that describes how the AI should rephrase messages using this tone, up to aicompose_tone_prompt_length_max » UTF-8 characters long",
+        "title": "Human-readable tone name, up to aicompose_tone_title_length_max » UTF-8 characters long"
       }
     },
     "aicompose.DeleteTone": {
-      "desc": "{schema}",
+      "desc": "Permanently delete a custom AI composer tone » created by the current user.",
       "params": {
-        "tone": ""
+        "tone": "The tone to delete"
       }
     },
     "aicompose.GetTone": {
-      "desc": "{schema}",
+      "desc": "Fetch information about a single AI composer tone », for example to resolve a shared tone deep link.",
       "params": {
-        "tone": ""
+        "tone": "The tone to fetch"
       }
     },
     "aicompose.GetToneExample": {
-      "desc": "{schema}",
+      "desc": "Fetch an example showing how an AI composer tone » rephrases a sample message, used as a preview in the tone picker.",
       "params": {
-        "num": "",
-        "tone": ""
+        "num": "0-based index of the example to fetch, to cycle through the available examples (there are aicompose_tone_examples_num » examples per tone)",
+        "tone": "The tone to preview"
       }
     },
     "aicompose.GetTones": {
-      "desc": "{schema}",
+      "desc": "Fetch the list of saved AI composer tones » of the current user.",
       "params": {
-        "hash": ""
+        "hash": "Hash from a previously cached aicompose.tones.hash to avoid refetching the list if it hasn't changed; initially 0."
       }
     },
     "aicompose.SaveTone": {
-      "desc": "{schema}",
+      "desc": "Install or uninstall an AI composer tone », adding it to or removing it from the list of saved tones of the current user.",
       "params": {
-        "tone": "",
-        "unsave": ""
+        "tone": "The tone to save or unsave",
+        "unsave": "If false, installs (saves) the tone; if true, uninstalls (unsaves) it"
       }
     },
     "aicompose.UpdateTone": {
-      "desc": "{schema}",
+      "desc": "Edit a custom AI composer tone » previously created by the current user. Only the fields whose flag is set will be modified.",
       "params": {
-        "display_author": "",
-        "emoji_id": "",
+        "display_author": "If set, changes whether the current user is publicly credited as the author of the tone (ternary value, can be not set, set and true, set and false).",
+        "emoji_id": "If set, the new custom emoji ID of the tone's icon",
         "flags": "Flags, see TL conditional fields",
-        "prompt": "",
-        "title": "",
-        "tone": ""
+        "prompt": "If set, the new prompt that describes how the AI should rephrase messages using this tone, up to aicompose_tone_prompt_length_max » UTF-8 characters long",
+        "title": "If set, the new human-readable tone name, up to aicompose_tone_title_length_max » UTF-8 characters long",
+        "tone": "The tone to edit"
       }
     },
     "auth.AcceptLoginToken": {
@@ -14030,7 +14106,7 @@
       }
     },
     "auth.BindTempAuthKey": {
-      "desc": "Binds a temporary authorization key temp_auth_key_id to the permanent authorization key perm_auth_key_id. Each permanent key may only be bound to one temporary key at a time, binding a new temporary key overwrites the previous one.",
+      "desc": "Binds a temporary authorization key temp_auth_key_id to the permanent authorization key perm_auth_key_id.",
       "params": {
         "encrypted_message": "See Generating encrypted_message",
         "expires_at": "Unix timestamp to invalidate temporary key, see Binding message contents",
@@ -14252,19 +14328,19 @@
       }
     },
     "bots.CheckUsername": {
-      "desc": "{schema}",
+      "desc": "Check whether a username is available and valid for use when creating a managed bot ».",
       "params": {
-        "username": ""
+        "username": "Username to check; only letters, digits and underscores are allowed, must end in bot, and the full username must be 5–32 characters long"
       }
     },
     "bots.CreateBot": {
-      "desc": "{schema}",
+      "desc": "Create a managed bot » owned by the current user and controlled by the specified manager bot.",
       "params": {
         "flags": "Flags, see TL conditional fields",
-        "manager_id": "",
-        "name": "",
-        "username": "",
-        "via_deeplink": ""
+        "manager_id": "The manager bot that will control the created bot; must have the user.bot_can_manage_bots flag set",
+        "name": "Display name of the bot, 1–64 characters",
+        "username": "Username for the bot, as validated by bots.checkUsername",
+        "via_deeplink": "Set only if the creation prompt was opened from a managed bot creation request deep link »"
       }
     },
     "bots.DeletePreviewMedia": {
@@ -14276,12 +14352,12 @@
       }
     },
     "bots.EditAccessSettings": {
-      "desc": "{schema}",
+      "desc": "Edit the access restriction settings » of a managed bot; can only be called by the manager bot.",
       "params": {
-        "add_users": "",
-        "bot": "",
+        "add_users": "Additional users (max 10, excluding the owner) allowed to access the managed bot when restricted is set",
+        "bot": "The managed bot whose access settings to edit",
         "flags": "Flags, see TL conditional fields",
-        "restricted": ""
+        "restricted": "If set, restricts access to the managed bot to only the owner and the users in add_users"
       }
     },
     "bots.EditPreviewMedia": {
@@ -14294,16 +14370,16 @@
       }
     },
     "bots.ExportBotToken": {
-      "desc": "{schema}",
+      "desc": "Export the bot token of a managed bot »; can only be called by the manager bot.",
       "params": {
-        "bot": "",
-        "revoke": ""
+        "bot": "The managed bot to export the token for",
+        "revoke": "If boolTrue, revoke the current token and generate a new one"
       }
     },
     "bots.GetAccessSettings": {
-      "desc": "{schema}",
+      "desc": "Get the access restriction settings » of a managed bot; can only be called by the manager bot.",
       "params": {
-        "bot": ""
+        "bot": "The managed bot whose access settings to retrieve"
       }
     },
     "bots.GetAdminedBots": {
@@ -14358,10 +14434,10 @@
       }
     },
     "bots.GetRequestedWebViewButton": {
-      "desc": "{schema}",
+      "desc": "Fetch the peer request button a bot prepared for a Mini App with bots.requestWebViewButton, invoked when the Mini App emits a web_app_request_chat event, see here » for more info.",
       "params": {
-        "bot": "",
-        "webapp_req_id": ""
+        "bot": "The bot that owns the Mini App",
+        "webapp_req_id": "The Mini App request ID, taken from the web_app_request_chat event's req_id"
       }
     },
     "bots.InvokeWebViewCustomMethod": {
@@ -14388,10 +14464,10 @@
       }
     },
     "bots.RequestWebViewButton": {
-      "desc": "{schema}",
+      "desc": "Bots may use this method to prepare a peer request button for a Mini App, see here » for more info.",
       "params": {
-        "button": "",
-        "user_id": ""
+        "button": "The button to prepare, an inputKeyboardButtonRequestPeer of any RequestPeerType",
+        "user_id": "The user that will use the prepared button in the Mini App"
       }
     },
     "bots.ResetBotCommands": {
@@ -14698,12 +14774,12 @@
       }
     },
     "channels.GetSendAs": {
-      "desc": "Obtains a list of peers that can be used to send messages in a specific group",
+      "desc": "Obtains a list of peers that can be displayed as the sender in a specific context. With for_live_stories, returns peers that may author live story in-call messages ».",
       "params": {
         "flags": "Flags, see TL conditional fields",
-        "for_live_stories": "",
+        "for_live_stories": "Fetch the peers that may be passed to phone.sendGroupCallMessage.send_as to comment or react in a live story ».",
         "for_paid_reactions": "If set, fetches the list of peers that can be used to send paid reactions to messages of a specific peer.",
-        "peer": "The group where we intend to send messages"
+        "peer": "The target peer; when for_live_stories is set, the peer that owns the live story."
       }
     },
     "channels.InviteToChannel": {
@@ -15006,6 +15082,42 @@
         "peers": "Also leave the specified channels and groups"
       }
     },
+    "communities.Create": {
+      "desc": "",
+      "params": {}
+    },
+    "communities.GetJoinedCommunities": {
+      "desc": "",
+      "params": {}
+    },
+    "communities.GetParticipantJoinedChats": {
+      "desc": "",
+      "params": {}
+    },
+    "communities.GetPeerLinkRequests": {
+      "desc": "",
+      "params": {}
+    },
+    "communities.ToggleAllPeerLinkRequestApproval": {
+      "desc": "",
+      "params": {}
+    },
+    "communities.ToggleCommunityCollapsedInDialogs": {
+      "desc": "",
+      "params": {}
+    },
+    "communities.ToggleParticipantBanned": {
+      "desc": "",
+      "params": {}
+    },
+    "communities.TogglePeerLink": {
+      "desc": "",
+      "params": {}
+    },
+    "communities.TogglePeerLinkRequestApproval": {
+      "desc": "",
+      "params": {}
+    },
     "contacts.AcceptContact": {
       "desc": "If the add contact action bar is active, add that user as contact",
       "params": {
@@ -15116,7 +15228,7 @@
       "desc": "Get most used peers",
       "params": {
         "bots_app": "Most frequently used Main Mini Bot Apps.",
-        "bots_guestchat": "",
+        "bots_guestchat": "Most frequently used guest bots »",
         "bots_inline": "Most used inline bots",
         "bots_pm": "Most used bots",
         "channels": "Most frequently visited channels",
@@ -15208,6 +15320,22 @@
         "id": "The contact.",
         "note": "The note."
       }
+    },
+    "ephemeral.DeleteMessage": {
+      "desc": "",
+      "params": {}
+    },
+    "ephemeral.GetCallbackAnswer": {
+      "desc": "",
+      "params": {}
+    },
+    "ephemeral.ReportMessage": {
+      "desc": "",
+      "params": {}
+    },
+    "ephemeral.SendMessage": {
+      "desc": "",
+      "params": {}
     },
     "folders.DeleteFolder": {
       "desc": "",
@@ -15428,11 +15556,11 @@
       }
     },
     "messages.AddPollAnswer": {
-      "desc": "{schema}",
+      "desc": "Add an answer option to an open-answer poll »",
       "params": {
-        "answer": "",
-        "msg_id": "",
-        "peer": ""
+        "answer": "The new answer option to add, use inputPollAnswer",
+        "msg_id": "Message ID of the poll",
+        "peer": "Peer where the poll is located"
       }
     },
     "messages.AppendTodoList": {
@@ -15505,9 +15633,13 @@
         "flags": "Flags, see TL conditional fields",
         "proofread": "If set, proofreads and fixes mistakes in the message",
         "text": "The message",
-        "tone": "",
+        "tone": "If set, rephrases the message using the specified AI composer tone »",
         "translate_to_lang": "If set, translates the message to the specified language"
       }
+    },
+    "messages.ComposeRichMessageWithAI": {
+      "desc": "",
+      "params": {}
     },
     "messages.CreateChat": {
       "desc": "Creates a new chat.",
@@ -15528,7 +15660,7 @@
         "random_id": "Unique client message ID to prevent duplicate sending of the same event",
         "send_as": "Create the topic as the specified peer",
         "title": "Topic title (maximum UTF-8 length: 128)",
-        "title_missing": ""
+        "title_missing": "If set, the topic has no user-defined title, can only be set for the per-user topics of bot forums; if this field is set, the topic title likely needs to be changed by the bot."
       }
     },
     "messages.DeclineUrlAuth": {
@@ -15587,18 +15719,18 @@
       }
     },
     "messages.DeleteParticipantReaction": {
-      "desc": "{schema}",
+      "desc": "As an admin, remove all of a specific participant's reactions from a single message.",
       "params": {
-        "msg_id": "",
-        "participant": "",
-        "peer": ""
+        "msg_id": "ID of the message whose reactions should be removed",
+        "participant": "The participant whose reactions should be removed from the message",
+        "peer": "The group or channel where the message is located"
       }
     },
     "messages.DeleteParticipantReactions": {
-      "desc": "{schema}",
+      "desc": "As an admin, remove all of a specific participant's reactions from every message in a group or channel.",
       "params": {
-        "participant": "",
-        "peer": ""
+        "participant": "The participant whose reactions should be removed",
+        "peer": "The group or channel where the participant's reactions should be removed"
       }
     },
     "messages.DeletePhoneCallHistory": {
@@ -15609,11 +15741,11 @@
       }
     },
     "messages.DeletePollAnswer": {
-      "desc": "{schema}",
+      "desc": "Remove an answer option from an open-answer poll »",
       "params": {
-        "msg_id": "",
-        "option": "",
-        "peer": ""
+        "msg_id": "Message ID of the poll",
+        "option": "The option identifier of the answer to remove",
+        "peer": "Peer where the poll is located"
       }
     },
     "messages.DeleteQuickReplyMessages": {
@@ -16015,7 +16147,7 @@
       }
     },
     "messages.GetEmojiGameInfo": {
-      "desc": "{schema}",
+      "desc": "Fetch dice game information.",
       "params": {}
     },
     "messages.GetEmojiGroups": {
@@ -16291,13 +16423,13 @@
       }
     },
     "messages.GetPersonalChannelHistory": {
-      "desc": "{schema}",
+      "desc": "Fetch the message history of a user's personal channel ».",
       "params": {
-        "hash": "",
+        "hash": "Result hash",
         "limit": "Maximum number of results to return, see pagination",
-        "max_id": "",
-        "min_id": "",
-        "user_id": ""
+        "max_id": "If a positive value was transferred, the method will return only messages with IDs less than max_id",
+        "min_id": "If a positive value was transferred, the method will return only messages with IDs more than min_id",
+        "user_id": "The user whose personal channel history to fetch"
       }
     },
     "messages.GetPinnedDialogs": {
@@ -16315,7 +16447,7 @@
       "params": {
         "msg_id": "Message ID of poll message",
         "peer": "Peer where the poll was found",
-        "poll_hash": ""
+        "poll_hash": "Pass the poll.hash from the last received poll state; the server skips returning unchanged data"
       }
     },
     "messages.GetPollVotes": {
@@ -16352,11 +16484,11 @@
       }
     },
     "messages.GetRecentLocations": {
-      "desc": "Get live location history of a certain user",
+      "desc": "Get all recent live locations sent to a specific chat: returns up to 1 location message (messageMediaGeoLive) per chat participant.",
       "params": {
         "hash": "Hash used for caching, for more info click here",
         "limit": "Maximum number of results to return, see pagination",
-        "peer": "User"
+        "peer": "Target group or private chat."
       }
     },
     "messages.GetRecentReactions": {
@@ -16548,16 +16680,16 @@
       }
     },
     "messages.GetUnreadPollVotes": {
-      "desc": "{schema}",
+      "desc": "Get messages containing polls with unread votes »",
       "params": {
         "add_offset": "Offsets for pagination, for more info click here",
         "flags": "Flags, see TL conditional fields",
         "limit": "Maximum number of results to return, see pagination",
-        "max_id": "",
-        "min_id": "",
+        "max_id": "Only return messages with IDs less than or equal to this value",
+        "min_id": "Only return messages with IDs greater than or equal to this value",
         "offset_id": "Offsets for pagination, for more info click here",
-        "peer": "",
-        "top_msg_id": ""
+        "peer": "The chat to fetch unread poll votes from",
+        "top_msg_id": "If the chat is a forum, restrict results to this topic"
       }
     },
     "messages.GetUnreadReactions": {
@@ -16698,7 +16830,7 @@
     "messages.ReadHistory": {
       "desc": "Marks message history as read.",
       "params": {
-        "max_id": "If a positive value is passed, only messages with identifiers less or equal than the given one will be read",
+        "max_id": "If a positive value is passed, only messages with identifiers less than or equal to the given one will be read",
         "peer": "Target user or group"
       }
     },
@@ -16717,11 +16849,11 @@
       }
     },
     "messages.ReadPollVotes": {
-      "desc": "{schema}",
+      "desc": "Mark all unread poll votes » in a chat as read",
       "params": {
         "flags": "Flags, see TL conditional fields",
-        "peer": "",
-        "top_msg_id": ""
+        "peer": "The chat to mark poll votes as read in",
+        "top_msg_id": "If the chat is a forum, restrict to this topic"
       }
     },
     "messages.ReadReactions": {
@@ -16736,7 +16868,7 @@
     "messages.ReadSavedHistory": {
       "desc": "Mark messages as read in a monoforum topic ».",
       "params": {
-        "max_id": "If a positive value is passed, only messages with identifiers less or equal than the given one will be read.",
+        "max_id": "If a positive value is passed, only messages with identifiers less than or equal to the given one will be read.",
         "parent_peer": "ID of the monoforum group.",
         "peer": "ID of the topic."
       }
@@ -16819,10 +16951,10 @@
       }
     },
     "messages.ReportMusicListen": {
-      "desc": "{schema}",
+      "desc": "Report the listening duration of a music track (audio document without the voice flag), see here » for more info on the full flow.",
       "params": {
-        "id": "",
-        "listened_duration": ""
+        "id": "The InputDocument of the listened song",
+        "listened_duration": "Accumulated playing time in whole seconds"
       }
     },
     "messages.ReportReaction": {
@@ -16834,10 +16966,10 @@
       }
     },
     "messages.ReportReadMetrics": {
-      "desc": "{schema}",
+      "desc": "Report viewport read metrics for visible messages, indicating how long each message stayed in the chat viewport, see here » for more info on the full flow.",
       "params": {
-        "metrics": "",
-        "peer": ""
+        "metrics": "List of read metrics for individual messages",
+        "peer": "Peer where the messages are located"
       }
     },
     "messages.ReportSpam": {
@@ -16866,6 +16998,10 @@
         "theme_params": "Theme parameters »",
         "write_allowed": "Set this flag if the bot is asking permission to send messages to the user as specified in the direct Mini App deep link docs, and the user agreed."
       }
+    },
+    "messages.RequestChatJoinWebView": {
+      "desc": "",
+      "params": {}
     },
     "messages.RequestEncryption": {
       "desc": "Sends a request to start a secret chat to the user.",
@@ -17072,7 +17208,7 @@
         "msg_id": "ID of the message that contained the reply keyboard with the keyboardButtonRequestPeer button.",
         "peer": "The bot that sent the keyboardButtonRequestPeer button.",
         "requested_peers": "The chosen peers.",
-        "webapp_req_id": ""
+        "webapp_req_id": "If the button was prepared for a Mini App », the Mini App request ID returned by bots.requestWebViewButton."
       }
     },
     "messages.SendEncrypted": {
@@ -17280,10 +17416,10 @@
       }
     },
     "messages.SetBotGuestChatResult": {
-      "desc": "{schema}",
+      "desc": "Bots may use this method to answer a guest mode » query received via an updateBotGuestChatQuery update, providing the message to post into the chat as a guest, see here » for more info.",
       "params": {
-        "query_id": "",
-        "result": ""
+        "query_id": "Query identifier from the updateBotGuestChatQuery.query_id field",
+        "result": "The result to send as the answer to the query"
       }
     },
     "messages.SetBotPrecheckoutResults": {
@@ -17431,8 +17567,8 @@
         "flags": "Flags, see TL conditional fields",
         "id": "Message ID.",
         "peer": "The peer where the message is located.",
-        "to_lang": "",
-        "tone": ""
+        "to_lang": "If set, generates the summary in the specified target language (two-letter ISO 639-1 language code) instead of the message's language.",
+        "tone": "If set, rephrases the summary using the specified AI composer tone » (pass the tone identifier)"
       }
     },
     "messages.ToggleBotInAttachMenu": {
@@ -17528,6 +17664,10 @@
         "peer": "Peer ID where the voice message was sent"
       }
     },
+    "messages.TranslateRichMessage": {
+      "desc": "",
+      "params": {}
+    },
     "messages.TranslateText": {
       "desc": "Translate a given text.",
       "params": {
@@ -17536,7 +17676,7 @@
         "peer": "If the text is a chat message, the peer ID",
         "text": "A list of styled messages to translate",
         "to_lang": "Two-letter ISO 639-1 language code of the language to which the message is translated",
-        "tone": ""
+        "tone": "If set, rephrases the translation using the specified AI composer tone » (pass the tone identifier)"
       }
     },
     "messages.UninstallStickerSet": {
@@ -17832,10 +17972,10 @@
       }
     },
     "payments.GetSavedStarGifts": {
-      "desc": "Fetch the full list of gifts owned by a peer.",
+      "desc": "Fetch the full list of gifts » owned, received or hosted » by a peer.",
       "params": {
         "collection_id": "Only returns gifts within the specified collection ».",
-        "exclude_hosted": "",
+        "exclude_hosted": "If set, excludes hosted collectible gifts », returning only gifts owned or received by peer.",
         "exclude_saved": "Exclude gifts pinned on the profile.",
         "exclude_unique": "Exclude collectible gifts ».",
         "exclude_unlimited": "Exclude gifts that do not have the starGift.limited flag set.",
@@ -17845,13 +17985,13 @@
         "flags": "Flags, see TL conditional fields",
         "limit": "Maximum number of results to return, see pagination",
         "offset": "Offset for pagination.",
-        "peer": "Fetch only gifts owned by the specified peer, such as: a user, with peer=inputPeerUser; a channel, with peer=inputPeerChannel; a connected business user (when executing the method as a bot, over the business connection), with peer=inputPeerUser.",
-        "peer_color_available": "",
+        "peer": "Fetch only gifts owned, received or hosted » by the specified peer, such as: a user, with peer=inputPeerUser; a channel, with peer=inputPeerChannel; a connected business user » (when executing the method as a bot, over the business connection), with peer=inputPeerUser.",
+        "peer_color_available": "If set, only returns collectible gifts whose palette can be used as a collectible message palette ».",
         "sort_by_value": "If set, sorts the gifts by price instead of reception date."
       }
     },
     "payments.GetStarGiftActiveAuctions": {
-      "desc": "Fetches all currently active gift auctions where the user has placed a bid.",
+      "desc": "Fetches all currently active gift auctions the user has ever bid on (including auctions where the user was outbid and their bid was returned), as long as the auction hasn't ended yet.",
       "params": {
         "hash": "Hash generated as specified here »"
       }
@@ -17930,7 +18070,7 @@
     "payments.GetStarsRevenueWithdrawalUrl": {
       "desc": "Withdraw funds from a channel or bot's star balance ».",
       "params": {
-        "amount": "The amount of stars or nanotons to withdraw.",
+        "amount": "The amount of stars or nanograms to withdraw.",
         "flags": "Flags, see TL conditional fields",
         "password": "2FA password, see here » for more info.",
         "peer": "Channel or bot from which to withdraw funds.",
@@ -17942,7 +18082,7 @@
       "params": {
         "flags": "Flags, see TL conditional fields",
         "peer": "Peer of which to get the balance.",
-        "ton": "If set, returns the channel/ad revenue balance in nanotons."
+        "ton": "If set, returns the channel/ad revenue balance in nanograms."
       }
     },
     "payments.GetStarsSubscriptions": {
@@ -17969,7 +18109,7 @@
         "outbound": "If set, fetches only outgoing transactions.",
         "peer": "Fetch the transaction history of the peer (inputPeerSelf or a bot we own).",
         "subscription_id": "If set, fetches only transactions for the specified Telegram Star subscription ».",
-        "ton": "If set, returns the channel/ad revenue transactions in nanotons, instead."
+        "ton": "If set, returns the channel/ad revenue transactions in nanograms, instead."
       }
     },
     "payments.GetStarsTransactionsByID": {
@@ -17978,7 +18118,7 @@
         "flags": "Flags, see TL conditional fields",
         "id": "Transaction IDs.",
         "peer": "Channel or bot.",
-        "ton": "If set, returns channel/bot ad revenue transactions in nanotons."
+        "ton": "If set, returns channel/bot ad revenue transactions in nanograms."
       }
     },
     "payments.GetSuggestedStarRefBots": {
@@ -18043,10 +18183,10 @@
       }
     },
     "payments.SaveStarGift": {
-      "desc": "Display or remove a received gift » from our profile.",
+      "desc": "Display or remove a received or hosted gift » from our profile.",
       "params": {
         "flags": "Flags, see TL conditional fields",
-        "stargift": "The gift to display or remove.",
+        "stargift": "The gift to display or remove. A hosted collectible gift » may be used by its host or owner.",
         "unsave": "If set, hides the gift from our profile."
       }
     },
@@ -18148,10 +18288,10 @@
       }
     },
     "phone.CheckGroupCall": {
-      "desc": "Check whether the group call Server Forwarding Unit is currently receiving the streams with the specified WebRTC source IDs.\nReturns an intersection of the source IDs specified in sources, and the source IDs currently being forwarded by the SFU.",
+      "desc": "Check which of the specified source IDs the server still recognizes as joined to a group call. This method can be used with all group call types, see here » for more info.",
       "params": {
-        "call": "Group call",
-        "sources": "Source IDs"
+        "call": "Group call whose WebRTC connections should be checked",
+        "sources": "Non-zero SSRC/source IDs of the caller's main and presentation connections"
       }
     },
     "phone.ConfirmCall": {
@@ -18164,26 +18304,26 @@
       }
     },
     "phone.CreateConferenceCall": {
-      "desc": "Create and optionally join a new conference call.",
+      "desc": "Create and optionally join a new conference call ».",
       "params": {
-        "block": "Initial blockchain block (can only be used if join is set).",
+        "block": "Initial main-chain block for subchain 0 (can only be used if join is set).",
         "flags": "Flags, see TL conditional fields",
         "join": "If set, also join the call, otherwise just create the call link.",
         "muted": "If set, mute our microphone when joining the call (can only be used if join is set).",
-        "params": "Parameters from tgcalls (can only be used if join is set).",
-        "public_key": "Public key (can only be used if join is set).",
+        "params": "Join payload generated by the local call engine (can only be used if join is set).",
+        "public_key": "Fresh E2E public key for the creator (can only be used if join is set).",
         "random_id": "Unique client message ID required to prevent creation of duplicate group calls.",
         "video_stopped": "If set, our video stream is disabled (can only be used if join is set)."
       }
     },
     "phone.CreateGroupCall": {
-      "desc": "Create a group call or livestream.",
+      "desc": "Create a video chat or livestream, see here » for the full flow.",
       "params": {
         "flags": "Flags, see TL conditional fields",
         "peer": "Associate the group call or livestream to the provided group/supergroup/channel",
         "random_id": "Unique client message ID required to prevent creation of duplicate group calls",
-        "rtmp_stream": "Whether RTMP stream support should be enabled: only the group/supergroup/channel owner can use this flag.",
-        "schedule_date": "For scheduled group call or livestreams, the absolute date (unixtime) when the group call is expected to start: the date must be at least 10 seconds and at most 8 days in the future.",
+        "rtmp_stream": "Create the call in RTMP livestream mode », where one external streamer publishes all audio and video",
+        "schedule_date": "Schedule date, at least 10 seconds and at most 8 days in the future; the call must still be manually started using phone.startScheduledGroupCall",
         "title": "Call title, if not set defaults to the group/channel's name."
       }
     },
@@ -18194,32 +18334,32 @@
       }
     },
     "phone.DeleteConferenceCallParticipants": {
-      "desc": "Remove participants from a conference call.",
+      "desc": "Remove participants from a conference call ».",
       "params": {
-        "block": "The block containing an appropriate e2e.chain.changeSetGroupState event",
-        "call": "The conference call.",
+        "block": "Main-chain block removing the specified users and establishing a new shared key, see removing a participant »",
+        "call": "Conference from which to remove participants",
         "flags": "Flags, see TL conditional fields",
-        "ids": "IDs of users to remove.",
+        "ids": "User IDs to remove from the conference and E2E blockchain",
         "kick": "Whether this is a forced removal of active members in a conference call.",
         "only_left": "Whether this is a removal of members that already left the conference call."
       }
     },
     "phone.DeleteGroupCallMessages": {
-      "desc": "Delete messages from the in-call message overlay of a group call or livestream.",
+      "desc": "Delete specific messages from the in-call message overlay » of a video chat/livestream or live story, including in RTMP mode.",
       "params": {
-        "call": "",
+        "call": "Video chat/livestream or live story containing the messages",
         "flags": "Flags, see TL conditional fields",
-        "messages": "",
-        "report_spam": ""
+        "messages": "IDs of the messages to delete",
+        "report_spam": "When moderating another participant's messages, also report them as spam"
       }
     },
     "phone.DeleteGroupCallParticipantMessages": {
-      "desc": "Delete all messages from a specific participant in the in-call message overlay of a group call or livestream.",
+      "desc": "As an admin, delete all messages from a specific participant in the in-call message overlay » of a video chat/livestream or live story, including in RTMP mode.",
       "params": {
-        "call": "",
+        "call": "Video chat/livestream or live story containing the messages",
         "flags": "Flags, see TL conditional fields",
-        "participant": "",
-        "report_spam": ""
+        "participant": "The participant whose messages should be deleted",
+        "report_spam": "Also report the participant's messages as spam"
       }
     },
     "phone.DiscardCall": {
@@ -18234,37 +18374,37 @@
       }
     },
     "phone.DiscardGroupCall": {
-      "desc": "Terminate a group call, ending the room for all participants.",
+      "desc": "Terminate a group call, ending the room for all participants. This method can be used with all group call types, see here » for more info.",
       "params": {
         "call": "The group call to terminate"
       }
     },
     "phone.EditGroupCallParticipant": {
-      "desc": "Edit information about a given group call participant.",
+      "desc": "Edit information about a participant of a non-RTMP video chat/livestream or conference. The raise_hand field is only supported in video chats/livestreams, see here » for more info.",
       "params": {
-        "call": "The group call",
+        "call": "Non-RTMP video chat/livestream or conference",
         "flags": "Flags, see TL conditional fields",
-        "muted": "Whether to mute or unmute the specified participant",
+        "muted": "Change the participant's mute state; allowing a forcibly muted participant to self-unmute does not immediately unmute them",
         "participant": "The group call participant (can also be the user itself)",
-        "presentation_paused": "Pause or resume the screen sharing stream",
-        "raise_hand": "Raise or lower hand",
-        "video_paused": "Pause or resume the video stream",
-        "video_stopped": "Start or stop the video stream",
-        "volume": "New volume"
+        "presentation_paused": "Pause or resume the current user's presentation stream",
+        "raise_hand": "Raise or lower hand; only supported in video chats/livestreams",
+        "video_paused": "Pause or resume the current user's video stream",
+        "video_stopped": "Start or stop the current user's video stream",
+        "volume": "New volume, between 1 and 20000; 10000 represents 100%. Without moderation rights, changing another participant's volume affects only local playback"
       }
     },
     "phone.EditGroupCallTitle": {
-      "desc": "Edit the title of a group call or livestream.",
+      "desc": "Edit the title of a video chat or livestream. This method cannot be used with live stories or conferences, see here » for more info.",
       "params": {
-        "call": "Group call",
+        "call": "Video chat or livestream whose title should be changed",
         "title": "New title"
       }
     },
     "phone.ExportGroupCallInvite": {
-      "desc": "Get an invite link for a group call or livestream",
+      "desc": "Get an invite link for a public video chat/livestream ».",
       "params": {
-        "call": "The group call",
-        "can_self_unmute": "For livestreams or muted group chats, if set, users that join using this link will be able to speak without explicitly requesting permission by (for example by raising their hand).",
+        "call": "The public video chat/livestream »",
+        "can_self_unmute": "For public video chats/livestreams, group call admins only: allow users that join using this link to speak without explicitly requesting permission, for example by raising their hand.",
         "flags": "Flags, see TL conditional fields"
       }
     },
@@ -18275,50 +18415,50 @@
     "phone.GetGroupCall": {
       "desc": "Get info about a group call and its participants.",
       "params": {
-        "call": "The group call",
+        "call": "Group call of any type to fetch",
         "limit": "Maximum number of participants to return in this call (0 to return a server-defined amount). If the number of returned participants is less than groupCall.participants_count, paginate through the remaining participants using phone.getGroupParticipants, passing to offset the phone.groupCall.participants_next_offset returned by this call. This parameter behaves in a different way compared to the limit of phone.getGroupParticipants, see here » for more info."
       }
     },
     "phone.GetGroupCallChainBlocks": {
-      "desc": "Fetch the blocks of a conference blockchain ».",
+      "desc": "Fetch blocks from a conference call subchain »; handle the returned updateGroupCallChainBlocks as specified here ».",
       "params": {
-        "call": "The conference.",
-        "limit": "Maximum number of blocks to return in this call, see pagination",
-        "offset": "Offset for pagination.",
-        "sub_chain_id": "Subchain ID."
+        "call": "Conference whose subchain blocks should be fetched",
+        "limit": "Maximum number of blocks to return in this call, see pagination, max 100.",
+        "offset": "Fetch blocks starting from this height; pass -1 to fetch the latest block",
+        "sub_chain_id": "0 for the main state blockchain, 1 for the call verification subchain"
       }
     },
     "phone.GetGroupCallJoinAs": {
-      "desc": "Get a list of peers that can be used to join a group call, presenting yourself as a specific user/channel.",
+      "desc": "Get a list of peers that can be used to join a video chat or livestream », presenting yourself as a specific user/channel.",
       "params": {
-        "peer": "The dialog whose group call or livestream we're trying to join"
+        "peer": "The basic group, supergroup or channel whose video chat/livestream we're trying to join; cannot target a live story."
       }
     },
     "phone.GetGroupCallStars": {
-      "desc": "Fetch the livestream donor and paid-message leaderboard.",
+      "desc": "Fetch a live story's total donations and top donors, see paid live story donations ».",
       "params": {
-        "call": ""
+        "call": "Live story group call"
       }
     },
     "phone.GetGroupCallStreamChannels": {
-      "desc": "Get info about RTMP streams in a group call or livestream.\nThis method should be invoked to the same group/channel-related DC used for downloading livestream chunks.\nAs usual, the media DC is preferred, if available.",
+      "desc": "Get the available stream channels and current playback timestamp of an RTMP-mode video chat, livestream or live story, see here » for the full flow.\nThe group call must be joined before invoking this method. Send the request to the media DC specified by groupCall.stream_dc_id.",
       "params": {
-        "call": "Group call or livestream"
+        "call": "RTMP-mode video chat, livestream or live story"
       }
     },
     "phone.GetGroupCallStreamRtmpUrl": {
-      "desc": "Get RTMP URL and stream key for RTMP livestreams. Can be used even before creating the actual RTMP livestream with phone.createGroupCall (the rtmp_stream flag must be set).",
+      "desc": "Get the RTMP URL and stream key used by the single external streamer that publishes all audio and video for an RTMP-mode video chat, livestream or live story.",
       "params": {
         "flags": "Flags, see TL conditional fields",
-        "live_story": "",
-        "peer": "Peer to livestream into",
-        "revoke": "Whether to revoke the previous stream key or simply return the existing one"
+        "live_story": "Obtain credentials for an RTMP live story instead of a video chat/livestream",
+        "peer": "Peer that will host the RTMP video chat, livestream or live story",
+        "revoke": "Whether to invalidate the previous stream key and generate a new one, instead of returning the existing key"
       }
     },
     "phone.GetGroupParticipants": {
       "desc": "Get group call participants.",
       "params": {
-        "call": "Group call",
+        "call": "Group call whose participants should be fetched",
         "ids": "If specified, will fetch group participant info about the specified peers",
         "limit": "Maximum number of results to return, see pagination",
         "offset": "Offset for results, taken from the next_offset field of phone.groupParticipants or the participants_next_offset field of phone.groupCall, initially an empty string. Note: if no more results are available, the method call will return an empty next_offset; thus, avoid providing the next_offset returned in phone.groupParticipants if it is empty, to avoid an infinite loop.",
@@ -18331,48 +18471,48 @@
         "call": "The conference call.",
         "flags": "Flags, see TL conditional fields",
         "user_id": "The user to invite.",
-        "video": "Invite the user to also turn on their video feed."
+        "video": "Whether this is a video conference invitation"
       }
     },
     "phone.InviteToGroupCall": {
-      "desc": "Invite a set of users to a group call.",
+      "desc": "Invite a set of users to a video chat/livestream »; cannot be used for live stories » or conference calls ».",
       "params": {
-        "call": "The group call",
+        "call": "The video chat/livestream »",
         "users": "The users to invite."
       }
     },
     "phone.JoinGroupCall": {
-      "desc": "Join a group call, see here » for the full flow.",
+      "desc": "Join any group call type ». Conference calls additionally require the E2E joining flow ».",
       "params": {
-        "block": "The block containing an appropriate e2e.chain.changeSetGroupState event.",
-        "call": "The group call",
+        "block": "The main-chain block that adds the joining user », only for conference calls ».",
+        "call": "Group call to join",
         "flags": "Flags, see TL conditional fields",
-        "invite_hash": "The invitation hash from the invite link », if provided allows speaking in a livestream or muted group chat.",
-        "join_as": "Join the group call, presenting yourself as the specified user/channel",
-        "muted": "If set, the user will be muted by default upon joining.",
-        "params": "WebRTC parameters",
-        "public_key": "For conference calls, your public key.",
-        "video_stopped": "If set, the user's video will be disabled by default upon joining."
+        "invite_hash": "The invitation hash from the invite link », if provided allows speaking in a livestream or muted group call (video chats/livestreams » only, cannot be used by live stories » or conference calls »).",
+        "join_as": "Join the group call, presenting yourself as the specified user/channel; this peer is also used as the author of in-call messages in normal video chats/livestreams. Only video chats/livestreams may use another peer; this field must be equal to inputPeerSelf when joining live stories » or conference calls ».",
+        "muted": "Join muted; required for live story listeners and RTMP-mode viewers",
+        "params": "Join payload generated by the local tgcalls group-call engine, as described above",
+        "public_key": "For conference calls » only, your public key.",
+        "video_stopped": "Join with video disabled; required for live story listeners and RTMP-mode viewers"
       }
     },
     "phone.JoinGroupCallPresentation": {
-      "desc": "Start screen sharing in a group call.",
+      "desc": "Start screen sharing in a non-RTMP video chat/livestream or conference. Presentations are not supported in live stories or RTMP-mode video chats/livestreams, see here » for more info.",
       "params": {
-        "call": "The group call",
-        "params": "WebRTC parameters"
+        "call": "Joined non-RTMP video chat/livestream or conference in which to start presenting",
+        "params": "Join payload generated by a separate local call-engine instance for the presentation"
       }
     },
     "phone.LeaveGroupCall": {
-      "desc": "Leave a group call.",
+      "desc": "Leave a group call without ending it for other participants. This method can be used with all group call types, see here » for more info.",
       "params": {
-        "call": "The group call",
-        "source": "Your source ID"
+        "call": "Group call to leave",
+        "source": "Source ID of the main group call stream"
       }
     },
     "phone.LeaveGroupCallPresentation": {
-      "desc": "Stop screen sharing in a group call.",
+      "desc": "Stop screen sharing in a non-RTMP video chat/livestream or conference. Presentations are not supported in live stories or RTMP-mode video chats/livestreams, see here » for more info.",
       "params": {
-        "call": "The group call"
+        "call": "Group call whose presentation connection should be stopped"
       }
     },
     "phone.ReceivedCall": {
@@ -18407,42 +18547,42 @@
       }
     },
     "phone.SaveDefaultGroupCallJoinAs": {
-      "desc": "Set the default peer that will be used to join a group call in a specific dialog.",
+      "desc": "Set the default peer used to join a video chat/livestream » associated with a specific dialog.",
       "params": {
-        "join_as": "The default peer that will be used to join group calls in this dialog, presenting yourself as a specific user/channel.",
-        "peer": "The dialog"
+        "join_as": "Eligible peer to use by default when joining the dialog's video chats/livestreams, selected from phone.getGroupCallJoinAs",
+        "peer": "Basic group, supergroup or channel whose video chat/livestream default should be changed"
       }
     },
     "phone.SaveDefaultSendAs": {
-      "desc": "{schema}",
+      "desc": "Save the default peer displayed as the author of live story comments and reactions, see in-call messages ».",
       "params": {
-        "call": "",
-        "send_as": ""
+        "call": "Live story group call",
+        "send_as": "Peer to display as the author of subsequent comments and reactions"
       }
     },
     "phone.SendConferenceCallBroadcast": {
-      "desc": "Broadcast a blockchain block to all members of a conference call, see here » for more info.",
+      "desc": "Submit a verification message to conference call subchain 1, see subchains ».",
       "params": {
-        "block": "The block to broadcast.",
-        "call": "The conference where to broadcast the block."
+        "block": "Serialized e2e.chain.GroupBroadcast verification message.",
+        "call": "Conference whose verification subchain should receive the message"
       }
     },
     "phone.SendGroupCallEncryptedMessage": {
-      "desc": "Send an E2E-encrypted message to all participants of a conference call, using the E2E encryption protocol.",
+      "desc": "Send an E2E-encrypted message or emoji reaction to all participants of a conference call. This method can only be used with conferences; see here » for the serialization and encryption process.",
       "params": {
-        "call": "",
-        "encrypted_message": ""
+        "call": "Conference call that should receive the encrypted message or reaction",
+        "encrypted_message": "Complete encrypted message or reaction packet produced as specified here »"
       }
     },
     "phone.SendGroupCallMessage": {
-      "desc": "Send a transient in-call message to all participants of a group call or livestream.",
+      "desc": "Send an in-call message to all participants of a video chat/livestream or live story, including in RTMP mode, see here » for more info.",
       "params": {
-        "allow_paid_stars": "",
-        "call": "",
+        "allow_paid_stars": "User-confirmed number of Telegram Stars to donate with a live story comment or standalone donation",
+        "call": "Video chat/livestream or live story that should receive the message, reaction or donation",
         "flags": "Flags, see TL conditional fields",
-        "message": "",
-        "random_id": "",
-        "send_as": ""
+        "message": "Message text or emoji reaction; pass an empty value when sending a standalone paid live story donation",
+        "random_id": "Fresh client-generated random ID used to deduplicate the message or donation",
+        "send_as": "Optional peer to display as the author of a live story message or reaction; can only be used for live stories"
       }
     },
     "phone.SendSignalingData": {
@@ -18465,13 +18605,13 @@
     "phone.StartScheduledGroupCall": {
       "desc": "Start a scheduled group call.",
       "params": {
-        "call": "The scheduled group call"
+        "call": "Scheduled video chat/livestream to start, before or after its scheduled date"
       }
     },
     "phone.ToggleGroupCallRecord": {
-      "desc": "Start or stop recording a group call: the recorded audio and video streams will be automatically sent to Saved messages (the chat with ourselves).",
+      "desc": "Start or stop recording a video chat/livestream, see here » for more info. The recorded audio and video streams will be automatically sent to Saved Messages (the chat with ourselves).",
       "params": {
-        "call": "The group call or livestream",
+        "call": "Video chat/livestream to record",
         "flags": "Flags, see TL conditional fields",
         "start": "Whether to start or stop recording",
         "title": "Recording title",
@@ -18480,21 +18620,21 @@
       }
     },
     "phone.ToggleGroupCallSettings": {
-      "desc": "Change group call settings.",
+      "desc": "Change group call settings. Each setting supports different group call types, see here » for more info.",
       "params": {
-        "call": "Group call",
+        "call": "Group call whose settings should be changed",
         "flags": "Flags, see TL conditional fields",
-        "join_muted": "Whether all users will that join this group call are muted by default upon joining the group call",
-        "messages_enabled": "",
-        "reset_invite_hash": "Invalidate existing invite links",
-        "send_paid_messages_stars": ""
+        "join_muted": "Whether users joining a non-RTMP video chat/livestream should be muted by default",
+        "messages_enabled": "Enable or disable the in-call message overlay in video chats/livestreams, conferences and live stories, including in RTMP mode",
+        "reset_invite_hash": "Invalidate existing invite links for video chats, livestreams and conferences",
+        "send_paid_messages_stars": "Set the minimum Telegram Stars donation required from users other than the live story owner for each comment; the owner may always comment without donating, and 0 allows free comments for everyone"
       }
     },
     "phone.ToggleGroupCallStartSubscription": {
       "desc": "Subscribe or unsubscribe to a scheduled group call.",
       "params": {
-        "call": "Scheduled group call",
-        "subscribed": "Enable or disable subscription"
+        "call": "Scheduled video chat/livestream that has not started yet",
+        "subscribed": "Whether to receive a service-notification message when the call starts"
       }
     },
     "photos.DeletePhotos": {
@@ -18653,12 +18793,12 @@
       }
     },
     "stats.GetPollStats": {
-      "desc": "{schema}",
+      "desc": "Get statistics for a poll sent in a message.",
       "params": {
-        "dark": "",
+        "dark": "Whether to enable dark theme for graph colors",
         "flags": "Flags, see TL conditional fields",
-        "msg_id": "",
-        "peer": ""
+        "msg_id": "ID of the message containing the poll",
+        "peer": "The peer where the poll was sent"
       }
     },
     "stats.GetStoryPublicForwards": {
@@ -18818,7 +18958,7 @@
         "id": "ID of story to edit.",
         "media": "If specified, replaces the story media.",
         "media_areas": "Media areas associated to the story, see here » for more info.",
-        "music": "",
+        "music": "If set, the new audio track to play as background music for the story.",
         "peer": "Peer where the story was posted.",
         "privacy_rules": "If specified, alters the privacy settings » of the story, changing who can or can't view the story."
       }
@@ -18864,9 +19004,9 @@
       "params": {}
     },
     "stories.GetPeerMaxIDs": {
-      "desc": "Get the IDs of the maximum read stories for a set of peers.",
+      "desc": "Get compact active story summaries » for a set of peers.",
       "params": {
-        "id": "Peers"
+        "id": "Peers whose active story summaries » should be fetched."
       }
     },
     "stories.GetPeerStories": {
@@ -18994,7 +19134,7 @@
         "fwd_modified": "Set this flag when reposting stories with fwd_from_id+fwd_from_id, if the media was modified before reposting.",
         "media": "The story media.",
         "media_areas": "Media areas associated to the story, see here » for more info.",
-        "music": "",
+        "music": "If set, the audio track to play as background music for the story.",
         "noforwards": "If set, disables forwards, screenshots, and downloads.",
         "peer": "The peer to send the story as.",
         "period": "Period after which the story is moved to archive (and to the profile if pinned is set), in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400 for Telegram Premium users, and 86400 otherwise.",
@@ -19004,19 +19144,19 @@
       }
     },
     "stories.StartLive": {
-      "desc": "{schema}",
+      "desc": "Start a live story, optionally using RTMP livestream mode, see here » for the full flow.",
       "params": {
-        "caption": "",
+        "caption": "Live story caption",
         "entities": "Message entities for styled text",
         "flags": "Flags, see TL conditional fields",
-        "messages_enabled": "",
-        "noforwards": "",
-        "peer": "",
-        "pinned": "",
-        "privacy_rules": "",
-        "random_id": "",
-        "rtmp_stream": "",
-        "send_paid_messages_stars": ""
+        "messages_enabled": "Whether the in-call message overlay » should be enabled",
+        "noforwards": "Whether viewers must be prevented from forwarding or saving the live story",
+        "peer": "User, supergroup or channel that will own the live story; basic groups cannot post live stories",
+        "pinned": "Whether to pin the live story on the peer's profile",
+        "privacy_rules": "Privacy rules defining who can view the live story",
+        "random_id": "Client-generated random ID used to prevent duplicate live stories",
+        "rtmp_stream": "Create the live story in RTMP livestream mode », where one external streamer publishes all audio and video",
+        "send_paid_messages_stars": "Minimum Telegram Stars donation required from users other than the live story owner for each comment; the owner may always comment without donating, and 0 allows free comments for everyone"
       }
     },
     "stories.ToggleAllStoriesHidden": {
@@ -19205,10 +19345,10 @@
       "desc": "Time-to-live of current account"
     },
     "AiComposeTone": {
-      "desc": ""
+      "desc": "An AI composer tone », used to rephrase messages in a specific style with the AI message composer."
     },
     "AiComposeToneExample": {
-      "desc": ""
+      "desc": "An example showing how an AI composer tone » rephrases a message, used as a preview in the tone picker."
     },
     "AttachMenuBot": {
       "desc": "Represents a bot mini app that can be launched from the attachment menu »"
@@ -19381,6 +19521,9 @@
     "ChatInviteImporter": {
       "desc": "When and which user joined the chat using a chat invite"
     },
+    "ChatInviteJoinResult": {
+      "desc": ""
+    },
     "ChatOnlines": {
       "desc": "Number of online users in a chat"
     },
@@ -19401,6 +19544,15 @@
     },
     "CodeSettings": {
       "desc": "Settings for the code type to send"
+    },
+    "CommunityPeer": {
+      "desc": ""
+    },
+    "CommunityPeerRequest": {
+      "desc": ""
+    },
+    "ComposedRichMessageWithAI": {
+      "desc": ""
     },
     "Config": {
       "desc": "Object contains info on API configuring parameters."
@@ -19489,6 +19641,9 @@
     "EncryptedMessage": {
       "desc": "Object contains encrypted message."
     },
+    "EphemeralMessage": {
+      "desc": ""
+    },
     "ExportedBotToken": {
       "desc": ""
     },
@@ -19541,10 +19696,10 @@
       "desc": "A group call"
     },
     "GroupCallDonor": {
-      "desc": ""
+      "desc": "Describes a live story donor in the donation leaderboard »."
     },
     "GroupCallMessage": {
-      "desc": ""
+      "desc": "Represents an in-call message, emoji reaction », paid live story comment or standalone paid live story donation."
     },
     "GroupCallParticipant": {
       "desc": "Info about a group call participant"
@@ -19574,7 +19729,7 @@
       "desc": "Inline query peer type."
     },
     "InputAiComposeTone": {
-      "desc": ""
+      "desc": "References an AI composer tone », either a built-in default tone or a custom one (by ID or slug)."
     },
     "InputAppEvent": {
       "desc": "Object contains info about an event that occurred in the application."
@@ -19640,7 +19795,7 @@
       "desc": "Defines a document for subsequent interaction."
     },
     "InputEncryptedChat": {
-      "desc": "Object sets an encrypted chat ID."
+      "desc": "An e2e encrypted chat."
     },
     "InputEncryptedFile": {
       "desc": "Object sets encrypted file for attachment"
@@ -19673,16 +19828,16 @@
       "desc": "A message"
     },
     "InputMessageReadMetric": {
-      "desc": ""
+      "desc": "Read metric for a single message exposure, describing how long the message was visible in the chat viewport."
     },
     "InputNotifyPeer": {
       "desc": "Object defines the set of users and/or groups that generate notifications."
     },
     "InputPasskeyCredential": {
-      "desc": ""
+      "desc": "Credential used to register a passkey » or to log in with one."
     },
     "InputPasskeyResponse": {
-      "desc": ""
+      "desc": "WebAuthn response generated by the authenticator when registering or logging in with a public-key passkey »."
     },
     "InputPaymentCredentials": {
       "desc": "Payment credentials"
@@ -19730,7 +19885,7 @@
       "desc": "A single media in an album or grouped media sent with messages.sendMultiMedia."
     },
     "InputStarGiftAuction": {
-      "desc": ""
+      "desc": "Identifies a collectible gift auction », either by the ID of the linked collectible gift or by an auction deep link slug."
     },
     "InputStarsTransaction": {
       "desc": "Used to fetch info about a Telegram Star transaction »."
@@ -19900,6 +20055,9 @@
     "PaidReactionPrivacy": {
       "desc": "Paid reaction privacy settings »"
     },
+    "ParticipantJoinedChats": {
+      "desc": ""
+    },
     "Passkey": {
       "desc": "Human-readable info about a passkey associated to an account, returned when creating a passkey » or listing passkeys »."
     },
@@ -19926,6 +20084,9 @@
     },
     "PeerColor": {
       "desc": "Represents a color palette »."
+    },
+    "PeerLinkRequests": {
+      "desc": ""
     },
     "PeerLocated": {
       "desc": "Geolocated peer"
@@ -20030,7 +20191,7 @@
       "desc": "Recent t.me urls"
     },
     "RecentStory": {
-      "desc": ""
+      "desc": "Summary of a peer's active stories »."
     },
     "ReplyMarkup": {
       "desc": "Reply markup for bot and inline keyboards"
@@ -20150,16 +20311,16 @@
       "desc": "Represents the identifier of a collectible gift attribute."
     },
     "StarGiftAttributeRarity": {
-      "desc": ""
+      "desc": "Rarity of a collectible gift » attribute, either as an exact permille value or as one of the named rarity tiers (uncommon, rare, epic, legendary)."
     },
     "StarGiftAuctionAcquiredGift": {
       "desc": "Describes a gift that the current user won in an auction."
     },
     "StarGiftAuctionRound": {
-      "desc": ""
+      "desc": "Describes one or more rounds of a collectible gift auction », optionally extendable."
     },
     "StarGiftAuctionState": {
-      "desc": ""
+      "desc": "State of a collectible gift auction »: active/pending, finished, or unchanged with respect to a locally cached version."
     },
     "StarGiftAuctionUserState": {
       "desc": "Contains information about the current user's state in an auction »."
@@ -20353,6 +20514,9 @@
     "WebViewResult": {
       "desc": "Contains the webview URL with appropriate theme and user info parameters added"
     },
+    "WebViewResultUrl": {
+      "desc": ""
+    },
     "X": {
       "desc": "Represents the return type of the wrapped method."
     },
@@ -20444,7 +20608,7 @@
       "desc": ""
     },
     "aicompose.Tones": {
-      "desc": ""
+      "desc": "The list of saved AI composer tones » of the current user."
     },
     "auth.Authorization": {
       "desc": "Object contains info on user authorization."
@@ -20474,13 +20638,13 @@
       "desc": "Type of the verification code that was sent"
     },
     "bots.AccessSettings": {
-      "desc": ""
+      "desc": "Access restriction settings for a managed bot."
     },
     "bots.BotInfo": {
       "desc": "Localized name, about text and description of a bot."
     },
     "bots.ExportedBotToken": {
-      "desc": ""
+      "desc": "The bot token of a managed bot, exported by the manager bot."
     },
     "bots.PopularAppBots": {
       "desc": "Popular Main Mini Apps, to be used in the apps tab of global search »."
@@ -20489,7 +20653,7 @@
       "desc": "Contains info about Main Mini App previews, see here » for more info."
     },
     "bots.RequestedButton": {
-      "desc": ""
+      "desc": "Contains the Mini App request ID generated when a bot prepares a peer request button, see here » for more info."
     },
     "channels.AdminLogResults": {
       "desc": "Admin log events"
@@ -20678,10 +20842,10 @@
       "desc": "Info about a message thread"
     },
     "messages.EmojiGameInfo": {
-      "desc": ""
+      "desc": "Dice game information."
     },
     "messages.EmojiGameOutcome": {
-      "desc": ""
+      "desc": "Dice game outcome."
     },
     "messages.EmojiGroups": {
       "desc": "Represents a list of emoji categories."
@@ -20794,6 +20958,9 @@
     "messages.TranscribedAudio": {
       "desc": "Transcribed text from a voice message"
     },
+    "messages.TranslatedRichMessage": {
+      "desc": ""
+    },
     "messages.TranslatedText": {
       "desc": "Translated text with entities."
     },
@@ -20846,7 +21013,7 @@
       "desc": "Represents a list of gifts."
     },
     "payments.StarGiftActiveAuctions": {
-      "desc": ""
+      "desc": "List of currently active gift auctions » where the user has placed a bid, or an indication that the locally cached list hasn't changed."
     },
     "payments.StarGiftAuctionAcquiredGifts": {
       "desc": "Describes all the gifts that the current user won in an auction."
@@ -20900,7 +21067,7 @@
       "desc": "Contains info about a group call, and partial info about its participants."
     },
     "phone.GroupCallStars": {
-      "desc": ""
+      "desc": "Contains a live story's total donations and top donors, see paid live story donations »."
     },
     "phone.GroupCallStreamChannels": {
       "desc": "Info about RTMP streams in a group call or livestream"
@@ -20948,7 +21115,7 @@
       "desc": "Message statistics"
     },
     "stats.PollStats": {
-      "desc": ""
+      "desc": "Statistics for a poll sent in a message."
     },
     "stats.PublicForwards": {
       "desc": "Contains info about the forwards of a story as a message to public chats and reposts by public channels."
