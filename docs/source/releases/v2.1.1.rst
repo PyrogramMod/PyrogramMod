@@ -1,0 +1,54 @@
+PyrogramMod v2.1.1
+==================
+
+*Layers 162–187, Paid Reactions, Stories, Giveaways, View-Once Media and more*
+
+Layer Updates
+-------------
+
+Updated API schema through layers 162, 163, 164, 165, 166, 167, 169, 170, 171, 172, 173,
+174, 176, 177, 178, 179, 181, 182, 183, 184, 185, 186, 187.
+
+New Features
+------------
+
+- :meth:`~pyrogram.Client.send_paid_reaction` — send paid reactions.
+- :meth:`~pyrogram.Client.get_similar_channels` — get channels similar to a given one.
+- Added ``view_once`` parameter to :meth:`~pyrogram.Client.send_photo`,
+  :meth:`~pyrogram.Client.send_video`, :meth:`~pyrogram.Client.send_video_note`,
+  :meth:`~pyrogram.Client.send_voice` — media visible only once.
+- Added support for animations and video notes playable once.
+- Added ``send_multiple_reactions`` support.
+- Added ``giveaway`` filter and reworked :obj:`~pyrogram.types.Giveaway` type with full media support.
+- Added story media support.
+- Added quote text support.
+- Added ``nosound_video`` parameter to :meth:`~pyrogram.Client.send_video` and
+  :obj:`~pyrogram.types.InputMediaVideo`.
+- Improved :meth:`~pyrogram.Client.get_chat_history`: new ``min_id`` and ``max_id`` parameters.
+- Added ``has_visible_history``, ``is_forum``, ``has_hidden_members`` fields to
+  :obj:`~pyrogram.types.Chat`.
+- Added missing properties to :obj:`~pyrogram.types.ChatPrivileges`.
+- Support for joining via public chat link (``https://t.me/username/4`` format).
+- Added ``skip_updates`` parameter to ``Client``.
+- Implemented non-blocking TCP connection.
+
+Bug Fixes
+---------
+
+- Fixed ``idle()`` signal handler not being thread-safe.
+- Fixed ``has_spoiler`` missing in ``get_input_media_from_file_id()``.
+- Fixed ``has_spoiler`` missing in :meth:`~pyrogram.Client.copy_message`.
+- Fixed ``partial_reply`` handling.
+- Fixed ``ChatType`` filter ``AttributeError``.
+- Fixed ``send_audio`` not working as expected in some cases.
+- Fixed ``'ChatFull' object has no attribute 'participants_count'``.
+- Fixed type hint for ``InputMediaVideo.thumb``.
+- Fixed deserialization bugs.
+- Fixed ``FLOOD_PREMIUM_WAIT_X`` error handling.
+- Updated ``MIN_CHANNEL_ID`` constant.
+
+Build
+-----
+
+- Dropped Python 3.7 support.
+- Added new TL scheme source.

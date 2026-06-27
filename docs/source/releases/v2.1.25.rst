@@ -1,0 +1,9 @@
+PyrogramMod v2.1.25
+===================
+
+*Internal fixes and build improvements*
+
+Bug Fixes
+---------
+
+- Minor internal fixes and build attempt fixes.

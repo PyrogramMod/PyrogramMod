@@ -1,0 +1,31 @@
+PyrogramMod v2.1.0
+==================
+
+*Layers 174–186, Paid Reactions, Non-blocking TCP and more*
+
+Layer Updates
+-------------
+
+Updated API schema through layers 174, 176, 177, 178, 179, 181, 182, 183, 184, 185, 186.
+
+New Features
+------------
+
+- :meth:`~pyrogram.Client.send_paid_reaction` — send paid reactions.
+- Implemented non-blocking TCP connection.
+- Added ``skip_updates`` parameter to ``Client``.
+- Updated ``MIN_CHANNEL_ID`` constant.
+- Synced types with Bot API documentation.
+- Added new TL scheme source.
+
+Bug Fixes
+---------
+
+- Fixed ``idle()`` signal handler not being thread-safe.
+- Fixed ``'ChatFull' object has no attribute 'participants_count'``.
+- Fixed ``AttributeError`` in ``ChatType`` filters.
+- Fixed ``send_audio`` not working as expected in some cases.
+- Fixed ``InputMessageContent.write`` coroutine handling.
+- Fixed type hint for ``InputMediaVideo.thumb``.
+- Fixed ``FLOOD_PREMIUM_WAIT_X`` error handling.
+- Various bug fixes.

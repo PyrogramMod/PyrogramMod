@@ -1,0 +1,19 @@
+PyrogramMod v2.1.23
+===================
+
+*Chat actions, message link in discussions, create_chat improvements*
+
+New Features
+------------
+
+- Added ability to specify custom interactions in :meth:`~pyrogram.Client.send_chat_action`.
+- Added trigger and watch emoji animations via ``send_chat_action`` / ``reply_chat_action``.
+- Added support for ``message.link`` in discussion reply messages.
+- Updated ``ChatMemberUpdatedHandler`` to support ``UpdateBotStopped`` updates.
+- Added missing parameters to ``create_chat`` methods.
+- Made ``user_ids`` optional in :meth:`~pyrogram.Client.add_chat_members`.
+
+Bug Fixes
+---------
+
+- Fixed condition when parsing banned chats.

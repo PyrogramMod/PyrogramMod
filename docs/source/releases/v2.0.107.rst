@@ -1,0 +1,33 @@
+PyrogramMod v2.0.107
+====================
+
+*Layer 160, New Errors, Bug Fixes and more*
+
+Layer Updates
+-------------
+
+- Updated API schema to layers 152, 155, 157, 158, 160.
+
+New Features
+------------
+
+- :meth:`~pyrogram.Client.message_cache` parameter added to ``Client`` — control the number of cached messages.
+- Added ``full_name`` property to :obj:`~pyrogram.types.User` and :obj:`~pyrogram.types.Chat`.
+- Added ``usernames`` field and ``Username`` type to :obj:`~pyrogram.types.User` and :obj:`~pyrogram.types.Chat`.
+- Added missing ``caption_entities`` parameters and ``utils.parse_text_entities`` calls.
+- Renamed internal ``reply_to_msg_id`` to ``reply_to``.
+- Improved task automation helpers for Pyrogram.
+
+Bug Fixes
+---------
+
+- Fixed ``BytesIO`` support (backported from upstream by @doggyhaha).
+- Fixed ``AttributeError: 'NoneType' object has no attribute 'channel_id'``.
+- Fixed ``AttributeError: 'ChannelForbidden' object has no attribute 'noforwards'``.
+- Fixed ``SESSION_STRING_FORMAT`` for 64-bit Telegram user IDs.
+- Miscellaneous bug fixes with Layer 160 types.
+
+Errors
+------
+
+- Added ``MEDIA_FILE_INVALID``, ``USERNAME_PURCHASE_AVAILABLE``, story-related errors, and other missing known errors.

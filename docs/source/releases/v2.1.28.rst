@@ -1,0 +1,9 @@
+PyrogramMod v2.1.28
+===================
+
+*Layer 179 (TDLib)*
+
+Layer Updates
+-------------
+
+Updated API schema to layer 179 from TDLib source.

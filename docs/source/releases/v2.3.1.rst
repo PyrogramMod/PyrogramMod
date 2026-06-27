@@ -1,0 +1,31 @@
+PyrogramMod v2.3.1
+==================
+
+*Layers 208–221, Python 3.13, pyproject.toml, experimental download boost*
+
+Layer Updates
+-------------
+
+Updated API schema through layers 208, 214, 216, 221.
+
+New Features
+------------
+
+- Added ``use_experimental_download_boost`` client flag.
+- Added Python 3.13 support.
+
+Build
+-----
+
+- Migrated to ``pyproject.toml``, dropped ``setup.py`` / ``tox.ini`` / ``requirements.txt``.
+- Dropped Python 3.8 support.
+- Updated project metadata.
+
+Bug Fixes
+---------
+
+- Fixed docs generation.
+- Fixed raw docs description generation.
+- Fixed raw base docs.
+- Fixed type hinting on raw methods.
+- Fixed CodeQL workflow permissions notice.

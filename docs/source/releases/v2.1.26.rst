@@ -1,0 +1,23 @@
+PyrogramMod v2.1.26
+===================
+
+*Layer 179, Poll entities, search_chats, edit_cached_media*
+
+Layer Updates
+-------------
+
+Updated API schema to layer 179.
+
+New Features
+------------
+
+- Added :meth:`~pyrogram.Client.search_chats` method.
+- Added :meth:`~pyrogram.Client.edit_cached_media` method.
+- Added poll question and options entity support in :meth:`~pyrogram.Client.send_poll`.
+- Added new functions from upstream.
+
+Bug Fixes
+---------
+
+- Fixed unused bugs in ``get_reply_message_parameters``.
+- Fixed forward filters bug.

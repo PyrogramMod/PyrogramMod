@@ -1,0 +1,22 @@
+PyrogramMod v2.1.2
+==================
+
+*Layers 186–187, PyPI publish, config.ini support*
+
+Layer Updates
+-------------
+
+Updated API schema through layers 186, 187.
+
+New Features
+------------
+
+- First publish to PyPI as ``pyrogrammod``.
+- Added support for ``config.ini`` configuration files.
+- Added error handling for missing config file in ``load_config``.
+
+Bug Fixes
+---------
+
+- Fixed PyPI publish workflow.
+- Various fixes from KurimuzonAkuma/pyrogram upstream.

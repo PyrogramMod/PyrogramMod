@@ -1,0 +1,26 @@
+PyrogramMod v2.1.21
+===================
+
+*MessageOrigin, gifted_premium, is_close_friend, emoji_status and more*
+
+New Features
+------------
+
+- Added :obj:`~pyrogram.types.MessageOrigin` type.
+- Added ``gifted_premium`` to :obj:`~pyrogram.types.Message`.
+- Added ``is_close_friend``, ``emoji_status``, ``accent_color``, ``profile_color`` to :obj:`~pyrogram.types.Chat` and :obj:`~pyrogram.types.User`.
+- Added :meth:`~pyrogram.Client.get_stickers` — get sticker set from short name.
+- Added :meth:`~pyrogram.Client.get_created_chats`.
+- Added ``callback_data_with_password`` to :obj:`~pyrogram.types.InlineKeyboardButton`.
+- Added ``password`` parameter to :meth:`~pyrogram.Client.request_callback_answer` and ``Message.click``.
+- Added :obj:`~pyrogram.types.MessageImportInfo`.
+- Added ``users_shared`` and ``chat_shared`` filters.
+- Full business connection (BC) parameter support across all remaining methods.
+- Dropped deprecated properties (breaking change).
+
+Bug Fixes
+---------
+
+- Fixed :meth:`~pyrogram.Client.restrict_chat_member`.
+- Fixed ``UnicodeDecodeError`` (unexpected end of data) in ``Str``.
+- Fixed ``promote_chat_member`` to return service message when possible.

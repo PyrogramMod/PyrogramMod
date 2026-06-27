@@ -1,0 +1,20 @@
+PyrogramMod v2.2.2
+==================
+
+*Layers 208–216, Python 3.13, experimental download boost*
+
+Layer Updates
+-------------
+
+Updated API schema through layers 208, 214, 216.
+
+New Features
+------------
+
+- Added ``use_experimental_download_boost`` client flag.
+- Added Python 3.13 support.
+
+Bug Fixes
+---------
+
+- Fixed docs generation.

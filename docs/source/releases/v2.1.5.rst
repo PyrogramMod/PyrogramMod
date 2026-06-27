@@ -1,0 +1,21 @@
+PyrogramMod v2.1.5
+==================
+
+*Layers 188–193, Session refactor, Automated error scraping*
+
+Layer Updates
+-------------
+
+Updated API schema through layers 188, 189, 190, 192, 193.
+
+New Features
+------------
+
+- Added ``alternative_videos`` field to :obj:`~pyrogram.types.Message`.
+- Automated error scraping workflow (``scrape-errors.yml``).
+
+Session & Stability
+-------------------
+
+- Refactored session reconnect: replaced recursion with loop and added exponential backoff.
+- Attempt fix for ``OSError: unable to perform operation on <TCPTransport closed=True>``.

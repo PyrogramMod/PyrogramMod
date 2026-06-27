@@ -1,0 +1,28 @@
+PyrogramMod v2.1.18
+===================
+
+*Forum topics, Business features, Filters*
+
+New Features
+------------
+
+- Added :meth:`~pyrogram.Client.get_forum_topic` and :meth:`~pyrogram.Client.get_forum_topics`.
+- Added :obj:`~pyrogram.types.ForumTopic` type.
+- Added ``business_connection_id`` parameter to all ``send_*`` methods, ``copy_message``, ``send_game``.
+- Added :meth:`~pyrogram.Client.get_business_connection`.
+- Added ``business_user_connection_cache`` similar to ``message_cache``.
+- Added :obj:`~pyrogram.types.BusinessOpeningHours`, :obj:`~pyrogram.types.BusinessOpeningHoursInterval`, ``business_opening_hours`` to :obj:`~pyrogram.types.Chat`.
+- Added :obj:`~pyrogram.types.BusinessLocation`, ``business_location`` to :obj:`~pyrogram.types.Chat`.
+- Added :obj:`~pyrogram.types.BusinessIntro`, ``business_intro`` to :obj:`~pyrogram.types.Chat`.
+- Added ``active_usernames`` to :obj:`~pyrogram.types.User`.
+- Added ``filters.tg_business`` filter.
+- Renamed :meth:`~pyrogram.Client.set_message_reaction` to :meth:`~pyrogram.Client.set_reaction`.
+
+Bug Fixes
+---------
+
+- Fixed ``business_connection_id`` logic.
+- Fixed parameters for ``copy_message`` and ``Message.copy``.
+- Fixed scheduled connection logic.
+- Fixed wrong typehint for ``message_id`` in :meth:`~pyrogram.Client.vote_poll`.
+- Fixed ``idle()`` signal handler thread-safety.

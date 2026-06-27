@@ -1,0 +1,17 @@
+PyrogramMod v2.1.30
+===================
+
+*Custom emoji in polls, max_reaction_count, via_join_request*
+
+New Features
+------------
+
+- Added custom emoji support in polls.
+- Added ``max_reaction_count`` to :obj:`~pyrogram.types.Chat`.
+- Added ``via_join_request`` field to :obj:`~pyrogram.types.ChatMemberUpdated`.
+
+Bug Fixes
+---------
+
+- Fixed :meth:`~pyrogram.Client.stop_poll` method.
+- Fixed ``NoneType`` has no attribute ``date``.

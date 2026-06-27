@@ -1,0 +1,17 @@
+PyrogramMod v2.1.29
+===================
+
+*TextQuote, copy_media_group fixes*
+
+New Features
+------------
+
+- Added ``quote`` field of type ``TextQuote`` to :obj:`~pyrogram.types.Message`.
+
+Bug Fixes
+---------
+
+- Fixed ``send_message`` exception handling.
+- Fixed ``message_thread_id`` parameter (attempt 4).
+- Fixed type hints.
+- Fixed condition for captions in ``copy_media_group``.

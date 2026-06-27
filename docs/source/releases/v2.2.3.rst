@@ -1,0 +1,19 @@
+PyrogramMod v2.2.3
+==================
+
+*Migrated to pyproject.toml, docs fixes*
+
+Build
+-----
+
+- Migrated to ``pyproject.toml``, dropped legacy ``setup.py`` / ``tox.ini`` / ``requirements.txt``.
+- Removed useless dependencies from ``pyproject.toml``.
+- Reworked ``python.yml`` CI workflow.
+
+Bug Fixes
+---------
+
+- Fixed docs generation.
+- Fixed raw docs description generation.
+- Fixed raw base docs.
+- Fixed workflow permissions notice from code scanning.

@@ -1,0 +1,9 @@
+PyrogramMod v2.1.6
+==================
+
+*Layer 194*
+
+Layer Updates
+-------------
+
+Updated API schema to layer 194.

@@ -152,6 +152,12 @@ Meta
 
 .. toctree::
     :hidden:
+    :caption: Release Notes
+
+    releases/index
+
+.. toctree::
+    :hidden:
     :caption: Meta
 
     faq/index
