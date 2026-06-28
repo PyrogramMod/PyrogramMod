@@ -50,9 +50,6 @@ Support
 
 If you'd like to support PyrogramMod, you can consider:
 
-- `Become a GitHub sponsor <https://github.com/sponsors/delivrance>`_.
-- `Become a LiberaPay patron <https://liberapay.com/delivrance>`_.
-- `Become an OpenCollective backer <https://opencollective.com/pyrogram>`_.
 - `Recharge VoIP via @VoIPStoreBot (10% discount with referral) <https://t.me/VoIPStoreBot?start=PYRO>`_.
 
 How the Documentation is Organized
