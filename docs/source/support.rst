@@ -67,7 +67,7 @@ OpenCollective Backer
 VoIP Recharge via @voipstorebot
 --------------------------------
 
-Recharge your VoIP credit using `@VoIPStoreBot <https://t.me/VoIPStoreBot?start=9F9596AE>`_ on Telegram.
+Recharge your VoIP credit using `@VoIPStoreBot <https://t.me/VoIPStoreBot?start=PYRO>`_ on Telegram.
 By using the referral link, **you get 10% off** every recharge, and you support PyrogramMod at the same time.
 
-`Recharge now with 10% discount → t.me/VoIPStoreBot?start=9F9596AE <https://t.me/VoIPStoreBot?start=9F9596AE>`_
+`Recharge now with 10% discount → t.me/VoIPStoreBot?start=PYRO <https://t.me/VoIPStoreBot?start=PYRO>`_
