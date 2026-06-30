@@ -136,6 +136,7 @@ class SendMessage:
 
         r = await self.invoke(
             raw.functions.messages.SendMessage(
+                ephemeral_receiver_bot_id=0,
                 peer=await self.resolve_peer(chat_id),
                 no_webpage=disable_web_page_preview or None,
                 silent=disable_notification or None,
