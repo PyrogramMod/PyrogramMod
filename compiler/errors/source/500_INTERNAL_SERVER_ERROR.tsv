@@ -9,6 +9,7 @@ ADMIN_ID_INVALID	The specified admin ID is invalid.
 ADMIN_RANK_EMOJI_NOT_ALLOWED	An admin rank cannot contain emojis.
 ADMIN_RANK_INVALID	The specified admin rank is invalid.
 ADMIN_RIGHTS_EMPTY	The chatAdminRights constructor passed in keyboardButtonRequestPeer.peer_type.user_admin_rights has no rights set (i.e. flags is 0).
+AICOMPOSE_TIMEOUT	A timeout occurred while composing the message.
 ALBUM_PHOTOS_TOO_MANY	You have uploaded too many profile photos, delete some before retrying.
 ANONYMOUS_REACTIONS_DISABLED	Sorry, anonymous administrators cannot leave reactions or participate in polls.
 API_CALL_ERROR	API call error due to Telegram having internal problems. Please try again later
@@ -291,6 +292,7 @@ NEW_SETTINGS_EMPTY	No password is set on the current account, and no new passwor
 NEW_SETTINGS_INVALID	The new password settings are invalid.
 NEXT_OFFSET_INVALID	The specified offset is longer than 64 bytes.
 No workers running	The Telegram server is restarting its workers. Try again later.
+OAUTH_REQUEST_INVALID	The specified OAuth request is invalid.
 OFFSET_INVALID	The provided offset is invalid.
 OFFSET_PEER_ID_INVALID	The provided offset peer is invalid.
 OPTIONS_TOO_MUCH	Too many options provided.

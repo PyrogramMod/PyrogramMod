@@ -332,6 +332,7 @@ PIN_RESTRICTED	You can't pin messages.
 PLAYMARKET_PURCHASE_USED	 The Google account logged in the Play Store has already an ongoing Telegram Premium cycle in progress
 POLL_ANSWERS_INVALID	Invalid poll answers were provided.
 POLL_ANSWER_INVALID	One of the poll answers is not acceptable.
+POLL_MEMBER_RESTRICTED	Only channel subscribers can vote in this poll.
 POLL_OPTION_DUPLICATE	Duplicate poll options provided.
 POLL_OPTION_INVALID	Invalid poll option provided.
 POLL_QUESTION_INVALID	One of the poll questions is not acceptable.

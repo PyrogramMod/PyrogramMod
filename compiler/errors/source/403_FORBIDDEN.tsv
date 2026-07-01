@@ -38,6 +38,7 @@ BOT_CHANNELS_NA	Bots can't edit admin privileges.
 BOT_COMMAND_DESCRIPTION_INVALID	The specified command description is invalid.
 BOT_COMMAND_INVALID	The specified command is invalid.
 BOT_DOMAIN_INVALID	Bot domain invalid.
+BOT_FORUM_CREATE_FORBIDDEN	Since the bot's user.bot_forum_can_manage_topics flag is **not** set, the user cannot create or modify bot forum topics.
 BOT_GROUPS_BLOCKED	This bot can't be added to groups.
 BOT_INLINE_DISABLED	This bot can't be used in inline mode.
 BOT_INVALID	This is not a valid bot.
@@ -196,6 +197,7 @@ GRAPH_INVALID_RELOAD	Invalid graph token provided, please reload the stats and p
 GRAPH_OUTDATED_RELOAD	The graph is outdated, please get a new async token using stats.getBroadcastStats.
 GROUPCALL_ALREADY_DISCARDED	The group call was already discarded.
 GROUPCALL_ALREADY_STARTED	The groupcall has already started, you can join directly using [phone.joinGroupCall](https://core.telegram.org/method/phone.joinGroupCall).
+GROUPCALL_CHANGE_FORBIDDEN	You cannot change this group call setting.
 GROUPCALL_FORBIDDEN	The group call has already ended.
 GROUPCALL_INVALID	The specified group call is invalid.
 GROUPCALL_JOIN_MISSING	You haven't joined this group call.
