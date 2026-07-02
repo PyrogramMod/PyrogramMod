@@ -630,6 +630,7 @@ TTL_MEDIA_INVALID	Invalid media Time To Live was provided.
 TTL_PERIOD_INVALID	The specified TTL period is invalid.
 TYPES_EMPTY	No top peer type was provided.
 TYPE_CONSTRUCTOR_INVALID	The type constructor is invalid
+The current user already owns the maximum allowed number of owned bots, as specified by [`bots_create_limit_default` &raquo;](https://core.telegram.org/api/config#bots-create-limit-default) and [`bots_create_limit_premium` &raquo;](https://core.telegram.org/api/config#bots-create-limit-premium); if the current user doesn't have Telegram Premium, upgrading to Premium will allow them to create more bots.  .	
 UNSUPPORTED	`require_payment` cannot be *set* by users, only by monoforums: users must instead use the [inputPrivacyKeyNoPaidMessages](https://core.telegram.org/constructor/inputPrivacyKeyNoPaidMessages) privacy setting to remove a previously added exemption.
 UNTIL_DATE_INVALID	Invalid until date provided.
 URL_EXPIRED	The specified OAuth request has expired.
