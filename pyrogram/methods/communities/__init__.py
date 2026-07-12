@@ -1,3 +1,4 @@
+from .add_chat_to_community import AddChatToCommunity
 from .approve_all_community_peer_links import ApproveAllCommunityPeerLinks
 from .approve_community_peer_link import ApproveCommunityPeerLink
 from .ban_community_participant import BanCommunityParticipant
@@ -10,6 +11,7 @@ from .toggle_community_peer_link import ToggleCommunityPeerLink
 
 
 class Communities(
+    AddChatToCommunity,
     ApproveAllCommunityPeerLinks,
     ApproveCommunityPeerLink,
     BanCommunityParticipant,
