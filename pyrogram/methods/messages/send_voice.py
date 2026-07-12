@@ -47,6 +47,7 @@ class SendVoice:
         protect_content: bool = None,
         ttl_seconds: int = None,
         view_once: bool = None,
+        message_effect_id: int = None,
         reply_markup: Union[
             "types.InlineKeyboardMarkup",
             "types.ReplyKeyboardMarkup",
@@ -113,6 +114,9 @@ class SendVoice:
 
             view_once (``bool``, *optional*):
                 Pass True if the photo should be viewable only once.
+
+            message_effect_id (``int``, *optional*):
+                Unique identifier of the message effect to add to the message.
 
             reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup` | :obj:`~pyrogram.types.ReplyKeyboardMarkup` | :obj:`~pyrogram.types.ReplyKeyboardRemove` | :obj:`~pyrogram.types.ForceReply`, *optional*):
                 Additional interface options. An object for an inline keyboard, custom reply keyboard,
@@ -213,6 +217,7 @@ class SendVoice:
                             schedule_date=utils.datetime_to_timestamp(schedule_date),
                             noforwards=protect_content,
                             reply_markup=await reply_markup.write(self) if reply_markup else None,
+                            effect=message_effect_id,
                             **await utils.parse_text_entities(self, caption, parse_mode, caption_entities)
                         )
                     )
