@@ -32,6 +32,7 @@ class SendMessage:
         parse_mode: Optional["enums.ParseMode"] = None,
         entities: List["types.MessageEntity"] = None,
         disable_web_page_preview: bool = None,
+        link_preview_options: "types.LinkPreviewOptions" = None,
         disable_notification: bool = None,
         reply_to_message_id: int = None,
         message_thread_id: int = None,
@@ -67,6 +68,9 @@ class SendMessage:
 
             disable_web_page_preview (``bool``, *optional*):
                 Disables link previews for links in this message.
+
+            link_preview_options (:obj:`~pyrogram.types.LinkPreviewOptions`, *optional*):
+                Link preview generation options. Overrides ``disable_web_page_preview`` if set.
 
             disable_notification (``bool``, *optional*):
                 Sends the message silently.
@@ -105,6 +109,15 @@ class SendMessage:
                 await app.send_message("me", "https://docs.pyrogram.org",
                     disable_web_page_preview=True)
 
+                # Disable preview using LinkPreviewOptions
+                from pyrogram.types import LinkPreviewOptions
+                await app.send_message("me", "https://docs.pyrogram.org",
+                    link_preview_options=LinkPreviewOptions(is_disabled=True))
+
+                # Show preview above the text
+                await app.send_message("me", "https://docs.pyrogram.org",
+                    link_preview_options=LinkPreviewOptions(show_above_text=True))
+
                 # Reply to a message using its id
                 await app.send_message("me", "this is a reply", reply_to_message_id=123)
 
@@ -134,11 +147,19 @@ class SendMessage:
 
         reply_to = utils.get_reply_head_fm(message_thread_id, reply_to_message_id, partial_reply)
 
+        if link_preview_options is not None:
+            no_webpage = link_preview_options.is_disabled or None
+            invert_media = link_preview_options.show_above_text or None
+        else:
+            no_webpage = disable_web_page_preview or None
+            invert_media = None
+
         r = await self.invoke(
             raw.functions.messages.SendMessage(
                 ephemeral_receiver_bot_id=0,
                 peer=await self.resolve_peer(chat_id),
-                no_webpage=disable_web_page_preview or None,
+                no_webpage=no_webpage,
+                invert_media=invert_media,
                 silent=disable_notification or None,
                 reply_to=reply_to,
                 random_id=self.rnd_id(),
