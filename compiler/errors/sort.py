@@ -25,6 +25,19 @@ import sys
 if len(sys.argv) != 2:
     sys.exit(1)
 
+
+def clean_message(message):
+    message = (
+        message.replace(" &raquo;", "")
+        .replace("&raquo;", "")
+        .replace("&laquo;", "")
+        .replace(" »", "")
+        .replace("»", "")
+        .replace("«", "")
+    )
+    return " ".join(message.split())
+
+
 if sys.argv[1] == "sort":
     for p in Path("source").glob("*.tsv"):
         with open(p) as f:
@@ -36,7 +49,7 @@ if sys.argv[1] == "sort":
                     continue
 
                 key = row[0].strip()
-                value = " ".join(row[1].split()) if len(row) > 1 else ""
+                value = clean_message(row[1]) if len(row) > 1 else ""
 
                 if not key or key == "id":
                     continue
@@ -95,7 +108,7 @@ elif sys.argv[1] == "scrape":
                 reader = csv.DictReader(tsv_file, delimiter='\t')
                 for row in reader:
                     key = (row.get('id') or "").strip()
-                    message = " ".join((row.get('message') or "").split())
+                    message = clean_message(row.get('message') or "")
 
                     if not key or key == "id":
                         continue
@@ -114,15 +127,11 @@ elif sys.argv[1] == "scrape":
 
             description = descriptions.get(error_code, "")
             if description:
-                processed_description = (
+                processed_description = clean_message(
                     description.replace("%d", "{value}")
                     .replace("\"", "'")
-                    .replace("»", "»")
-                    .replace("«", "«")
-                    .replace(" »", "")
                     .replace("](/api/", f"]({base_url}/api/")
                 )
-                processed_description = " ".join(processed_description.split())
                 data_dict[error_code.replace("_%d", "_X")] = processed_description
 
         sorted_keys = sorted(data_dict.keys())
