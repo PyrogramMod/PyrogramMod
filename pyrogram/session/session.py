@@ -542,6 +542,14 @@ class Session:
                     query_name, str(e) or repr(e)
                 )
 
-                await asyncio.sleep(0.5)
+                # Wait for the session to come back up before retrying,
+                # otherwise all retries burn out while the reconnect is still pending.
+                if isinstance(e, OSError):
+                    try:
+                        await asyncio.wait_for(self.is_started.wait(), timeout=self.WAIT_TIMEOUT)
+                    except asyncio.TimeoutError:
+                        pass
+                else:
+                    await asyncio.sleep(0.5)
 
         raise TimeoutError("Exceeded maximum number of retries")
