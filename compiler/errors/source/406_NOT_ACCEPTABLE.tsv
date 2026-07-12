@@ -10,7 +10,7 @@ ADMIN_RANK_EMOJI_NOT_ALLOWED	An admin rank cannot contain emojis.
 ADMIN_RANK_INVALID	The specified admin rank is invalid.
 ADMIN_RIGHTS_EMPTY	The chatAdminRights constructor passed in keyboardButtonRequestPeer.peer_type.user_admin_rights has no rights set (i.e. flags is 0).
 ALBUM_PHOTOS_TOO_MANY	You have uploaded too many profile photos, delete some before retrying.
-ALLOW_PAYMENT_REQUIRED	This peer only accepts [paid messages &raquo;](https://core.telegram.org/api/paid-messages): this error is only emitted for older layers without paid messages support, so the client must be updated in order to use paid messages. .
+ALLOW_PAYMENT_REQUIRED	This peer only accepts [paid messages](https://core.telegram.org/api/paid-messages): this error is only emitted for older layers without paid messages support, so the client must be updated in order to use paid messages. .
 ANONYMOUS_REACTIONS_DISABLED	Sorry, anonymous administrators cannot leave reactions or participate in polls.
 API_GIFT_RESTRICTED_UPDATE_APP	Please update the app to access the gift API.
 API_ID_INVALID	API ID invalid.
@@ -26,7 +26,7 @@ AUTH_TOKEN_EXCEPTION	An error occurred while importing the auth token.
 AUTH_TOKEN_EXPIRED	The authorization token has expired.
 AUTH_TOKEN_INVALID	The specified auth token is invalid.
 AUTH_TOKEN_INVALIDX	The specified auth token is invalid.
-AUTOARCHIVE_NOT_AVAILABLE	The autoarchive setting is not available at this time: please check the value of the [autoarchive_setting_available field in client config &raquo;](https://core.telegram.org/api/config#client-configuration) before calling this method.
+AUTOARCHIVE_NOT_AVAILABLE	The autoarchive setting is not available at this time: please check the value of the [autoarchive_setting_available field in client config](https://core.telegram.org/api/config#client-configuration) before calling this method.
 BANK_CARD_NUMBER_INVALID	The specified card number is invalid.
 BANNED_RIGHTS_INVALID	You provided some invalid flags in the banned rights.
 BOOSTS_EMPTY	No boost slots were specified.
@@ -53,7 +53,7 @@ BROADCAST_FORBIDDEN	Channel poll voters and reactions cannot be fetched to preve
 BROADCAST_ID_INVALID	Broadcast ID invalid.
 BROADCAST_PUBLIC_VOTERS_FORBIDDEN	You can't forward polls with public voters.
 BROADCAST_REQUIRED	This method can only be called on a channel, please use stats.getMegagroupStats for supergroups.
-BUSINESS_ADDRESS_ACTIVE	The user is currently advertising a [Business Location](https://core.telegram.org/api/business#location), the location may only be changed (or removed) using [account.updateBusinessLocation &raquo;](https://core.telegram.org/method/account.updateBusinessLocation). .
+BUSINESS_ADDRESS_ACTIVE	The user is currently advertising a [Business Location](https://core.telegram.org/api/business#location), the location may only be changed (or removed) using [account.updateBusinessLocation](https://core.telegram.org/method/account.updateBusinessLocation). .
 BUTTON_DATA_INVALID	The data of one or more of the buttons you provided is invalid.
 BUTTON_TEXT_INVALID	The specified button text is invalid.
 BUTTON_TYPE_INVALID	The type of one or more of the buttons you provided is invalid.
@@ -85,7 +85,7 @@ CHAT_ADMIN_INVITE_REQUIRED	You do not have the rights to do this.
 CHAT_ADMIN_REQUIRED	You must be an admin in this chat to do this.
 CHAT_DISCUSSION_UNALLOWED	You can't enable forum topics in a discussion group linked to a channel.
 CHAT_FORWARDS_RESTRICTED	You can't forward messages from a protected chat.
-CHAT_GUEST_SEND_FORBIDDEN	You join the discussion group before commenting, see [here &raquo;](/api/discussion#requiring-users-to-join-the-group) for more info.
+CHAT_GUEST_SEND_FORBIDDEN	You join the discussion group before commenting, see [here](/api/discussion#requiring-users-to-join-the-group) for more info.
 CHAT_ID_EMPTY	The provided chat ID is empty.
 CHAT_ID_GENERATE_FAILED	Failure while generating the chat ID.
 CHAT_ID_INVALID	The provided chat id is invalid.
@@ -109,7 +109,7 @@ CHAT_SEND_STICKERS_FORBIDDEN	You can't send stickers in this chat.
 CHAT_SEND_VIDEOS_FORBIDDEN	You can't send videos in this chat.
 CHAT_SEND_VOICES_FORBIDDEN	You can't send voice recordings in this chat.
 CHAT_TITLE_EMPTY	No chat title provided.
-CHAT_TOO_BIG	This method is not available for groups with more than `chat_read_mark_size_threshold` members, [see client configuration &raquo;](https://core.telegram.org/api/config#client-configuration).
+CHAT_TOO_BIG	This method is not available for groups with more than `chat_read_mark_size_threshold` members, [see client configuration](https://core.telegram.org/api/config#client-configuration).
 CHAT_WRITE_FORBIDDEN	You can't write in this chat.
 CODE_EMPTY	The provided code is empty.
 CODE_HASH_INVALID	Code hash invalid.
@@ -153,7 +153,7 @@ ENCRYPTION_ALREADY_DECLINED	The secret chat was already declined.
 ENCRYPTION_DECLINED	The secret chat was declined.
 ENCRYPTION_ID_INVALID	The provided secret chat ID is invalid.
 ENTITIES_TOO_LONG	You provided too many styled message entities.
-ENTITY_BOUNDS_INVALID	A specified [entity offset or length](/api/entities#entity-length) is invalid, see [here &raquo;](/api/entities#entity-length) for info on how to properly compute the entity offset/length.
+ENTITY_BOUNDS_INVALID	A specified [entity offset or length](/api/entities#entity-length) is invalid, see [here](/api/entities#entity-length) for info on how to properly compute the entity offset/length.
 ENTITY_MENTION_USER_INVALID	You mentioned an invalid user.
 ERROR_TEXT_EMPTY	The provided error message is empty.
 EXPIRE_DATE_INVALID	The specified expiration date is invalid.
@@ -220,7 +220,7 @@ INPUT_FILTER_INVALID	The specified filter is invalid.
 INPUT_TEXT_EMPTY	The specified text is empty.
 INPUT_TEXT_TOO_LONG	The specified text is too long.
 INPUT_USER_DEACTIVATED	The specified user was deleted.
-INVITES_TOO_MUCH	The maximum number of per-folder invites specified by the `chatlist_invites_limit_default`/`chatlist_invites_limit_premium` [client configuration parameters &raquo;](/api/config#chatlist-invites-limit-default) was reached.
+INVITES_TOO_MUCH	The maximum number of per-folder invites specified by the `chatlist_invites_limit_default`/`chatlist_invites_limit_premium` [client configuration parameters](/api/config#chatlist-invites-limit-default) was reached.
 INVITE_FORBIDDEN_WITH_JOINAS	If the user has anonymously joined a group call as a channel, they can't invite other users to the group call because that would cause deanonymization, because the invite would be sent using the original user ID, not the anonymized channel ID.
 INVITE_HASH_EMPTY	The invite hash is empty.
 INVITE_HASH_EXPIRED	The invite link has expired.
@@ -295,7 +295,7 @@ PASSWORD_RECOVERY_NA	No email was set, can't recover password via email.
 PASSWORD_REQUIRED	A [2FA password](https://core.telegram.org/api/srp) must be configured to use Telegram Passport.
 PASSWORD_TOO_FRESH_X	The password was modified less than 24 hours ago, try again in {value} seconds.
 PAYMENT_PROVIDER_INVALID	The specified payment provider is invalid.
-PAYMENT_UNSUPPORTED	A detailed description of the error will be received separately as described [here &raquo;](https://core.telegram.org/api/errors#406-not-acceptable).
+PAYMENT_UNSUPPORTED	A detailed description of the error will be received separately as described [here](https://core.telegram.org/api/errors#406-not-acceptable).
 PEERS_LIST_EMPTY	The specified list of peers is empty.
 PEER_HISTORY_EMPTY	You can't pin an empty chat with a user.
 PEER_ID_INVALID	The provided peer id is invalid.
@@ -333,13 +333,13 @@ PIN_RESTRICTED	You can't pin messages.
 PLAYMARKET_PURCHASE_USED	The Google account logged in the Play Store has already an ongoing Telegram Premium cycle in progress
 POLL_ANSWERS_INVALID	Invalid poll answers were provided.
 POLL_ANSWER_INVALID	One of the poll answers is not acceptable.
-POLL_COUNTRY_RESTRICTED	Users from the current user's country cannot vote in this [country-restricted poll &raquo;](https://core.telegram.org/api/poll#country-restricted-polls).
+POLL_COUNTRY_RESTRICTED	Users from the current user's country cannot vote in this [country-restricted poll](https://core.telegram.org/api/poll#country-restricted-polls).
 POLL_MEMBER_RESTRICTED	Only channel subscribers can vote in this poll.
 POLL_OPTION_DUPLICATE	Duplicate poll options provided.
 POLL_OPTION_INVALID	Invalid poll option provided.
 POLL_QUESTION_INVALID	One of the poll questions is not acceptable.
 POLL_VOTE_REQUIRED	Cast a vote in the poll before calling this method.
-PRECHECKOUT_FAILED	Precheckout failed, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here &raquo;](https://core.telegram.org/api/errors#406-not-acceptable).
+PRECHECKOUT_FAILED	Precheckout failed, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here](https://core.telegram.org/api/errors#406-not-acceptable).
 PREMIUM_ACCOUNT_REQUIRED	A premium account is required to execute this action.
 PREMIUM_CURRENTLY_UNAVAILABLE	You cannot currently purchase a Premium subscription.
 PREMIUM_GIFTCODE_WAS_REFUNDED	This gift code can't be redeemed because the giveaway organizer requested a refund
@@ -364,7 +364,7 @@ RANDOM_ID_EMPTY	Random ID empty.
 RANDOM_ID_INVALID	A provided random ID is invalid.
 RANDOM_LENGTH_INVALID	Random length invalid.
 RANGES_INVALID	Invalid range provided.
-REACTIONS_TOO_MANY	The message already has exactly `reactions_uniq_max` reaction emojis, you can't react with a new emoji, see [the docs for more info &raquo;](/api/config#client-configuration).
+REACTIONS_TOO_MANY	The message already has exactly `reactions_uniq_max` reaction emojis, you can't react with a new emoji, see [the docs for more info](/api/config#client-configuration).
 REACTION_EMPTY	Empty reaction provided.
 REACTION_INVALID	The specified reaction is invalid.
 REPLY_MARKUP_BUY_EMPTY	Reply markup for buy button empty.
@@ -411,7 +411,7 @@ SLUG_INVALID	The specified invoice slug is invalid.
 SMS_CODE_CREATE_FAILED	An error occurred while creating the SMS code.
 SRP_ID_INVALID	Invalid SRP ID provided.
 SRP_PASSWORD_CHANGED	Password has changed.
-STARGIFT_EXPORT_IN_PROGRESS	A gift export is in progress, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here &raquo;](https://core.telegram.org/api/errors#406-not-acceptable).
+STARGIFT_EXPORT_IN_PROGRESS	A gift export is in progress, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here](https://core.telegram.org/api/errors#406-not-acceptable).
 STARS_FORM_AMOUNT_MISMATCH	The form amount has changed, please fetch the new form using [payments.getPaymentForm](https://core.telegram.org/method/payments.getPaymentForm) and restart the process.
 START_PARAM_EMPTY	The start parameter is empty.
 START_PARAM_INVALID	Start parameter invalid.
@@ -448,7 +448,7 @@ STORY_SEND_FLOOD_WEEKLY_X	You've hit the weekly story limit as specified by the 
 SWITCH_PM_TEXT_EMPTY	The switch_pm.text field was empty.
 TAKEOUT_INIT_DELAY_X	Sorry, for security reasons, you will be able to begin downloading your data in {value} seconds. We have notified all your devices about the export request to make sure it's authorized and to give you time to react if it's not.
 TAKEOUT_INVALID	The specified takeout ID is invalid.
-TAKEOUT_REQUIRED	A [takeout](https://core.telegram.org/api/takeout) session needs to be initialized first, [see here &raquo; for more info](/api/takeout).
+TAKEOUT_REQUIRED	A [takeout](https://core.telegram.org/api/takeout) session needs to be initialized first, [see here for more info](/api/takeout).
 TASK_ALREADY_EXISTS	An email reset was already requested.
 TEMP_AUTH_KEY_ALREADY_BOUND	The passed temporary key is already bound to another **perm_auth_key_id**.
 TEMP_AUTH_KEY_EMPTY	No temporary auth key provided.
@@ -472,7 +472,7 @@ TOPIC_NOT_MODIFIED	The updated topic info is equal to the current topic info, no
 TOPIC_TITLE_EMPTY	The specified topic title is empty.
 TO_LANG_INVALID	The specified destination language is invalid.
 TRANSCRIPTION_FAILED	Audio transcription failed.
-TRANSLATIONS_DISABLED	Translations are unavailable, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here &raquo;](https://core.telegram.org/api/errors#406-not-acceptable).
+TRANSLATIONS_DISABLED	Translations are unavailable, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here](https://core.telegram.org/api/errors#406-not-acceptable).
 TTL_DAYS_INVALID	The provided TTL is invalid.
 TTL_MEDIA_INVALID	Invalid media Time To Live was provided.
 TTL_PERIOD_INVALID	The specified TTL period is invalid.

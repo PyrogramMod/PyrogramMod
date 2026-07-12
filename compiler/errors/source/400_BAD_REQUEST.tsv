@@ -26,7 +26,7 @@ AUTH_TOKEN_EXCEPTION	An error occurred while importing the auth token.
 AUTH_TOKEN_EXPIRED	The authorization token has expired.
 AUTH_TOKEN_INVALID	The specified auth token is invalid.
 AUTH_TOKEN_INVALIDX	The specified auth token is invalid.
-AUTOARCHIVE_NOT_AVAILABLE	The autoarchive setting is not available at this time: please check the value of the [autoarchive_setting_available field in client config &raquo;](https://core.telegram.org/api/config#client-configuration) before calling this method.
+AUTOARCHIVE_NOT_AVAILABLE	The autoarchive setting is not available at this time: please check the value of the [autoarchive_setting_available field in client config](https://core.telegram.org/api/config#client-configuration) before calling this method.
 BALANCE_TOO_LOW	The transaction cannot be completed because the current [Telegram Stars balance](https://core.telegram.org/api/stars) is too low.
 BANK_CARD_NUMBER_INVALID	The specified card number is invalid.
 BANNED_RIGHTS_INVALID	You provided some invalid flags in the banned rights.
@@ -46,7 +46,7 @@ BOT_BUSINESS_MISSING	The specified bot is not a business bot (the [user](https:/
 BOT_CHANNELS_NA	Bots can't edit admin privileges.
 BOT_COMMAND_DESCRIPTION_INVALID	The specified command description is invalid.
 BOT_COMMAND_INVALID	The specified command is invalid.
-BOT_CREATE_LIMIT_EXCEEDED	The current user already owns the maximum allowed number of owned bots, as specified by [`bots_create_limit_default` &raquo;](https://core.telegram.org/api/config#bots-create-limit-default) and [`bots_create_limit_premium` &raquo;](https://core.telegram.org/api/config#bots-create-limit-premium); if the current user doesn't have Telegram Premium, upgrading to Premium will allow them to create more bots.
+BOT_CREATE_LIMIT_EXCEEDED	The current user already owns the maximum allowed number of owned bots, as specified by [`bots_create_limit_default`](https://core.telegram.org/api/config#bots-create-limit-default) and [`bots_create_limit_premium`](https://core.telegram.org/api/config#bots-create-limit-premium); if the current user doesn't have Telegram Premium, upgrading to Premium will allow them to create more bots.
 BOT_DOMAIN_INVALID	Bot domain invalid.
 BOT_FALLBACK_UNSUPPORTED	The fallback flag can't be set for bots.
 BOT_GAMES_DISABLED	Games can't be sent to channels.
@@ -73,7 +73,7 @@ BUSINESS_PEER_INVALID	Messages can't be set to the specified peer through the cu
 BUSINESS_PEER_USAGE_MISSING	You cannot send a message to a user through a [business connection](https://core.telegram.org/api/business#connected-bots) if the user hasn't recently contacted us.
 BUSINESS_RECIPIENTS_EMPTY	You didn't set any flag in inputBusinessBotRecipients, thus the bot cannot work with *any* peer.
 BUSINESS_WORK_HOURS_EMPTY	No work hours were specified.
-BUSINESS_WORK_HOURS_PERIOD_INVALID	The specified work hours are invalid, see [here &raquo;](https://core.telegram.org/api/business#opening-hours) for the exact requirements.
+BUSINESS_WORK_HOURS_PERIOD_INVALID	The specified work hours are invalid, see [here](https://core.telegram.org/api/business#opening-hours) for the exact requirements.
 BUTTON_COPY_TEXT_INVALID	The specified [keyboardButtonCopy](https://core.telegram.org/constructor/keyboardButtonCopy).`copy_text` is invalid.
 BUTTON_DATA_INVALID	The data of one or more of the buttons you provided is invalid.
 BUTTON_ID_INVALID	The specified button ID is invalid.
@@ -111,7 +111,7 @@ CHARGE_ID_INVALID	The specified charge_id is invalid.
 CHATLINKS_TOO_MUCH	Too many [business chat links](https://core.telegram.org/api/business#business-chat-links) were created, please delete some older links.
 CHATLINK_SLUG_EMPTY	The specified slug is empty.
 CHATLINK_SLUG_EXPIRED	The specified [business chat link](https://core.telegram.org/api/business#business-chat-links) has expired.
-CHATLISTS_TOO_MUCH	You have created too many folder links, hitting the `chatlist_invites_limit_default`/`chatlist_invites_limit_premium` [limits &raquo;](https://core.telegram.org/api/config#chatlist-invites-limit-default).
+CHATLISTS_TOO_MUCH	You have created too many folder links, hitting the `chatlist_invites_limit_default`/`chatlist_invites_limit_premium` [limits](https://core.telegram.org/api/config#chatlist-invites-limit-default).
 CHATLIST_EXCLUDE_INVALID	The specified `exclude_peers` are invalid.
 CHAT_ABOUT_NOT_MODIFIED	About text has not changed.
 CHAT_ABOUT_TOO_LONG	Chat about too long.
@@ -130,7 +130,7 @@ CHAT_RESTRICTED	You can't send messages in this chat, you were restricted.
 CHAT_REVOKE_DATE_UNSUPPORTED	`min_date` and `max_date` are not available for using with non-user peers.
 CHAT_SEND_INLINE_FORBIDDEN	You can't send inline messages in this group.
 CHAT_TITLE_EMPTY	No chat title provided.
-CHAT_TOO_BIG	This method is not available for groups with more than `chat_read_mark_size_threshold` members, [see client configuration &raquo;](https://core.telegram.org/api/config#client-configuration).
+CHAT_TOO_BIG	This method is not available for groups with more than `chat_read_mark_size_threshold` members, [see client configuration](https://core.telegram.org/api/config#client-configuration).
 CHAT_WRITE_FORBIDDEN	You can't write in this chat.
 CODE_EMPTY	The provided code is empty.
 CODE_HASH_INVALID	Code hash invalid.
@@ -187,7 +187,7 @@ ENCRYPTION_ALREADY_DECLINED	The secret chat was already declined.
 ENCRYPTION_DECLINED	The secret chat was declined.
 ENCRYPTION_ID_INVALID	The provided secret chat ID is invalid.
 ENTITIES_TOO_LONG	You provided too many styled message entities.
-ENTITY_BOUNDS_INVALID	A specified [entity offset or length](https://core.telegram.org/api/entities#entity-length) is invalid, see [here &raquo;](https://core.telegram.org/api/entities#entity-length) for info on how to properly compute the entity offset/length.
+ENTITY_BOUNDS_INVALID	A specified [entity offset or length](https://core.telegram.org/api/entities#entity-length) is invalid, see [here](https://core.telegram.org/api/entities#entity-length) for info on how to properly compute the entity offset/length.
 ENTITY_DATE_FORMAT_INVALID	One of the passed messageEntityFormattedDate objects has an invalid format (i.e. an invalid combination of the format flags).
 ENTITY_DATE_INVALID	One of the passed messageEntityFormattedDate objects has an invalid date: the allowed value ranges from `0` to the current date plus 1098 days (`time()+1098*86400`).
 ENTITY_DATE_TOO_LONG	The maximum text span that can be covered by a date entity is 31 UTF-16 code units if any of the date formatting flags is set, or 127 UTF-16 code units without. .
@@ -284,12 +284,12 @@ INPUT_METHOD_INVALID	The specified method is invalid.
 INPUT_PEERS_EMPTY	The specified peer array is empty.
 INPUT_PURPOSE_INVALID	The specified payment purpose is invalid.
 INPUT_REQUEST_TOO_LONG	The request payload is too long.
-INPUT_STARS_AMOUNT_INVALID	The specified offer amount in stars is invalid, see [here &raquo;](https://core.telegram.org/api/gifts#collectible-gift-purchase-offers) for the allowed range.
-INPUT_STARS_NANOS_INVALID	The specified offer amount in nanotons is invalid, see [here &raquo;](https://core.telegram.org/api/gifts#collectible-gift-purchase-offers) for the allowed range.
+INPUT_STARS_AMOUNT_INVALID	The specified offer amount in stars is invalid, see [here](https://core.telegram.org/api/gifts#collectible-gift-purchase-offers) for the allowed range.
+INPUT_STARS_NANOS_INVALID	The specified offer amount in nanotons is invalid, see [here](https://core.telegram.org/api/gifts#collectible-gift-purchase-offers) for the allowed range.
 INPUT_TEXT_EMPTY	The specified text is empty.
 INPUT_TEXT_TOO_LONG	The specified text is too long.
 INPUT_USER_DEACTIVATED	The specified user was deleted.
-INVITES_TOO_MUCH	The maximum number of per-folder invites specified by the `chatlist_invites_limit_default`/`chatlist_invites_limit_premium` [client configuration parameters &raquo;](https://core.telegram.org/api/config#chatlist-invites-limit-default) was reached.
+INVITES_TOO_MUCH	The maximum number of per-folder invites specified by the `chatlist_invites_limit_default`/`chatlist_invites_limit_premium` [client configuration parameters](https://core.telegram.org/api/config#chatlist-invites-limit-default) was reached.
 INVITE_FORBIDDEN_WITH_JOINAS	If the user has anonymously joined a group call as a channel, they can't invite other users to the group call because that would cause deanonymization, because the invite would be sent using the original user ID, not the anonymized channel ID.
 INVITE_HASH_EMPTY	The invite hash is empty.
 INVITE_HASH_EXPIRED	The invite link has expired.
@@ -385,7 +385,7 @@ PASSWORD_REQUIRED	A [2FA password](https://core.telegram.org/api/srp) must be co
 PASSWORD_TOO_FRESH_X	The password was modified less than 24 hours ago, try again in {value} seconds.
 PAYMENT_CREDENTIALS_INVALID	The specified payment credentials are invalid.
 PAYMENT_PROVIDER_INVALID	The specified payment provider is invalid.
-PAYMENT_REQUIRED	Payment is required for this action, see [here &raquo;](https://core.telegram.org/api/gifts) for more info.
+PAYMENT_REQUIRED	Payment is required for this action, see [here](https://core.telegram.org/api/gifts) for more info.
 PEERS_LIST_EMPTY	The specified list of peers is empty.
 PEER_FLOOD	The current account is spamreported, you cannot execute this action, check @spambot for more info.
 PEER_HISTORY_EMPTY	You can't pin an empty chat with a user.
@@ -435,7 +435,7 @@ PREMIUM_ACCOUNT_REQUIRED	A premium account is required to execute this action.
 PREMIUM_GIFTCODE_WAS_REFUNDED	This gift code can't be redeemed because the giveaway organizer requested a refund
 PREMIUM_PURPOSE_INVALID	The specified InputStorePaymentPurpose is invalid.
 PREMIUM_SUB_ACTIVE_UNTIL_X	You already have a premium subscription active until unixtime {value} .
-PRICING_CHAT_INVALID	The pricing for the [subscription](https://core.telegram.org/api/subscriptions) is invalid, the maximum price is specified in the [`stars_subscription_amount_max` config key &raquo;](https://core.telegram.org/api/config#stars-subscription-amount-max).
+PRICING_CHAT_INVALID	The pricing for the [subscription](https://core.telegram.org/api/subscriptions) is invalid, the maximum price is specified in the [`stars_subscription_amount_max` config key](https://core.telegram.org/api/config#stars-subscription-amount-max).
 PRIVACY_KEY_INVALID	The privacy key is invalid.
 PRIVACY_TOO_LONG	Too many privacy rules were specified, the current limit is 1000.
 PRIVACY_VALUE_INVALID	The specified privacy rule combination is invalid.
@@ -462,7 +462,7 @@ RANDOM_ID_INVALID	A provided random ID is invalid.
 RANDOM_LENGTH_INVALID	Random length invalid.
 RANGES_INVALID	Invalid range provided.
 REACTIONS_COUNT_INVALID	The specified number of reactions is invalid.
-REACTIONS_TOO_MANY	The message already has exactly `reactions_uniq_max` reaction emojis, you can't react with a new emoji, see [the docs for more info &raquo;](https://core.telegram.org/api/config#client-configuration).
+REACTIONS_TOO_MANY	The message already has exactly `reactions_uniq_max` reaction emojis, you can't react with a new emoji, see [the docs for more info](https://core.telegram.org/api/config#client-configuration).
 REACTION_EMPTY	Empty reaction provided.
 REACTION_INVALID	The specified reaction is invalid.
 RECEIPT_EMPTY	The specified receipt is empty.
@@ -552,7 +552,7 @@ STARREF_PERMILLE_INVALID	The specified commission_permille is invalid: the minim
 STARREF_PERMILLE_TOO_LOW	The specified commission_permille is too low: the minimum and maximum values for this parameter are contained in the [starref_min_commission_permille](https://core.telegram.org/api/config#starref-min-commission-permille) and [starref_max_commission_permille](https://core.telegram.org/api/config#starref-max-commission-permille) client configuration parameters.
 STARS_AMOUNT_INVALID	The specified amount in stars is invalid.
 STARS_INVOICE_INVALID	The specified Telegram Star invoice is invalid.
-STARS_PAYMENT_REQUIRED	To import this chat invite link, you must first [pay for the associated Telegram Star subscription &raquo;](https://core.telegram.org/api/subscriptions#channel-subscriptions).
+STARS_PAYMENT_REQUIRED	To import this chat invite link, you must first [pay for the associated Telegram Star subscription](https://core.telegram.org/api/subscriptions#channel-subscriptions).
 START_PARAM_EMPTY	The start parameter is empty.
 START_PARAM_INVALID	Start parameter invalid.
 START_PARAM_TOO_LONG	Start parameter is too long.
@@ -595,7 +595,7 @@ SWITCH_PM_TEXT_EMPTY	The switch_pm.text field was empty.
 SWITCH_WEBVIEW_URL_INVALID	The URL specified in switch_webview.url is invalid!
 TAKEOUT_INIT_DELAY_X	Sorry, for security reasons, you will be able to begin downloading your data in {value} seconds. We have notified all your devices about the export request to make sure it's authorized and to give you time to react if it's not.
 TAKEOUT_INVALID	The specified takeout ID is invalid.
-TAKEOUT_REQUIRED	A [takeout](https://core.telegram.org/api/takeout) session needs to be initialized first, [see here &raquo; for more info](https://core.telegram.org/api/takeout).
+TAKEOUT_REQUIRED	A [takeout](https://core.telegram.org/api/takeout) session needs to be initialized first, [see here for more info](https://core.telegram.org/api/takeout).
 TASK_ALREADY_EXISTS	An email reset was already requested.
 TEMP_AUTH_KEY_ALREADY_BOUND	The passed temporary key is already bound to another **perm_auth_key_id**.
 TEMP_AUTH_KEY_EMPTY	No temporary auth key provided.

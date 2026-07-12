@@ -24,7 +24,7 @@ AUTH_TOKEN_EXCEPTION	An error occurred while importing the auth token.
 AUTH_TOKEN_EXPIRED	The authorization token has expired.
 AUTH_TOKEN_INVALID	The specified auth token is invalid.
 AUTH_TOKEN_INVALIDX	The specified auth token is invalid.
-AUTOARCHIVE_NOT_AVAILABLE	The autoarchive setting is not available at this time: please check the value of the [autoarchive_setting_available field in client config &raquo;](https://core.telegram.org/api/config#client-configuration) before calling this method.
+AUTOARCHIVE_NOT_AVAILABLE	The autoarchive setting is not available at this time: please check the value of the [autoarchive_setting_available field in client config](https://core.telegram.org/api/config#client-configuration) before calling this method.
 BANK_CARD_NUMBER_INVALID	The specified card number is invalid.
 BANNED_RIGHTS_INVALID	You provided some invalid flags in the banned rights.
 BOOSTS_EMPTY	No boost slots were specified.
@@ -86,7 +86,7 @@ CHAT_ADMIN_REQUIRED	You must be an admin in this chat to do this.
 CHAT_DISCUSSION_UNALLOWED	You can't enable forum topics in a discussion group linked to a channel.
 CHAT_FORBIDDEN	This chat is not available to the current user.
 CHAT_FORWARDS_RESTRICTED	You can't forward messages from a protected chat.
-CHAT_GUEST_SEND_FORBIDDEN	You join the discussion group before commenting, see [here &raquo;](https://core.telegram.org/api/discussion#requiring-users-to-join-the-group) for more info.
+CHAT_GUEST_SEND_FORBIDDEN	You join the discussion group before commenting, see [here](https://core.telegram.org/api/discussion#requiring-users-to-join-the-group) for more info.
 CHAT_ID_EMPTY	The provided chat ID is empty.
 CHAT_ID_INVALID	The provided chat id is invalid.
 CHAT_INVALID	Invalid chat.
@@ -111,7 +111,7 @@ CHAT_SEND_VIDEOS_FORBIDDEN	You can't send videos in this chat.
 CHAT_SEND_VOICES_FORBIDDEN	You can't send voice recordings in this chat.
 CHAT_SEND_WEBPAGE_FORBIDDEN	You can't send webpage previews to this chat.
 CHAT_TITLE_EMPTY	No chat title provided.
-CHAT_TOO_BIG	This method is not available for groups with more than `chat_read_mark_size_threshold` members, [see client configuration &raquo;](https://core.telegram.org/api/config#client-configuration).
+CHAT_TOO_BIG	This method is not available for groups with more than `chat_read_mark_size_threshold` members, [see client configuration](https://core.telegram.org/api/config#client-configuration).
 CHAT_TYPE_INVALID	The specified user type is invalid.
 CHAT_WRITE_FORBIDDEN	You can't write in this chat.
 CODE_EMPTY	The provided code is empty.
@@ -155,7 +155,7 @@ ENCRYPTION_ALREADY_DECLINED	The secret chat was already declined.
 ENCRYPTION_DECLINED	The secret chat was declined.
 ENCRYPTION_ID_INVALID	The provided secret chat ID is invalid.
 ENTITIES_TOO_LONG	You provided too many styled message entities.
-ENTITY_BOUNDS_INVALID	A specified [entity offset or length](/api/entities#entity-length) is invalid, see [here &raquo;](/api/entities#entity-length) for info on how to properly compute the entity offset/length.
+ENTITY_BOUNDS_INVALID	A specified [entity offset or length](/api/entities#entity-length) is invalid, see [here](/api/entities#entity-length) for info on how to properly compute the entity offset/length.
 ENTITY_MENTION_USER_INVALID	You mentioned an invalid user.
 ERROR_TEXT_EMPTY	The provided error message is empty.
 EXPIRE_DATE_INVALID	The specified expiration date is invalid.
@@ -220,7 +220,7 @@ INPUT_FILTER_INVALID	The specified filter is invalid.
 INPUT_TEXT_EMPTY	The specified text is empty.
 INPUT_TEXT_TOO_LONG	The specified text is too long.
 INPUT_USER_DEACTIVATED	The specified user was deleted.
-INVITES_TOO_MUCH	The maximum number of per-folder invites specified by the `chatlist_invites_limit_default`/`chatlist_invites_limit_premium` [client configuration parameters &raquo;](/api/config#chatlist-invites-limit-default) was reached.
+INVITES_TOO_MUCH	The maximum number of per-folder invites specified by the `chatlist_invites_limit_default`/`chatlist_invites_limit_premium` [client configuration parameters](/api/config#chatlist-invites-limit-default) was reached.
 INVITE_FORBIDDEN_WITH_JOINAS	If the user has anonymously joined a group call as a channel, they can't invite other users to the group call because that would cause deanonymization, because the invite would be sent using the original user ID, not the anonymized channel ID.
 INVITE_HASH_EMPTY	The invite hash is empty.
 INVITE_HASH_EXPIRED	The invite link has expired.
@@ -354,7 +354,7 @@ RANDOM_ID_EMPTY	Random ID empty.
 RANDOM_ID_INVALID	A provided random ID is invalid.
 RANDOM_LENGTH_INVALID	Random length invalid.
 RANGES_INVALID	Invalid range provided.
-REACTIONS_TOO_MANY	The message already has exactly `reactions_uniq_max` reaction emojis, you can't react with a new emoji, see [the docs for more info &raquo;](/api/config#client-configuration).
+REACTIONS_TOO_MANY	The message already has exactly `reactions_uniq_max` reaction emojis, you can't react with a new emoji, see [the docs for more info](/api/config#client-configuration).
 REACTION_EMPTY	Empty reaction provided.
 REACTION_INVALID	The specified reaction is invalid.
 REPLY_MARKUP_BUY_EMPTY	Reply markup for buy button empty.
@@ -432,7 +432,7 @@ STORY_SEND_FLOOD_WEEKLY_X	You've hit the weekly story limit as specified by the 
 SWITCH_PM_TEXT_EMPTY	The switch_pm.text field was empty.
 TAKEOUT_INIT_DELAY_X	Sorry, for security reasons, you will be able to begin downloading your data in {value} seconds. We have notified all your devices about the export request to make sure it's authorized and to give you time to react if it's not.
 TAKEOUT_INVALID	The specified takeout ID is invalid.
-TAKEOUT_REQUIRED	A [takeout](https://core.telegram.org/api/takeout) session needs to be initialized first, [see here &raquo; for more info](https://core.telegram.org/api/takeout).
+TAKEOUT_REQUIRED	A [takeout](https://core.telegram.org/api/takeout) session needs to be initialized first, [see here for more info](https://core.telegram.org/api/takeout).
 TASK_ALREADY_EXISTS	An email reset was already requested.
 TEMP_AUTH_KEY_ALREADY_BOUND	The passed temporary key is already bound to another **perm_auth_key_id**.
 TEMP_AUTH_KEY_EMPTY	No temporary auth key provided.
