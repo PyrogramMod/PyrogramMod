@@ -86,7 +86,6 @@ class SendRichMessage:
 
         r = await self.invoke(
             raw.functions.messages.SendMessage(
-                ephemeral_receiver_bot_id=0,
                 peer=await self.resolve_peer(chat_id),
                 message="",
                 random_id=self.rnd_id(),

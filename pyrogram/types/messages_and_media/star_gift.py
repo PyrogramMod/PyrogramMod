@@ -49,9 +49,6 @@ class StarGift(Object):
         birthday (``bool``, *optional*):
             Whether this is a birthday-themed gift.
 
-        can_upgrade (``bool``, *optional*):
-            Whether this gift can be upgraded to a collectible.
-
         require_premium (``bool``, *optional*):
             Whether this gift can only be bought by Premium users.
 
@@ -85,7 +82,6 @@ class StarGift(Object):
         limited: bool = None,
         sold_out: bool = None,
         birthday: bool = None,
-        can_upgrade: bool = None,
         require_premium: bool = None,
         availability_remains: int = None,
         availability_total: int = None,
@@ -103,7 +99,6 @@ class StarGift(Object):
         self.limited = limited
         self.sold_out = sold_out
         self.birthday = birthday
-        self.can_upgrade = can_upgrade
         self.require_premium = require_premium
         self.availability_remains = availability_remains
         self.availability_total = availability_total
@@ -126,7 +121,6 @@ class StarGift(Object):
             limited=star_gift.limited or None,
             sold_out=star_gift.sold_out or None,
             birthday=star_gift.birthday or None,
-            can_upgrade=star_gift.can_upgrade or None,
             require_premium=star_gift.require_premium or None,
             availability_remains=star_gift.availability_remains,
             availability_total=star_gift.availability_total,

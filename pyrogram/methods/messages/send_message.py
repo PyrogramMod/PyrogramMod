@@ -160,7 +160,6 @@ class SendMessage:
 
         r = await self.invoke(
             raw.functions.messages.SendMessage(
-                ephemeral_receiver_bot_id=0,
                 peer=await self.resolve_peer(chat_id),
                 no_webpage=no_webpage,
                 invert_media=invert_media,

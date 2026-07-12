@@ -19,7 +19,7 @@
 from typing import Union
 
 import pyrogram
-from pyrogram import raw
+from pyrogram import raw, errors
 
 
 class AddChatToCommunity:
@@ -74,7 +74,8 @@ class AddChatToCommunity:
         # from the joined-communities list instead.
         if isinstance(community_id, int):
             r = await self.invoke(raw.functions.communities.GetJoinedCommunities())
-            target_id = abs(community_id)
+            abs_id = str(abs(community_id))
+            target_id = int(abs_id[3:]) if abs_id.startswith("100") else int(abs_id)
             match = next((c for c in r.chats if c.id == target_id), None)
             if match is None:
                 raise ValueError(f"Community {community_id} not found in joined communities")
@@ -87,13 +88,16 @@ class AddChatToCommunity:
 
         peer = await self.resolve_peer(chat_id)
 
-        await self.invoke(
-            raw.functions.communities.TogglePeerLink(
-                community=community,
-                peer=peer,
-                visible=True if not hidden else None,
-                hidden=True if hidden else None,
+        try:
+            await self.invoke(
+                raw.functions.communities.TogglePeerLink(
+                    community=community,
+                    peer=peer,
+                    visible=True if not hidden else None,
+                    hidden=True if hidden else None,
+                )
             )
-        )
+        except errors.PeerLinkNotModified:
+            pass
 
         return True
