@@ -1,6 +1,7 @@
 id	message
 2FA_CONFIRM_WAIT_X	Since this account is active and protected by a 2FA password, we will delete it in 1 week for security purposes. You can cancel this process at any time, you'll be able to reset your account in {value} seconds.
 ABOUT_TOO_LONG	About string too long.
+ACCESS_DENIED	The account was deactivated, or is a bot/service account.
 ACCESS_TOKEN_EXPIRED	Access token expired.
 ACCESS_TOKEN_INVALID	Access token invalid.
 ADDRESS_INVALID	The specified geopoint address is invalid.
@@ -40,6 +41,7 @@ BOT_COMMAND_INVALID	The specified command is invalid.
 BOT_DOMAIN_INVALID	Bot domain invalid.
 BOT_FORUM_CREATE_FORBIDDEN	Since the bot's user.bot_forum_can_manage_topics flag is **not** set, the user cannot create or modify bot forum topics.
 BOT_GROUPS_BLOCKED	This bot can't be added to groups.
+BOT_GUARD_NOT_SUPPORTED	This bot is not designated as a 'join guard' bot. This method is only available to bots that mediate user joins to chats. .
 BOT_INLINE_DISABLED	This bot can't be used in inline mode.
 BOT_INVALID	This is not a valid bot.
 BOT_MISSING	Only bots can call this method, please use [@stickers](https://t.me/stickers) if you're a user.
@@ -198,7 +200,7 @@ GRAPH_OUTDATED_RELOAD	The graph is outdated, please get a new async token using 
 GROUPCALL_ALREADY_DISCARDED	The group call was already discarded.
 GROUPCALL_ALREADY_STARTED	The groupcall has already started, you can join directly using [phone.joinGroupCall](https://core.telegram.org/method/phone.joinGroupCall).
 GROUPCALL_CHANGE_FORBIDDEN	You cannot change this group call setting.
-GROUPCALL_FORBIDDEN	The group call has already ended.
+GROUPCALL_FORBIDDEN	The specified group call cannot be used in this context.
 GROUPCALL_INVALID	The specified group call is invalid.
 GROUPCALL_JOIN_MISSING	You haven't joined this group call.
 GROUPCALL_NOT_MODIFIED	Group call settings weren't modified.
@@ -481,6 +483,7 @@ USER_BOT_REQUIRED	This method can only be called by a bot.
 USER_CHANNELS_TOO_MUCH	One of the users you tried to add is already in too many channels/supergroups.
 USER_CREATOR	You can't leave this channel, because you're its creator.
 USER_DELETED	You can't send this secret message because the other participant deleted their account.
+USER_DISALLOWED_STARGIFTS	The recipient user has configured restrictions on which categories of star gifts they're willing to accept (unique, limited, or unlimited): the sender attempted to get a payment form for a gift that falls into a category the recipient has blocked.
 USER_ID_INVALID	The provided user ID is invalid.
 USER_INVALID	Invalid user provided.
 USER_IS_BLOCKED	You were blocked by this user.

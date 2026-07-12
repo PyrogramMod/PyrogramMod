@@ -10,7 +10,7 @@ ADMIN_RANK_EMOJI_NOT_ALLOWED	An admin rank cannot contain emojis.
 ADMIN_RANK_INVALID	The specified admin rank is invalid.
 ADMIN_RIGHTS_EMPTY	The chatAdminRights constructor passed in keyboardButtonRequestPeer.peer_type.user_admin_rights has no rights set (i.e. flags is 0).
 ALBUM_PHOTOS_TOO_MANY	You have uploaded too many profile photos, delete some before retrying.
-ALLOW_PAYMENT_REQUIRED	This peer only accepts [paid messages &raquo;](https://core.telegram.org/api/paid-messages): this error is only emitted for older layers without paid messages support, so the client must be updated in order to use paid messages.  .
+ALLOW_PAYMENT_REQUIRED	This peer only accepts [paid messages &raquo;](https://core.telegram.org/api/paid-messages): this error is only emitted for older layers without paid messages support, so the client must be updated in order to use paid messages. .
 ANONYMOUS_REACTIONS_DISABLED	Sorry, anonymous administrators cannot leave reactions or participate in polls.
 API_GIFT_RESTRICTED_UPDATE_APP	Please update the app to access the gift API.
 API_ID_INVALID	API ID invalid.
@@ -53,7 +53,7 @@ BROADCAST_FORBIDDEN	Channel poll voters and reactions cannot be fetched to preve
 BROADCAST_ID_INVALID	Broadcast ID invalid.
 BROADCAST_PUBLIC_VOTERS_FORBIDDEN	You can't forward polls with public voters.
 BROADCAST_REQUIRED	This method can only be called on a channel, please use stats.getMegagroupStats for supergroups.
-BUSINESS_ADDRESS_ACTIVE	The user is currently advertising a [Business Location](https://core.telegram.org/api/business#location), the location may only be changed (or removed) using [account.updateBusinessLocation &raquo;](https://core.telegram.org/method/account.updateBusinessLocation).  .
+BUSINESS_ADDRESS_ACTIVE	The user is currently advertising a [Business Location](https://core.telegram.org/api/business#location), the location may only be changed (or removed) using [account.updateBusinessLocation &raquo;](https://core.telegram.org/method/account.updateBusinessLocation). .
 BUTTON_DATA_INVALID	The data of one or more of the buttons you provided is invalid.
 BUTTON_TEXT_INVALID	The specified button text is invalid.
 BUTTON_TYPE_INVALID	The type of one or more of the buttons you provided is invalid.
@@ -134,6 +134,7 @@ DC_ID_INVALID	The provided DC ID is invalid.
 DH_G_A_INVALID	g_a invalid.
 DOCUMENT_INVALID	The specified document is invalid.
 EDIT_BOT_INVITE_FORBIDDEN	Normal users can't edit invites that were created by bots.
+EDIT_MESSAGE_TEMP_RESTRICTED	Message editing is temporarily forbidden for this user due to regulatory restrictions.
 EMAIL_HASH_EXPIRED	Email hash expired.
 EMAIL_INVALID	The specified email is invalid.
 EMAIL_NOT_SETUP	In order to change the login email with emailVerifyPurposeLoginChange, an existing login email must already be set using emailVerifyPurposeLoginSetup.
@@ -329,9 +330,10 @@ PHOTO_SAVE_FILE_INVALID	Internal issues, try again later.
 PHOTO_THUMB_URL_EMPTY	Photo thumbnail URL is empty.
 PINNED_DIALOGS_TOO_MUCH	Too many pinned dialogs.
 PIN_RESTRICTED	You can't pin messages.
-PLAYMARKET_PURCHASE_USED	 The Google account logged in the Play Store has already an ongoing Telegram Premium cycle in progress
+PLAYMARKET_PURCHASE_USED	The Google account logged in the Play Store has already an ongoing Telegram Premium cycle in progress
 POLL_ANSWERS_INVALID	Invalid poll answers were provided.
 POLL_ANSWER_INVALID	One of the poll answers is not acceptable.
+POLL_COUNTRY_RESTRICTED	Users from the current user's country cannot vote in this [country-restricted poll &raquo;](https://core.telegram.org/api/poll#country-restricted-polls).
 POLL_MEMBER_RESTRICTED	Only channel subscribers can vote in this poll.
 POLL_OPTION_DUPLICATE	Duplicate poll options provided.
 POLL_OPTION_INVALID	Invalid poll option provided.
