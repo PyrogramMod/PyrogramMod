@@ -49,6 +49,12 @@ class AddChatToCommunity:
         Returns:
             ``bool``: True on success.
 
+        Raises:
+            ~pyrogram.errors.PeerLinkNotModified: The chat is already linked
+                to the community.
+            ~pyrogram.errors.ChatAdminRequired: The user is not an admin of
+                the community or the chat.
+
         Example:
             .. code-block:: python
 

@@ -363,6 +363,7 @@ PEER_FLOOD	The current account is spamreported, you cannot execute this action, 
 PEER_HISTORY_EMPTY	You can't pin an empty chat with a user.
 PEER_ID_INVALID	The provided peer id is invalid.
 PEER_ID_NOT_SUPPORTED	The provided peer ID is not supported.
+PEER_LINK_NOT_MODIFIED	The specified peer is already linked (or unlinked) from the community, no change was needed.
 PEER_TYPES_INVALID	The passed [keyboardButtonSwitchInline](https://core.telegram.org/constructor/keyboardButtonSwitchInline).`peer_types` field is invalid.
 PERSISTENT_TIMESTAMP_EMPTY	Persistent timestamp empty.
 PERSISTENT_TIMESTAMP_INVALID	Persistent timestamp invalid.

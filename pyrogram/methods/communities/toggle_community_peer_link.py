@@ -36,6 +36,13 @@ class ToggleCommunityPeerLink:
         Returns:
             ``bool``: True on success.
 
+        Raises:
+            ~pyrogram.errors.PeerLinkNotModified: The peer is already in the
+                requested state (e.g. already visible, already hidden, or
+                already deleted).
+            ~pyrogram.errors.ChatAdminRequired: The user is not an admin of
+                the community.
+
         Example:
             .. code-block:: python
 
