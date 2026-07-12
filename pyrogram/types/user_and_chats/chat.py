@@ -202,6 +202,9 @@ class Chat(Object):
         linked_monoforum_id (``int``, *optional*):
             Identifier of the linked monoforum, if any.
 
+        linked_community_id (``int``, *optional*):
+            Identifier of the community linked to this channel/supergroup.
+
         restriction_reason (List of :obj:`~pyrogram.types.Restriction`, *optional*):
             Reasons why access to this chat may be restricted.
 
@@ -265,6 +268,7 @@ class Chat(Object):
         send_paid_messages_stars: int = None,
         guard_bot_id: int = None,
         linked_monoforum_id: int = None,
+        linked_community_id: int = None,
         restriction_reason: List["types.Restriction"] = None,
     ):
         super().__init__(client)
@@ -321,6 +325,7 @@ class Chat(Object):
         self.send_paid_messages_stars = send_paid_messages_stars
         self.guard_bot_id = guard_bot_id
         self.linked_monoforum_id = linked_monoforum_id
+        self.linked_community_id = linked_community_id
         self.restriction_reason = restriction_reason or restrictions
 
     @property
@@ -442,7 +447,8 @@ class Chat(Object):
             subscription_until_date=utils.timestamp_to_datetime(getattr(channel, "subscription_until_date", None)),
             bot_verification_icon=getattr(channel, "bot_verification_icon", None),
             send_paid_messages_stars=getattr(channel, "send_paid_messages_stars", None),
-            linked_monoforum_id=getattr(channel, "linked_monoforum_id", None)
+            linked_monoforum_id=getattr(channel, "linked_monoforum_id", None),
+            linked_community_id=getattr(channel, "linked_community_id", None)
         )
 
     @staticmethod

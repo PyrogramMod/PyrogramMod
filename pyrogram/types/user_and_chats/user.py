@@ -112,6 +112,9 @@ class User(Object, Update):
         bot_guard (``bool``, *optional*):
             True, if this bot can act as a guard bot for channels/supergroups.
 
+        linked_community_id (``int``, *optional*):
+            Identifier of the community linked to this bot.
+
         first_name (``str``, *optional*):
             User's or bot's first name.
 
@@ -221,6 +224,7 @@ class User(Object, Update):
         bot_active_users: int = None,
         bot_verification_icon: int = None,
         send_paid_messages_stars: int = None,
+        linked_community_id: int = None,
         restriction_reason: List["types.Restriction"] = None
     ):
         super().__init__(client)
@@ -277,6 +281,7 @@ class User(Object, Update):
         self.bot_active_users = bot_active_users
         self.bot_verification_icon = bot_verification_icon
         self.send_paid_messages_stars = send_paid_messages_stars
+        self.linked_community_id = linked_community_id
         self.restriction_reason = restriction_reason or restrictions
 
     @property
@@ -350,6 +355,7 @@ class User(Object, Update):
             bot_active_users=getattr(user, "bot_active_users", None),
             bot_verification_icon=getattr(user, "bot_verification_icon", None),
             send_paid_messages_stars=getattr(user, "send_paid_messages_stars", None),
+            linked_community_id=getattr(user, "linked_community_id", None),
             client=client
         )
 
