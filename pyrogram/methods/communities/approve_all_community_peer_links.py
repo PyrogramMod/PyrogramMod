@@ -24,6 +24,10 @@ class ApproveAllCommunityPeerLinks:
         Returns:
             ``bool``: True on success.
 
+        Raises:
+            ~pyrogram.errors.ChatAdminRequired: The user is not an admin of
+                the community.
+
         Example:
             .. code-block:: python
 

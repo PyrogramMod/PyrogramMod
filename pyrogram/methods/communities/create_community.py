@@ -32,6 +32,10 @@ class CreateCommunity:
         Returns:
             :obj:`~pyrogram.raw.base.Updates`: On success.
 
+        Raises:
+            ~pyrogram.errors.ChatAdminRequired: The user is not an admin of
+                the community.
+
         Example:
             .. code-block:: python
 
