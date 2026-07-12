@@ -34,11 +34,13 @@ class AddChatToCommunity:
         .. include:: /_includes/usable-by/users.rst
 
         Parameters:
-            community_id (``int`` | ``str``):
-                The community channel to add the chat to.
+            community_id (``int``):
+                The raw community ID (as returned by ``linked_community_id`` on
+                :obj:`~pyrogram.types.Chat` or by :meth:`~pyrogram.Client.get_joined_communities`).
+                Note: this is **not** the ``-100``-prefixed channel ID.
 
             chat_id (``int`` | ``str``):
-                The chat to add.
+                The chat or peer to add to the community.
 
             hidden (``bool``, *optional*):
                 Pass True to add the chat as hidden (not visible in the community sidebar).
@@ -50,14 +52,33 @@ class AddChatToCommunity:
         Example:
             .. code-block:: python
 
+                # Get the community ID from a linked chat
+                chat = await app.get_chat(my_channel_id)
+                community_id = chat.linked_community_id
+
                 # Add visible
-                await app.add_chat_to_community(-1001966997491, chat_id)
+                await app.add_chat_to_community(community_id, chat_id)
 
                 # Add hidden
-                await app.add_chat_to_community(-1001966997491, chat_id, hidden=True)
+                await app.add_chat_to_community(community_id, chat_id, hidden=True)
         """
 
-        community = await self.resolve_peer(community_id)
+        # Community objects have raw IDs (no -100 prefix) and are not in the
+        # peer cache, so resolve_peer can't handle them. Fetch the access_hash
+        # from the joined-communities list instead.
+        if isinstance(community_id, int):
+            r = await self.invoke(raw.functions.communities.GetJoinedCommunities())
+            target_id = abs(community_id)
+            match = next((c for c in r.chats if c.id == target_id), None)
+            if match is None:
+                raise ValueError(f"Community {community_id} not found in joined communities")
+            community = raw.types.InputChannel(
+                channel_id=match.id,
+                access_hash=match.access_hash,
+            )
+        else:
+            community = await self.resolve_peer(community_id)
+
         peer = await self.resolve_peer(chat_id)
 
         await self.invoke(
