@@ -10,7 +10,7 @@ virtual/VoIP numbers.
 If you think your account was limited/deactivated by mistake, you can write to recover@telegram.org, contact
 `@SpamBot`_ or use `this form`_.
 
-.. _@SpamBot: https://t.me/spambot
+.. _@SpamBot: https://telegram.me/spambot
 .. _this form: https://telegram.org/support
 .. _Telegram's ToS: https://telegram.org/tos
 

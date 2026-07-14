@@ -29,7 +29,7 @@ If you enjoy PyrogramMod and would like to show your appreciation, consider supp
 VoIP Recharge via @VoIPStoreBot
 ---------------------------------
 
-Recharge your VoIP credit using `@VoIPStoreBot <https://t.me/VoIPStoreBot?start=PYRO>`_ on Telegram.
+Recharge your VoIP credit using `@VoIPStoreBot <https://telegram.me/VoIPStoreBot?start=PYRO>`_ on Telegram.
 By using the referral link, **you get 10% off** every recharge, and you support PyrogramMod at the same time.
 
-`Recharge now with 10% discount → t.me/VoIPStoreBot?start=PYRO <https://t.me/VoIPStoreBot?start=PYRO>`_
+`Recharge now with 10% discount → telegram.me/VoIPStoreBot?start=PYRO <https://telegram.me/VoIPStoreBot?start=PYRO>`_

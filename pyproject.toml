@@ -64,7 +64,7 @@ py_tgcalls = [
 [project.urls]
 Homepage = "https://pyrogrammod.readthedocs.io"
 Tracker = "https://github.com/PyrogramMod/PyrogramMod/issues"
-Community = "https://t.me/pyrogramodchat"
+Community = "https://telegram.me/pyrogramodchat"
 Source = "https://github.com/PyrogramMod/PyrogramMod"
 Documentation = "https://pyrogrammod.readthedocs.io"
 

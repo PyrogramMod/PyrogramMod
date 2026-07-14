@@ -28,7 +28,7 @@ New Features
 - Added ``has_visible_history``, ``is_forum``, ``has_hidden_members`` fields to
   :obj:`~pyrogram.types.Chat`.
 - Added missing properties to :obj:`~pyrogram.types.ChatPrivileges`.
-- Support for joining via public chat link (``https://t.me/username/4`` format).
+- Support for joining via public chat link (``https://telegram.me/username/4`` format).
 - Added ``skip_updates`` parameter to ``Client``.
 - Implemented non-blocking TCP connection.
 

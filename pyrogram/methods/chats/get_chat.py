@@ -39,7 +39,7 @@ class GetChat:
         Parameters:
             chat_id (``int`` | ``str``):
                 Unique identifier (int) or username (str) of the target chat.
-                Unique identifier for the target chat in form of a *t.me/joinchat/* link, identifier (int) or username
+                Unique identifier for the target chat in form of a *telegram.me/joinchat/* link, identifier (int) or username
                 of the target channel/supergroup (in the format @username).
 
         Returns:

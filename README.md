@@ -13,7 +13,7 @@
         Documentation
     </a>
     •
-    <a href="https://t.me/pyrogrammodnews">
+    <a href="https://telegram.me/pyrogrammodnews">
         News
     </a>
 </p>
@@ -67,8 +67,8 @@ pip3 install https://github.com/PyrogramMod/PyrogramMod/archive/refs/heads/main.
 ### Resources
 
 - The docs contain lots of resources to help you get started with Pyrogram: https://docs.pyrogram.org.
-- Seeking extra help? Come join and ask our community: https://t.me/pyrogrammodchat.
-- For other kind of inquiries, you can send a [message](https://t.me/haskell) or an [e-mail](mailto:dan@pyrogram.org).
+- Seeking extra help? Come join and ask our community: https://telegram.me/pyrogrammodchat.
+- For other kind of inquiries, you can send a [message](https://telegram.me/haskell) or an [e-mail](mailto:dan@pyrogram.org).
 
 ### Copyright & License
 
@@ -78,16 +78,16 @@ pip3 install https://github.com/PyrogramMod/PyrogramMod/archive/refs/heads/main.
 ### INFO
 
 - 📕 Official Repo: https://github.com/pyrogram/pyrogram
-- 🗞 News: https://t.me/pyrogram
-- 💭 Support Group: https://t.me/pyrogramchat
+- 🗞 News: https://telegram.me/pyrogram
+- 💭 Support Group: https://telegram.me/pyrogramchat
 - 📚 Docs: https://docs.pyrogram.org
 ------------------------------------------------------------
 - 📕 Un-Official Repo: https://github.com/PyrogramMod/PyrogramMod/
-- 🗞 News: https://t.me/PyroGramModNews
-- 💭 Support Group: https://t.me/pyrogramodchat
+- 🗞 News: https://telegram.me/PyroGramModNews
+- 💭 Support Group: https://telegram.me/pyrogramodchat
 - 📚 Docs: https://pyrogrammod.readthedocs.io/en/latest/
 ------------------------------------------------------------
 
 - Check out the docs at https://docs.pyrogram.org to learn more about Pyrogram, get started right
 away and discover more in-depth material for building your client applications.
-- Join the official channel at https://t.me/PyroGramModNews and stay tuned for news, updates and announcements.
+- Join the official channel at https://telegram.me/PyroGramModNews and stay tuned for news, updates and announcements.

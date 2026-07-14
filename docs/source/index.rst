@@ -22,7 +22,7 @@ Welcome to PyrogramMod
             Development
         </a>
         •
-        <a href="https://t.me/pyrogramodchat">
+        <a href="https://telegram.me/pyrogramodchat">
             News
         </a>
     </p>
@@ -50,7 +50,7 @@ Support
 
 If you'd like to support PyrogramMod, you can consider:
 
-- `Recharge VoIP via @VoIPStoreBot (10% discount with referral) <https://t.me/VoIPStoreBot?start=PYRO>`_.
+- `Recharge VoIP via @VoIPStoreBot (10% discount with referral) <https://telegram.me/VoIPStoreBot?start=PYRO>`_.
 
 How the Documentation is Organized
 ----------------------------------

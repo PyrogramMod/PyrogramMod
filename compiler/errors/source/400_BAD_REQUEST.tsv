@@ -49,7 +49,7 @@ BOT_INLINE_DISABLED	This bot can't be used in inline mode.
 BOT_INVALID	This is not a valid bot.
 BOT_INVOICE_INVALID	The specified invoice is invalid.
 BOT_METHOD_INVALID	The specified method cannot be used by bots.
-BOT_MISSING	Only bots can call this method, please use [@stickers](https://t.me/stickers) if you're a user.
+BOT_MISSING	Only bots can call this method, please use [@stickers](https://telegram.me/stickers) if you're a user.
 BOT_NOT_CONNECTED_YET	No [business bot](https://core.telegram.org/api/business#connected-bots) is connected to the currently logged in user.
 BOT_ONESIDE_NOT_AVAIL	Bots can't pin messages in PM just for themselves.
 BOT_PAYMENTS_DISABLED	Please enable bot payments in botfather before calling this method.

@@ -1032,9 +1032,9 @@ class Message(Object, Update):
                 self.chat.type in (enums.ChatType.GROUP, enums.ChatType.SUPERGROUP, enums.ChatType.CHANNEL)
                 and self.chat.username
         ):
-            return f"https://t.me/{self.chat.username}/{self.id}"
+            return f"https://telegram.me/{self.chat.username}/{self.id}"
         else:
-            return f"https://t.me/c/{utils.get_channel_id(self.chat.id)}/{self.id}"
+            return f"https://telegram.me/c/{utils.get_channel_id(self.chat.id)}/{self.id}"
 
     async def get_media_group(self) -> List["types.Message"]:
         """Bound method *get_media_group* of :obj:`~pyrogram.types.Message`.

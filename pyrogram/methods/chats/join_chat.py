@@ -34,7 +34,7 @@ class JoinChat:
 
         Parameters:
             chat_id (``int`` | ``str``):
-                Unique identifier for the target chat in form of a *t.me/joinchat/* link, a username of the target
+                Unique identifier for the target chat in form of a *telegram.me/joinchat/* link, a username of the target
                 channel/supergroup (in the format @username) or a chat id of a linked chat (channel or supergroup).
 
         Returns:
@@ -44,13 +44,13 @@ class JoinChat:
             .. code-block:: python
 
                 # Join chat via invite link
-                await app.join_chat("https://t.me/+PtU-zNsbDNU3ODA8")
+                await app.join_chat("https://telegram.me/+PtU-zNsbDNU3ODA8")
 
                 # Join chat via username
                 await app.join_chat("pyrogramodchat")
 
                 # Join chat via Telegram Public Link
-                await app.join_chat("https://t.me/pyrogramodchat")
+                await app.join_chat("https://telegram.me/pyrogramodchat")
 
                 # Join a linked chat
                 await app.join_chat(app.get_chat("pyrogramodchat").linked_chat.id)
