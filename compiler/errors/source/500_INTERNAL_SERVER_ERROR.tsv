@@ -9,6 +9,7 @@ ADMIN_ID_INVALID	The specified admin ID is invalid.
 ADMIN_RANK_EMOJI_NOT_ALLOWED	An admin rank cannot contain emojis.
 ADMIN_RANK_INVALID	The specified admin rank is invalid.
 ADMIN_RIGHTS_EMPTY	The chatAdminRights constructor passed in keyboardButtonRequestPeer.peer_type.user_admin_rights has no rights set (i.e. flags is 0).
+AICOMPOSE_TIMEOUT	A timeout occurred while composing the message.
 ALBUM_PHOTOS_TOO_MANY	You have uploaded too many profile photos, delete some before retrying.
 ANONYMOUS_REACTIONS_DISABLED	Sorry, anonymous administrators cannot leave reactions or participate in polls.
 API_CALL_ERROR	API call error due to Telegram having internal problems. Please try again later
@@ -26,7 +27,7 @@ AUTH_TOKEN_EXCEPTION	An error occurred while importing the auth token.
 AUTH_TOKEN_EXPIRED	The authorization token has expired.
 AUTH_TOKEN_INVALID	The specified auth token is invalid.
 AUTH_TOKEN_INVALIDX	The specified auth token is invalid.
-AUTOARCHIVE_NOT_AVAILABLE	The autoarchive setting is not available at this time: please check the value of the [autoarchive_setting_available field in client config &raquo;](https://core.telegram.org/api/config#client-configuration) before calling this method.
+AUTOARCHIVE_NOT_AVAILABLE	The autoarchive setting is not available at this time: please check the value of the [autoarchive_setting_available field in client config](https://core.telegram.org/api/config#client-configuration) before calling this method.
 BANK_CARD_NUMBER_INVALID	The specified card number is invalid.
 BANNED_RIGHTS_INVALID	You provided some invalid flags in the banned rights.
 BOOSTS_EMPTY	No boost slots were specified.
@@ -83,7 +84,7 @@ CHAT_ADMIN_INVITE_REQUIRED	You do not have the rights to do this.
 CHAT_ADMIN_REQUIRED	You must be an admin in this chat to do this.
 CHAT_DISCUSSION_UNALLOWED	You can't enable forum topics in a discussion group linked to a channel.
 CHAT_FORWARDS_RESTRICTED	You can't forward messages from a protected chat.
-CHAT_GUEST_SEND_FORBIDDEN	You join the discussion group before commenting, see [here &raquo;](/api/discussion#requiring-users-to-join-the-group) for more info.
+CHAT_GUEST_SEND_FORBIDDEN	You join the discussion group before commenting, see [here](/api/discussion#requiring-users-to-join-the-group) for more info.
 CHAT_ID_EMPTY	The provided chat ID is empty.
 CHAT_ID_GENERATE_FAILED	Failure while generating the chat ID.
 CHAT_ID_INVALID	The provided chat id is invalid.
@@ -109,7 +110,7 @@ CHAT_SEND_STICKERS_FORBIDDEN	You can't send stickers in this chat.
 CHAT_SEND_VIDEOS_FORBIDDEN	You can't send videos in this chat.
 CHAT_SEND_VOICES_FORBIDDEN	You can't send voice recordings in this chat.
 CHAT_TITLE_EMPTY	No chat title provided.
-CHAT_TOO_BIG	This method is not available for groups with more than `chat_read_mark_size_threshold` members, [see client configuration &raquo;](https://core.telegram.org/api/config#client-configuration).
+CHAT_TOO_BIG	This method is not available for groups with more than `chat_read_mark_size_threshold` members, [see client configuration](https://core.telegram.org/api/config#client-configuration).
 CHAT_WRITE_FORBIDDEN	You can't write in this chat.
 CHP_CALL_FAIL	Telegram is having internal problems. Please try again later
 CODE_EMPTY	The provided code is empty.
@@ -155,7 +156,7 @@ ENCRYPTION_ID_INVALID	The provided secret chat ID is invalid.
 ENCRYPTION_OCCUPY_ADMIN_FAILED	Failed occupying memory for admin info due to Telegram having internal problems. Please try again later
 ENCRYPTION_OCCUPY_FAILED	Internal server error while accepting secret chat
 ENTITIES_TOO_LONG	You provided too many styled message entities.
-ENTITY_BOUNDS_INVALID	A specified [entity offset or length](/api/entities#entity-length) is invalid, see [here &raquo;](/api/entities#entity-length) for info on how to properly compute the entity offset/length.
+ENTITY_BOUNDS_INVALID	A specified [entity offset or length](/api/entities#entity-length) is invalid, see [here](/api/entities#entity-length) for info on how to properly compute the entity offset/length.
 ENTITY_MENTION_USER_INVALID	You mentioned an invalid user.
 ERROR_TEXT_EMPTY	The provided error message is empty.
 EXPIRE_DATE_INVALID	The specified expiration date is invalid.
@@ -226,7 +227,7 @@ INPUT_TEXT_TOO_LONG	The specified text is too long.
 INPUT_USER_DEACTIVATED	The specified user was deleted.
 INTERDC_X_CALL_ERROR	An error occurred while Telegram was intercommunicating with DC{value}. Please try again later
 INTERDC_X_CALL_RICH_ERROR	A rich error occurred while Telegram was intercommunicating with DC{value}. Please try again later
-INVITES_TOO_MUCH	The maximum number of per-folder invites specified by the `chatlist_invites_limit_default`/`chatlist_invites_limit_premium` [client configuration parameters &raquo;](/api/config#chatlist-invites-limit-default) was reached.
+INVITES_TOO_MUCH	The maximum number of per-folder invites specified by the `chatlist_invites_limit_default`/`chatlist_invites_limit_premium` [client configuration parameters](/api/config#chatlist-invites-limit-default) was reached.
 INVITE_FORBIDDEN_WITH_JOINAS	If the user has anonymously joined a group call as a channel, they can't invite other users to the group call because that would cause deanonymization, because the invite would be sent using the original user ID, not the anonymized channel ID.
 INVITE_HASH_EMPTY	The invite hash is empty.
 INVITE_HASH_EXPIRED	The invite link has expired.
@@ -291,6 +292,7 @@ NEW_SETTINGS_EMPTY	No password is set on the current account, and no new passwor
 NEW_SETTINGS_INVALID	The new password settings are invalid.
 NEXT_OFFSET_INVALID	The specified offset is longer than 64 bytes.
 No workers running	The Telegram server is restarting its workers. Try again later.
+OAUTH_REQUEST_INVALID	The specified OAuth request is invalid.
 OFFSET_INVALID	The provided offset is invalid.
 OFFSET_PEER_ID_INVALID	The provided offset peer is invalid.
 OPTIONS_TOO_MUCH	Too many options provided.
@@ -375,7 +377,7 @@ RANDOM_ID_EMPTY	Random ID empty.
 RANDOM_ID_INVALID	A provided random ID is invalid.
 RANDOM_LENGTH_INVALID	Random length invalid.
 RANGES_INVALID	Invalid range provided.
-REACTIONS_TOO_MANY	The message already has exactly `reactions_uniq_max` reaction emojis, you can't react with a new emoji, see [the docs for more info &raquo;](/api/config#client-configuration).
+REACTIONS_TOO_MANY	The message already has exactly `reactions_uniq_max` reaction emojis, you can't react with a new emoji, see [the docs for more info](/api/config#client-configuration).
 REACTION_EMPTY	Empty reaction provided.
 REACTION_INVALID	The specified reaction is invalid.
 REG_ID_GENERATE_FAILED	The registration id failed to generate due to Telegram having internal problems. Please try again later
@@ -464,7 +466,7 @@ STORYCHAT_INVALID	The specified story chat is invalid.
 SWITCH_PM_TEXT_EMPTY	The switch_pm.text field was empty.
 TAKEOUT_INIT_DELAY_X	Sorry, for security reasons, you will be able to begin downloading your data in {value} seconds. We have notified all your devices about the export request to make sure it's authorized and to give you time to react if it's not.
 TAKEOUT_INVALID	The specified takeout ID is invalid.
-TAKEOUT_REQUIRED	A [takeout](https://core.telegram.org/api/takeout) session needs to be initialized first, [see here &raquo; for more info](/api/takeout).
+TAKEOUT_REQUIRED	A [takeout](https://core.telegram.org/api/takeout) session needs to be initialized first, [see here for more info](/api/takeout).
 TASK_ALREADY_EXISTS	An email reset was already requested.
 TEMP_AUTH_KEY_ALREADY_BOUND	The passed temporary key is already bound to another **perm_auth_key_id**.
 TEMP_AUTH_KEY_EMPTY	No temporary auth key provided.

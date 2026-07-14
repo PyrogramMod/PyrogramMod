@@ -25,11 +25,40 @@ import sys
 if len(sys.argv) != 2:
     sys.exit(1)
 
+
+def clean_message(message):
+    message = (
+        message.replace(" &raquo;", "")
+        .replace("&raquo;", "")
+        .replace("&laquo;", "")
+        .replace(" »", "")
+        .replace("»", "")
+        .replace("«", "")
+    )
+    return " ".join(message.split())
+
+
 if sys.argv[1] == "sort":
     for p in Path("source").glob("*.tsv"):
         with open(p) as f:
             reader = csv.reader(f, delimiter="\t")
-            dct = {k: v for k, v in reader if k != "id"}
+            dct = {}
+
+            for row in reader:
+                if not row:
+                    continue
+
+                key = row[0].strip()
+                value = clean_message(row[1]) if len(row) > 1 else ""
+
+                if not key or key == "id":
+                    continue
+
+                if len(key) > 60 or any(ch in key for ch in "[]()`;{}"):
+                    continue
+
+                dct[key] = value
+
             keys = sorted(dct)
 
         with open(p, "w") as f:
@@ -43,34 +72,30 @@ if sys.argv[1] == "sort":
 
 elif sys.argv[1] == "scrape":
     base_url = "https://core.telegram.org"
-    errors_api_path = "/api/errors"
-    errors_data = None
-    html_content = None
 
-    try:
-        response = requests.get(base_url + errors_api_path)
-        response.raise_for_status()
-        html_content = response.text
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching errors page: {e}")
+    errors_json_url = base_url + "/api/errors.json"
 
-    match = re.search(r'<a href=\"(.*?)\">here.*?</a>', html_content)
-    if not match:
-        print("Link to errors JSON not found.")
-
-    errors_json_url = base_url + match.group(1)
     try:
         response = requests.get(errors_json_url)
         response.raise_for_status()
         errors_data = response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching errors JSON: {e}")
-    except ValueError:
-        print("Error decoding JSON response.")
+    except (requests.exceptions.RequestException, ValueError):
+        try:
+            page = requests.get(base_url + "/api/errors")
+            page.raise_for_status()
+            match = re.search(r'<a href="([^"]*\.json)"', page.text)
+            if not match:
+                sys.exit("Link to errors JSON not found on the errors page.")
+
+            response = requests.get(base_url + match.group(1))
+            response.raise_for_status()
+            errors_data = response.json()
+        except (requests.exceptions.RequestException, ValueError) as e:
+            sys.exit(f"Error fetching errors JSON: {e}")
 
     error_categories = errors_data.get("errors", [])
     if not error_categories:
-        print("No error categories found in JSON.")
+        sys.exit("No error categories found in JSON.")
 
     source_dir = Path("source/")
     source_dir.mkdir(exist_ok=True)
@@ -82,8 +107,16 @@ elif sys.argv[1] == "scrape":
             with open(tsv_path, 'r') as tsv_file:
                 reader = csv.DictReader(tsv_file, delimiter='\t')
                 for row in reader:
-                    if row['id'] != 'id':
-                        data_dict[row['id']] = row['message']
+                    key = (row.get('id') or "").strip()
+                    message = clean_message(row.get('message') or "")
+
+                    if not key or key == "id":
+                        continue
+
+                    if len(key) > 60 or any(ch in key for ch in "[]()`;{}"):
+                        continue
+
+                    data_dict[key] = message
 
         error_details = errors_data["errors"].get(error_type, {})
         descriptions = errors_data["descriptions"]
@@ -94,12 +127,9 @@ elif sys.argv[1] == "scrape":
 
             description = descriptions.get(error_code, "")
             if description:
-                processed_description = (
+                processed_description = clean_message(
                     description.replace("%d", "{value}")
                     .replace("\"", "'")
-                    .replace("»", "»")
-                    .replace("«", "«")
-                    .replace(" »", "")
                     .replace("](/api/", f"]({base_url}/api/")
                 )
                 data_dict[error_code.replace("_%d", "_X")] = processed_description
