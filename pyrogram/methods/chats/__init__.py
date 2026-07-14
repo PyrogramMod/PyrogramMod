@@ -60,6 +60,7 @@ from .unarchive_chats import UnarchiveChats
 from .unban_chat_member import UnbanChatMember
 from .unpin_all_chat_messages import UnpinAllChatMessages
 from .unpin_chat_message import UnpinChatMessage
+from .toggle_direct_messages import ToggleDirectMessages
 
 
 class Chats(
@@ -106,6 +107,7 @@ class Chats(
     SetChatGuardBot,
     SetChatProtectedContent,
     CreateGroupCall,
-    GetGroupCallStreamChannels
+    GetGroupCallStreamChannels,
+    ToggleDirectMessages,
 ):
     pass

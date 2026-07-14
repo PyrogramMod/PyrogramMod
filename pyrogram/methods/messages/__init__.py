@@ -75,6 +75,10 @@ from .send_rich_message_draft import SendRichMessageDraft
 from .translate_rich_message import TranslateRichMessage
 from .compose_rich_message_with_ai import ComposeRichMessageWithAI
 from .request_chat_join_web_view import RequestChatJoinWebView
+from .get_monoforum_history import GetMonoforumHistory
+from .get_monoforum_dialogs import GetMonoforumDialogs
+from .read_monoforum_history import ReadMonoforumHistory
+from .delete_monoforum_history import DeleteMonoforumHistory
 
 
 class Messages(
@@ -137,5 +141,9 @@ class Messages(
     TranslateRichMessage,
     ComposeRichMessageWithAI,
     RequestChatJoinWebView,
+    GetMonoforumHistory,
+    GetMonoforumDialogs,
+    ReadMonoforumHistory,
+    DeleteMonoforumHistory,
 ):
     pass
