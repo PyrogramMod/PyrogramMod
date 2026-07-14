@@ -1,0 +1,144 @@
+PyrogramMod v2.4.0
+==================
+
+*Layer 228, Communities, Ephemeral Messages, Rich Messages, Guard Bot and more*
+
+Layer Updates
+-------------
+
+Updated API schema through layers 221 -> 228.
+
+Communities
+-----------
+
+New ``communities.*`` namespace with 10 methods:
+
+- :meth:`~pyrogram.Client.create_community` (supports ``hidden`` parameter)
+- :meth:`~pyrogram.Client.add_chat_to_community` — add a chat to an existing community.
+  Accepts the raw community ID (as returned by ``linked_community_id`` or :meth:`~pyrogram.Client.get_joined_communities`),
+  not the ``-100``-prefixed channel ID. Supports ``hidden=True`` to add the chat without showing it in the sidebar.
+- :meth:`~pyrogram.Client.get_joined_communities`
+- :meth:`~pyrogram.Client.toggle_community_peer_link`
+- :meth:`~pyrogram.Client.approve_community_peer_link`
+- :meth:`~pyrogram.Client.approve_all_community_peer_links`
+- :meth:`~pyrogram.Client.get_community_peer_link_requests`
+- :meth:`~pyrogram.Client.ban_community_participant`
+- :meth:`~pyrogram.Client.toggle_community_collapsed`
+- :meth:`~pyrogram.Client.get_community_participant_chats`
+
+Monoforum / Direct Messages
+----------------------------
+
+New methods for channels with Direct Messages (monoforum) enabled:
+
+- :meth:`~pyrogram.Client.toggle_direct_messages` — enable or disable Direct Messages on a broadcast channel.
+- :meth:`~pyrogram.Client.get_monoforum_dialogs` — list per-sender sublists.
+- :meth:`~pyrogram.Client.get_monoforum_history` — read a sender's sublist history.
+- :meth:`~pyrogram.Client.read_monoforum_history` — mark a sublist as read.
+- :meth:`~pyrogram.Client.delete_monoforum_history` — delete a sublist's history.
+
+Ephemeral Messages
+------------------
+
+New ``ephemeral.*`` namespace — bot-private messages visible only to the receiver:
+
+- :meth:`~pyrogram.Client.send_ephemeral_message`
+- :meth:`~pyrogram.Client.delete_ephemeral_message`
+- :meth:`~pyrogram.Client.get_ephemeral_callback_answer`
+- :meth:`~pyrogram.Client.report_ephemeral_message`
+- :meth:`~pyrogram.Client.edit_ephemeral_message_text`
+- :meth:`~pyrogram.Client.edit_ephemeral_message_caption`
+- :meth:`~pyrogram.Client.edit_ephemeral_message_media`
+- :meth:`~pyrogram.Client.edit_ephemeral_message_reply_markup`
+
+Rich Messages (Bot API 10.1)
+----------------------------
+
+New types: :obj:`~pyrogram.types.RichMessage`, :obj:`~pyrogram.types.RichText`,
+:obj:`~pyrogram.types.RichBlock`, :obj:`~pyrogram.types.InputRichMessage`,
+:obj:`~pyrogram.types.PollLink`.
+
+New enums: :obj:`~pyrogram.enums.RichTextType` (26 variants),
+:obj:`~pyrogram.enums.RichBlockType` (30 variants).
+
+New methods:
+
+- :meth:`~pyrogram.Client.send_rich_message`
+- :meth:`~pyrogram.Client.send_rich_message_draft`
+- :meth:`~pyrogram.Client.translate_rich_message`
+- :meth:`~pyrogram.Client.compose_rich_message_with_ai`
+- :meth:`~pyrogram.Client.request_chat_join_web_view`
+
+Incoming :obj:`~pyrogram.types.Message` objects expose the new ``rich_message`` field.
+
+Guard Bot & Join Request Queries
+---------------------------------
+
+- :meth:`~pyrogram.Client.set_chat_guard_bot`
+- :meth:`~pyrogram.Client.answer_guard_bot_query`
+- :meth:`~pyrogram.Client.answer_chat_join_request_query`
+- :meth:`~pyrogram.Client.send_chat_join_request_web_app`
+
+New handler :meth:`~pyrogram.Client.on_guard_bot_query`, new type
+:obj:`~pyrogram.types.GuardBotQuery`, new field ``ChatJoinRequest.query_id``.
+
+Streaming Text
+--------------
+
+- :meth:`~pyrogram.Client.send_streaming_text` — stream text progressively to a chat (bots only).
+  Accepts a plain string or an async iterator/generator.
+
+Bot & Browser Settings
+-----------------------
+
+- :meth:`~pyrogram.Client.get_bot_access_settings`
+- :meth:`~pyrogram.Client.edit_bot_access_settings`
+- :meth:`~pyrogram.Client.confirm_bot_connection`
+- :meth:`~pyrogram.Client.get_web_browser_settings`
+- :meth:`~pyrogram.Client.update_web_browser_settings`
+- :meth:`~pyrogram.Client.toggle_web_browser_exception`
+- :meth:`~pyrogram.Client.delete_web_browser_exceptions`
+
+User & Chat
+-----------
+
+New :obj:`~pyrogram.types.User` fields: ``color``, ``profile_color``, ``bot_active_users``,
+``bot_has_main_app``.
+
+New :obj:`~pyrogram.types.Chat` fields: ``guard_bot_id``, ``send_paid_messages_stars``,
+``monoforum``, ``autotranslation``.
+
+New type :obj:`~pyrogram.types.PeerColor`.
+
+:obj:`~pyrogram.types.ChatPrivileges` gains: ``can_manage_direct_messages``,
+``can_manage_ranks``, ``can_manage_linked_peers``.
+
+New update :obj:`~pyrogram.raw.types.UpdateBotStarsSubscription` — fires when a bot Stars subscription is created, canceled, or restored.
+
+New method :meth:`~pyrogram.Client.get_poll_stats`.
+
+New field ``linked_community_id`` on :obj:`~pyrogram.types.User` and :obj:`~pyrogram.types.Chat`.
+
+Styled Keyboards
+----------------
+
+:obj:`~pyrogram.types.InlineKeyboardButton` and :obj:`~pyrogram.types.KeyboardButton` now accept
+a ``style`` parameter. New type :obj:`~pyrogram.enums.KeyboardButtonStyle`.
+
+Bug Fixes
+---------
+
+- Session reconnect deadlock fixed.
+- ``account.*`` namespace corrected for web browser methods and ``confirm_bot_connection`` (were incorrectly using ``messages.*``).
+- Fixed ``message_thread_id``, ``EmojiStatusUntil`` ``AttributeError``, ``PeerID invalid``.
+- Fixed ``messages.chatInviteJoinResultWebView`` TL ID and replaced ``webview`` field with ``query_id``.
+- Fixed ``messages.composedRichMessageWithAI`` TL ID and schema (now returns ``RichMessage``).
+- Fixed ``TypeError`` on :meth:`~pyrogram.Client.send_message` caused by missing ``ephemeral_receiver_bot_id`` in ``messages.SendMessage``.
+
+Build
+-----
+
+- Migrated ``scrape-errors`` CI to ``uv``.
+- ``docs.json`` regenerated for layers 225, 227, 228 (Unicode preserved, ``ensure_ascii=False``).
+- :meth:`~pyrogram.Client.invoke` now has a generic return type.
+- Fixed ``async``/``asyncio`` compatibility for Python 3.13 & 3.14. CI matrix: 3.10, 3.11, 3.12, 3.13.
