@@ -336,6 +336,67 @@ giveaway = create(giveaway_filter)
 
 # endregion
 
+
+# region story_filter
+async def story_filter(_, __, m: Message):
+    return bool(m.story)
+
+
+story = create(story_filter)
+"""Filter messages that contain :obj:`~pyrogram.types.StoryItem` objects."""
+
+
+# endregion
+
+
+# region paid_media_filter
+async def paid_media_filter(_, __, m: Message):
+    return bool(m.paid_media)
+
+
+paid_media = create(paid_media_filter)
+"""Filter messages that contain :obj:`~pyrogram.types.PaidMedia` objects."""
+
+
+# endregion
+
+
+# region todo_filter
+async def todo_filter(_, __, m: Message):
+    return bool(m.todo)
+
+
+todo = create(todo_filter)
+"""Filter messages that contain :obj:`~pyrogram.types.TodoList` objects."""
+
+
+# endregion
+
+
+# region business_filter
+async def business_filter(_, __, m: Message):
+    return bool(getattr(m, "via_business_bot_id", None) or getattr(m, "quick_reply_shortcut_id", None))
+
+
+business = create(business_filter)
+"""Filter messages related to Telegram Business (sent via business bot or quick reply)."""
+
+
+# endregion
+
+
+# region boost_filter
+async def boost_filter(_, __, update: Update):
+    from pyrogram.types import ChatBoostUpdated
+    return isinstance(update, ChatBoostUpdated)
+
+
+boost = create(boost_filter)
+"""Filter chat boost updates."""
+
+
+# endregion
+
 # region video_filter
 async def video_filter(_, __, m: Message):
     return bool(m.video)

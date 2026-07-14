@@ -69,6 +69,14 @@ Here are some examples:
         async def my_handler(client, message):
             print(message)
 
+-   Message is a **story** **or** contains **paid media**.
+
+    .. code-block:: python
+
+        @app.on_message(filters.story | filters.paid_media)
+        async def my_handler(client, message):
+            print(message)
+
 Advanced Filters
 ----------------
 

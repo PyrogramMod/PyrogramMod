@@ -37,6 +37,9 @@ from .get_discussion_replies import GetDiscussionReplies
 from .get_discussion_replies_count import GetDiscussionRepliesCount
 from .get_media_group import GetMediaGroup
 from .get_messages import GetMessages
+from .get_saved_dialogs import GetSavedDialogs
+from .pin_saved_dialog import PinSavedDialog
+from .get_saved_reaction_tags import GetSavedReactionTags
 from .read_chat_history import ReadChatHistory
 from .retract_vote import RetractVote
 from .search_global import SearchGlobal
@@ -76,6 +79,9 @@ class Messages(
     ForwardMessages,
     GetMediaGroup,
     GetMessages,
+    GetSavedDialogs,
+    PinSavedDialog,
+    GetSavedReactionTags,
     SendAudio,
     SendChatAction,
     SendContact,

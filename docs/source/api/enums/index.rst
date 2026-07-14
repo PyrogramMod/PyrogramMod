@@ -27,6 +27,10 @@ to apply only a valid value among the expected ones.
     SentCodeType
     NextCodeType
     UserStatus
+    BoostType
+    BusinessAwayMessageSchedule
+    PrivacyKeyType
+    StoryPrivacyType
 
 .. toctree::
     :hidden:

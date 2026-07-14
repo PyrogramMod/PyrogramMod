@@ -222,6 +222,24 @@ def pyrogram_api():
             export_session_string
             set_parse_mode
         """,
+        decorators="""
+        Decorators
+            on_message
+            on_edited_message
+            on_callback_query
+            on_inline_query
+            on_chosen_inline_result
+            on_poll
+            on_user_status
+            on_deleted_messages
+            on_chat_member_updated
+            on_raw_update
+            on_disconnect
+            on_chat_join_request
+            on_story
+            on_chat_boost
+            on_business_connection
+        """,
         messages="""
         Messages
             send_message
@@ -242,6 +260,7 @@ def pyrogram_api():
             send_contact
             send_cached_media
             send_reaction
+            send_paid_reaction
             edit_message_text
             edit_message_caption
             edit_message_media
@@ -272,6 +291,13 @@ def pyrogram_api():
             get_discussion_replies
             get_discussion_replies_count
             get_custom_emoji_stickers
+            toggle_todo_completed
+            get_saved_dialogs
+            get_pinned_saved_dialogs
+            reorder_pinned_saved_dialogs
+            pin_saved_dialog
+            get_saved_reaction_tags
+            update_saved_reaction_tag
         """,
         chats="""
         Chats
@@ -387,6 +413,7 @@ def pyrogram_api():
             set_chat_menu_button
             get_chat_menu_button
             answer_web_app_query
+            send_streaming_text
         """,
         authorization="""
         Authorization
@@ -411,6 +438,50 @@ def pyrogram_api():
             invoke
             resolve_peer
             save_file
+        """,
+        stories="""
+        Stories
+            send_story
+            get_stories
+            edit_story
+            delete_stories
+            read_stories
+            get_story_public_forwards
+            get_story_views_list
+            get_story_reactions_list
+            send_story_reaction
+        """,
+        payments="""
+        Payments
+            get_stars_status
+            get_stars_transactions
+            get_star_gifts
+            get_unique_star_gift
+            get_saved_star_gifts
+            get_star_gift_auction_state
+        """,
+        boosts="""
+        Boosts
+            get_boost_status
+            get_boosts_list
+            apply_boost
+            get_boost_level_options
+            get_my_boosts
+        """,
+        business="""
+        Business
+            get_business_chat_links
+            create_business_chat_link
+            edit_business_chat_link
+            delete_business_chat_link
+            get_bot_business_connection
+            get_quick_replies
+            get_quick_reply_messages
+            send_quick_reply_messages
+            edit_quick_reply_shortcut
+            delete_quick_reply_shortcut
+            check_quick_reply_shortcut
+            delete_quick_reply_messages
         """
     )
 
@@ -469,6 +540,9 @@ def pyrogram_api():
             Dialog
             Restriction
             EmojiStatus
+            Birthday
+            BotVerification
+            BotVerifierSettings
         """,
         messages_media="""
         Messages & Media
@@ -500,6 +574,15 @@ def pyrogram_api():
             WebAppData
             MessageReactions
             ChatReactions
+            PaidMedia
+            TodoList
+            TodoItem
+            TodoCompletion
+            FactCheck
+            SuggestedPost
+            MessageEffect
+            PublicForward
+            PublicForwards
         """,
         bot_keyboards="""
         Bot keyboards
@@ -574,6 +657,74 @@ def pyrogram_api():
         Authorization
             SentCode
             TermsOfService
+        """,
+        stories="""
+        Stories
+            StoryItem
+            StoryViews
+            StoryView
+            StoryViewsList
+            PeerStories
+            StoriesStealthMode
+            MediaArea
+            MediaAreaCoordinates
+            StoryForwardHeader
+            StoryReaction
+            StoryReactionsList
+        """,
+        payments="""
+        Payments
+            StarsAmount
+            StarsTransaction
+            StarsTransactionPeer
+            StarsSubscription
+            StarsSubscriptionPricing
+            StarsStatus
+            StarsRevenueStatus
+            StarsTopupOption
+            StarsGiftOption
+            PaidReactionPrivacy
+        """,
+        star_gifts="""
+        Star Gifts
+            StarGift
+            StarGiftUnique
+            StarGiftAuctionState
+            StarGiftAuctionUserState
+            StarGiftAuctionRound
+            AuctionBidLevel
+            DisallowedGiftsSettings
+        """,
+        business="""
+        Business
+            BusinessInfo
+            BusinessWorkHours
+            BusinessWeeklyOpen
+            BusinessLocation
+            BusinessIntro
+            BusinessGreetingMessage
+            BusinessAwayMessage
+            BusinessRecipients
+            BusinessConnection
+            QuickReply
+            BusinessChatLink
+            BusinessBotRecipients
+        """,
+        boosts="""
+        Boosts
+            Boost
+            BoostStatus
+            BoostsList
+            GiveawayResults
+            PrepaidGiveaway
+            MyBoost
+            MyBoosts
+        """,
+        saved_messages="""
+        Saved Messages
+            SavedDialog
+            SavedDialogs
+            SavedReactionTag
         """
     )
 
@@ -685,6 +836,31 @@ def pyrogram_api():
         ChatJoinRequest
             ChatJoinRequest.approve
             ChatJoinRequest.decline
+        """,
+        story_item="""
+        StoryItem
+            StoryItem.delete
+            StoryItem.react
+            StoryItem.get_views
+            StoryItem.get_reactions
+            StoryItem.get_public_forwards
+        """,
+        quick_reply="""
+        QuickReply
+            QuickReply.get_messages
+            QuickReply.send_messages
+            QuickReply.edit
+            QuickReply.delete
+        """,
+        business_chat_link="""
+        BusinessChatLink
+            BusinessChatLink.edit
+            BusinessChatLink.delete
+        """,
+        saved_dialog="""
+        SavedDialog
+            SavedDialog.pin
+            SavedDialog.unpin
         """
     )
 

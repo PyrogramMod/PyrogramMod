@@ -26,7 +26,8 @@ from pyrogram import utils
 from pyrogram.handlers import (
     CallbackQueryHandler, MessageHandler, EditedMessageHandler, DeletedMessagesHandler,
     UserStatusHandler, RawUpdateHandler, InlineQueryHandler, PollHandler,
-    ChosenInlineResultHandler, ChatMemberUpdatedHandler, ChatJoinRequestHandler
+    ChosenInlineResultHandler, ChatMemberUpdatedHandler, ChatJoinRequestHandler,
+    StoryHandler, ChatBoostHandler, BusinessConnectionHandler
 )
 from pyrogram.raw.types import (
     UpdateNewMessage, UpdateNewChannelMessage, UpdateNewScheduledMessage,
@@ -35,23 +36,36 @@ from pyrogram.raw.types import (
     UpdateBotCallbackQuery, UpdateInlineBotCallbackQuery,
     UpdateUserStatus, UpdateBotInlineQuery, UpdateMessagePoll,
     UpdateBotInlineSend, UpdateChatParticipant, UpdateChannelParticipant,
-    UpdateBotChatInviteRequester
+    UpdateBotChatInviteRequester, UpdateStory, UpdateBotNewBusinessMessage,
+    UpdateBotEditBusinessMessage, UpdateBotDeleteBusinessMessage,
+    UpdateBotChatBoost, UpdateBotBusinessConnect, UpdateBusinessBotCallbackQuery,
+    UpdateReadMonoForumInbox, UpdateReadMonoForumOutbox, UpdateMonoForumNoPaidException,
+    UpdateTranscribeAudio, UpdateEmojiGameInfo, UpdateStarGiftAuctionState,
+    UpdateStarGiftAuctionUserState, UpdateStarGiftCraftFail, UpdateQuickReplies,
+    UpdateNewQuickReply, UpdateDeleteQuickReply, UpdateQuickReplyMessage,
+    UpdateDeleteQuickReplyMessages, UpdateSavedDialogPinned, UpdatePinnedSavedDialogs,
+    UpdateSavedReactionTags, UpdateReadStories, UpdateStoryID, UpdateStoriesStealthMode,
+    UpdateSentStoryReaction, UpdateNewStoryReaction, UpdateStarsBalance,
+    UpdateStarsRevenueStatus, UpdateBotPurchasedPaidMedia, UpdatePaidReactionPrivacy
 )
 
 log = logging.getLogger(__name__)
 
 
 class Dispatcher:
-    NEW_MESSAGE_UPDATES = (UpdateNewMessage, UpdateNewChannelMessage, UpdateNewScheduledMessage)
-    EDIT_MESSAGE_UPDATES = (UpdateEditMessage, UpdateEditChannelMessage)
-    DELETE_MESSAGES_UPDATES = (UpdateDeleteMessages, UpdateDeleteChannelMessages)
-    CALLBACK_QUERY_UPDATES = (UpdateBotCallbackQuery, UpdateInlineBotCallbackQuery)
+    NEW_MESSAGE_UPDATES = (UpdateNewMessage, UpdateNewChannelMessage, UpdateNewScheduledMessage, UpdateBotNewBusinessMessage)
+    EDIT_MESSAGE_UPDATES = (UpdateEditMessage, UpdateEditChannelMessage, UpdateBotEditBusinessMessage)
+    DELETE_MESSAGES_UPDATES = (UpdateDeleteMessages, UpdateDeleteChannelMessages, UpdateBotDeleteBusinessMessage)
+    CALLBACK_QUERY_UPDATES = (UpdateBotCallbackQuery, UpdateInlineBotCallbackQuery, UpdateBusinessBotCallbackQuery)
     CHAT_MEMBER_UPDATES = (UpdateChatParticipant, UpdateChannelParticipant)
     USER_STATUS_UPDATES = (UpdateUserStatus,)
     BOT_INLINE_QUERY_UPDATES = (UpdateBotInlineQuery,)
     POLL_UPDATES = (UpdateMessagePoll,)
     CHOSEN_INLINE_RESULT_UPDATES = (UpdateBotInlineSend,)
     CHAT_JOIN_REQUEST_UPDATES = (UpdateBotChatInviteRequester,)
+    STORY_UPDATES = (UpdateStory,)
+    CHAT_BOOST_UPDATES = (UpdateBotChatBoost,)
+    BUSINESS_CONNECTION_UPDATES = (UpdateBotBusinessConnect,)
 
     def __init__(self, client: "pyrogram.Client"):
         self.client = client
@@ -127,6 +141,27 @@ class Dispatcher:
                 ChatJoinRequestHandler
             )
 
+        async def story_parser(update, users, chats):
+            from pyrogram.raw.types import StoryItem
+            if isinstance(update.story, StoryItem):
+                return (
+                    await pyrogram.types.StoryItem._parse(self.client, update.story, users, chats, update.peer),
+                    StoryHandler
+                )
+            return (None, type(None))
+
+        async def chat_boost_parser(update, users, chats):
+            return (
+                await pyrogram.types.ChatBoostUpdated._parse(self.client, update, users, chats),
+                ChatBoostHandler
+            )
+
+        async def business_connection_parser(update, users, chats):
+            return (
+                await pyrogram.types.BusinessConnection._parse(self.client, update.connection),
+                BusinessConnectionHandler
+            )
+
         self.update_parsers = {
             Dispatcher.NEW_MESSAGE_UPDATES: message_parser,
             Dispatcher.EDIT_MESSAGE_UPDATES: edited_message_parser,
@@ -137,7 +172,10 @@ class Dispatcher:
             Dispatcher.POLL_UPDATES: poll_parser,
             Dispatcher.CHOSEN_INLINE_RESULT_UPDATES: chosen_inline_result_parser,
             Dispatcher.CHAT_MEMBER_UPDATES: chat_member_updated_parser,
-            Dispatcher.CHAT_JOIN_REQUEST_UPDATES: chat_join_request_parser
+            Dispatcher.CHAT_JOIN_REQUEST_UPDATES: chat_join_request_parser,
+            Dispatcher.STORY_UPDATES: story_parser,
+            Dispatcher.CHAT_BOOST_UPDATES: chat_boost_parser,
+            Dispatcher.BUSINESS_CONNECTION_UPDATES: business_connection_parser
         }
 
         self.update_parsers = {key: value for key_tuple, value in self.update_parsers.items() for key in key_tuple}

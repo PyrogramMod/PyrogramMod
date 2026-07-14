@@ -82,6 +82,12 @@ class WebPage(Object):
 
         author (``str``, *optional*):
             Author of the webpage, eg the Twitter user for a tweet, or the author in an article.
+
+        has_large_media (``bool``, *optional*):
+            True, if the webpage has a large media.
+
+        video_cover_photo (:obj:`~pyrogram.types.Photo`, *optional*):
+             Webpage preview video cover photo.
     """
 
     def __init__(
@@ -105,7 +111,9 @@ class WebPage(Object):
         embed_width: int = None,
         embed_height: int = None,
         duration: int = None,
-        author: str = None
+        author: str = None,
+        has_large_media: bool = None,
+        video_cover_photo: "types.Photo" = None
     ):
         super().__init__(client)
 
@@ -127,9 +135,14 @@ class WebPage(Object):
         self.embed_height = embed_height
         self.duration = duration
         self.author = author
+        self.has_large_media = has_large_media
+        self.video_cover_photo = video_cover_photo
 
     @staticmethod
     def _parse(client, webpage: "raw.types.WebPage") -> "WebPage":
+        if isinstance(webpage, raw.types.WebPageUrlPending):
+            return None
+
         audio = None
         document = None
         photo = None
@@ -183,5 +196,7 @@ class WebPage(Object):
             embed_width=webpage.embed_width,
             embed_height=webpage.embed_height,
             duration=webpage.duration,
-            author=webpage.author
+            author=webpage.author,
+            has_large_media=getattr(webpage, "has_large_media", None),
+            video_cover_photo=types.Photo._parse(client, getattr(webpage, "video_cover_photo", None))
         )

@@ -149,6 +149,19 @@ Meta
     topics/test-servers
     topics/advanced-usage
     topics/voice-calls
+    topics/stories
+    topics/telegram-stars
+    topics/star-gifts
+    topics/business-features
+    topics/boosts-and-giveaways
+    topics/todo-lists
+    topics/saved-messages
+    topics/conference-calls
+    topics/monoforum
+    topics/suggested-posts
+    topics/privacy-settings
+    topics/keyboard-styles
+    topics/miscellaneous
 
 .. toctree::
     :hidden:

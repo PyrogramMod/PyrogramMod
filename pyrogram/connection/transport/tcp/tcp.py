@@ -53,7 +53,6 @@ class TCP:
         self.writer: Optional[asyncio.StreamWriter] = None
 
         self.lock = asyncio.Lock()
-        self.loop = asyncio.get_event_loop()
 
     async def _connect_via_proxy(
         self,
@@ -91,7 +90,7 @@ class TCP:
         )
         sock.settimeout(TCP.TIMEOUT)
 
-        await self.loop.sock_connect(
+        await asyncio.get_running_loop().sock_connect(
             sock=sock,
             address=destination
         )

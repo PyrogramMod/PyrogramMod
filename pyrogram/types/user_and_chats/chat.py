@@ -142,6 +142,102 @@ class Chat(Object):
         usernames (List of :obj:`~pyrogram.types.Username`, *optional*):
             The list of chat's collectible (and basic) usernames if availables.
 
+        admin_privileges (:obj:`~pyrogram.types.ChatPrivileges`, *optional*):
+            Administrator rights available to the current user in this chat.
+
+        stories_hidden (``bool``, *optional*):
+            True, if stories from this chat are hidden for the current user.
+
+        stories_hidden_min (``bool``, *optional*):
+            True, if the chat only shows the minimum number of stories.
+
+        stories_unavailable (``bool``, *optional*):
+            True, if stories from this chat are currently unavailable.
+
+        signature_profiles (``bool``, *optional*):
+            True, if signature profiles are enabled for this chat.
+
+        autotranslation (``bool``, *optional*):
+            True, if automatic translation is enabled for this chat.
+
+        broadcast_messages_allowed (``bool``, *optional*):
+            True, if broadcast messages are allowed in this chat.
+
+        monoforum (``bool``, *optional*):
+            True, if this chat is a monoforum instance.
+
+        forum_tabs (``bool``, *optional*):
+            True, if forum tabs are enabled for this chat.
+
+        stories_max_id (``int``, *optional*):
+            Identifier of the most recent story viewed in this chat.
+
+        color (:obj:`~pyrogram.types.PeerColor`, *optional*):
+            Accent color information associated with the chat.
+
+        profile_color (:obj:`~pyrogram.types.PeerColor`, *optional*):
+            Profile color information associated with the chat.
+
+        emoji_status (:obj:`~pyrogram.types.EmojiStatus`, *optional*):
+            Emoji status attached to the chat.
+
+        access_hash (``int``, *optional*):
+            Access hash required for MTProto requests involving this chat.
+
+        level (``int``, *optional*):
+            Current chat level, if available.
+
+        subscription_until_date (:py:obj:`~datetime.datetime`, *optional*):
+            Expiration date of an active subscription for this chat.
+
+        bot_verification_icon (``int``, *optional*):
+            Identifier of the bot verification icon associated with this chat.
+
+        send_paid_messages_stars (``int``, *optional*):
+            Number of Stars required to send paid messages in the chat.
+
+        linked_monoforum_id (``int``, *optional*):
+            Identifier of the linked monoforum, if any.
+
+        restriction_reason (List of :obj:`~pyrogram.types.Restriction`, *optional*):
+            Reasons why access to this chat may be restricted.
+
+        wallpaper (:obj:`~pyrogram.types.Wallpaper`, *optional*):
+            Wallpaper of the chat.
+
+        birthday (:obj:`~pyrogram.types.Birthday`, *optional*):
+            Birthday of the user.
+
+        business_intro (:obj:`~pyrogram.types.BusinessIntro`, *optional*):
+            Business introduction.
+
+        business_location (:obj:`~pyrogram.types.BusinessLocation`, *optional*):
+            Business location.
+
+        business_work_hours (:obj:`~pyrogram.types.BusinessWorkHours`, *optional*):
+            Business work hours.
+
+        business_greeting_message (:obj:`~pyrogram.types.BusinessGreetingMessage`, *optional*):
+            Business greeting message.
+
+        business_away_message (:obj:`~pyrogram.types.BusinessAwayMessage`, *optional*):
+            Business away message.
+
+        personal_chat (:obj:`~pyrogram.types.Chat`, *optional*):
+            Personal channel of the user.
+
+        stargifts_count (``int``, *optional*):
+            Number of Star Gifts.
+
+        boosts_applied (``int``, *optional*):
+            Number of boosts applied.
+
+        unrestrict_boost_count (``int``, *optional*):
+            Number of boosts required to unrestrict.
+
+        is_contact_require_premium (``bool``, *optional*):
+            True, if the user requires premium to contact.
+
         full_name (``str``, *property*):
             Full name of the other party in a private chat, for private chats and bots.
     """
@@ -182,6 +278,38 @@ class Chat(Object):
         has_visible_history: bool = None,
         has_hidden_members: bool = None,
         is_forum: bool = None,
+        admin_privileges: "types.ChatPrivileges" = None,
+        stories_hidden: bool = None,
+        stories_hidden_min: bool = None,
+        stories_unavailable: bool = None,
+        signature_profiles: bool = None,
+        autotranslation: bool = None,
+        broadcast_messages_allowed: bool = None,
+        monoforum: bool = None,
+        forum_tabs: bool = None,
+        stories_max_id: int = None,
+        color: "types.PeerColor" = None,
+        profile_color: "types.PeerColor" = None,
+        emoji_status: "types.EmojiStatus" = None,
+        access_hash: int = None,
+        level: int = None,
+        subscription_until_date: datetime = None,
+        bot_verification_icon: int = None,
+        send_paid_messages_stars: int = None,
+        linked_monoforum_id: int = None,
+        restriction_reason: List["types.Restriction"] = None,
+        wallpaper: "types.Wallpaper" = None,
+        birthday: "types.Birthday" = None,
+        business_intro: "types.BusinessIntro" = None,
+        business_location: "types.BusinessLocation" = None,
+        business_work_hours: "types.BusinessWorkHours" = None,
+        business_greeting_message: "types.BusinessGreetingMessage" = None,
+        business_away_message: "types.BusinessAwayMessage" = None,
+        personal_chat: "types.Chat" = None,
+        stargifts_count: int = None,
+        boosts_applied: int = None,
+        unrestrict_boost_count: int = None,
+        is_contact_require_premium: bool = None,
     ):
         super().__init__(client)
 
@@ -217,6 +345,38 @@ class Chat(Object):
         self.has_visible_history = has_visible_history
         self.has_hidden_members = has_hidden_members
         self.is_forum = is_forum
+        self.admin_privileges = admin_privileges
+        self.stories_hidden = stories_hidden
+        self.stories_hidden_min = stories_hidden_min
+        self.stories_unavailable = stories_unavailable
+        self.signature_profiles = signature_profiles
+        self.autotranslation = autotranslation
+        self.broadcast_messages_allowed = broadcast_messages_allowed
+        self.monoforum = monoforum
+        self.forum_tabs = forum_tabs
+        self.stories_max_id = stories_max_id
+        self.color = color
+        self.profile_color = profile_color
+        self.emoji_status = emoji_status
+        self.access_hash = access_hash
+        self.level = level
+        self.subscription_until_date = subscription_until_date
+        self.bot_verification_icon = bot_verification_icon
+        self.send_paid_messages_stars = send_paid_messages_stars
+        self.linked_monoforum_id = linked_monoforum_id
+        self.restriction_reason = restriction_reason or restrictions
+        self.wallpaper = wallpaper
+        self.birthday = birthday
+        self.business_intro = business_intro
+        self.business_location = business_location
+        self.business_work_hours = business_work_hours
+        self.business_greeting_message = business_greeting_message
+        self.business_away_message = business_away_message
+        self.personal_chat = personal_chat
+        self.stargifts_count = stargifts_count
+        self.boosts_applied = boosts_applied
+        self.unrestrict_boost_count = unrestrict_boost_count
+        self.is_contact_require_premium = is_contact_require_premium
 
     @property
     def full_name(self) -> str:
@@ -225,6 +385,8 @@ class Chat(Object):
     @staticmethod
     def _parse_user_chat(client, user: raw.types.User) -> "Chat":
         peer_id = user.id
+
+        parsed_restrictions = types.List([types.Restriction._parse(r) for r in user.restriction_reason]) or None
 
         return Chat(
             id=peer_id,
@@ -238,9 +400,18 @@ class Chat(Object):
             first_name=user.first_name,
             last_name=user.last_name,
             photo=types.ChatPhoto._parse(client, user.photo, peer_id, user.access_hash),
-            restrictions=types.List([types.Restriction._parse(r) for r in user.restriction_reason]) or None,
+            restrictions=parsed_restrictions,
+            restriction_reason=parsed_restrictions,
             dc_id=getattr(getattr(user, "photo", None), "dc_id", None),
             usernames=types.List([types.Username._parse(r) for r in user.usernames]) or None,
+            stories_hidden=getattr(user, "stories_hidden", None),
+            stories_unavailable=getattr(user, "stories_unavailable", None),
+            stories_max_id=getattr(user, "stories_max_id", None),
+            color=types.PeerColor._parse(getattr(user, "color", None)),
+            profile_color=types.PeerColor._parse(getattr(user, "profile_color", None)),
+            emoji_status=types.EmojiStatus._parse(client, getattr(user, "emoji_status", None)),
+            access_hash=getattr(user, "access_hash", None),
+            is_contact_require_premium=getattr(user, "contact_require_premium", None),
             client=client
         )
 
@@ -248,6 +419,8 @@ class Chat(Object):
     def _parse_chat_chat(client, chat: raw.types.Chat) -> "Chat":
         peer_id = -chat.id
         usernames = getattr(chat, "usernames", [])
+
+        parsed_restrictions = types.List([types.Restriction._parse(r) for r in getattr(chat, "restriction_reason", [])]) or None
 
         return Chat(
             id=peer_id,
@@ -260,6 +433,21 @@ class Chat(Object):
             dc_id=getattr(getattr(chat, "photo", None), "dc_id", None),
             has_protected_content=getattr(chat, "noforwards", None),
             usernames=types.List([types.Username._parse(r) for r in usernames]) or None,
+            admin_privileges=types.ChatPrivileges._parse(getattr(chat, "admin_rights", None)),
+            stories_hidden=getattr(chat, "stories_hidden", None),
+            stories_hidden_min=getattr(chat, "stories_hidden_min", None),
+            stories_unavailable=getattr(chat, "stories_unavailable", None),
+            signature_profiles=getattr(chat, "signature_profiles", None),
+            autotranslation=getattr(chat, "autotranslation", None),
+            broadcast_messages_allowed=getattr(chat, "broadcast_messages_allowed", None),
+            monoforum=getattr(chat, "monoforum", None),
+            forum_tabs=getattr(chat, "forum_tabs", None),
+            stories_max_id=getattr(chat, "stories_max_id", None),
+            color=types.PeerColor._parse(getattr(chat, "color", None)),
+            profile_color=types.PeerColor._parse(getattr(chat, "profile_color", None)),
+            emoji_status=types.EmojiStatus._parse(client, getattr(chat, "emoji_status", None)),
+            access_hash=getattr(chat, "access_hash", None),
+            restriction_reason=parsed_restrictions,
             client=client
         )
 
@@ -268,6 +456,8 @@ class Chat(Object):
         peer_id = utils.get_channel_id(channel.id)
         restriction_reason = getattr(channel, "restriction_reason", [])
         usernames = getattr(channel, "usernames", [])
+
+        parsed_restrictions = types.List([types.Restriction._parse(r) for r in restriction_reason]) or None
 
         return Chat(
             id=peer_id,
@@ -281,14 +471,34 @@ class Chat(Object):
             username=getattr(channel, "username", None),
             photo=types.ChatPhoto._parse(client, getattr(channel, "photo", None), peer_id,
                                          getattr(channel, "access_hash", 0)),
-            restrictions=types.List([types.Restriction._parse(r) for r in restriction_reason]) or None,
+            restrictions=parsed_restrictions,
+            restriction_reason=parsed_restrictions,
             permissions=types.ChatPermissions._parse(getattr(channel, "default_banned_rights", None)),
             members_count=getattr(channel, "participants_count", None),
             dc_id=getattr(getattr(channel, "photo", None), "dc_id", None),
             has_protected_content=getattr(channel, "noforwards", None),
             usernames=types.List([types.Username._parse(r) for r in usernames]) or None,
+            admin_privileges=types.ChatPrivileges._parse(getattr(channel, "admin_rights", None)),
             client=client,
             is_forum=getattr(channel, "forum", None),
+            stories_hidden=getattr(channel, "stories_hidden", None),
+            stories_hidden_min=getattr(channel, "stories_hidden_min", None),
+            stories_unavailable=getattr(channel, "stories_unavailable", None),
+            signature_profiles=getattr(channel, "signature_profiles", None),
+            autotranslation=getattr(channel, "autotranslation", None),
+            broadcast_messages_allowed=getattr(channel, "broadcast_messages_allowed", None),
+            monoforum=getattr(channel, "monoforum", None),
+            forum_tabs=getattr(channel, "forum_tabs", None),
+            stories_max_id=getattr(channel, "stories_max_id", None),
+            color=types.PeerColor._parse(getattr(channel, "color", None)),
+            profile_color=types.PeerColor._parse(getattr(channel, "profile_color", None)),
+            emoji_status=types.EmojiStatus._parse(client, getattr(channel, "emoji_status", None)),
+            access_hash=getattr(channel, "access_hash", None),
+            level=getattr(channel, "level", None),
+            subscription_until_date=utils.timestamp_to_datetime(getattr(channel, "subscription_until_date", None)),
+            bot_verification_icon=getattr(channel, "bot_verification_icon", None),
+            send_paid_messages_stars=getattr(channel, "send_paid_messages_stars", None),
+            linked_monoforum_id=getattr(channel, "linked_monoforum_id", None)
         )
 
     @staticmethod
@@ -330,6 +540,22 @@ class Chat(Object):
 
             parsed_chat = Chat._parse_user_chat(client, users[full_user.id])
             parsed_chat.bio = full_user.about
+            parsed_chat.wallpaper = types.Wallpaper._parse(client, getattr(full_user, "wallpaper", None))
+            parsed_chat.birthday = types.Birthday._parse(client, getattr(full_user, "birthday", None))
+            parsed_chat.business_intro = types.BusinessIntro._parse(client, getattr(full_user, "business_intro", None))
+            parsed_chat.business_location = types.BusinessLocation._parse(client, getattr(full_user, "business_location", None))
+            parsed_chat.business_work_hours = types.BusinessWorkHours._parse(client, getattr(full_user, "business_work_hours", None))
+            parsed_chat.business_greeting_message = types.BusinessGreetingMessage._parse(client, getattr(full_user, "business_greeting_message", None))
+            parsed_chat.business_away_message = types.BusinessAwayMessage._parse(client, getattr(full_user, "business_away_message", None))
+            parsed_chat.stargifts_count = getattr(full_user, "stargifts_count", None)
+            parsed_chat.starref_program = types.StarRefProgram._parse(client, getattr(full_user, "starref_program", None))
+            parsed_chat.send_paid_messages_stars = getattr(full_user, "send_paid_messages_stars", None)
+            parsed_chat.disallowed_gifts = types.DisallowedGiftsSettings._parse(client, getattr(full_user, "disallowed_gifts", None))
+
+            if getattr(full_user, "personal_channel_id", None):
+                personal_channel = chats.get(full_user.personal_channel_id)
+                if personal_channel:
+                    parsed_chat.personal_chat = Chat._parse_channel_chat(client, personal_channel)
 
             if full_user.pinned_msg_id:
                 parsed_chat.pinned_message = await client.get_messages(
@@ -357,6 +583,45 @@ class Chat(Object):
                 # TODO: Add StickerSet type
                 parsed_chat.can_set_sticker_set = full_chat.can_set_stickers
                 parsed_chat.sticker_set_name = getattr(full_chat.stickerset, "short_name", None)
+                if getattr(full_chat, "admin_rights", None):
+                    parsed_chat.admin_privileges = types.ChatPrivileges._parse(full_chat.admin_rights)
+                parsed_chat.stories_hidden = getattr(full_chat, "stories_hidden", parsed_chat.stories_hidden)
+                parsed_chat.stories_hidden_min = getattr(full_chat, "stories_hidden_min", parsed_chat.stories_hidden_min)
+                parsed_chat.stories_unavailable = getattr(full_chat, "stories_unavailable", parsed_chat.stories_unavailable)
+                parsed_chat.signature_profiles = getattr(full_chat, "signature_profiles", parsed_chat.signature_profiles)
+                parsed_chat.autotranslation = getattr(full_chat, "autotranslation", parsed_chat.autotranslation)
+                parsed_chat.broadcast_messages_allowed = getattr(full_chat, "broadcast_messages_allowed", parsed_chat.broadcast_messages_allowed)
+                parsed_chat.monoforum = getattr(full_chat, "monoforum", parsed_chat.monoforum)
+                parsed_chat.forum_tabs = getattr(full_chat, "forum_tabs", parsed_chat.forum_tabs)
+                parsed_chat.stories_max_id = getattr(full_chat, "stories_max_id", parsed_chat.stories_max_id)
+                parsed_chat.color = types.PeerColor._parse(getattr(full_chat, "color", None)) or parsed_chat.color
+                parsed_chat.profile_color = types.PeerColor._parse(getattr(full_chat, "profile_color", None)) or parsed_chat.profile_color
+                parsed_chat.emoji_status = types.EmojiStatus._parse(client, getattr(full_chat, "emoji_status", None)) or parsed_chat.emoji_status
+                parsed_chat.level = getattr(full_chat, "level", parsed_chat.level)
+                parsed_chat.subscription_until_date = utils.timestamp_to_datetime(getattr(full_chat, "subscription_until_date", None)) or parsed_chat.subscription_until_date
+                parsed_chat.bot_verification_icon = getattr(full_chat, "bot_verification_icon", parsed_chat.bot_verification_icon)
+                parsed_chat.send_paid_messages_stars = getattr(full_chat, "send_paid_messages_stars", parsed_chat.send_paid_messages_stars)
+                parsed_chat.linked_monoforum_id = getattr(full_chat, "linked_monoforum_id", parsed_chat.linked_monoforum_id)
+                parsed_chat.wallpaper = types.Wallpaper._parse(client, getattr(full_chat, "wallpaper", None))
+                parsed_chat.boosts_applied = getattr(full_chat, "boosts_applied", parsed_chat.boosts_applied)
+                parsed_chat.unrestrict_boost_count = getattr(full_chat, "boosts_unrestrict", parsed_chat.unrestrict_boost_count)
+                parsed_chat.stargifts_count = getattr(full_chat, "stargifts_count", parsed_chat.stargifts_count)
+                parsed_chat.emojiset = types.StickerSet._parse(client, getattr(full_chat, "emojiset", None))
+            if getattr(full_chat, "default_banned_rights", None):
+                parsed_chat.permissions = types.ChatPermissions._parse(full_chat.default_banned_rights)
+            if getattr(full_chat, "banned_rights", None):
+                parsed_chat.permissions = types.ChatPermissions._parse(full_chat.banned_rights)
+            if getattr(full_chat, "admin_rights", None):
+                parsed_chat.admin_privileges = types.ChatPrivileges._parse(full_chat.admin_rights)
+
+            full_restrictions = types.List([
+                types.Restriction._parse(r)
+                for r in getattr(full_chat, "restriction_reason", [])
+            ]) or None
+
+            if full_restrictions:
+                parsed_chat.restrictions = full_restrictions
+                parsed_chat.restriction_reason = full_restrictions
 
                 linked_chat_raw = chats.get(full_chat.linked_chat_id, None)
 

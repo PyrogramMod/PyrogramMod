@@ -120,6 +120,84 @@ Authorization
 
     {authorization}
 
+Stories
+-------
+
+.. autosummary::
+    :nosignatures:
+
+    {stories}
+
+.. toctree::
+    :hidden:
+
+    {stories}
+
+Payments
+--------
+
+.. autosummary::
+    :nosignatures:
+
+    {payments}
+
+.. toctree::
+    :hidden:
+
+    {payments}
+
+Star Gifts
+----------
+
+.. autosummary::
+    :nosignatures:
+
+    {star_gifts}
+
+.. toctree::
+    :hidden:
+
+    {star_gifts}
+
+Business
+--------
+
+.. autosummary::
+    :nosignatures:
+
+    {business}
+
+.. toctree::
+    :hidden:
+
+    {business}
+
+Boosts
+------
+
+.. autosummary::
+    :nosignatures:
+
+    {boosts}
+
+.. toctree::
+    :hidden:
+
+    {boosts}
+
+Saved Messages
+--------------
+
+.. autosummary::
+    :nosignatures:
+
+    {saved_messages}
+
+.. toctree::
+    :hidden:
+
+    {saved_messages}
+
 .. toctree::
     :hidden:
 

@@ -42,6 +42,9 @@ Index
     - :class:`PollHandler`
     - :class:`DisconnectHandler`
     - :class:`RawUpdateHandler`
+    - :class:`StoryHandler`
+    - :class:`ChatBoostHandler`
+    - :class:`BusinessConnectionHandler`
 
 -----
 
@@ -60,3 +63,6 @@ Details
 .. autoclass:: PollHandler()
 .. autoclass:: DisconnectHandler()
 .. autoclass:: RawUpdateHandler()
+.. autoclass:: StoryHandler()
+.. autoclass:: ChatBoostHandler()
+.. autoclass:: BusinessConnectionHandler()

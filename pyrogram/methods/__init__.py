@@ -18,13 +18,18 @@
 
 from .advanced import Advanced
 from .auth import Auth
+from .boosts import Boosts
 from .bots import Bots
+from .business import Business
 from .chats import Chats
 from .contacts import Contacts
 from .decorators import Decorators
 from .invite_links import InviteLinks
 from .messages import Messages
 from .password import Password
+from .payments import Payments
+from .stories import Stories
+from .todo import Todo
 from .users import Users
 from .utilities import Utilities
 
@@ -32,7 +37,9 @@ from .utilities import Utilities
 class Methods(
     Advanced,
     Auth,
+    Boosts,
     Bots,
+    Business,
     Contacts,
     Password,
     Chats,
@@ -41,5 +48,8 @@ class Methods(
     Decorators,
     Utilities,
     InviteLinks,
+    Payments,
+    Stories,
+    Todo,
 ):
     pass
