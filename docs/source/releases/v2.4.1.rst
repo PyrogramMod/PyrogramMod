@@ -1,4 +1,4 @@
-PyrogramMod v2.4.0
+PyrogramMod v2.4.1
 ==================
 
 *Layer 228, Communities, Ephemeral Messages, Rich Messages, Guard Bot and more*
