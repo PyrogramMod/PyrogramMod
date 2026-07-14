@@ -64,22 +64,34 @@ class SetChatPermissions:
                 )
         """
 
+        def _deny(val):
+            return not val if val is not None else None
+
         r = await self.invoke(
             raw.functions.messages.EditChatDefaultBannedRights(
                 peer=await self.resolve_peer(chat_id),
                 banned_rights=raw.types.ChatBannedRights(
                     until_date=0,
-                    send_messages=not permissions.can_send_messages,
-                    send_media=not permissions.can_send_media_messages,
-                    send_stickers=not permissions.can_send_other_messages,
-                    send_gifs=not permissions.can_send_other_messages,
-                    send_games=not permissions.can_send_other_messages,
-                    send_inline=not permissions.can_send_other_messages,
-                    embed_links=not permissions.can_add_web_page_previews,
-                    send_polls=not permissions.can_send_polls,
-                    change_info=not permissions.can_change_info,
-                    invite_users=not permissions.can_invite_users,
-                    pin_messages=not permissions.can_pin_messages,
+                    send_messages=_deny(permissions.can_send_messages),
+                    send_media=_deny(permissions.can_send_media_messages),
+                    send_stickers=_deny(permissions.can_send_other_messages),
+                    send_gifs=_deny(permissions.can_send_other_messages),
+                    send_games=_deny(permissions.can_send_other_messages),
+                    send_inline=_deny(permissions.can_send_other_messages),
+                    embed_links=_deny(permissions.can_add_web_page_previews),
+                    send_polls=_deny(permissions.can_send_polls),
+                    change_info=_deny(permissions.can_change_info),
+                    invite_users=_deny(permissions.can_invite_users),
+                    pin_messages=_deny(permissions.can_pin_messages),
+                    manage_topics=_deny(permissions.can_manage_topics),
+                    send_photos=_deny(permissions.can_send_photos),
+                    send_videos=_deny(permissions.can_send_videos),
+                    send_roundvideos=_deny(permissions.can_send_video_notes),
+                    send_audios=_deny(permissions.can_send_audios),
+                    send_voices=_deny(permissions.can_send_voice_notes),
+                    send_docs=_deny(permissions.can_send_documents),
+                    send_plain=_deny(permissions.can_send_plain_text),
+                    send_reactions=_deny(permissions.can_send_reactions),
                 )
             )
         )

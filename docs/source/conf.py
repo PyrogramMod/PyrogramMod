@@ -64,7 +64,7 @@ html_theme_options = {
     "footer_icons": [
         {
             "name": "Telegram Channel",
-            "url": "https://t.me/PyrogramModNews/",
+            "url": "https://telegram.me/PyrogramModNews/",
             "html": (
                 '<svg stroke="currentColor" fill="currentColor" stroke-width="0" '
                 'viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">'

@@ -18,6 +18,7 @@
 
 from .alternative_video import AlternativeVideo
 from .animation import Animation
+from .input_rich_message import InputRichMessage
 from .audio import Audio
 from .contact import Contact
 from .dice import Dice
@@ -27,6 +28,10 @@ from .giveaway import Giveaway
 from .location import Location
 from .message import Message
 from .message_entity import MessageEntity
+from .poll_link import PollLink
+from .rich_block import RichBlock, RichBlockTableCell
+from .rich_message import RichMessage
+from .rich_text import RichText
 from .photo import Photo
 from .poll import Poll
 from .poll_option import PollOption
@@ -41,10 +46,14 @@ from .video_note import VideoNote
 from .voice import Voice
 from .web_app_data import WebAppData
 from .web_page import WebPage
+from .link_preview_options import LinkPreviewOptions
 from .message_reactions import MessageReactions
+from .star_gift import StarGift, StarGiftUnique
 
 __all__ = [
     "Animation", "Audio", "Contact", "Document", "Game", "Location", "Message", "MessageEntity", "Photo", "Thumbnail",
-    "StrippedThumbnail", "Poll", "PollOption", "Sticker", "Venue", "Video", "VideoNote", "Voice", "WebPage", "Dice",
-    "Reaction", "WebAppData", "MessageReactions", "Story", "Giveaway", "AlternativeVideo"
+    "StrippedThumbnail", "Poll", "PollLink", "PollOption", "Sticker", "Venue", "Video", "VideoNote", "Voice",
+    "WebPage", "LinkPreviewOptions", "Dice", "Reaction", "WebAppData", "MessageReactions", "Story", "Giveaway", "AlternativeVideo",
+    "StarGift", "StarGiftUnique",
+    "InputRichMessage", "RichBlock", "RichBlockTableCell", "RichMessage", "RichText",
 ]

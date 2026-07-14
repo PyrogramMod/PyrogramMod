@@ -1,0 +1,14 @@
+PyrogramMod v2.1.3
+==================
+
+*Session stability, reaction fixes*
+
+Bug Fixes
+---------
+
+- Fixed reaction parsing (``iabw`` case).
+- Fixed ``save_file`` when ``client.me`` is ``None``.
+- Fixed ``reaction count`` returning ``None``.
+- Extracted gap recovery into a separate method.
+- Ignore ``PersistentTimestamp`` errors.
+- Fixed ``private`` filter support in :obj:`~pyrogram.types.CallbackQuery`.

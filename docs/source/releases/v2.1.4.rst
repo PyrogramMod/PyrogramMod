@@ -1,0 +1,9 @@
+PyrogramMod v2.1.4
+==================
+
+*save_files fixes*
+
+Bug Fixes
+---------
+
+- Fixed ``save_files`` edge cases.

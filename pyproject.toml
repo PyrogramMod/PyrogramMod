@@ -7,7 +7,7 @@ name = "pyrogrammod"
 description = "Modified version of the Pyrogram Telegram MTProto API framework in Python for users and bots."
 readme = "README.md"
 license = { text = "LGPL-3.0-or-GPL-3.0" }
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 authors = [
     { name = "Dan (original author)" },
     { name = "PyrogramMod (Fork Maintainer)" }
@@ -29,7 +29,6 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -65,7 +64,7 @@ py_tgcalls = [
 [project.urls]
 Homepage = "https://pyrogrammod.readthedocs.io"
 Tracker = "https://github.com/PyrogramMod/PyrogramMod/issues"
-Community = "https://t.me/pyrogramodchat"
+Community = "https://telegram.me/pyrogramodchat"
 Source = "https://github.com/PyrogramMod/PyrogramMod"
 Documentation = "https://pyrogrammod.readthedocs.io"
 

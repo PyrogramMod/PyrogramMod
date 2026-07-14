@@ -14,33 +14,29 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v3
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: '3.9'
+          python-version: "3.10"
 
       - name: Install Python dependencies and run scripts
         run: |
-          set -e # Exit immediately if a command exits with a non-zero status
-          echo "-------------------- Installing dependencies --------------------"
-          cd compiler/errors/
-          python -m pip install --upgrade pip setuptools wheel
-          python -m pip install requests==2.28.1
+          set -e
           echo "-------------------- Running scrape script --------------------"
-          python sort.py scrape
+          uv run --with requests compiler/errors/sort.py scrape
           echo "-------------------- Running sort script --------------------"
-          python sort.py sort
+          uv run --with requests compiler/errors/sort.py sort
 
       - name: Check for changes and commit
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Actions Bot"
 
-          if ! git diff --quiet; then # Check if there are any changes
+          if ! git diff --quiet; then
             echo "Changes detected in error files."
             git add .
             git commit -m "Automated update of unknown_errors"

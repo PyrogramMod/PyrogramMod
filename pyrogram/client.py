@@ -48,12 +48,12 @@ from pyrogram.errors import CDNFileHashMismatch, AuthBytesInvalid, ChannelInvali
 from pyrogram.errors import (
     SessionPasswordNeeded,
     VolumeLocNotFound, ChannelPrivate,
-    BadRequest, 
+    BadRequest,
     AuthBytesInvalid,
-    FloodWait, 
+    FloodWait,
     FloodPremiumWait,
-    ChannelInvalid, 
-    PersistentTimestampInvalid, 
+    ChannelInvalid,
+    PersistentTimestampInvalid,
     PersistentTimestampOutdated
 )
 from pyrogram.handlers.handler import Handler
@@ -202,6 +202,14 @@ class Client(Methods):
             Set the maximum amount of concurrent transmissions (uploads & downloads).
             A value that is too high may result in network related issues.
             Defaults to 1.
+
+        use_experimental_upload_boost (``bool``, *optional*):
+            If True, uploads multiple file parts in parallel instead of sequentially.
+            May significantly increase upload speed on fast connections. Defaults to False.
+
+        use_experimental_download_boost (``bool``, *optional*):
+            If True, downloads multiple file chunks in parallel instead of sequentially.
+            May significantly increase download speed on fast connections. Defaults to False.
     """
 
     APP_VERSION = f"PyrogramMod {__version__}"
@@ -257,7 +265,9 @@ class Client(Methods):
         hide_password: bool = False,
         max_concurrent_transmissions: int = MAX_CONCURRENT_TRANSMISSIONS,
         connection_factory: Type[Connection] = Connection,
-        protocol_factory: Type[TCP] = TCPAbridged
+        protocol_factory: Type[TCP] = TCPAbridged,
+        use_experimental_upload_boost: bool = False,
+        use_experimental_download_boost: bool = False
     ):
         super().__init__()
 
@@ -289,6 +299,8 @@ class Client(Methods):
         self.max_concurrent_transmissions = max_concurrent_transmissions
         self.connection_factory = connection_factory
         self.protocol_factory = protocol_factory
+        self.use_experimental_upload_boost = use_experimental_upload_boost
+        self.use_experimental_download_boost = use_experimental_download_boost
         self.executor = ThreadPoolExecutor(self.workers, thread_name_prefix="Handler")
 
         if self.session_string:
@@ -330,7 +342,7 @@ class Client(Methods):
         self.updates_watchdog_event = asyncio.Event()
         self.last_update_time = datetime.now()
 
-        self.loop = asyncio.get_event_loop()
+        self.loop = None
         self.config_file = config_file
 
     def __enter__(self):
@@ -1018,8 +1030,11 @@ class Client(Methods):
         progress_args: tuple = (),
         workers: int = 4,
         chunk_size: int = 1024 * 1024,
-        use_experimental_download_boost: bool = False
+        use_experimental_download_boost: bool = None
     ) -> AsyncGenerator[bytes, None]:
+        if use_experimental_download_boost is None:
+            use_experimental_download_boost = getattr(self, "use_experimental_download_boost", False)
+
         async with self.get_file_semaphore:
             file_type = file_id.file_type
 

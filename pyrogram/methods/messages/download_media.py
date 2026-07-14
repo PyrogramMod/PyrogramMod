@@ -37,7 +37,7 @@ class DownloadMedia:
         block: bool = True,
         workers: int = 4,
         chunk_size: int = 1024 * 1024,
-        use_experimental_download_boost: bool = False,
+        use_experimental_download_boost: bool = None,
         progress: Callable = None,
         progress_args: tuple = ()
     ) -> Optional[Union[str, BinaryIO]]:

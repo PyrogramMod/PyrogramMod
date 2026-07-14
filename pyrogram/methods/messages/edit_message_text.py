@@ -29,11 +29,13 @@ class EditMessageText:
         self: "pyrogram.Client",
         chat_id: Union[int, str],
         message_id: int,
-        text: str,
+        text: str = "",
         parse_mode: Optional["enums.ParseMode"] = None,
         entities: List["types.MessageEntity"] = None,
         disable_web_page_preview: bool = None,
-        reply_markup: "types.InlineKeyboardMarkup" = None
+        link_preview_options: "types.LinkPreviewOptions" = None,
+        reply_markup: "types.InlineKeyboardMarkup" = None,
+        rich_message: Optional["types.InputRichMessage"] = None,
     ) -> "types.Message":
         """Edit the text of messages.
 
@@ -61,8 +63,14 @@ class EditMessageText:
             disable_web_page_preview (``bool``, *optional*):
                 Disables link previews for links in this message.
 
+            link_preview_options (:obj:`~pyrogram.types.LinkPreviewOptions`, *optional*):
+                Link preview generation options. Overrides ``disable_web_page_preview`` if set.
+
             reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
                 An InlineKeyboardMarkup object.
+
+            rich_message (:obj:`~pyrogram.types.InputRichMessage`, *optional*):
+                Replace the message with a rich formatted message.
 
         Returns:
             :obj:`~pyrogram.types.Message`: On success, the edited message is returned.
@@ -77,14 +85,33 @@ class EditMessageText:
                 await app.edit_message_text(
                     chat_id, message_id, message.text,
                     disable_web_page_preview=True)
+
+                # Using LinkPreviewOptions
+                from pyrogram.types import LinkPreviewOptions
+                await app.edit_message_text(
+                    chat_id, message_id, message.text,
+                    link_preview_options=LinkPreviewOptions(is_disabled=True))
+
+                await app.edit_message_text(
+                    chat_id, message_id, message.text,
+                    link_preview_options=LinkPreviewOptions(show_above_text=True))
         """
+
+        if link_preview_options is not None:
+            no_webpage = link_preview_options.is_disabled or None
+            invert_media = link_preview_options.show_above_text or None
+        else:
+            no_webpage = disable_web_page_preview or None
+            invert_media = None
 
         r = await self.invoke(
             raw.functions.messages.EditMessage(
                 peer=await self.resolve_peer(chat_id),
                 id=message_id,
-                no_webpage=disable_web_page_preview or None,
+                no_webpage=no_webpage,
+                invert_media=invert_media,
                 reply_markup=await reply_markup.write(self) if reply_markup else None,
+                rich_message=rich_message.write() if rich_message else None,
                 **await utils.parse_text_entities(self, text, parse_mode, entities)
             )
         )

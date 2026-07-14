@@ -1,0 +1,17 @@
+PyrogramMod v2.2.0
+==================
+
+*Layers 195–203, EmojiStatusUntil fix, reaction fixes*
+
+Layer Updates
+-------------
+
+Updated API schema through layers 195, 196, 199, 200, 201, 202, 203.
+
+Bug Fixes
+---------
+
+- Fixed ``AttributeError: module 'pyrogram.raw.types' has no attribute 'EmojiStatusUntil'``.
+- Fixed reaction parsing.
+- Fixed type hinting on raw methods.
+- Improved error scraping workflow.

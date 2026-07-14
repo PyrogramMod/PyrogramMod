@@ -22,7 +22,7 @@ Welcome to PyrogramMod
             Development
         </a>
         •
-        <a href="https://t.me/pyrogramodchat">
+        <a href="https://telegram.me/pyrogramodchat">
             News
         </a>
     </p>
@@ -48,11 +48,9 @@ It enables you to easily interact with the main Telegram API through a user acco
 Support
 -------
 
-If you'd like to support Pyrogram, you can consider:
+If you'd like to support PyrogramMod, you can consider:
 
-- `Become a GitHub sponsor <https://github.com/sponsors/delivrance>`_.
-- `Become a LiberaPay patron <https://liberapay.com/delivrance>`_.
-- `Become an OpenCollective backer <https://opencollective.com/pyrogram>`_.
+- `Recharge VoIP via @VoIPStoreBot (10% discount with referral) <https://telegram.me/VoIPStoreBot?start=PYRO>`_.
 
 How the Documentation is Organized
 ----------------------------------
@@ -149,6 +147,12 @@ Meta
     topics/test-servers
     topics/advanced-usage
     topics/voice-calls
+
+.. toctree::
+    :hidden:
+    :caption: Release Notes
+
+    releases/index
 
 .. toctree::
     :hidden:

@@ -1,0 +1,44 @@
+PyrogramMod v2.2.1
+==================
+
+*Layers 188–203, PyPI Publishing, config.ini, Session Refactor and more*
+
+Layer Updates
+-------------
+
+Updated API schema through layers 188, 189, 190, 192, 193, 194, 195, 196, 199, 200, 201,
+202, 203.
+
+New Features
+------------
+
+- Added support for ``config.ini`` configuration files.
+- :meth:`~pyrogram.Client.alternative_videos` field added to :obj:`~pyrogram.types.Message`.
+- Automated error scraping workflow (``scrape-errors.yml``).
+- ``private`` filter support in :obj:`~pyrogram.types.CallbackQuery`.
+
+Session & Stability
+-------------------
+
+- Refactored session reconnect: replaced recursion with loop and added exponential backoff.
+- Extracted gap recovery into a separate method.
+- Ignore ``PersistentTimestamp`` errors.
+- Attempt fix for ``OSError: unable to perform operation on <TCPTransport closed=True>``.
+
+Bug Fixes
+---------
+
+- Fixed ``AttributeError: module 'pyrogram.raw.types' has no attribute 'EmojiStatusUntil'``.
+- Fixed reaction count returning ``None``.
+- Fixed ``save_file`` when ``client.me`` is ``None``.
+- Fixed ``save_files`` edge cases.
+- Fixed type hinting on raw methods.
+- Fixed reaction parsing (``iabw`` case).
+- Fixed ``pyproject.toml`` / PyPI publish workflow.
+- Improved ``config.ini`` loading and error handling for missing config file.
+
+Build
+-----
+
+- First PyPI publish: package now available as ``pyrogrammod`` on PyPI.
+- Improved ``README.md`` and documentation links.

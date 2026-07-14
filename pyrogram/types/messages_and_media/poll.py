@@ -140,6 +140,7 @@ class Poll(Object, Update):
                     text=answer.text,
                     voter_count=voter_count,
                     data=answer.option,
+                    link=types.PollLink._parse(client, answer.media) if getattr(answer, "media", None) else None,
                     client=client
                 )
             )

@@ -49,6 +49,7 @@ from .set_administrator_title import SetAdministratorTitle
 from .set_chat_description import SetChatDescription
 from .set_chat_permissions import SetChatPermissions
 from .set_chat_photo import SetChatPhoto
+from .set_chat_guard_bot import SetChatGuardBot
 from .set_chat_protected_content import SetChatProtectedContent
 from .set_chat_reactions import SetChatReaction
 from .set_chat_title import SetChatTitle
@@ -59,6 +60,7 @@ from .unarchive_chats import UnarchiveChats
 from .unban_chat_member import UnbanChatMember
 from .unpin_all_chat_messages import UnpinAllChatMessages
 from .unpin_chat_message import UnpinChatMessage
+from .toggle_direct_messages import ToggleDirectMessages
 
 
 class Chats(
@@ -102,8 +104,10 @@ class Chats(
     GetSendAsChats,
     SetSendAsChat,
     SetChatReaction,
+    SetChatGuardBot,
     SetChatProtectedContent,
     CreateGroupCall,
-    GetGroupCallStreamChannels
+    GetGroupCallStreamChannels,
+    ToggleDirectMessages,
 ):
     pass

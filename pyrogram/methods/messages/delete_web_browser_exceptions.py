@@ -14,7 +14,29 @@
 #  GNU Lesser General Public License for more details.
 #
 #  You should have received a copy of the GNU Lesser General Public License
-#  along with Pyrogram.  If not, see <https://www.gnu.org/licenses/>.
+#  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from setuptools import setup
-setup()
+import pyrogram
+from pyrogram import raw
+
+
+class DeleteWebBrowserExceptions:
+    async def delete_web_browser_exceptions(
+        self: "pyrogram.Client"
+    ) -> "raw.base.WebBrowserSettings":
+        """Delete all in-app web browser domain exceptions.
+
+        .. include:: /_includes/usable-by/users.rst
+
+        Returns:
+            :obj:`~pyrogram.raw.types.WebBrowserSettings`: Updated settings with empty exceptions.
+
+        Example:
+            .. code-block:: python
+
+                settings = await app.delete_web_browser_exceptions()
+        """
+
+        return await self.invoke(
+            raw.functions.account.DeleteWebBrowserSettingsExceptions()
+        )

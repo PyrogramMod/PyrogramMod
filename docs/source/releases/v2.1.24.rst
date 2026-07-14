@@ -1,0 +1,15 @@
+PyrogramMod v2.1.24
+===================
+
+*Layer 178, Chat and ChatReactions updates*
+
+Layer Updates
+-------------
+
+Updated API schema to layer 178.
+
+New Features
+------------
+
+- Updated attributes of :obj:`~pyrogram.types.Chat` and ``ChatReactions``.
+- Added ``is_channel`` parameter to :meth:`~pyrogram.Client.search_global` and :meth:`~pyrogram.Client.search_global_count`.

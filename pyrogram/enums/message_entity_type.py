@@ -80,5 +80,17 @@ class MessageEntityType(AutoName):
     CUSTOM_EMOJI = raw.types.MessageEntityCustomEmoji
     "Custom emoji"
 
+    FORMATTED_DATE = raw.types.MessageEntityFormattedDate
+    "Formatted date text"
+
+    DIFF_INSERT = raw.types.MessageEntityDiffInsert
+    "Inserted diff text"
+
+    DIFF_REPLACE = raw.types.MessageEntityDiffReplace
+    "Replaced diff text"
+
+    DIFF_DELETE = raw.types.MessageEntityDiffDelete
+    "Deleted diff text"
+
     UNKNOWN = raw.types.MessageEntityUnknown
     "Unknown message entity type"

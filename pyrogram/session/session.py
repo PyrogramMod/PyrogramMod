@@ -21,6 +21,7 @@ import bisect
 import logging
 import os
 from datetime import datetime, timedelta
+from enum import Enum, auto
 from hashlib import sha1
 from io import BytesIO
 from typing import Optional
@@ -39,6 +40,13 @@ from pyrogram.raw.core import TLObject, MsgContainer, Int, FutureSalts
 from .internals import MsgId, MsgFactory
 
 log = logging.getLogger(__name__)
+
+
+class SessionState(Enum):
+    STARTING = auto()
+    STARTED = auto()
+    STOPPING = auto()
+    STOPPED = auto()
 
 
 class Result:
@@ -102,65 +110,140 @@ class Session:
 
         self.is_started = asyncio.Event()
 
-        self.loop = asyncio.get_event_loop()
+        self.loop = None
+        self.restart_task = None
+
+        self._state = SessionState.STOPPED
+        self._state_lock = asyncio.Lock()
+        self.restart_lock = asyncio.Lock()
+
+    @property
+    def state(self) -> SessionState:
+        return self._state
+
+    async def _set_state(self, new_state: SessionState) -> None:
+        async with self._state_lock:
+            old_state = self._state
+            self._state = new_state
+            log.debug("Session state changed: %s -> %s", old_state.name, new_state.name)
+
+    def _get_loop(self):
+        return self.loop or asyncio.get_running_loop()
+
+    def _create_task(self, coro):
+        task = self._get_loop().create_task(coro)
+
+        if hasattr(task, "_log_destroy_pending"):
+            task._log_destroy_pending = False
+
+        return task
+
+    def _schedule_restart(self):
+        # When called from inside the running restart task (start() failing
+        # during a reconnect attempt), the task is "not done" but is about to
+        # finish without retrying: a new task must be scheduled, otherwise the
+        # session stays stopped forever.
+        if (
+            self.restart_task is not None
+            and not self.restart_task.done()
+            and self.restart_task is not asyncio.current_task()
+        ):
+            return self.restart_task
+
+        async def do_restart():
+            try:
+                await self.restart()
+            except Exception as e:
+                log.warning("Unable to restart the session: %s", e)
+                raise
+            finally:
+                current = asyncio.current_task()
+
+                if self.restart_task is current:
+                    self.restart_task = None
+
+        self.restart_task = self._create_task(do_restart())
+        return self.restart_task
 
     async def start(self):
-        while True:
-            self.connection = self.client.connection_factory(
-                dc_id=self.dc_id,
-                test_mode=self.test_mode,
-                ipv6=self.client.ipv6,
-                proxy=self.client.proxy,
-                media=self.is_media,
-                protocol_factory=self.client.protocol_factory
-            )
+        if self._state in (SessionState.STARTED, SessionState.STARTING):
+            log.debug("Session already started")
+            return
 
-            try:
-                await self.connection.connect()
+        await self._set_state(SessionState.STARTING)
 
-                self.recv_task = self.loop.create_task(self.recv_worker())
+        loop = asyncio.get_running_loop()
+        self.loop = loop
 
-                await self.send(raw.functions.Ping(ping_id=0), timeout=self.START_TIMEOUT)
+        self.connection = self.client.connection_factory(
+            dc_id=self.dc_id,
+            test_mode=self.test_mode,
+            ipv6=self.client.ipv6,
+            proxy=self.client.proxy,
+            media=self.is_media,
+            protocol_factory=self.client.protocol_factory
+        )
 
-                if not self.is_cdn:
-                    await self.send(
-                        raw.functions.InvokeWithLayer(
-                            layer=layer,
-                            query=raw.functions.InitConnection(
-                                api_id=await self.client.storage.api_id(),
-                                app_version=self.client.app_version,
-                                device_model=self.client.device_model,
-                                system_version=self.client.system_version,
-                                system_lang_code=self.client.lang_code,
-                                lang_code=self.client.lang_code,
-                                lang_pack="",
-                                query=raw.functions.help.GetConfig(),
-                            )
-                        ),
-                        timeout=self.START_TIMEOUT
-                    )
+        try:
+            await self.connection.connect()
 
-                self.ping_task = self.loop.create_task(self.ping_worker())
+            self.recv_task = loop.create_task(self.recv_worker())
 
-                log.info("Session initialized: Layer %s", layer)
-                log.info("Device: %s - %s", self.client.device_model, self.client.app_version)
-                log.info("System: %s (%s)", self.client.system_version, self.client.lang_code)
-            except AuthKeyDuplicated as e:
-                await self.stop()
-                raise e
-            except (OSError, RPCError):
-                await self.stop()
-            except Exception as e:
-                await self.stop()
-                raise e
-            else:
-                break
+            if hasattr(self.recv_task, "_log_destroy_pending"):
+                self.recv_task._log_destroy_pending = False
 
+            await self.send(raw.functions.Ping(ping_id=0), timeout=self.START_TIMEOUT)
+
+            if not self.is_cdn:
+                await self.send(
+                    raw.functions.InvokeWithLayer(
+                        layer=layer,
+                        query=raw.functions.InitConnection(
+                            api_id=await self.client.storage.api_id(),
+                            app_version=self.client.app_version,
+                            device_model=self.client.device_model,
+                            system_version=self.client.system_version,
+                            system_lang_code=self.client.lang_code,
+                            lang_code=self.client.lang_code,
+                            lang_pack="",
+                            query=raw.functions.help.GetConfig(),
+                        )
+                    ),
+                    timeout=self.START_TIMEOUT
+                )
+
+            self.ping_task = loop.create_task(self.ping_worker())
+
+            if hasattr(self.ping_task, "_log_destroy_pending"):
+                self.ping_task._log_destroy_pending = False
+
+            log.info("Session initialized: Layer %s", layer)
+            log.info("Device: %s - %s", self.client.device_model, self.client.app_version)
+            log.info("System: %s (%s)", self.client.system_version, self.client.lang_code)
+        except (AuthKeyDuplicated, Unauthorized) as e:
+            await self.stop()
+            raise e
+        except (OSError, RPCError, TimeoutError) as e:
+            log.info("Restarting session due to - %s - %s", e.__class__.__name__, e)
+            await self.stop()
+            self._schedule_restart()
+            return
+        except Exception as e:
+            await self.stop()
+            raise e
+
+        await self._set_state(SessionState.STARTED)
         self.is_started.set()
 
         log.info("Session started")
 
     async def stop(self):
+        if self._state in (SessionState.STOPPED, SessionState.STOPPING):
+            log.debug("Session already stopped")
+            return
+
+        await self._set_state(SessionState.STOPPING)
+
         self.is_started.clear()
 
         self.stored_msg_ids.clear()
@@ -168,14 +251,28 @@ class Session:
         self.ping_task_event.set()
 
         if self.ping_task is not None:
-            await self.ping_task
+            try:
+                await self.ping_task
+            except Exception as e:
+                log.warning("Error awaiting ping task: %s", e)
+            self.ping_task = None
 
         self.ping_task_event.clear()
 
-        await self.connection.close()
+        if self.connection is not None:
+            try:
+                await self.connection.close()
+            except Exception as e:
+                log.warning("Error closing connection: %s", e)
 
         if self.recv_task:
-            await self.recv_task
+            try:
+                await self.recv_task
+            except Exception as e:
+                log.warning("Error awaiting recv task: %s", e)
+            self.recv_task = None
+
+        await self._set_state(SessionState.STOPPED)
 
         if not self.is_media and callable(self.client.disconnect_handler):
             try:
@@ -185,21 +282,26 @@ class Session:
 
         log.info("Session stopped")
 
+        self.loop = None
+
     async def restart(self):
-        now = datetime.now()
-        if (
-            self.last_reconnect_attempt
-            and now - self.last_reconnect_attempt < self.RECONNECT_THRESHOLD
-        ):
-            log.info("Reconnecting too frequently, sleeping for a while")
-            await asyncio.sleep(5)
-        self.last_reconnect_attempt = now
-        await self.stop()
-        await self.start()
+        async with self.restart_lock:
+            now = datetime.now()
+            if (
+                self.last_reconnect_attempt
+                and now - self.last_reconnect_attempt < self.RECONNECT_THRESHOLD
+            ):
+                log.info("Reconnecting too frequently, sleeping for a while")
+                await asyncio.sleep(5)
+            self.last_reconnect_attempt = now
+            await self.stop()
+            await self.start()
 
     async def handle_packet(self, packet):
         try:
-            data = await self.loop.run_in_executor(
+            loop = self.loop or asyncio.get_running_loop()
+
+            data = await loop.run_in_executor(
                 pyrogram.crypto_executor,
                 mtproto.unpack,
                 BytesIO(packet),
@@ -209,7 +311,7 @@ class Session:
             )
         except ValueError as e:
             log.debug(e)
-            self.loop.create_task(self.restart())
+            self._schedule_restart()
             return
 
         messages = (
@@ -271,7 +373,7 @@ class Session:
                 msg_id = msg.body.msg_id
             else:
                 if self.client is not None:
-                    self.loop.create_task(self.client.handle_updates(msg.body))
+                    self._create_task(self.client.handle_updates(msg.body))
 
             if msg_id in self.results:
                 self.results[msg_id].value = getattr(msg.body, "result", msg.body)
@@ -305,7 +407,7 @@ class Session:
                     ), False
                 )
             except OSError:
-                self.loop.create_task(self.restart())
+                self._schedule_restart()
                 break
             except RPCError:
                 pass
@@ -334,11 +436,11 @@ class Session:
                     )
 
                 if self.is_started.is_set():
-                    self.loop.create_task(self.restart())
+                    self._schedule_restart()
 
                 break
 
-            self.loop.create_task(self.handle_packet(packet))
+            self._create_task(self.handle_packet(packet))
 
         log.info("NetworkTask stopped")
 
@@ -351,7 +453,9 @@ class Session:
 
         log.debug("Sent: %s", message)
 
-        payload = await self.loop.run_in_executor(
+        loop = self.loop or asyncio.get_running_loop()
+
+        payload = await loop.run_in_executor(
             pyrogram.crypto_executor,
             mtproto.pack,
             message,
@@ -365,6 +469,8 @@ class Session:
             await self.connection.send(payload)
         except OSError as e:
             self.results.pop(msg_id, None)
+            if self.is_started.is_set():
+                self._schedule_restart()
             raise e
 
         if wait_response:
@@ -436,6 +542,14 @@ class Session:
                     query_name, str(e) or repr(e)
                 )
 
-                await asyncio.sleep(0.5)
+                # Wait for the session to come back up before retrying,
+                # otherwise all retries burn out while the reconnect is still pending.
+                if isinstance(e, OSError):
+                    try:
+                        await asyncio.wait_for(self.is_started.wait(), timeout=self.WAIT_TIMEOUT)
+                    except asyncio.TimeoutError:
+                        pass
+                else:
+                    await asyncio.sleep(0.5)
 
         raise TimeoutError("Exceeded maximum number of retries")

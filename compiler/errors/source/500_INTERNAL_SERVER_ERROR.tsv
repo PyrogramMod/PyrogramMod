@@ -44,7 +44,7 @@ BOT_DOMAIN_INVALID	Bot domain invalid.
 BOT_GROUPS_BLOCKED	This bot can't be added to groups.
 BOT_INLINE_DISABLED	This bot can't be used in inline mode.
 BOT_INVALID	This is not a valid bot.
-BOT_MISSING	Only bots can call this method, please use [@stickers](https://t.me/stickers) if you're a user.
+BOT_MISSING	Only bots can call this method, please use [@stickers](https://telegram.me/stickers) if you're a user.
 BOT_ONESIDE_NOT_AVAIL	Bots can't pin messages in PM just for themselves.
 BOT_PAYMENTS_DISABLED	Please enable bot payments in botfather before calling this method.
 BOT_RESPONSE_TIMEOUT	A timeout occurred while fetching data from the bot.
@@ -462,6 +462,7 @@ STORY_NOT_MODIFIED	The new story information you passed is equal to the previous
 STORY_PERIOD_INVALID	The specified story period is invalid for this account.
 STORY_SEND_FLOOD_MONTHLY_X	You've hit the monthly story limit as specified by the [`stories_sent_monthly_limit_*` client configuration parameters](https://core.telegram.org/api/config#stories-sent-monthly-limit-default): wait for the specified number of seconds before posting a new story.
 STORY_SEND_FLOOD_WEEKLY_X	You've hit the weekly story limit as specified by the [`stories_sent_weekly_limit_*` client configuration parameters](https://core.telegram.org/api/config#stories-sent-weekly-limit-default): wait for the specified number of seconds before posting a new story.
+STORYCHAT_INVALID	The specified story chat is invalid.
 SWITCH_PM_TEXT_EMPTY	The switch_pm.text field was empty.
 TAKEOUT_INIT_DELAY_X	Sorry, for security reasons, you will be able to begin downloading your data in {value} seconds. We have notified all your devices about the export request to make sure it's authorized and to give you time to react if it's not.
 TAKEOUT_INVALID	The specified takeout ID is invalid.

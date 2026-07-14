@@ -16,6 +16,8 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Optional
+
 import pyrogram
 from ..object import Object
 
@@ -33,6 +35,9 @@ class PollOption(Object):
 
         data (``bytes``):
             The data this poll option is holding.
+
+        link (:obj:`~pyrogram.types.PollLink`, *optional*):
+            Link attached as media to this poll option.
     """
 
     def __init__(
@@ -41,10 +46,12 @@ class PollOption(Object):
         client: "pyrogram.Client" = None,
         text: str,
         voter_count: int,
-        data: bytes
+        data: bytes,
+        link: Optional["pyrogram.types.PollLink"] = None,
     ):
         super().__init__(client)
 
         self.text = text
         self.voter_count = voter_count
         self.data = data
+        self.link = link

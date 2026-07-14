@@ -17,6 +17,7 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+from typing import TypeVar, overload
 
 import pyrogram
 from pyrogram import raw
@@ -25,11 +26,13 @@ from pyrogram.session import Session
 
 log = logging.getLogger(__name__)
 
+ReturnType = TypeVar('ReturnType')
+
 
 class Invoke:
     async def invoke(
         self: "pyrogram.Client",
-        query: TLObject,
+        query: TLObject[ReturnType],
         retries: int = Session.MAX_RETRIES,
         timeout: float = Session.WAIT_TIMEOUT,
         sleep_threshold: float = None

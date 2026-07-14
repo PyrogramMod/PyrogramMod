@@ -31,6 +31,19 @@ Utilities
 
     {utilities}
 
+Decorators
+----------
+
+.. autosummary::
+    :nosignatures:
+
+    {decorators}
+
+.. toctree::
+    :hidden:
+
+    {decorators}
+
 .. currentmodule:: pyrogram
 
 .. autosummary::
@@ -137,6 +150,32 @@ Bots
     :hidden:
 
     {bots}
+
+Communities
+-----------
+
+.. autosummary::
+    :nosignatures:
+
+    {communities}
+
+.. toctree::
+    :hidden:
+
+    {communities}
+
+Ephemeral Messages
+------------------
+
+.. autosummary::
+    :nosignatures:
+
+    {ephemeral}
+
+.. toctree::
+    :hidden:
+
+    {ephemeral}
 
 Authorization
 -------------

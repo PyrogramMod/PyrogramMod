@@ -42,7 +42,8 @@ class SaveFile:
         file_id: int = None,
         file_part: int = 0,
         progress: Callable = None,
-        progress_args: tuple = ()
+        progress_args: tuple = (),
+        use_experimental_upload_boost: bool = None
     ):
         """Upload a file onto Telegram servers, without actually sending the message to anyone.
         Useful whenever an InputFile type is required.
@@ -77,6 +78,10 @@ class SaveFile:
                 You can pass anything you need to be available in the progress callback scope; for example, a Message
                 object or a Client instance in order to edit the message with the updated progress status.
 
+            use_experimental_upload_boost (``bool``, *optional*):
+                Pass True to upload multiple parts in parallel instead of sequentially.
+                May significantly increase upload speed on fast connections. Defaults to False.
+
         Other Parameters:
             current (``int``):
                 The amount of bytes transmitted so far.
@@ -98,17 +103,8 @@ class SaveFile:
             if path is None:
                 return None
 
-            async def worker(session):
-                while True:
-                    data = await queue.get()
-
-                    if data is None:
-                        return
-
-                    try:
-                        await session.invoke(data)
-                    except Exception as e:
-                        log.exception(e)
+            if use_experimental_upload_boost is None:
+                use_experimental_upload_boost = getattr(self, "use_experimental_upload_boost", False)
 
             part_size = 512 * 1024
 
@@ -143,58 +139,127 @@ class SaveFile:
                 self, await self.storage.dc_id(), await self.storage.auth_key(),
                 await self.storage.test_mode(), is_media=True
             )
-            workers = [self.loop.create_task(worker(session)) for _ in range(workers_count)]
-            queue = asyncio.Queue(1)
 
             try:
                 await session.start()
 
                 fp.seek(part_size * file_part)
 
-                while True:
-                    chunk = fp.read(part_size)
-
-                    if not chunk:
-                        if not is_big and not is_missing_part:
-                            md5_sum = "".join([hex(i)[2:].zfill(2) for i in md5_sum.digest()])
-                        break
-
-                    if is_big:
-                        rpc = raw.functions.upload.SaveBigFilePart(
-                            file_id=file_id,
-                            file_part=file_part,
-                            file_total_parts=file_total_parts,
-                            bytes=chunk
-                        )
-                    else:
-                        rpc = raw.functions.upload.SaveFilePart(
-                            file_id=file_id,
-                            file_part=file_part,
-                            bytes=chunk
-                        )
-
-                    await queue.put(rpc)
-
-                    if is_missing_part:
-                        return
+                if use_experimental_upload_boost and not is_missing_part:
+                    # Legge tutti i chunk in memoria e li invia in parallelo a batch
+                    chunks = []
+                    while True:
+                        chunk = fp.read(part_size)
+                        if not chunk:
+                            break
+                        chunks.append(chunk)
 
                     if not is_big and not is_missing_part:
-                        md5_sum.update(chunk)
+                        for chunk in chunks:
+                            md5_sum.update(chunk)
+                        md5_sum = "".join([hex(i)[2:].zfill(2) for i in md5_sum.digest()])
 
-                    file_part += 1
-
-                    if progress:
-                        func = functools.partial(
-                            progress,
-                            min(file_part * part_size, file_size),
-                            file_size,
-                            *progress_args
-                        )
-
-                        if inspect.iscoroutinefunction(progress):
-                            await func()
+                    async def _send_part(idx: int, data: bytes):
+                        if is_big:
+                            rpc = raw.functions.upload.SaveBigFilePart(
+                                file_id=file_id,
+                                file_part=idx,
+                                file_total_parts=file_total_parts,
+                                bytes=data
+                            )
                         else:
-                            await self.loop.run_in_executor(self.executor, func)
+                            rpc = raw.functions.upload.SaveFilePart(
+                                file_id=file_id,
+                                file_part=idx,
+                                bytes=data
+                            )
+                        await session.invoke(rpc)
+                        return idx
+
+                    sent = 0
+                    for batch_start in range(0, len(chunks), workers_count):
+                        batch = chunks[batch_start:batch_start + workers_count]
+                        await asyncio.gather(*[
+                            _send_part(batch_start + i, data)
+                            for i, data in enumerate(batch)
+                        ])
+                        sent += len(batch)
+
+                        if progress:
+                            func = functools.partial(
+                                progress,
+                                min(sent * part_size, file_size),
+                                file_size,
+                                *progress_args
+                            )
+                            if inspect.iscoroutinefunction(progress):
+                                await func()
+                            else:
+                                await self.loop.run_in_executor(self.executor, func)
+
+                else:
+                    async def worker(session):
+                        while True:
+                            data = await queue.get()
+                            if data is None:
+                                return
+                            try:
+                                await session.invoke(data)
+                            except Exception as e:
+                                log.exception(e)
+
+                    queue = asyncio.Queue(1)
+                    upload_workers = [self.loop.create_task(worker(session)) for _ in range(workers_count)]
+
+                    try:
+                        while True:
+                            chunk = fp.read(part_size)
+
+                            if not chunk:
+                                if not is_big and not is_missing_part:
+                                    md5_sum = "".join([hex(i)[2:].zfill(2) for i in md5_sum.digest()])
+                                break
+
+                            if is_big:
+                                rpc = raw.functions.upload.SaveBigFilePart(
+                                    file_id=file_id,
+                                    file_part=file_part,
+                                    file_total_parts=file_total_parts,
+                                    bytes=chunk
+                                )
+                            else:
+                                rpc = raw.functions.upload.SaveFilePart(
+                                    file_id=file_id,
+                                    file_part=file_part,
+                                    bytes=chunk
+                                )
+
+                            await queue.put(rpc)
+
+                            if is_missing_part:
+                                return
+
+                            if not is_big and not is_missing_part:
+                                md5_sum.update(chunk)
+
+                            file_part += 1
+
+                            if progress:
+                                func = functools.partial(
+                                    progress,
+                                    min(file_part * part_size, file_size),
+                                    file_size,
+                                    *progress_args
+                                )
+                                if inspect.iscoroutinefunction(progress):
+                                    await func()
+                                else:
+                                    await self.loop.run_in_executor(self.executor, func)
+                    finally:
+                        for _ in upload_workers:
+                            await queue.put(None)
+                        await asyncio.gather(*upload_workers)
+
             except StopTransmission:
                 raise
             except Exception as e:
@@ -205,7 +270,6 @@ class SaveFile:
                         id=file_id,
                         parts=file_total_parts,
                         name=file_name,
-
                     )
                 else:
                     return raw.types.InputFile(
@@ -215,11 +279,6 @@ class SaveFile:
                         md5_checksum=md5_sum
                     )
             finally:
-                for _ in workers:
-                    await queue.put(None)
-
-                await asyncio.gather(*workers)
-
                 await session.stop()
 
                 if isinstance(path, (str, PurePath)):

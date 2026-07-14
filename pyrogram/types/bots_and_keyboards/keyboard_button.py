@@ -40,8 +40,11 @@ class KeyboardButton(Object):
 
         web_app (:obj:`~pyrogram.types.WebAppInfo`, *optional*):
             If specified, the described `Web App <https://core.telegram.org/bots/webapps>`_ will be launched when the
-            button is pressed. The Web App will be able to send a “web_app_data” service message. Available in private
+            button is pressed. The Web App will be able to send a "web_app_data" service message. Available in private
             chats only.
+
+        style (:obj:`~pyrogram.types.KeyboardButtonStyle`, *optional*):
+            Style configuration for the button (background color, icon).
 
     """
 
@@ -50,7 +53,8 @@ class KeyboardButton(Object):
         text: str,
         request_contact: bool = None,
         request_location: bool = None,
-        web_app: "types.WebAppInfo" = None
+        web_app: "types.WebAppInfo" = None,
+        style: "types.KeyboardButtonStyle" = None
     ):
         super().__init__()
 
@@ -58,22 +62,29 @@ class KeyboardButton(Object):
         self.request_contact = request_contact
         self.request_location = request_location
         self.web_app = web_app
+        self.style = style
 
     @staticmethod
     def read(b):
+        style = types.KeyboardButtonStyle.read(getattr(b, "style", None))
+
         if isinstance(b, raw.types.KeyboardButton):
+            if style:
+                return KeyboardButton(text=b.text, style=style)
             return b.text
 
         if isinstance(b, raw.types.KeyboardButtonRequestPhone):
             return KeyboardButton(
                 text=b.text,
-                request_contact=True
+                request_contact=True,
+                style=style
             )
 
         if isinstance(b, raw.types.KeyboardButtonRequestGeoLocation):
             return KeyboardButton(
                 text=b.text,
-                request_location=True
+                request_location=True,
+                style=style
             )
 
         if isinstance(b, raw.types.KeyboardButtonSimpleWebView):
@@ -81,15 +92,18 @@ class KeyboardButton(Object):
                 text=b.text,
                 web_app=types.WebAppInfo(
                     url=b.url
-                )
+                ),
+                style=style
             )
 
     def write(self):
+        style = self.style.write() if self.style else None
+
         if self.request_contact:
-            return raw.types.KeyboardButtonRequestPhone(text=self.text)
+            return raw.types.KeyboardButtonRequestPhone(text=self.text, style=style)
         elif self.request_location:
-            return raw.types.KeyboardButtonRequestGeoLocation(text=self.text)
+            return raw.types.KeyboardButtonRequestGeoLocation(text=self.text, style=style)
         elif self.web_app:
-            return raw.types.KeyboardButtonSimpleWebView(text=self.text, url=self.web_app.url)
+            return raw.types.KeyboardButtonSimpleWebView(text=self.text, url=self.web_app.url, style=style)
         else:
-            return raw.types.KeyboardButton(text=self.text)
+            return raw.types.KeyboardButton(text=self.text, style=style)

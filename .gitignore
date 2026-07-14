@@ -130,3 +130,8 @@ venv.bak/
 docs_build.sh
 .buildinfo
 json_docs.py
+/scripts
+/tests
+/uv.lock
+/examples
+/changelogs

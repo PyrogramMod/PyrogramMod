@@ -1,0 +1,20 @@
+PyrogramMod v2.1.27
+===================
+
+*get_collectible_item_info, reverse get_chat_history, revoke_messages*
+
+New Features
+------------
+
+- Added :meth:`~pyrogram.Client.get_collectible_item_info`.
+- Added ``reverse`` parameter to :meth:`~pyrogram.Client.get_chat_history`.
+- Added ``revoke_messages`` parameter to :meth:`~pyrogram.Client.ban_chat_member`.
+- Added ``full_name`` to :obj:`~pyrogram.types.Chat` and :obj:`~pyrogram.types.User` (re-added).
+
+Bug Fixes
+---------
+
+- Fixed edge case in pinned recent action.
+- Fixed ``copy_message`` for ``Poll`` type.
+- Fixed ``poll`` unparse bug.
+- Fixed expired media ``_parse`` handling.

@@ -37,7 +37,7 @@ class ChatPermissions(Object):
 
         can_send_polls (``bool``, *optional*):
             True, if the user is allowed to send polls.
-            Implies can_send_messages
+            Implies *can_send_messages*.
 
         can_add_web_page_previews (``bool``, *optional*):
             True, if the user is allowed to add web page previews to their messages.
@@ -45,7 +45,7 @@ class ChatPermissions(Object):
 
         can_change_info (``bool``, *optional*):
             True, if the user is allowed to change the chat title, photo and other settings.
-            Ignored in public supergroups
+            Ignored in public supergroups.
 
         can_invite_users (``bool``, *optional*):
             True, if the user is allowed to invite new users to the chat.
@@ -53,19 +53,59 @@ class ChatPermissions(Object):
         can_pin_messages (``bool``, *optional*):
             True, if the user is allowed to pin messages.
             Ignored in public supergroups.
+
+        can_manage_topics (``bool``, *optional*):
+            True, if the user is allowed to create, delete or modify forum topics.
+
+        can_send_photos (``bool``, *optional*):
+            True, if the user is allowed to send photos.
+
+        can_send_videos (``bool``, *optional*):
+            True, if the user is allowed to send videos.
+
+        can_send_video_notes (``bool``, *optional*):
+            True, if the user is allowed to send round (video note) messages.
+
+        can_send_audios (``bool``, *optional*):
+            True, if the user is allowed to send audio files.
+
+        can_send_voice_notes (``bool``, *optional*):
+            True, if the user is allowed to send voice notes.
+
+        can_send_documents (``bool``, *optional*):
+            True, if the user is allowed to send documents.
+
+        can_send_plain_text (``bool``, *optional*):
+            True, if the user is allowed to send plain text messages (without formatting/media).
+
+        can_send_reactions (``bool``, *optional*):
+            True, if the user is allowed to add reactions to messages.
+
+        can_manage_linked_peers (``bool``, *optional*):
+            True, if the user is allowed to manage linked peers in a community.
     """
 
     def __init__(
         self,
         *,
-        can_send_messages: bool = None,  # Text, contacts, locations and venues
-        can_send_media_messages: bool = None,  # Audio files, documents, photos, videos, video notes and voice notes
-        can_send_other_messages: bool = None,  # Stickers, animations, games, inline bots
+        can_send_messages: bool = None,
+        can_send_media_messages: bool = None,
+        can_send_other_messages: bool = None,
         can_send_polls: bool = None,
         can_add_web_page_previews: bool = None,
         can_change_info: bool = None,
         can_invite_users: bool = None,
-        can_pin_messages: bool = None
+        can_pin_messages: bool = None,
+        can_manage_topics: bool = None,
+        can_send_photos: bool = None,
+        can_send_videos: bool = None,
+        can_send_video_notes: bool = None,
+        can_send_audios: bool = None,
+        can_send_voice_notes: bool = None,
+        can_send_documents: bool = None,
+        can_send_plain_text: bool = None,
+        can_send_reactions: bool = None,
+        can_manage_linked_peers: bool = None
     ):
         super().__init__(None)
 
@@ -77,6 +117,16 @@ class ChatPermissions(Object):
         self.can_change_info = can_change_info
         self.can_invite_users = can_invite_users
         self.can_pin_messages = can_pin_messages
+        self.can_manage_topics = can_manage_topics
+        self.can_send_photos = can_send_photos
+        self.can_send_videos = can_send_videos
+        self.can_send_video_notes = can_send_video_notes
+        self.can_send_audios = can_send_audios
+        self.can_send_voice_notes = can_send_voice_notes
+        self.can_send_documents = can_send_documents
+        self.can_send_plain_text = can_send_plain_text
+        self.can_send_reactions = can_send_reactions
+        self.can_manage_linked_peers = can_manage_linked_peers
 
     @staticmethod
     def _parse(denied_permissions: "raw.base.ChatBannedRights") -> "ChatPermissions":
@@ -94,5 +144,15 @@ class ChatPermissions(Object):
                 can_send_polls=not denied_permissions.send_polls,
                 can_change_info=not denied_permissions.change_info,
                 can_invite_users=not denied_permissions.invite_users,
-                can_pin_messages=not denied_permissions.pin_messages
+                can_pin_messages=not denied_permissions.pin_messages,
+                can_manage_topics=not denied_permissions.manage_topics,
+                can_send_photos=not denied_permissions.send_photos,
+                can_send_videos=not denied_permissions.send_videos,
+                can_send_video_notes=not denied_permissions.send_roundvideos,
+                can_send_audios=not denied_permissions.send_audios,
+                can_send_voice_notes=not denied_permissions.send_voices,
+                can_send_documents=not denied_permissions.send_docs,
+                can_send_plain_text=not denied_permissions.send_plain,
+                can_send_reactions=not denied_permissions.send_reactions,
+                can_manage_linked_peers=not getattr(denied_permissions, "manage_linked_peers", True)
             )

@@ -1,0 +1,9 @@
+PyrogramMod v2.3.0
+==================
+
+*Internal fixes*
+
+Bug Fixes
+---------
+
+- Minor internal fixes.

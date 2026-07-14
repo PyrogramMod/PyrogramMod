@@ -32,12 +32,14 @@ class SendMessage:
         parse_mode: Optional["enums.ParseMode"] = None,
         entities: List["types.MessageEntity"] = None,
         disable_web_page_preview: bool = None,
+        link_preview_options: "types.LinkPreviewOptions" = None,
         disable_notification: bool = None,
         reply_to_message_id: int = None,
         message_thread_id: int = None,
         partial_reply: str = None,
         schedule_date: datetime = None,
         protect_content: bool = None,
+        message_effect_id: int = None,
         reply_markup: Union[
             "types.InlineKeyboardMarkup",
             "types.ReplyKeyboardMarkup",
@@ -68,6 +70,9 @@ class SendMessage:
             disable_web_page_preview (``bool``, *optional*):
                 Disables link previews for links in this message.
 
+            link_preview_options (:obj:`~pyrogram.types.LinkPreviewOptions`, *optional*):
+                Link preview generation options. Overrides ``disable_web_page_preview`` if set.
+
             disable_notification (``bool``, *optional*):
                 Sends the message silently.
                 Users will receive a notification with no sound.
@@ -88,6 +93,9 @@ class SendMessage:
             protect_content (``bool``, *optional*):
                 Protects the contents of the sent message from forwarding and saving.
 
+            message_effect_id (``int``, *optional*):
+                Unique identifier of the message effect to add to the message.
+
             reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup` | :obj:`~pyrogram.types.ReplyKeyboardMarkup` | :obj:`~pyrogram.types.ReplyKeyboardRemove` | :obj:`~pyrogram.types.ForceReply`, *optional*):
                 Additional interface options. An object for an inline keyboard, custom reply keyboard,
                 instructions to remove reply keyboard or to force a reply from the user.
@@ -104,6 +112,15 @@ class SendMessage:
                 # Disable web page previews
                 await app.send_message("me", "https://docs.pyrogram.org",
                     disable_web_page_preview=True)
+
+                # Disable preview using LinkPreviewOptions
+                from pyrogram.types import LinkPreviewOptions
+                await app.send_message("me", "https://docs.pyrogram.org",
+                    link_preview_options=LinkPreviewOptions(is_disabled=True))
+
+                # Show preview above the text
+                await app.send_message("me", "https://docs.pyrogram.org",
+                    link_preview_options=LinkPreviewOptions(show_above_text=True))
 
                 # Reply to a message using its id
                 await app.send_message("me", "this is a reply", reply_to_message_id=123)
@@ -134,10 +151,18 @@ class SendMessage:
 
         reply_to = utils.get_reply_head_fm(message_thread_id, reply_to_message_id, partial_reply)
 
+        if link_preview_options is not None:
+            no_webpage = link_preview_options.is_disabled or None
+            invert_media = link_preview_options.show_above_text or None
+        else:
+            no_webpage = disable_web_page_preview or None
+            invert_media = None
+
         r = await self.invoke(
             raw.functions.messages.SendMessage(
                 peer=await self.resolve_peer(chat_id),
-                no_webpage=disable_web_page_preview or None,
+                no_webpage=no_webpage,
+                invert_media=invert_media,
                 silent=disable_notification or None,
                 reply_to=reply_to,
                 random_id=self.rnd_id(),
@@ -145,7 +170,8 @@ class SendMessage:
                 reply_markup=await reply_markup.write(self) if reply_markup else None,
                 message=message,
                 entities=entities,
-                noforwards=protect_content
+                noforwards=protect_content,
+                effect=message_effect_id
             )
         )
 
@@ -169,6 +195,9 @@ class SendMessage:
                 date=utils.timestamp_to_datetime(r.date),
                 outgoing=r.out,
                 reply_markup=reply_markup,
+                reply_to_message_id=reply_to_message_id,
+                reply_to_top_message_id=message_thread_id,
+                message_thread_id=message_thread_id,
                 entities=[
                     types.MessageEntity._parse(None, entity, {})
                     for entity in entities

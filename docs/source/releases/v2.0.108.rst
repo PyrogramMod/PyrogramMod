@@ -1,0 +1,15 @@
+PyrogramMod v2.0.108
+====================
+
+*Layer 161, Bug Fixes*
+
+Layer Updates
+-------------
+
+- Updated API schema to layer 161.
+
+Bug Fixes
+---------
+
+- Various bug fixes and stability improvements included with the Layer 161 update.
+- Added new known errors.

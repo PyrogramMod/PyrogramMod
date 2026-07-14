@@ -28,10 +28,17 @@ from .get_inline_bot_results import GetInlineBotResults
 from .request_callback_answer import RequestCallbackAnswer
 from .send_game import SendGame
 from .send_inline_bot_result import SendInlineBotResult
+from .send_streaming_text import SendStreamingText
 from .set_bot_commands import SetBotCommands
 from .set_bot_default_privileges import SetBotDefaultPrivileges
 from .set_chat_menu_button import SetChatMenuButton
 from .set_game_score import SetGameScore
+from .answer_guard_bot_query import AnswerGuardBotQuery
+from .get_bot_access_settings import GetBotAccessSettings
+from .edit_bot_access_settings import EditBotAccessSettings
+from .confirm_bot_connection import ConfirmBotConnection
+from .answer_chat_join_request_query import AnswerChatJoinRequestQuery
+from .send_chat_join_request_web_app import SendChatJoinRequestWebApp
 
 
 class Bots(
@@ -50,6 +57,13 @@ class Bots(
     GetBotDefaultPrivileges,
     SetChatMenuButton,
     GetChatMenuButton,
-    AnswerWebAppQuery
+    AnswerWebAppQuery,
+    SendStreamingText,
+    AnswerGuardBotQuery,
+    GetBotAccessSettings,
+    EditBotAccessSettings,
+    ConfirmBotConnection,
+    AnswerChatJoinRequestQuery,
+    SendChatJoinRequestWebApp,
 ):
     pass

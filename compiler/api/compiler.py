@@ -101,6 +101,19 @@ def camel(s: str):
 
 
 # noinspection PyShadowingBuiltins, PyShadowingNames
+def get_return_type_hint(qualtype: str) -> str:
+    """Get return type hint for generic TLObject"""
+    if qualtype.startswith("Vector"):
+        # Extract inner type from Vector<Type>
+        inner = qualtype.split("<")[1][:-1]
+        ns, name = inner.split(".") if "." in inner else ("", inner)
+        return f'"List[raw.base.{".".join([ns, name]).strip(".")}]"'
+    else:
+        ns, name = qualtype.split(".") if "." in qualtype else ("", qualtype)
+        return f'"raw.base.{".".join([ns, name]).strip(".")}"'
+
+
+# noinspection PyShadowingBuiltins, PyShadowingNames
 def get_type_hint(type: str) -> str:
     is_flag = FLAGS_RE.match(type)
     is_core = False
@@ -301,7 +314,7 @@ def start(format: bool = False):
         d[qualtype].append(c.qualname)
 
         if c.section == "types":
-            key = c.namespace
+            key = c.typespace if len(c.namespace) == 0 else c.namespace
 
             if key not in namespaces_to_types:
                 namespaces_to_types[key] = []
@@ -548,6 +561,12 @@ def start(format: bool = False):
         slots = ", ".join([f'"{i[0]}"' for i in sorted_args])
         return_arguments = ", ".join([f"{i[0]}={i[0]}" for i in sorted_args])
 
+        # Generate generic type hint for functions
+        if c.section == "functions":
+            generic_type = f"[{get_return_type_hint(c.qualtype)}]"
+        else:
+            generic_type = ""
+
         compiled_combinator = combinator_tmpl.format(
             notice=notice,
             warning=WARNING,
@@ -560,7 +579,8 @@ def start(format: bool = False):
             fields=fields,
             read_types=read_types,
             write_types=write_types,
-            return_arguments=return_arguments
+            return_arguments=return_arguments,
+            generic_type=generic_type
         )
 
         directory = "types" if c.section == "types" else c.section
@@ -585,6 +605,7 @@ def start(format: bool = False):
         d[c.namespace].append(c.name)
 
     for namespace, types in namespaces_to_types.items():
+        os.makedirs(DESTINATION_PATH / "base" / namespace, exist_ok=True)
         with open(DESTINATION_PATH / "base" / namespace / "__init__.py", "w") as f:
             f.write(f"{notice}\n\n")
             f.write(f"{WARNING}\n\n")
