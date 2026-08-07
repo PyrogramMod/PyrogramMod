@@ -425,6 +425,7 @@ def pyrogram_api():
         communities="""
         Communities
             create_community
+            add_chat_to_community
             get_joined_communities
             toggle_community_peer_link
             approve_community_peer_link
@@ -434,12 +435,24 @@ def pyrogram_api():
             toggle_community_collapsed
             get_community_participant_chats
         """,
+        monoforum="""
+        Monoforum
+            toggle_direct_messages
+            get_monoforum_dialogs
+            get_monoforum_history
+            read_monoforum_history
+            delete_monoforum_history
+        """,
         ephemeral="""
         Ephemeral Messages
             send_ephemeral_message
             delete_ephemeral_message
             get_ephemeral_callback_answer
             report_ephemeral_message
+            edit_ephemeral_message_text
+            edit_ephemeral_message_caption
+            edit_ephemeral_message_media
+            edit_ephemeral_message_reply_markup
         """,
         authorization="""
         Authorization

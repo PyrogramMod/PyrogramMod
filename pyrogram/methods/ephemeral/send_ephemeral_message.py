@@ -1,4 +1,3 @@
-import os
 from typing import Union, Optional
 
 import pyrogram
@@ -55,7 +54,7 @@ class SendEphemeralMessage:
                 peer=peer,
                 receiver_id=receiver_peer,
                 message=text,
-                random_id=os.urandom(8),
+                random_id=self.rnd_id(),
                 query_id=query_id
             )
         )
