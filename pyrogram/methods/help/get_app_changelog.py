@@ -16,36 +16,33 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from .advanced import Advanced
-from .auth import Auth
-from .bots import Bots
-from .chats import Chats
-from .communities import Communities
-from .contacts import Contacts
-from .decorators import Decorators
-from .ephemeral import Ephemeral
-from .help import Help
-from .invite_links import InviteLinks
-from .messages import Messages
-from .password import Password
-from .users import Users
-from .utilities import Utilities
+import pyrogram
+from pyrogram import raw
 
 
-class Methods(
-    Advanced,
-    Auth,
-    Bots,
-    Communities,
-    Contacts,
-    Ephemeral,
-    Help,
-    Password,
-    Chats,
-    Users,
-    Messages,
-    Decorators,
-    Utilities,
-    InviteLinks,
-):
-    pass
+class GetAppChangelog:
+    async def get_app_changelog(
+        self: "pyrogram.Client",
+        prev_app_version: str,
+    ) -> "raw.base.Updates":
+        """Get the app changelog for a specific previous app version.
+
+        .. include:: /_includes/usable-by/users.rst
+
+        Parameters:
+            prev_app_version (``str``):
+                The previous app version string (e.g. ``"4.0.0"``).
+
+        Returns:
+            :obj:`~pyrogram.raw.base.Updates`: The changelog updates.
+
+        Example:
+            .. code-block:: python
+
+                changelog = await app.get_app_changelog("4.0.0")
+        """
+        return await self.invoke(
+            raw.functions.help.GetAppChangelog(
+                prev_app_version=prev_app_version
+            )
+        )

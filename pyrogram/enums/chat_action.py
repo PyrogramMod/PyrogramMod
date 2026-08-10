@@ -77,5 +77,8 @@ class ChatAction(AutoName):
     TEXT_DRAFT = raw.types.SendMessageTextDraftAction
     "Streaming text draft"
 
+    STOP_DRAFT = raw.types.SendMessageStopDraftAction
+    "Stop streaming text draft"
+
     CANCEL = raw.types.SendMessageCancelAction
     "Cancel ongoing chat action"

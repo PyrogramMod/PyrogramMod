@@ -10,7 +10,7 @@ class RequestChatJoinWebView:
         query_id: int,
         platform: str,
         theme_params: Optional[dict] = None
-    ) -> "raw.base.WebViewResultUrl":
+    ) -> "raw.base.WebViewResult":
         """Request a web view URL for a chat join button.
 
         Used when a bot sends a web view button as part of a
@@ -29,7 +29,7 @@ class RequestChatJoinWebView:
                 Theme parameters as a JSON-serializable dict.
 
         Returns:
-            :obj:`~pyrogram.raw.base.WebViewResultUrl`: The web view URL.
+            :obj:`~pyrogram.raw.base.WebViewResult`: The web view result.
 
         Example:
             .. code-block:: python

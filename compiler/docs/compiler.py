@@ -453,6 +453,10 @@ def pyrogram_api():
             edit_ephemeral_message_caption
             edit_ephemeral_message_media
             edit_ephemeral_message_reply_markup
+            get_welcome_messages
+            delete_welcome_message
+            delete_all_welcome_messages
+            forward_welcome_message
         """,
         authorization="""
         Authorization

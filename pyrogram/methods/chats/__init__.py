@@ -61,6 +61,8 @@ from .unban_chat_member import UnbanChatMember
 from .unpin_all_chat_messages import UnpinAllChatMessages
 from .unpin_chat_message import UnpinChatMessage
 from .toggle_direct_messages import ToggleDirectMessages
+from .edit_creator import EditCreator
+from .get_future_creator_after_leave import GetFutureCreatorAfterLeave
 
 
 class Chats(
@@ -109,5 +111,7 @@ class Chats(
     CreateGroupCall,
     GetGroupCallStreamChannels,
     ToggleDirectMessages,
+    EditCreator,
+    GetFutureCreatorAfterLeave,
 ):
     pass

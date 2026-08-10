@@ -301,4 +301,11 @@ class RichText(Object):
                 date_day_of_week=raw_text.day_of_week,
             )
 
+        if isinstance(raw_text, raw.types.TextButton):
+            return RichText(
+                client=client,
+                type=enums.RichTextType.BUTTON,
+                text=RichText._parse(client, raw_text.text),
+            )
+
         return RichText(client=client, type=enums.RichTextType.EMPTY)

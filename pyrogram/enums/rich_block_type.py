@@ -137,3 +137,9 @@ class RichBlockType(AutoName):
 
     THINKING = auto()
     "AI thinking / reasoning block"
+
+    DOCUMENT = auto()
+    "Document block"
+
+    BUTTON_ROW = auto()
+    "Button row block"

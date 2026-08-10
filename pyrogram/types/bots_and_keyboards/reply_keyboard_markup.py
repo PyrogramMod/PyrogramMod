@@ -52,6 +52,10 @@ class ReplyKeyboardMarkup(Object):
             Example: A user requests to change the bot's language, bot replies to the request with a keyboard to
             select the new language. Other users in the group don't see the keyboard.
 
+        force_reply (``bool``, *optional*):
+            Pass True to force the keyboard to be always shown as a reply keyboard, even for users that
+            have a different default keyboard.
+
         placeholder (``str``, *optional*):
             The placeholder to be shown in the input field when the keyboard is active; 1-64 characters.
     """
@@ -63,6 +67,7 @@ class ReplyKeyboardMarkup(Object):
         resize_keyboard: bool = None,
         one_time_keyboard: bool = None,
         selective: bool = None,
+        force_reply: bool = None,
         placeholder: str = None
     ):
         super().__init__()
@@ -72,6 +77,7 @@ class ReplyKeyboardMarkup(Object):
         self.resize_keyboard = resize_keyboard
         self.one_time_keyboard = one_time_keyboard
         self.selective = selective
+        self.force_reply = force_reply
         self.placeholder = placeholder
 
     @staticmethod
@@ -92,6 +98,7 @@ class ReplyKeyboardMarkup(Object):
             resize_keyboard=kb.resize,
             one_time_keyboard=kb.single_use,
             selective=kb.selective,
+            force_reply=kb.force_reply if hasattr(kb, 'force_reply') else None,
             placeholder=kb.placeholder
         )
 
@@ -108,5 +115,6 @@ class ReplyKeyboardMarkup(Object):
             single_use=self.one_time_keyboard or None,
             selective=self.selective or None,
             persistent=self.is_persistent or None,
+            force_reply=self.force_reply or None,
             placeholder=self.placeholder or None
         )

@@ -110,3 +110,6 @@ class RichTextType(AutoName):
 
     DATE = auto()
     "Formatted date/time"
+
+    BUTTON = auto()
+    "Inline button within rich text"

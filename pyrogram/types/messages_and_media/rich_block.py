@@ -438,6 +438,7 @@ class RichBlock(Object):
                 rows=row_list,
                 bordered=raw_block.bordered,
                 striped=raw_block.striped,
+                compact=raw_block.compact if hasattr(raw_block, 'compact') else None,
             )
 
         if isinstance(raw_block, raw.types.PageBlockDetails):
@@ -481,5 +482,24 @@ class RichBlock(Object):
 
         if isinstance(raw_block, raw.types.PageBlockHeading6):
             return RichBlock(client=client, type=enums.RichBlockType.HEADING6, text=_rt(raw_block.text))
+
+        if isinstance(raw_block, raw.types.PageBlockDocument):
+            ct, cc = _caption(raw_block.caption)
+            return RichBlock(
+                client=client,
+                type=enums.RichBlockType.DOCUMENT,
+                document_id=raw_block.document_id,
+                caption_text=ct,
+                caption_credit=cc,
+            )
+
+        if isinstance(raw_block, raw.types.PageBlockButtonRow):
+            return RichBlock(
+                client=client,
+                type=enums.RichBlockType.BUTTON_ROW,
+                align_left=raw_block.align_left,
+                align_center=raw_block.align_center,
+                align_right=raw_block.align_right,
+            )
 
         return RichBlock(client=client, type=enums.RichBlockType.UNSUPPORTED)

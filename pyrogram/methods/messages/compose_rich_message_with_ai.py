@@ -8,10 +8,11 @@ class ComposeRichMessageWithAI:
     async def compose_rich_message_with_ai(
         self: "pyrogram.Client",
         proofread: bool = False,
+        emojify: bool = False,
         text: Optional["raw.base.InputRichMessage"] = None,
         translate_to_lang: Optional[str] = None,
         tone: Optional["raw.base.InputAiComposeTone"] = None
-    ) -> "raw.base.ComposedRichMessageWithAI":
+    ) -> "raw.base.messages.ComposedRichMessageWithAI":
         """Compose or improve a rich message using Telegram's AI.
 
         .. include:: /_includes/usable-by/users.rst
@@ -19,6 +20,9 @@ class ComposeRichMessageWithAI:
         Parameters:
             proofread (``bool``, *optional*):
                 Pass True to proofread and improve the existing ``text``. Defaults to False.
+
+            emojify (``bool``, *optional*):
+                Pass True to add emojis to the composed text. Defaults to False.
 
             text (:obj:`~pyrogram.raw.base.InputRichMessage`, *optional*):
                 The rich message input to compose or proofread.
@@ -30,7 +34,7 @@ class ComposeRichMessageWithAI:
                 The composition tone/style to apply.
 
         Returns:
-            :obj:`~pyrogram.raw.base.ComposedRichMessageWithAI`: The AI-composed message.
+            :obj:`~pyrogram.raw.base.messages.ComposedRichMessageWithAI`: The AI-composed message.
 
         Example:
             .. code-block:: python
@@ -44,6 +48,7 @@ class ComposeRichMessageWithAI:
         return await self.invoke(
             raw.functions.messages.ComposeRichMessageWithAI(
                 proofread=proofread or None,
+                emojify=emojify or None,
                 text=text,
                 translate_to_lang=translate_to_lang,
                 tone=tone
