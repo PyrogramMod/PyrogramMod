@@ -20,6 +20,7 @@ from typing import Union, Optional
 
 import pyrogram
 from pyrogram import raw
+from pyrogram import types
 
 
 class EditEphemeralMessage:
@@ -35,7 +36,7 @@ class EditEphemeralMessage:
         rich_message: Optional["raw.base.InputRichMessage"] = None,
         invert_media: bool = False,
         welcome: bool = False,
-    ) -> "raw.base.Updates":
+    ) -> Optional["types.Message"]:
         """Edit an ephemeral message previously sent with :meth:`~pyrogram.Client.send_ephemeral_message`.
 
         Ephemeral messages are visible only to a specific user within a chat.
@@ -74,7 +75,8 @@ class EditEphemeralMessage:
                 Pass True if this is a welcome message.
 
         Returns:
-            :obj:`~pyrogram.raw.base.Updates`: On success.
+            :obj:`~pyrogram.types.Message` | ``None``: On success, the edited message is returned,
+            otherwise None.
 
         Example:
             .. code-block:: python
@@ -87,7 +89,7 @@ class EditEphemeralMessage:
         peer = await self.resolve_peer(chat_id)
         receiver = await self.resolve_peer(user_id)
 
-        return await self.invoke(
+        r = await self.invoke(
             raw.functions.ephemeral.EditMessage(
                 peer=peer,
                 receiver_id=receiver,
@@ -101,3 +103,17 @@ class EditEphemeralMessage:
                 welcome=welcome or None,
             )
         )
+
+        users = {i.id: i for i in r.users}
+        chats = {i.id: i for i in r.chats}
+
+        for i in r.updates:
+            if isinstance(i, (raw.types.UpdateNewMessage,
+                              raw.types.UpdateNewChannelMessage,
+                              raw.types.UpdateEditMessage,
+                              raw.types.UpdateEditChannelMessage)):
+                return await types.Message._parse(
+                    self, i.message, users, chats
+                )
+
+        return None

@@ -16,10 +16,11 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from typing import Union
+from typing import Union, Optional
 
 import pyrogram
 from pyrogram import raw
+from pyrogram import types
 
 
 class EditCreator:
@@ -28,7 +29,7 @@ class EditCreator:
         chat_id: Union[int, str],
         user_id: Union[int, str],
         password: str,
-    ) -> "raw.base.Updates":
+    ) -> Optional["types.Message"]:
         """Transfer channel ownership to another user.
 
         .. include:: /_includes/usable-by/users.rst
@@ -44,7 +45,8 @@ class EditCreator:
                 Your 2FA password (required for ownership transfer).
 
         Returns:
-            :obj:`~pyrogram.raw.base.Updates`: On success.
+            :obj:`~pyrogram.types.Message` | ``None``: On success, the service message
+            confirming the ownership transfer is returned, otherwise None.
 
         Example:
             .. code-block:: python
@@ -63,8 +65,14 @@ class EditCreator:
             )
         )
 
-        for i in r.updates:
-            if isinstance(i, raw.types.UpdateEditChannelMessage):
-                return True
+        users = {i.id: i for i in r.users}
+        chats = {i.id: i for i in r.chats}
 
-        return r
+        for i in r.updates:
+            if isinstance(i, (raw.types.UpdateNewMessage,
+                              raw.types.UpdateNewChannelMessage)):
+                return await types.Message._parse(
+                    self, i.message, users, chats
+                )
+
+        return None

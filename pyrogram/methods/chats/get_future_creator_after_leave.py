@@ -20,13 +20,14 @@ from typing import Union
 
 import pyrogram
 from pyrogram import raw
+from pyrogram import types
 
 
 class GetFutureCreatorAfterLeave:
     async def get_future_creator_after_leave(
         self: "pyrogram.Client",
         chat_id: Union[int, str],
-    ) -> "raw.base.User":
+    ) -> "types.User":
         """Get the user who will become the new creator after you leave a channel.
 
         .. include:: /_includes/usable-by/users.rst
@@ -36,15 +37,17 @@ class GetFutureCreatorAfterLeave:
                 Unique identifier (int) or username (str) of the target channel.
 
         Returns:
-            :obj:`~pyrogram.raw.base.User`: The future creator user object.
+            :obj:`~pyrogram.types.User`: The future creator user.
 
         Example:
             .. code-block:: python
 
                 future_creator = await app.get_future_creator_after_leave(chat_id)
         """
-        return await self.invoke(
+        r = await self.invoke(
             raw.functions.channels.GetFutureCreatorAfterLeave(
                 channel=await self.resolve_peer(chat_id)
             )
         )
+
+        return types.User._parse(self, r)

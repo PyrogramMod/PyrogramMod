@@ -18,13 +18,14 @@
 
 import pyrogram
 from pyrogram import raw
+from pyrogram import types
 
 
 class GetAppChangelog:
     async def get_app_changelog(
         self: "pyrogram.Client",
         prev_app_version: str,
-    ) -> "raw.base.Updates":
+    ) -> "types.List":
         """Get the app changelog for a specific previous app version.
 
         .. include:: /_includes/usable-by/users.rst
@@ -34,15 +35,33 @@ class GetAppChangelog:
                 The previous app version string (e.g. ``"4.0.0"``).
 
         Returns:
-            :obj:`~pyrogram.raw.base.Updates`: The changelog updates.
+            :obj:`~pyrogram.types.List` of :obj:`~pyrogram.types.Message`: The changelog messages.
 
         Example:
             .. code-block:: python
 
                 changelog = await app.get_app_changelog("4.0.0")
+                for msg in changelog:
+                    print(msg.text)
         """
-        return await self.invoke(
+        r = await self.invoke(
             raw.functions.help.GetAppChangelog(
                 prev_app_version=prev_app_version
             )
         )
+
+        users = {i.id: i for i in r.users}
+        chats = {i.id: i for i in r.chats}
+
+        messages = types.List()
+
+        for i in r.updates:
+            if isinstance(i, (raw.types.UpdateNewMessage,
+                              raw.types.UpdateNewChannelMessage)):
+                messages.append(
+                    await types.Message._parse(
+                        self, i.message, users, chats
+                    )
+                )
+
+        return messages
