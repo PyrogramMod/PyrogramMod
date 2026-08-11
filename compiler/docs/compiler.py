@@ -236,6 +236,7 @@ def pyrogram_api():
             on_raw_update
             on_disconnect
             on_chat_join_request
+            on_guard_bot_query
         """,
         messages="""
         Messages
@@ -345,6 +346,8 @@ def pyrogram_api():
             get_group_call_stream_channels
             get_similar_channels
             set_chat_guard_bot
+            edit_creator
+            get_future_creator_after_leave
         """,
         users="""
         Users
@@ -449,14 +452,15 @@ def pyrogram_api():
             delete_ephemeral_message
             get_ephemeral_callback_answer
             report_ephemeral_message
-            edit_ephemeral_message_text
-            edit_ephemeral_message_caption
-            edit_ephemeral_message_media
-            edit_ephemeral_message_reply_markup
+            edit_ephemeral_message
             get_welcome_messages
             delete_welcome_message
             delete_all_welcome_messages
             forward_welcome_message
+        """,
+        help="""
+        Help
+            get_app_changelog
         """,
         authorization="""
         Authorization
@@ -539,6 +543,8 @@ def pyrogram_api():
             Dialog
             Restriction
             EmojiStatus
+            GuardBotQuery
+            PeerColor
         """,
         messages_media="""
         Messages & Media
@@ -561,6 +567,7 @@ def pyrogram_api():
             WebPage
             Poll
             PollOption
+            PollLink
             Dice
             Reaction
             VideoChatScheduled
@@ -570,6 +577,19 @@ def pyrogram_api():
             WebAppData
             MessageReactions
             ChatReactions
+            Story
+            Giveaway
+            StarGift
+            StarGiftUnique
+            LinkPreviewOptions
+            InputRichMessage
+            RichBlock
+            RichBlockTableCell
+            RichMessage
+            RichText
+            WebViewResult
+            WelcomeMessages
+            CallbackAnswer
         """,
         bot_keyboards="""
         Bot keyboards
@@ -589,6 +609,7 @@ def pyrogram_api():
             MenuButtonWebApp
             MenuButtonDefault
             SentWebAppMessage
+            KeyboardButtonStyle
         """,
         bot_commands="""
         Bot commands
