@@ -173,6 +173,24 @@ class RichBlock(Object):
 
         ordered_reversed (``bool``, *optional*):
             Reversed order for ORDERED_LIST.
+
+        compact (``bool``, *optional*):
+            Compact table layout (TABLE type).
+
+        document_id (``int``, *optional*):
+            Document ID (DOCUMENT type).
+
+        buttons (List of :obj:`~pyrogram.types.PageButton`, *optional*):
+            Inline buttons (BUTTON_ROW type).
+
+        align_left (``bool``, *optional*):
+            Align buttons to the left (BUTTON_ROW type).
+
+        align_center (``bool``, *optional*):
+            Align buttons to the center (BUTTON_ROW type).
+
+        align_right (``bool``, *optional*):
+            Align buttons to the right (BUTTON_ROW type).
     """
 
     def __init__(
@@ -205,6 +223,12 @@ class RichBlock(Object):
         striped: Optional[bool] = None,
         ordered_start: Optional[int] = None,
         ordered_reversed: Optional[bool] = None,
+        compact: Optional[bool] = None,
+        document_id: Optional[int] = None,
+        buttons: Optional[List["PageButton"]] = None,
+        align_left: Optional[bool] = None,
+        align_center: Optional[bool] = None,
+        align_right: Optional[bool] = None,
     ):
         super().__init__(client)
         self.type = type
@@ -233,6 +257,12 @@ class RichBlock(Object):
         self.striped = striped
         self.ordered_start = ordered_start
         self.ordered_reversed = ordered_reversed
+        self.compact = compact
+        self.document_id = document_id
+        self.buttons = buttons
+        self.align_left = align_left
+        self.align_center = align_center
+        self.align_right = align_right
 
     @staticmethod
     def _parse(client: "pyrogram.Client", raw_block: "raw.base.PageBlock") -> Optional["RichBlock"]:
@@ -494,12 +524,15 @@ class RichBlock(Object):
             )
 
         if isinstance(raw_block, raw.types.PageBlockButtonRow):
+            from .page_button import PageButton
+
             return RichBlock(
                 client=client,
                 type=enums.RichBlockType.BUTTON_ROW,
                 align_left=raw_block.align_left,
                 align_center=raw_block.align_center,
                 align_right=raw_block.align_right,
+                buttons=[PageButton._parse(client, b) for b in raw_block.buttons],
             )
 
         return RichBlock(client=client, type=enums.RichBlockType.UNSUPPORTED)

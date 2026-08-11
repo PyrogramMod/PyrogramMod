@@ -43,8 +43,13 @@ class InputRichMessage(Object):
         .. code-block:: python
 
             from pyrogram.raw import types as raw_types
-            from pyrogram.types import InputRichMessage
+            from pyrogram.types import (
+                InputRichMessage, RichText, PageButton,
+                InlineButtonType, RichButtonStyle,
+            )
+            from pyrogram.enums import RichTextType
 
+            # Simple rich message
             msg = InputRichMessage(blocks=[
                 raw_types.PageBlockParagraph(
                     text=raw_types.TextPlain(text="Hello, rich world!")
@@ -55,6 +60,31 @@ class InputRichMessage(Object):
                 ),
             ])
             await app.send_rich_message(chat_id, msg)
+
+            # Rich message with buttons
+            msg_with_buttons = InputRichMessage(blocks=[
+                raw_types.PageBlockParagraph(
+                    text=raw_types.TextPlain(text="Choose an option:")
+                ),
+                raw_types.PageBlockButtonRow(
+                    buttons=[
+                        raw_types.PageButton(
+                            text=raw_types.TextPlain(text="Visit Website"),
+                            type=raw_types.InlineButtonTypeUrl(
+                                url="https://pyrogram.org"
+                            ),
+                            style=raw_types.RichButtonStyle(bg_primary=True),
+                        ),
+                        raw_types.PageButton(
+                            text=raw_types.TextPlain(text="Buy Now"),
+                            type=raw_types.InlineButtonTypeBuy(),
+                            style=raw_types.RichButtonStyle(bg_success=True),
+                        ),
+                    ],
+                    align_center=True,
+                ),
+            ])
+            await app.send_rich_message(chat_id, msg_with_buttons)
     """
 
     def __init__(

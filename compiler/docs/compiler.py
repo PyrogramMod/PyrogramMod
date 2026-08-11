@@ -595,6 +595,9 @@ def pyrogram_api():
             WelcomeMessages
             CallbackAnswer
             EphemeralBotCallbackQuery
+            InlineButtonType
+            RichButtonStyle
+            PageButton
         """,
         bot_keyboards="""
         Bot keyboards

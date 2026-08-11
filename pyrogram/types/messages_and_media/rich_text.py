@@ -99,6 +99,12 @@ class RichText(Object):
 
         date_day_of_week (``bool``, *optional*):
             Show day of week (for DATE type).
+
+        button_type (:obj:`~pyrogram.types.InlineButtonType`, *optional*):
+            Inline button type (for BUTTON type).
+
+        button_style (:obj:`~pyrogram.types.RichButtonStyle`, *optional*):
+            Button visual style (for BUTTON type).
     """
 
     def __init__(
@@ -129,6 +135,8 @@ class RichText(Object):
         date_short_date: Optional[bool] = None,
         date_long_date: Optional[bool] = None,
         date_day_of_week: Optional[bool] = None,
+        button_type = None,
+        button_style = None,
     ):
         super().__init__(client)
 
@@ -156,6 +164,8 @@ class RichText(Object):
         self.date_short_date = date_short_date
         self.date_long_date = date_long_date
         self.date_day_of_week = date_day_of_week
+        self.button_type = button_type
+        self.button_style = button_style
 
     @staticmethod
     def _parse(client: "pyrogram.Client", raw_text: "raw.base.RichText") -> Optional["RichText"]:
@@ -302,10 +312,14 @@ class RichText(Object):
             )
 
         if isinstance(raw_text, raw.types.TextButton):
+            from .inline_button_type import InlineButtonType, RichButtonStyle
+
             return RichText(
                 client=client,
                 type=enums.RichTextType.BUTTON,
                 text=RichText._parse(client, raw_text.text),
+                button_type=InlineButtonType._parse(raw_text.type),
+                button_style=RichButtonStyle._parse(raw_text.style) if raw_text.style else None,
             )
 
         return RichText(client=client, type=enums.RichTextType.EMPTY)
