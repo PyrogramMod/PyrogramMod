@@ -2,6 +2,7 @@ from typing import Optional
 
 import pyrogram
 from pyrogram import raw
+from pyrogram import types
 
 
 class RequestChatJoinWebView:
@@ -10,7 +11,7 @@ class RequestChatJoinWebView:
         query_id: int,
         platform: str,
         theme_params: Optional[dict] = None
-    ) -> "raw.base.WebViewResult":
+    ) -> "types.WebViewResult":
         """Request a web view URL for a chat join button.
 
         Used when a bot sends a web view button as part of a
@@ -29,7 +30,7 @@ class RequestChatJoinWebView:
                 Theme parameters as a JSON-serializable dict.
 
         Returns:
-            :obj:`~pyrogram.raw.base.WebViewResult`: The web view result.
+            :obj:`~pyrogram.types.WebViewResult`: The web view result with the URL.
 
         Example:
             .. code-block:: python
@@ -47,10 +48,12 @@ class RequestChatJoinWebView:
         if theme_params is not None:
             theme = raw.types.DataJSON(data=json.dumps(theme_params))
 
-        return await self.invoke(
+        r = await self.invoke(
             raw.functions.messages.RequestChatJoinWebView(
                 query_id=query_id,
                 platform=platform,
                 theme_params=theme
             )
         )
+
+        return types.WebViewResult._parse(self, r)

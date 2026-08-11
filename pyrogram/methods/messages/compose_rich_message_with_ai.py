@@ -2,6 +2,7 @@ from typing import Optional
 
 import pyrogram
 from pyrogram import raw
+from pyrogram import types
 
 
 class ComposeRichMessageWithAI:
@@ -12,7 +13,7 @@ class ComposeRichMessageWithAI:
         text: Optional["raw.base.InputRichMessage"] = None,
         translate_to_lang: Optional[str] = None,
         tone: Optional["raw.base.InputAiComposeTone"] = None
-    ) -> "raw.base.messages.ComposedRichMessageWithAI":
+    ) -> "types.RichMessage":
         """Compose or improve a rich message using Telegram's AI.
 
         .. include:: /_includes/usable-by/users.rst
@@ -34,7 +35,7 @@ class ComposeRichMessageWithAI:
                 The composition tone/style to apply.
 
         Returns:
-            :obj:`~pyrogram.raw.base.messages.ComposedRichMessageWithAI`: The AI-composed message.
+            :obj:`~pyrogram.types.RichMessage`: The AI-composed rich message.
 
         Example:
             .. code-block:: python
@@ -43,9 +44,11 @@ class ComposeRichMessageWithAI:
                     proofread=True,
                     text=raw.types.InputRichMessage(blocks=[...])
                 )
+                for block in result.blocks:
+                    print(block)
         """
 
-        return await self.invoke(
+        r = await self.invoke(
             raw.functions.messages.ComposeRichMessageWithAI(
                 proofread=proofread or None,
                 emojify=emojify or None,
@@ -54,3 +57,5 @@ class ComposeRichMessageWithAI:
                 tone=tone
             )
         )
+
+        return types.RichMessage._parse(self, r.result)
