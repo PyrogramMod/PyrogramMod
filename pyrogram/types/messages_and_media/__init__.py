@@ -51,6 +51,7 @@ from .message_reactions import MessageReactions
 from .star_gift import StarGift, StarGiftUnique
 from .welcome_messages import WelcomeMessages
 from .web_view_result import WebViewResult
+from .callback_answer import CallbackAnswer
 
 __all__ = [
     "Animation", "Audio", "Contact", "Document", "Game", "Location", "Message", "MessageEntity", "Photo", "Thumbnail",
@@ -58,5 +59,5 @@ __all__ = [
     "WebPage", "LinkPreviewOptions", "Dice", "Reaction", "WebAppData", "MessageReactions", "Story", "Giveaway", "AlternativeVideo",
     "StarGift", "StarGiftUnique",
     "InputRichMessage", "RichBlock", "RichBlockTableCell", "RichMessage", "RichText",
-    "WelcomeMessages", "WebViewResult",
+    "WelcomeMessages", "WebViewResult", "CallbackAnswer",
 ]

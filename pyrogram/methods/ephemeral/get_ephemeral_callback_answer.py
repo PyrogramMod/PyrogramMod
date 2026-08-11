@@ -2,6 +2,7 @@ from typing import Union, Optional
 
 import pyrogram
 from pyrogram import raw
+from pyrogram import types
 
 
 class GetEphemeralCallbackAnswer:
@@ -10,7 +11,7 @@ class GetEphemeralCallbackAnswer:
         chat_id: Union[int, str],
         message_id: int,
         data: Optional[bytes] = None
-    ) -> "raw.base.messages.BotCallbackAnswer":
+    ) -> "types.CallbackAnswer":
         """Get a callback answer for an ephemeral message inline button.
 
         .. include:: /_includes/usable-by/users.rst
@@ -26,20 +27,23 @@ class GetEphemeralCallbackAnswer:
                 Callback data.
 
         Returns:
-            :obj:`~pyrogram.raw.base.messages.BotCallbackAnswer`: The bot callback answer.
+            :obj:`~pyrogram.types.CallbackAnswer`: The bot callback answer.
 
         Example:
             .. code-block:: python
 
                 answer = await app.get_ephemeral_callback_answer(chat_id, 123, b"action")
+                print(answer.message)
         """
 
         peer = await self.resolve_peer(chat_id)
 
-        return await self.invoke(
+        r = await self.invoke(
             raw.functions.ephemeral.GetCallbackAnswer(
                 peer=peer,
                 id=message_id,
                 data=data
             )
         )
+
+        return types.CallbackAnswer._parse(self, r)

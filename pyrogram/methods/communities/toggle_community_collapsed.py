@@ -9,7 +9,7 @@ class ToggleCommunityCollapsed:
         self: "pyrogram.Client",
         community_id: Union[int, str],
         collapsed: Optional[bool] = None
-    ) -> "raw.base.Updates":
+    ) -> bool:
         """Toggle whether a community is collapsed in the dialogs list.
 
         .. include:: /_includes/usable-by/users.rst
@@ -22,7 +22,7 @@ class ToggleCommunityCollapsed:
                 Pass True to collapse, False to expand.
 
         Returns:
-            :obj:`~pyrogram.raw.base.Updates`: On success.
+            ``bool``: True on success.
 
         Raises:
             ~pyrogram.errors.ChatAdminRequired: The user is not an admin of
@@ -36,9 +36,11 @@ class ToggleCommunityCollapsed:
 
         community = await self.resolve_peer(community_id)
 
-        return await self.invoke(
+        await self.invoke(
             raw.functions.communities.ToggleCommunityCollapsedInDialogs(
                 community=community,
                 collapsed=collapsed
             )
         )
+
+        return True

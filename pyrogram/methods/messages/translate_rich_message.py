@@ -2,6 +2,7 @@ from typing import Union, Optional, List
 
 import pyrogram
 from pyrogram import raw
+from pyrogram import types
 
 
 class TranslateRichMessage:
@@ -11,7 +12,7 @@ class TranslateRichMessage:
         chat_id: Optional[Union[int, str]] = None,
         message_ids: Optional[List[int]] = None,
         tone: Optional[str] = None
-    ) -> "raw.base.messages.TranslatedRichMessage":
+    ) -> "types.List":
         """Translate a rich message.
 
         .. include:: /_includes/usable-by/users.rst
@@ -30,17 +31,19 @@ class TranslateRichMessage:
                 Optional tone/style for the translation.
 
         Returns:
-            :obj:`~pyrogram.raw.base.messages.TranslatedRichMessage`: Translated content.
+            :obj:`~pyrogram.types.List` of :obj:`~pyrogram.types.RichMessage`: Translated messages.
 
         Example:
             .. code-block:: python
 
                 result = await app.translate_rich_message("en", chat_id=chat_id, message_ids=[123])
+                for msg in result:
+                    print(msg)
         """
 
         peer = await self.resolve_peer(chat_id) if chat_id is not None else None
 
-        return await self.invoke(
+        r = await self.invoke(
             raw.functions.messages.TranslateRichMessage(
                 to_lang=to_lang,
                 peer=peer,
@@ -48,3 +51,10 @@ class TranslateRichMessage:
                 tone=tone
             )
         )
+
+        messages = types.List()
+
+        for rich_msg in r.result:
+            messages.append(types.RichMessage._parse(self, rich_msg))
+
+        return messages

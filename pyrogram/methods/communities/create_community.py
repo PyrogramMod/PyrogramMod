@@ -2,6 +2,7 @@ from typing import Union, Optional
 
 import pyrogram
 from pyrogram import raw
+from pyrogram import types
 
 
 class CreateCommunity:
@@ -11,7 +12,7 @@ class CreateCommunity:
         title: str,
         about: Optional[str] = None,
         hidden: Optional[bool] = None
-    ) -> "raw.base.Updates":
+    ) -> Optional["types.Message"]:
         """Create a community linked to a channel or supergroup.
 
         .. include:: /_includes/usable-by/users.rst
@@ -30,7 +31,8 @@ class CreateCommunity:
                 If True, the community is created as hidden.
 
         Returns:
-            :obj:`~pyrogram.raw.base.Updates`: On success.
+            :obj:`~pyrogram.types.Message` | ``None``: On success, the service message
+            is returned, otherwise None.
 
         Raises:
             ~pyrogram.errors.ChatAdminRequired: The user is not an admin of
@@ -44,7 +46,7 @@ class CreateCommunity:
 
         peer = await self.resolve_peer(chat_id)
 
-        return await self.invoke(
+        r = await self.invoke(
             raw.functions.communities.Create(
                 title=title,
                 peer=peer,
@@ -52,3 +54,15 @@ class CreateCommunity:
                 hidden=hidden
             )
         )
+
+        users = {i.id: i for i in r.users}
+        chats = {i.id: i for i in r.chats}
+
+        for i in r.updates:
+            if isinstance(i, (raw.types.UpdateNewMessage,
+                              raw.types.UpdateNewChannelMessage)):
+                return await types.Message._parse(
+                    self, i.message, users, chats
+                )
+
+        return None

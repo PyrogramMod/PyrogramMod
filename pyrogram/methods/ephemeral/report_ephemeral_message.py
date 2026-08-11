@@ -11,7 +11,7 @@ class ReportEphemeralMessage:
         message_id: int,
         option: bytes,
         message: str = ""
-    ) -> "raw.base.ReportResult":
+    ) -> bool:
         """Report an ephemeral message.
 
         .. include:: /_includes/usable-by/users.rst
@@ -30,7 +30,7 @@ class ReportEphemeralMessage:
                 Additional report comment. Defaults to empty string.
 
         Returns:
-            :obj:`~pyrogram.raw.base.ReportResult`: The report result.
+            ``bool``: True on success.
 
         Example:
             .. code-block:: python
@@ -40,7 +40,7 @@ class ReportEphemeralMessage:
 
         peer = await self.resolve_peer(chat_id)
 
-        return await self.invoke(
+        await self.invoke(
             raw.functions.ephemeral.ReportMessage(
                 peer=peer,
                 id=message_id,
@@ -48,3 +48,5 @@ class ReportEphemeralMessage:
                 message=message
             )
         )
+
+        return True

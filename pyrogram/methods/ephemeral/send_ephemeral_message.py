@@ -2,6 +2,7 @@ from typing import Union, Optional
 
 import pyrogram
 from pyrogram import raw
+from pyrogram import types
 
 
 class SendEphemeralMessage:
@@ -11,7 +12,7 @@ class SendEphemeralMessage:
         receiver_id: Union[int, str],
         text: str,
         query_id: Optional[int] = None
-    ) -> "raw.base.Updates":
+    ) -> Optional["types.Message"]:
         """Send an ephemeral message to a bot within a peer context.
 
         Ephemeral messages are visible only to the receiver bot and disappear
@@ -33,7 +34,8 @@ class SendEphemeralMessage:
                 Callback query ID, if replying to a bot query.
 
         Returns:
-            :obj:`~pyrogram.raw.base.Updates`: On success.
+            :obj:`~pyrogram.types.Message` | ``None``: On success, the sent message is returned,
+            otherwise None.
 
         Example:
             .. code-block:: python
@@ -49,7 +51,7 @@ class SendEphemeralMessage:
                 access_hash=receiver_peer.access_hash
             )
 
-        return await self.invoke(
+        r = await self.invoke(
             raw.functions.ephemeral.SendMessage(
                 peer=peer,
                 receiver_id=receiver_peer,
@@ -58,3 +60,15 @@ class SendEphemeralMessage:
                 query_id=query_id
             )
         )
+
+        users = {i.id: i for i in r.users}
+        chats = {i.id: i for i in r.chats}
+
+        for i in r.updates:
+            if isinstance(i, (raw.types.UpdateNewMessage,
+                              raw.types.UpdateNewChannelMessage)):
+                return await types.Message._parse(
+                    self, i.message, users, chats
+                )
+
+        return None
