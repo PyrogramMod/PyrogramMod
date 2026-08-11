@@ -28,6 +28,7 @@ from pyrogram.handlers import (
     UserStatusHandler, RawUpdateHandler, InlineQueryHandler, PollHandler,
     ChosenInlineResultHandler, ChatMemberUpdatedHandler, ChatJoinRequestHandler,
     GuardBotQueryHandler,
+    BotStarsSubscriptionHandler, EphemeralBotCallbackQueryHandler, UserPhotoHandler,
 )
 from pyrogram.raw.types import (
     UpdateNewMessage, UpdateNewChannelMessage, UpdateNewScheduledMessage,
@@ -37,6 +38,7 @@ from pyrogram.raw.types import (
     UpdateUserStatus, UpdateBotInlineQuery, UpdateMessagePoll,
     UpdateBotInlineSend, UpdateChatParticipant, UpdateChannelParticipant,
     UpdateBotChatInviteRequester, UpdateBotGuestChatQuery,
+    UpdateBotStarsSubscription, UpdateEphemeralBotCallbackQuery, UpdateUserPhoto,
 )
 
 log = logging.getLogger(__name__)
@@ -54,6 +56,9 @@ class Dispatcher:
     CHOSEN_INLINE_RESULT_UPDATES = (UpdateBotInlineSend,)
     CHAT_JOIN_REQUEST_UPDATES = (UpdateBotChatInviteRequester,)
     GUARD_BOT_QUERY_UPDATES = (UpdateBotGuestChatQuery,)
+    BOT_STARS_SUBSCRIPTION_UPDATES = (UpdateBotStarsSubscription,)
+    EPHEMERAL_BOT_CALLBACK_QUERY_UPDATES = (UpdateEphemeralBotCallbackQuery,)
+    USER_PHOTO_UPDATES = (UpdateUserPhoto,)
 
     def __init__(self, client: "pyrogram.Client"):
         self.client = client
@@ -135,6 +140,24 @@ class Dispatcher:
                 GuardBotQueryHandler,
             )
 
+        async def bot_stars_subscription_parser(update, users, chats):
+            return (
+                pyrogram.types.BotStarsSubscription._parse(self.client, update),
+                BotStarsSubscriptionHandler,
+            )
+
+        async def ephemeral_bot_callback_query_parser(update, users, chats):
+            return (
+                pyrogram.types.EphemeralBotCallbackQuery._parse(self.client, update, users),
+                EphemeralBotCallbackQueryHandler,
+            )
+
+        async def user_photo_parser(update, users, chats):
+            return (
+                pyrogram.types.UserPhoto._parse(self.client, update, users),
+                UserPhotoHandler,
+            )
+
         self.update_parsers = {
             Dispatcher.NEW_MESSAGE_UPDATES: message_parser,
             Dispatcher.EDIT_MESSAGE_UPDATES: edited_message_parser,
@@ -147,6 +170,9 @@ class Dispatcher:
             Dispatcher.CHAT_MEMBER_UPDATES: chat_member_updated_parser,
             Dispatcher.CHAT_JOIN_REQUEST_UPDATES: chat_join_request_parser,
             Dispatcher.GUARD_BOT_QUERY_UPDATES: guard_bot_query_parser,
+            Dispatcher.BOT_STARS_SUBSCRIPTION_UPDATES: bot_stars_subscription_parser,
+            Dispatcher.EPHEMERAL_BOT_CALLBACK_QUERY_UPDATES: ephemeral_bot_callback_query_parser,
+            Dispatcher.USER_PHOTO_UPDATES: user_photo_parser,
         }
 
         self.update_parsers = {key: value for key_tuple, value in self.update_parsers.items() for key in key_tuple}

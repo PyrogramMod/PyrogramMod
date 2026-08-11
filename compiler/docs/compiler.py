@@ -237,6 +237,9 @@ def pyrogram_api():
             on_disconnect
             on_chat_join_request
             on_guard_bot_query
+            on_bot_stars_subscription
+            on_ephemeral_bot_callback_query
+            on_user_photo
         """,
         messages="""
         Messages
@@ -545,6 +548,7 @@ def pyrogram_api():
             EmojiStatus
             GuardBotQuery
             PeerColor
+            UserPhoto
         """,
         messages_media="""
         Messages & Media
@@ -590,6 +594,7 @@ def pyrogram_api():
             WebViewResult
             WelcomeMessages
             CallbackAnswer
+            EphemeralBotCallbackQuery
         """,
         bot_keyboards="""
         Bot keyboards
@@ -665,7 +670,11 @@ def pyrogram_api():
         Authorization
             SentCode
             TermsOfService
-        """
+        """,
+        payments="""
+        Payments
+            BotStarsSubscription
+        """,
     )
 
     root = PYROGRAM_API_DEST + "/types"
