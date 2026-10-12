@@ -228,9 +228,9 @@ messageActionPollDeleteAnswer#399674dc answer:PollAnswer = MessageAction;
 messageActionManagedBotCreated#16605e3e bot_id:long = MessageAction;
 messageActionChangeCommunity#5d20bae8 flags:# community_id:flags.0?long = MessageAction;
 messageActionChatJoinedViaCommunity#4a8bfe80 community_id:long = MessageAction;
-messageActionPhoneNumberRequest#1baa035 = MessageAction;
-messageActionWalletTonConnectRequest#69b8c4bf flags:# accepted:flags.2?true declined:flags.3?true session_id:long expires:int topic:flags.0?string trace_id:flags.1?string dapp_name:flags.4?string = MessageAction;
 messageActionGramTransfer#9329ea33 flags:# comment_encrypted:flags.1?true amount:long peer_address:string transaction_id:string comment:flags.0?string = MessageAction;
+messageActionWalletTonConnectRequest#69b8c4bf flags:# accepted:flags.2?true declined:flags.3?true session_id:long expires:int topic:flags.0?string trace_id:flags.1?string dapp_name:flags.4?string = MessageAction;
+messageActionPhoneNumberRequest#1baa035 = MessageAction;
 
 dialog#fc89f7f3 flags:# pinned:flags.2?true unread_mark:flags.3?true view_forum_as_messages:flags.6?true peer:Peer top_message:int read_inbox_max_id:int read_outbox_max_id:int unread_count:int unread_mentions_count:int unread_reactions_count:int unread_poll_votes_count:int notify_settings:PeerNotifySettings pts:flags.0?int draft:flags.1?DraftMessage folder_id:flags.4?int ttl_period:flags.5?int = Dialog;
 dialogFolder#71bd134c flags:# pinned:flags.2?true folder:Folder peer:Peer top_message:int unread_muted_peers_count:int unread_unmuted_peers_count:int unread_muted_messages_count:int unread_unmuted_messages_count:int = Dialog;
@@ -285,7 +285,7 @@ inputReportReasonFake#f5ddd6e7 = ReportReason;
 inputReportReasonIllegalDrugs#a8eb2be = ReportReason;
 inputReportReasonPersonalDetails#9ec7863d = ReportReason;
 
-userFull#7fe738c4 flags:# blocked:flags.0?true phone_calls_available:flags.4?true phone_calls_private:flags.5?true can_pin_message:flags.7?true has_scheduled:flags.12?true video_calls_available:flags.13?true voice_messages_forbidden:flags.20?true translations_disabled:flags.23?true stories_pinned_available:flags.26?true blocked_my_stories_from:flags.27?true wallpaper_overridden:flags.28?true contact_require_premium:flags.29?true read_dates_private:flags.30?true flags2:# sponsored_enabled:flags2.7?true can_view_revenue:flags2.9?true bot_can_manage_emoji_status:flags2.10?true display_gifts_button:flags2.16?true noforwards_my_enabled:flags2.23?true noforwards_peer_enabled:flags2.24?true unofficial_security_risk:flags2.26?true id:long about:flags.1?string settings:PeerSettings personal_photo:flags.21?Photo profile_photo:flags.2?Photo fallback_photo:flags.22?Photo notify_settings:PeerNotifySettings bot_info:flags.3?BotInfo pinned_msg_id:flags.6?int common_chats_count:int folder_id:flags.11?int ttl_period:flags.14?int theme:flags.15?ChatTheme private_forward_name:flags.16?string bot_group_admin_rights:flags.17?ChatAdminRights bot_broadcast_admin_rights:flags.18?ChatAdminRights wallpaper:flags.24?WallPaper stories:flags.25?PeerStories business_work_hours:flags2.0?BusinessWorkHours business_location:flags2.1?BusinessLocation business_greeting_message:flags2.2?BusinessGreetingMessage business_away_message:flags2.3?BusinessAwayMessage business_intro:flags2.4?BusinessIntro birthday:flags2.5?Birthday personal_channel_id:flags2.6?long personal_channel_message:flags2.6?int stargifts_count:flags2.8?int starref_program:flags2.11?StarRefProgram bot_verification:flags2.12?BotVerification send_paid_messages_stars:flags2.14?long disallowed_stargifts:flags2.15?DisallowedGiftsSettings stars_rating:flags2.17?StarsRating stars_my_pending_rating:flags2.18?StarsRating stars_my_pending_rating_date:flags2.18?int main_tab:flags2.20?ProfileTab saved_music:flags2.21?Document note:flags2.22?TextWithEntities bot_manager_id:flags2.25?long gram_address:flags2.27?string = UserFull;
+userFull#7fe738c4 flags:# blocked:flags.0?true phone_calls_available:flags.4?true phone_calls_private:flags.5?true can_pin_message:flags.7?true has_scheduled:flags.12?true video_calls_available:flags.13?true voice_messages_forbidden:flags.20?true translations_disabled:flags.23?true stories_pinned_available:flags.26?true blocked_my_stories_from:flags.27?true wallpaper_overridden:flags.28?true contact_require_premium:flags.29?true read_dates_private:flags.30?true flags2:# sponsored_enabled:flags2.7?true can_view_revenue:flags2.9?true bot_can_manage_emoji_status:flags2.10?true display_gifts_button:flags2.16?true noforwards_my_enabled:flags2.23?true noforwards_peer_enabled:flags2.24?true unofficial_security_risk:flags2.26?true id:long about:flags.1?string settings:PeerSettings personal_photo:flags.21?Photo profile_photo:flags.2?Photo fallback_photo:flags.22?Photo notify_settings:PeerNotifySettings bot_info:flags.3?BotInfo pinned_msg_id:flags.6?int common_chats_count:int folder_id:flags.11?int ttl_period:flags.14?int theme:flags.15?ChatTheme private_forward_name:flags.16?string bot_group_admin_rights:flags.17?ChatAdminRights bot_broadcast_admin_rights:flags.18?ChatAdminRights wallpaper:flags.24?WallPaper stories:flags.25?PeerStories business_work_hours:flags2.0?BusinessWorkHours business_location:flags2.1?BusinessLocation business_greeting_message:flags2.2?BusinessGreetingMessage business_away_message:flags2.3?BusinessAwayMessage business_intro:flags2.4?BusinessIntro birthday:flags2.5?Birthday personal_channel_id:flags2.6?long personal_channel_message:flags2.6?int stargifts_count:flags2.8?int starref_program:flags2.11?StarRefProgram bot_verification:flags2.12?BotVerification send_paid_messages_stars:flags2.14?long disallowed_gifts:flags2.15?DisallowedGiftsSettings stars_rating:flags2.17?StarsRating stars_my_pending_rating:flags2.18?StarsRating stars_my_pending_rating_date:flags2.18?int main_tab:flags2.20?ProfileTab saved_music:flags2.21?Document note:flags2.22?TextWithEntities bot_manager_id:flags2.25?long gram_address:flags2.27?string = UserFull;
 
 contact#145ade0b user_id:long mutual:Bool = Contact;
 
@@ -502,13 +502,13 @@ updateDeleteEphemeralMessages#56dbfcf8 peer:Peer ids:Vector<int> = Update;
 updateEditEphemeralMessage#4bbb8f01 message:EphemeralMessage = Update;
 updateEphemeralBotCallbackQuery#7c1079d6 flags:# query_id:long user_id:long peer:flags.0?Peer msg_id:int data:bytes chat_instance:flags.1?long message:EphemeralMessage = Update;
 updateBotStarsSubscription#6c0d8e23 flags:# canceled:flags.0?true payment_failed:flags.1?true restored:flags.2?true user_id:long payload:bytes qts:int = Update;
-updateWalletTonConnectSession#50a38e0e session:TonConnectSession = Update;
 updateWalletState#6ac3f2aa state:WalletState = Update;
-updateTranscribeAudio#88617090 flags:# final:flags.0?true transcription_id:long text:string = Update;
-updateWalletGaslessInfo#a8ae1cac left:int reset_at:int min_amount:long relayer_address:string available:inputSerializedData.readInt32(z).0?true = Update;
-updateBotSubscriptionExpire#a8ae3eb1 user_id:long payload:string until_date:int qts:int = Update;
 updateSentWalletTransaction#b1434d4a flags:# gasless:flags.0?true msg_hash:string transaction:flags.1?WalletTransaction = Update;
+updateWalletGaslessInfo#a8ae1cac flags:# available:flags.0?true left:int reset_at:int min_amount:long relayer_address:string = Update;
+updateWalletTonConnectSession#50a38e0e session:TonConnectSession = Update;
 updateWalletTonConnectPendingDisconnect#d1ee8199 session_ids:Vector<long> = Update;
+updateTranscribeAudio#88617090 flags:# final:flags.0?true transcription_id:long text:string = Update;
+updateBotSubscriptionExpire#a8ae3eb1 user_id:long payload:string until_date:int qts:int = Update;
 
 updates.state#a56c2a3e pts:int qts:int date:int seq:int unread_count:int = updates.State;
 
@@ -1672,7 +1672,7 @@ messageExtendedMedia#ee479c64 media:MessageMedia = MessageExtendedMedia;
 
 stickerKeyword#fcfeb29c document_id:long keyword:Vector<string> = StickerKeyword;
 
-username#b4073647 flags:# editable:flags.0?true active:flags.1?true username:string = Username;
+username#b4073647 flags:# editable:flags.0?true active:flags.1?true deletable:flags.2?true expired:flags.3?true username:string = Username;
 
 forumTopicDeleted#23f109b id:int = ForumTopic;
 forumTopic#fcdad815 flags:# my:flags.1?true closed:flags.2?true pinned:flags.3?true short:flags.5?true hidden:flags.6?true title_missing:flags.7?true id:int date:int peer:Peer title:string icon_color:int icon_emoji_id:flags.0?long top_message:int read_inbox_max_id:int read_outbox_max_id:int unread_count:int unread_mentions_count:int unread_reactions_count:int unread_poll_votes_count:int from_id:Peer notify_settings:PeerNotifySettings draft:flags.4?DraftMessage = ForumTopic;
@@ -2300,88 +2300,88 @@ pageButton#692a5488 flags:# text:RichText type:InlineButtonType style:flags.0?Ri
 ephemeral.welcomeMessagesNotModified#59ffdb31 = ephemeral.WelcomeMessages;
 ephemeral.welcomeMessages#104fc872 hash:long messages:Vector<EphemeralMessage> = ephemeral.WelcomeMessages;
 
-auth.firebasePnvIntent#df5ac00c nonce:string digital_credential_payload:string = auth.FirebasePnvIntent;
+currencyRate#30d9743c currency:string rate:double = CurrencyRate;
+
+payments.currencyRates#bbcce4c2 rates:Vector<CurrencyRate> = payments.CurrencyRates;
+
+toncenter.apiResponse#ac8dfe19 response:DataJSON = toncenter.ApiResponse;
+
+toncenter.streamingUrl#19887601 url:string expires:int = toncenter.StreamingUrl;
+
+onrampMethodAvailability#9ec8c6a8 flags:# available:flags.0?true payment_method:string = OnrampMethodAvailability;
+
+onrampProviderInfo#dc27582 flags:# supports_base_currencies:flags.0?true supports_limits:flags.1?true supports_quote:flags.2?true id:string name:string crypto_currencies:Vector<string> = OnrampProviderInfo;
+
+onrampAvailability#f9c84973 flags:# allowed:flags.0?true buy_allowed:flags.1?true country_code:string state:flags.2?string methods:Vector<OnrampMethodAvailability> = OnrampAvailability;
+
+onrampLimits#7be2677e base_currency:string base_min_amount:string base_max_amount:string crypto_min_amount:string crypto_max_amount:string payment_method:string = OnrampLimits;
+
+onrampQuote#7a8011e9 base_currency:string base_amount:string crypto_currency:string crypto_amount:string crypto_price:string fee_amount:string extra_fee_amount:string network_fee_amount:string total_amount:string payment_method:string expires_date:int = OnrampQuote;
+
+onrampSession#d1e42e24 provider:string session_id:string url:string expires_date:int = OnrampSession;
+
+walletStateEmpty#9cb9b2ec flags:# creating:flags.0?true = WalletState;
+walletState#95c5346b flags:# backup_enabled:flags.0?true can_export_phrase:flags.1?true can_enable_backup:flags.2?true address:string public_key:bytes balance:long = WalletState;
+
+walletUserAddress#fe78eecc flags:# user_id:flags.0?long address:string public_key:bytes = WalletUserAddress;
+
+wallet.userAddresses#928e7b55 addresses:Vector<WalletUserAddress> users:Vector<User> = wallet.UserAddresses;
+
+walletTransactionPeerUser#d4ea706d flags:# user_id:long address:string domain:flags.0?string = WalletTransactionPeer;
+walletTransactionPeerAddress#62cc1bc flags:# address:string domain:flags.0?string = WalletTransactionPeer;
+walletTransactionPeerOnramp#e595186e flags:# address:string domain:flags.0?string provider_name:string = WalletTransactionPeer;
+walletTransactionPeerUnsupported#728bed5a = WalletTransactionPeer;
+
+walletTransaction#952dc143 flags:# incoming:flags.0?true gasless:flags.1?true failed:flags.2?true key_change:flags.5?true comment_encrypted:flags.6?true id:string amount:long fee:long date:int peer:WalletTransactionPeer comment:flags.3?string tx_hash:flags.4?string nft:flags.7?wallet.NftItem = WalletTransaction;
+
+wallet.transactions#4322d5a5 flags:# balance:long transactions:Vector<WalletTransaction> next_offset:flags.0?string chats:Vector<Chat> users:Vector<User> = wallet.Transactions;
+
+wallet.secretPhraseParts#e6d0ef01 token:string dcs:Vector<int> = wallet.SecretPhraseParts;
+
+wallet.encryptedSecretPhrasePart#18e82537 data:bytes = wallet.EncryptedSecretPhrasePart;
+
+wallet.holderDc#f9d612ef dc:int public_key:bytes = wallet.HolderDc;
+
+wallet.proofChallenge#99e41707 payload:string expires:int domain:string = wallet.ProofChallenge;
+
+walletOwnershipProof#60bccb0d timestamp:int signature:bytes = WalletOwnershipProof;
+
+inputWalletNew#63a440dc = InputWalletReplacement;
+inputWalletImported#66a66a3b flags:# public_key:bytes anchor_public_key:flags.0?bytes proof:WalletOwnershipProof = InputWalletReplacement;
 
 tonConnectManifest#12229264 flags:# url:string name:string icon:flags.0?WebDocument = TonConnectManifest;
 
 tonConnectSession#126556c6 flags:# pending:flags.0?true closing:flags.1?true closed:flags.2?true id:long dapp_client_id:string client_id:flags.3?string nonce:bytes manifest:flags.4?TonConnectManifest manifest_error:flags.5?int date:int = TonConnectSession;
 
-encryptedSecretPhrasePart#18e82537 data:bytes = EncryptedSecretPhrasePart;
-
-streamingUrl#19887601 url:string expires:int = StreamingUrl;
-
-currencyRate#30d9743c currency:string rate:double = CurrencyRate;
-
-nftItem#3441fd1c flags:# collection_address:flags.0?string address:string owner_address:string index:string name:flags.1?string description:flags.2?string image:flags.3?WebDocument image_small:flags.4?WebDocument content_url:flags.5?WebDocument lottie:flags.6?WebDocument attributes:flags.7?Vector<NftAttribute> extra:flags.8?DataJSON = NftItem;
-
-messages.messageEmpty#3f4e0648 = messages.Message;
-
-walletTransactions#4322d5a5 flags:# balance:long transactions:Vector<WalletTransaction> next_offset:flags.0?string chats:Vector<Chat> users:Vector<User> = WalletTransactions;
-
-tonConnectChallenge#4bc89693 challenge:bytes event_id:long = TonConnectChallenge;
-
-nftAttribute#4c1ef10e trait_type:string value:string = NftAttribute;
+wallet.tonConnectChallenge#4bc89693 challenge:bytes event_id:long = wallet.TonConnectChallenge;
 
 tonConnectNextEventId#582464e3 event_id:long = TonConnectNextEventId;
 
-walletOwnershipProof#60bccb0d timestamp:int signature:bytes = WalletOwnershipProof;
+tonConnectRequest#a15f8513 flags:# session_id:long msg_id:int body:bytes expires:int topic:flags.0?string trace_id:flags.1?string = TonConnectRequest;
+
+wallet.tonConnectPending#85c0f124 session:TonConnectSession requests:Vector<TonConnectRequest> = wallet.TonConnectPending;
+
+wallet.tonConnectSessions#e1f6896 sessions:Vector<TonConnectSession> = wallet.TonConnectSessions;
+
+wallet.existingBalance#bde90a8d flags:# has_balance:flags.0?true url:string = wallet.ExistingBalance;
+
+wallet.nftAttribute#4c1ef10e trait_type:string value:string = wallet.NftAttribute;
+
+wallet.nftItem#3441fd1c flags:# collection_address:flags.0?string address:string owner_address:string index:string name:flags.1?string description:flags.2?string image:flags.3?WebDocument image_small:flags.4?WebDocument content_url:flags.5?WebDocument lottie:flags.6?WebDocument attributes:flags.7?Vector<wallet.NftAttribute> extra:flags.8?DataJSON = wallet.NftItem;
+
+wallet.nftItems#794d486f flags:# items:Vector<wallet.NftItem> next_offset:flags.0?string = wallet.NftItems;
+
+auth.firebasePnvIntent#df5ac00c nonce:string digital_credential_payload:string = auth.FirebasePnvIntent;
+
+messages.messageEmpty#3f4e0648 = messages.Message;
 
 inputTonConnectOauthSession#629f66ce session_id:long challenge_answer:bytes body:bytes proof:WalletOwnershipProof = InputTonConnectOauthSession;
 
-walletTransactionPeerAddress#62cc1bc flags:# address:string domain:flags.0?string = WalletTransactionPeer;
-walletTransactionPeerUnsupported#728bed5a = WalletTransactionPeer;
-walletTransactionPeerUser#d4ea706d flags:# user_id:long address:string domain:flags.0?string = WalletTransactionPeer;
-walletTransactionPeerOnramp#e595186e flags:# address:string domain:flags.0?string provider_name:string = WalletTransactionPeer;
-
-inputWalletNew#63a440dc = InputWalletReplacement;
-inputWalletImported#66a66a3b flags:# public_key:bytes anchor_public_key:flags.0?bytes proof:WalletOwnershipProof = InputWalletReplacement;
-
-nftItems#794d486f flags:# items:Vector<NftItem> next_offset:flags.0?string = NftItems;
-
 premiumGiftOption#79c059f7 flags:# months:int currency:string amount:long bot_url:flags.1?string store_product:flags.0?string = PremiumGiftOption;
-
-onrampQuote#7a8011e9 base_currency:string base_amount:string crypto_currency:string crypto_amount:string crypto_price:string fee_amount:string extra_fee_amount:string network_fee_amount:string total_amount:string payment_method:string expires_date:int = OnrampQuote;
-
-onrampLimits#7be2677e base_currency:string base_min_amount:string base_max_amount:string crypto_min_amount:string crypto_max_amount:string payment_method:string = OnrampLimits;
-
-tonConnectPending#85c0f124 session:TonConnectSession requests:Vector<TonConnectRequest> = TonConnectPending;
 
 mnemonic.decryptedKeyPart#8b90dd08 share:bytes = mnemonic.DecryptedKeyPart;
 
-userAddresses#928e7b55 addresses:Vector<WalletUserAddress> users:Vector<User> = UserAddresses;
-
-walletTransaction#952dc143 flags:# incoming:flags.0?true gasless:flags.1?true failed:flags.2?true key_change:flags.5?true comment_encrypted:flags.6?true id:string amount:long fee:long date:int peer:WalletTransactionPeer comment:flags.3?string tx_hash:flags.4?string nft:flags.7?NftItem = WalletTransaction;
-
-walletState#95c5346b flags:# backup_enabled:flags.0?true can_export_phrase:flags.1?true can_enable_backup:flags.2?true address:string public_key:bytes balance:long = WalletState;
-walletStateEmpty#9cb9b2ec flags:# creating:flags.0?true = WalletState;
-
-proofChallenge#99e41707 payload:string expires:int domain:string = ProofChallenge;
-
-onrampMethodAvailability#9ec8c6a8 flags:# available:flags.0?true payment_method:string = OnrampMethodAvailability;
-
-tonConnectRequest#a15f8513 flags:# session_id:long msg_id:int body:bytes expires:int topic:flags.0?string trace_id:flags.1?string = TonConnectRequest;
-
 messages.webViewResult#aadf159b result:BotInlineResult users:Vector<User> = messages.WebViewResult;
-
-apiResponse#ac8dfe19 response:DataJSON = ApiResponse;
-
-currencyRates#bbcce4c2 rates:Vector<CurrencyRate> = CurrencyRates;
-
-existingBalance#bde90a8d flags:# has_balance:flags.0?true url:string = ExistingBalance;
-
-onrampSession#d1e42e24 provider:string session_id:string url:string expires_date:int = OnrampSession;
-
-onrampProviderInfo#dc27582 flags:# supports_base_currencies:flags.0?true supports_limits:flags.1?true supports_quote:flags.2?true id:string name:string crypto_currencies:Vector<string> = OnrampProviderInfo;
-
-tonConnectSessions#e1f6896 sessions:Vector<TonConnectSession> = TonConnectSessions;
-
-secretPhraseParts#e6d0ef01 token:string dcs:Vector<int> = SecretPhraseParts;
-
-onrampAvailability#f9c84973 flags:# allowed:flags.0?true buy_allowed:flags.1?true country_code:string state:flags.2?string methods:Vector<OnrampMethodAvailability> = OnrampAvailability;
-
-holderDc#f9d612ef dc:int public_key:bytes = HolderDc;
-
-walletUserAddress#fe78eecc flags:# user_id:flags.0?long address:string public_key:bytes = WalletUserAddress;
 
 ---functions---
 
@@ -2423,7 +2423,8 @@ auth.reportMissingCode#cb9deff6 phone_number:string phone_code_hash:string mnc:s
 auth.checkPaidAuth#56e59f9c phone_number:string phone_code_hash:string form_id:long = auth.SentCode;
 auth.initPasskeyLogin#518ad0b7 api_id:int api_hash:string = auth.PasskeyLoginOptions;
 auth.finishPasskeyLogin#9857ad07 flags:# credential:InputPasskeyCredential from_dc_id:flags.0?int from_auth_key_id:flags.0?long = auth.Authorization;
-auth.initFirebasePnvLogin#777df37a api_id:int api_hash:string = auth.FirebasePnvIntent;
+auth.cancelWebTokenAuthorization#490dada1 web_auth_token:string = Bool;
+auth.initFirebasePnvLogin#644f15c0 flags:# except_ids:flags.0?Vector<long> api_id:int api_hash:string = auth.FirebasePnvIntent;
 auth.finishFirebasePnvLogin#2c85094c google_token:string = auth.Authorization;
 auth.firebasePnvSignUp#783f6b56 flags:# no_joined_notifications:flags.0?true first_name:string last_name:string = auth.Authorization;
 
@@ -3001,6 +3002,8 @@ bots.getRequestedWebViewButton#bf25b7f3 bot:InputUser webapp_req_id:string = Key
 bots.getAccessSettings#213853a3 bot:InputUser = bots.AccessSettings;
 bots.editAccessSettings#31813cd8 flags:# restricted:flags.0?true bot:InputUser add_users:flags.1?Vector<InputUser> = Bool;
 bots.setJoinChatResults#e71a4810 query_id:long result:JoinChatBotResult = Bool;
+bots.addUsername#3501c08a bot:InputUser username:string = Bool;
+bots.removeUsername#c704147d bot:InputUser username:string = Bool;
 
 payments.getPaymentForm#37148dbb flags:# invoice:InputInvoice theme_params:flags.0?DataJSON = payments.PaymentForm;
 payments.getPaymentReceipt#2478d1cc peer:InputPeer msg_id:int = payments.PaymentReceipt;
@@ -3067,6 +3070,13 @@ payments.sendStarGiftOffer#8fb86b41 flags:# peer:InputPeer slug:string price:Sta
 payments.getStarGiftUpgradeAttributes#6d038b58 gift_id:long = payments.StarGiftUpgradeAttributes;
 payments.getCraftStarGifts#fd05dd00 gift_id:long offset:string limit:int = payments.SavedStarGifts;
 payments.craftStarGift#b0f9684f stargift:Vector<InputSavedStarGift> = Updates;
+payments.getCurrencyRates#d35983e8 = payments.CurrencyRates;
+payments.getOnrampProviders#3f3e00dc flags:# crypto_currency:flags.0?string = Vector<OnrampProviderInfo>;
+payments.getOnrampBaseCurrencies#1c8bedf3 provider:string crypto_currency:string = Vector<string>;
+payments.getOnrampAvailability#2ec29951 flags:# provider:string crypto_currency:string base_currency:flags.0?string = OnrampAvailability;
+payments.getOnrampLimits#80e851fd flags:# provider:string crypto_currency:string base_currency:string payment_method:flags.0?string = OnrampLimits;
+payments.getOnrampQuote#e06645fa flags:# provider:string crypto_currency:string base_currency:string base_amount:flags.0?string crypto_amount:flags.1?string payment_method:flags.2?string = OnrampQuote;
+payments.createOnrampSession#a2197cf6 flags:# provider:string crypto_currency:string address:string payment_method:flags.0?string base_currency:flags.1?string base_amount:flags.2?string memo:flags.3?string theme:flags.4?string success_return_url:flags.5?string fail_return_url:flags.6?string crypto_amount:flags.7?string = OnrampSession;
 payments.requestRecurringPayment#146e958d user_id:InputUser recurring_init_charge:string invoice_media:InputMedia = Updates;
 
 stickers.createStickerSet#9021ab67 flags:# masks:flags.0?true emojis:flags.5?true text_color:flags.6?true user_id:InputUser title:string short_name:string thumb:flags.2?InputDocument stickers:Vector<InputStickerSetItem> software:flags.3?string = messages.StickerSet;
@@ -3232,38 +3242,33 @@ ephemeral.deleteWelcomeMessage#e882a9e1 peer:InputPeer id:int = Bool;
 ephemeral.deleteAllWelcomeMessages#734f9721 peer:InputPeer = Bool;
 ephemeral.getWelcomeMessages#db9ac18d peer:InputPeer hash:long = ephemeral.WelcomeMessages;
 
-wallet.tonConnectGetPending#11aee065 flags:# dapp_client_id:flags.0?string session_id:flags.1?long = wallet.TonConnectPending;
-wallet.getProofChallenge#2025e697 = wallet.ProofChallenge;
-wallet.tonConnectRegisterKey#338bcf1c session_id:long client_id:string = wallet.TonConnectChallenge;
-wallet.enableBackup#4500c525 flags:# parts:Vector<bytes> new_public_key:flags.1?bytes proof:flags.2?WalletOwnershipProof = WalletState;
-wallet.getUserAddresses#5275dfdd flags:# force:flags.0?true id:Vector<InputUser> addresses:Vector<string> = wallet.UserAddresses;
-wallet.tonConnectClaimRequest#66b57b41 flags:# declined:flags.1?true session_id:long msg_id:int app_request_id:string challenge_answer:flags.0?bytes = Bool;
-wallet.getExistingWaltBalance#691f4360 = wallet.ExistingBalance;
-wallet.getGaslessInfo#742df0a1 = Updates;
-wallet.tonConnectGetNextEventId#775d7244 session_id:long = TonConnectNextEventId;
-wallet.getTransactionsByIDs#811ceab6 id:Vector<string> = WalletTransactions;
-wallet.getNfts#8c12f3a4 offset:string limit:int = wallet.NftItems;
-wallet.exportSecretPhrase#9077c9ac flags:# password:flags.0?InputCheckPasswordSRP = wallet.SecretPhraseParts;
-wallet.getTransactionsByMsgHash#a6bb795d msg_hash:Vector<string> = WalletTransactions;
-wallet.tonConnectGetSessions#a7ffb56e = wallet.TonConnectSessions;
-wallet.getTransactions#a8830a83 flags:# inbound:flags.0?true outbound:flags.1?true offset:string limit:int = WalletTransactions;
-wallet.getState#ab83b33a = WalletState;
-wallet.disableBackup#b0bf0da flags:# password:flags.0?InputCheckPasswordSRP new_public_key:flags.1?bytes proof:flags.2?WalletOwnershipProof = WalletState;
-wallet.tonConnectSubmitConnectResult#c2c00779 flags:# error:flags.0?true session_id:long challenge_answer:bytes body:bytes trace_id:flags.1?string = Bool;
-wallet.tonConnectCreateSession#cc931046 dapp_client_id:string manifest_url:string = TonConnectSession;
-wallet.getCurrencyRates#d35983e8 = CurrencyRates;
-wallet.tonConnectCloseSession#d63f61ce flags:# session_id:long body:flags.0?bytes = Bool;
-wallet.replaceWallet#d8c72eec flags:# wallet:InputWalletReplacement password:flags.0?InputCheckPasswordSRP = WalletState;
-wallet.sendTransfer#d9e5d9e2 flags:# data_normal:bytes data_gasless:flags.0?bytes user_id:InputUser random_id:long = Updates;
-wallet.fetchEncryptedSecretPhrasePart#f53925cf token:string public_key:bytes = wallet.EncryptedSecretPhrasePart;
-wallet.tonConnectSubmitResponse#fac67d3c flags:# session_id:long msg_id:int body:bytes trace_id:flags.0?string = Bool;
-
-toncenter.getOnrampBaseCurrencies#1c8bedf3 provider:string crypto_currency:string = OnrampBaseCurrencies;
-toncenter.getOnrampAvailability#2ec29951 flags:# provider:string crypto_currency:string = OnrampAvailability;
-toncenter.getOnrampLimits#80e851fd flags:# provider:string crypto_currency:string base_currency:string = OnrampLimits;
-toncenter.performApiRequest#8d7bdd61 flags:# post:flags.0?true endpoint:string = ApiResponse;
-toncenter.createOnrampSession#a2197cf6 payment_method:string provider:string crypto_currency:string address:string = OnrampSession;
+toncenter.performApiRequest#8d7bdd61 flags:# post:flags.0?true endpoint:string query:flags.1?string payload:flags.2?string = toncenter.ApiResponse;
 toncenter.getStreamingUrl#cdaf63c7 = toncenter.StreamingUrl;
-toncenter.getOnrampQuote#e06645fa flags:# provider:string crypto_currency:string base_currency:string = OnrampQuote;
+
+wallet.getState#ab83b33a = WalletState;
+wallet.getUserAddresses#5275dfdd flags:# force:flags.0?true id:Vector<InputUser> addresses:Vector<string> = wallet.UserAddresses;
+wallet.getTransactions#a8830a83 flags:# inbound:flags.0?true outbound:flags.1?true offset:string limit:int = wallet.Transactions;
+wallet.getTransactionsByIDs#811ceab6 id:Vector<string> = wallet.Transactions;
+wallet.getTransactionsByMsgHash#a6bb795d msg_hash:Vector<string> = wallet.Transactions;
+wallet.exportSecretPhrase#9077c9ac flags:# password:flags.0?InputCheckPasswordSRP = wallet.SecretPhraseParts;
+wallet.fetchEncryptedSecretPhrasePart#f53925cf token:string public_key:bytes = wallet.EncryptedSecretPhrasePart;
+wallet.replaceWallet#d8c72eec flags:# wallet:InputWalletReplacement password:flags.0?InputCheckPasswordSRP = WalletState;
+wallet.disableBackup#b0bf0da flags:# password:flags.0?InputCheckPasswordSRP new_public_key:flags.1?bytes proof:flags.2?WalletOwnershipProof = WalletState;
+wallet.getBackupHolderDcs#d179d494 = Vector<wallet.HolderDc>;
+wallet.enableBackup#4500c525 flags:# parts:Vector<bytes> new_public_key:flags.1?bytes proof:flags.2?WalletOwnershipProof = WalletState;
+wallet.getProofChallenge#2025e697 = wallet.ProofChallenge;
+wallet.sendTransfer#d9e5d9e2 flags:# data_normal:bytes data_gasless:flags.0?bytes user_id:InputUser random_id:long = Updates;
+wallet.getGaslessInfo#742df0a1 = Updates;
+wallet.getExistingWaltBalance#691f4360 = wallet.ExistingBalance;
+wallet.getNfts#8c12f3a4 offset:string limit:int = wallet.NftItems;
+wallet.tonConnectCreateSession#cc931046 dapp_client_id:string manifest_url:string = TonConnectSession;
+wallet.tonConnectRegisterKey#338bcf1c session_id:long client_id:string = wallet.TonConnectChallenge;
+wallet.tonConnectSubmitConnectResult#c2c00779 flags:# error:flags.0?true session_id:long challenge_answer:bytes body:bytes trace_id:flags.1?string = Bool;
+wallet.tonConnectGetPending#11aee065 flags:# dapp_client_id:flags.0?string session_id:flags.1?long = wallet.TonConnectPending;
+wallet.tonConnectClaimRequest#66b57b41 flags:# declined:flags.1?true session_id:long msg_id:int app_request_id:string challenge_answer:flags.0?bytes = Bool;
+wallet.tonConnectSubmitResponse#fac67d3c flags:# session_id:long msg_id:int body:bytes trace_id:flags.0?string = Bool;
+wallet.tonConnectNextEventId#775d7244 session_id:long = TonConnectNextEventId;
+wallet.tonConnectCloseSession#d63f61ce flags:# session_id:long body:flags.0?bytes = Bool;
+wallet.tonConnectGetSessions#a7ffb56e = wallet.TonConnectSessions;
 
 // LAYER 231
