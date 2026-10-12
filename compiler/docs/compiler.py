@@ -238,8 +238,6 @@ def pyrogram_api():
             on_chat_join_request
             on_guard_bot_query
             on_bot_stars_subscription
-            on_ephemeral_bot_callback_query
-            on_user_photo
         """,
         messages="""
         Messages
@@ -293,10 +291,6 @@ def pyrogram_api():
             get_discussion_replies_count
             get_custom_emoji_stickers
             get_poll_stats
-            send_rich_message
-            send_rich_message_draft
-            translate_rich_message
-            compose_rich_message_with_ai
             request_chat_join_web_view
             get_web_browser_settings
             update_web_browser_settings
@@ -349,8 +343,6 @@ def pyrogram_api():
             get_group_call_stream_channels
             get_similar_channels
             set_chat_guard_bot
-            edit_creator
-            get_future_creator_after_leave
         """,
         users="""
         Users
@@ -449,21 +441,8 @@ def pyrogram_api():
             read_monoforum_history
             delete_monoforum_history
         """,
-        ephemeral="""
-        Ephemeral Messages
-            send_ephemeral_message
-            delete_ephemeral_message
-            get_ephemeral_callback_answer
-            report_ephemeral_message
-            edit_ephemeral_message
-            get_welcome_messages
-            delete_welcome_message
-            delete_all_welcome_messages
-            forward_welcome_message
-        """,
         help="""
         Help
-            get_app_changelog
         """,
         authorization="""
         Authorization
@@ -586,18 +565,8 @@ def pyrogram_api():
             StarGift
             StarGiftUnique
             LinkPreviewOptions
-            InputRichMessage
-            RichBlock
-            RichBlockTableCell
-            RichMessage
-            RichText
             WebViewResult
-            WelcomeMessages
             CallbackAnswer
-            EphemeralBotCallbackQuery
-            InlineButtonType
-            RichButtonStyle
-            PageButton
         """,
         bot_keyboards="""
         Bot keyboards

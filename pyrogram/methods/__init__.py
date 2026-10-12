@@ -23,7 +23,6 @@ from .chats import Chats
 from .communities import Communities
 from .contacts import Contacts
 from .decorators import Decorators
-from .ephemeral import Ephemeral
 from .help import Help
 from .invite_links import InviteLinks
 from .messages import Messages
@@ -38,7 +37,6 @@ class Methods(
     Bots,
     Communities,
     Contacts,
-    Ephemeral,
     Help,
     Password,
     Chats,

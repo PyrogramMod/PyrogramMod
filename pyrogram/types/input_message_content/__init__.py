@@ -17,9 +17,8 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from .input_message_content import InputMessageContent
-from .input_rich_message_content import InputRichMessageContent
 from .input_text_message_content import InputTextMessageContent
 
 __all__ = [
-    "InputMessageContent", "InputRichMessageContent", "InputTextMessageContent",
+    "InputMessageContent", "InputTextMessageContent",
 ]

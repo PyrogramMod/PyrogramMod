@@ -30,5 +30,3 @@ from .poll_handler import PollHandler
 from .raw_update_handler import RawUpdateHandler
 from .user_status_handler import UserStatusHandler
 from .bot_stars_subscription_handler import BotStarsSubscriptionHandler
-from .ephemeral_bot_callback_query_handler import EphemeralBotCallbackQueryHandler
-from .user_photo_handler import UserPhotoHandler

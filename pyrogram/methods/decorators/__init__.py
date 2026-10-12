@@ -30,8 +30,6 @@ from .on_poll import OnPoll
 from .on_raw_update import OnRawUpdate
 from .on_user_status import OnUserStatus
 from .on_bot_stars_subscription import OnBotStarsSubscription
-from .on_ephemeral_bot_callback_query import OnEphemeralBotCallbackQuery
-from .on_user_photo import OnUserPhoto
 
 
 class Decorators(
@@ -49,7 +47,5 @@ class Decorators(
     OnChatJoinRequest,
     OnGuardBotQuery,
     OnBotStarsSubscription,
-    OnEphemeralBotCallbackQuery,
-    OnUserPhoto,
 ):
     pass

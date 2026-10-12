@@ -164,19 +164,6 @@ Communities
 
     {communities}
 
-Ephemeral Messages
-------------------
-
-.. autosummary::
-    :nosignatures:
-
-    {ephemeral}
-
-.. toctree::
-    :hidden:
-
-    {ephemeral}
-
 Authorization
 -------------
 

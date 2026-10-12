@@ -35,7 +35,6 @@ class EditMessageText:
         disable_web_page_preview: bool = None,
         link_preview_options: "types.LinkPreviewOptions" = None,
         reply_markup: "types.InlineKeyboardMarkup" = None,
-        rich_message: Optional["types.InputRichMessage"] = None,
     ) -> "types.Message":
         """Edit the text of messages.
 
@@ -68,9 +67,6 @@ class EditMessageText:
 
             reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
                 An InlineKeyboardMarkup object.
-
-            rich_message (:obj:`~pyrogram.types.InputRichMessage`, *optional*):
-                Replace the message with a rich formatted message.
 
         Returns:
             :obj:`~pyrogram.types.Message`: On success, the edited message is returned.
@@ -111,7 +107,6 @@ class EditMessageText:
                 no_webpage=no_webpage,
                 invert_media=invert_media,
                 reply_markup=await reply_markup.write(self) if reply_markup else None,
-                rich_message=rich_message.write() if rich_message else None,
                 **await utils.parse_text_entities(self, text, parse_mode, entities)
             )
         )

@@ -37,7 +37,6 @@ from .invite_link_importer import InviteLinkImporter
 from .restriction import Restriction
 from .peer_color import PeerColor
 from .user import User
-from .user_photo import UserPhoto
 from .username import Username
 from .video_chat_ended import VideoChatEnded
 from .video_chat_members_invited import VideoChatMembersInvited
@@ -71,5 +70,4 @@ __all__ = [
     "ChatReactions",
     "PeerColor",
     "GuardBotQuery",
-    "UserPhoto",
 ]

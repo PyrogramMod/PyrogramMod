@@ -18,7 +18,6 @@
 
 from .alternative_video import AlternativeVideo
 from .animation import Animation
-from .input_rich_message import InputRichMessage
 from .audio import Audio
 from .contact import Contact
 from .dice import Dice
@@ -29,9 +28,6 @@ from .location import Location
 from .message import Message
 from .message_entity import MessageEntity
 from .poll_link import PollLink
-from .rich_block import RichBlock, RichBlockTableCell
-from .rich_message import RichMessage
-from .rich_text import RichText
 from .photo import Photo
 from .poll import Poll
 from .poll_option import PollOption
@@ -49,19 +45,13 @@ from .web_page import WebPage
 from .link_preview_options import LinkPreviewOptions
 from .message_reactions import MessageReactions
 from .star_gift import StarGift, StarGiftUnique
-from .welcome_messages import WelcomeMessages
 from .web_view_result import WebViewResult
 from .callback_answer import CallbackAnswer
-from .ephemeral_bot_callback_query import EphemeralBotCallbackQuery
-from .inline_button_type import InlineButtonType, RichButtonStyle
-from .page_button import PageButton
 
 __all__ = [
     "Animation", "Audio", "Contact", "Document", "Game", "Location", "Message", "MessageEntity", "Photo", "Thumbnail",
     "StrippedThumbnail", "Poll", "PollLink", "PollOption", "Sticker", "Venue", "Video", "VideoNote", "Voice",
     "WebPage", "LinkPreviewOptions", "Dice", "Reaction", "WebAppData", "MessageReactions", "Story", "Giveaway", "AlternativeVideo",
     "StarGift", "StarGiftUnique",
-    "InputRichMessage", "RichBlock", "RichBlockTableCell", "RichMessage", "RichText",
-    "InlineButtonType", "RichButtonStyle", "PageButton",
-    "WelcomeMessages", "WebViewResult", "CallbackAnswer", "EphemeralBotCallbackQuery",
+    "WebViewResult", "CallbackAnswer",
 ]

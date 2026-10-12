@@ -70,10 +70,6 @@ from .update_web_browser_settings import UpdateWebBrowserSettings
 from .toggle_web_browser_exception import ToggleWebBrowserException
 from .delete_web_browser_exceptions import DeleteWebBrowserExceptions
 from .get_poll_stats import GetPollStats
-from .send_rich_message import SendRichMessage
-from .send_rich_message_draft import SendRichMessageDraft
-from .translate_rich_message import TranslateRichMessage
-from .compose_rich_message_with_ai import ComposeRichMessageWithAI
 from .request_chat_join_web_view import RequestChatJoinWebView
 from .get_monoforum_history import GetMonoforumHistory
 from .get_monoforum_dialogs import GetMonoforumDialogs
@@ -136,10 +132,6 @@ class Messages(
     ToggleWebBrowserException,
     DeleteWebBrowserExceptions,
     GetPollStats,
-    SendRichMessage,
-    SendRichMessageDraft,
-    TranslateRichMessage,
-    ComposeRichMessageWithAI,
     RequestChatJoinWebView,
     GetMonoforumHistory,
     GetMonoforumDialogs,
