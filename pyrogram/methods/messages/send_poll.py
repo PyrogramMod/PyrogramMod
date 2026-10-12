@@ -157,9 +157,13 @@ class SendPoll:
                 media=raw.types.InputMediaPoll(
                     poll=raw.types.Poll(
                         id=self.rnd_id(),
-                        question=question,
+                        hash=0,
+                        question=raw.types.TextWithEntities(text=question, entities=[]),
                         answers=[
-                            raw.types.PollAnswer(text=text, option=bytes([i]))
+                            raw.types.PollAnswer(
+                                text=raw.types.TextWithEntities(text=text, entities=[]),
+                                option=bytes([i])
+                            )
                             for i, text in enumerate(options)
                         ],
                         closed=is_closed,
@@ -169,7 +173,7 @@ class SendPoll:
                         close_period=open_period,
                         close_date=utils.datetime_to_timestamp(close_date)
                     ),
-                    correct_answers=[bytes([correct_option_id])] if correct_option_id is not None else None,
+                    correct_answers=[correct_option_id] if correct_option_id is not None else None,
                     solution=solution,
                     solution_entities=solution_entities or []
                 ),

@@ -102,16 +102,17 @@ class InlineKeyboardButton(Object):
         # self.pay = pay
 
     @staticmethod
-    def read(b: "raw.base.KeyboardButton"):
+    def read(b: "raw.types.KeyboardInlineButton"):
         style = types.KeyboardButtonStyle.read(getattr(b, "style", None))
+        t = b.type
 
-        if isinstance(b, raw.types.KeyboardButtonCallback):
+        if isinstance(t, raw.types.InlineButtonTypeCallback):
             # Try decode data to keep it as string, but if fails, fallback to bytes so we don't lose any information,
             # instead of decoding by ignoring/replacing errors.
             try:
-                data = b.data.decode()
+                data = t.data.decode()
             except UnicodeDecodeError:
-                data = b.data
+                data = t.data
 
             return InlineKeyboardButton(
                 text=b.text,
@@ -119,53 +120,53 @@ class InlineKeyboardButton(Object):
                 style=style
             )
 
-        if isinstance(b, raw.types.KeyboardButtonUrl):
+        if isinstance(t, raw.types.InlineButtonTypeUrl):
             return InlineKeyboardButton(
                 text=b.text,
-                url=b.url,
+                url=t.url,
                 style=style
             )
 
-        if isinstance(b, raw.types.KeyboardButtonUrlAuth):
+        if isinstance(t, raw.types.InlineButtonTypeUrlAuth):
             return InlineKeyboardButton(
                 text=b.text,
-                login_url=types.LoginUrl.read(b),
+                login_url=types.LoginUrl.read(t),
                 style=style
             )
 
-        if isinstance(b, raw.types.KeyboardButtonUserProfile):
+        if isinstance(t, raw.types.InlineButtonTypeUserProfile):
             return InlineKeyboardButton(
                 text=b.text,
-                user_id=b.user_id,
+                user_id=t.user_id,
                 style=style
             )
 
-        if isinstance(b, raw.types.KeyboardButtonSwitchInline):
-            if b.same_peer:
+        if isinstance(t, raw.types.InlineButtonTypeSwitchInline):
+            if t.same_peer:
                 return InlineKeyboardButton(
                     text=b.text,
-                    switch_inline_query_current_chat=b.query,
+                    switch_inline_query_current_chat=t.query,
                     style=style
                 )
             else:
                 return InlineKeyboardButton(
                     text=b.text,
-                    switch_inline_query=b.query,
+                    switch_inline_query=t.query,
                     style=style
                 )
 
-        if isinstance(b, raw.types.KeyboardButtonGame):
+        if isinstance(t, raw.types.InlineButtonTypeGame):
             return InlineKeyboardButton(
                 text=b.text,
                 callback_game=types.CallbackGame(),
                 style=style
             )
 
-        if isinstance(b, raw.types.KeyboardButtonWebView):
+        if isinstance(t, raw.types.InlineButtonTypeWebView):
             return InlineKeyboardButton(
                 text=b.text,
                 web_app=types.WebAppInfo(
-                    url=b.url
+                    url=t.url
                 ),
                 style=style
             )
@@ -177,57 +178,64 @@ class InlineKeyboardButton(Object):
             # Telegram only wants bytes, but we are allowed to pass strings too, for convenience.
             data = bytes(self.callback_data, "utf-8") if isinstance(self.callback_data, str) else self.callback_data
 
-            return raw.types.KeyboardButtonCallback(
+            return raw.types.KeyboardInlineButton(
                 text=self.text,
-                data=data,
+                type=raw.types.InlineButtonTypeCallback(data=data),
                 style=style
             )
 
         if self.url is not None:
-            return raw.types.KeyboardButtonUrl(
+            return raw.types.KeyboardInlineButton(
                 text=self.text,
-                url=self.url,
+                type=raw.types.InlineButtonTypeUrl(url=self.url),
                 style=style
             )
 
         if self.login_url is not None:
-            return self.login_url.write(
+            return raw.types.KeyboardInlineButton(
                 text=self.text,
-                bot=await client.resolve_peer(self.login_url.bot_username or "self"),
+                type=await self.login_url.write(
+                    bot=await client.resolve_peer(self.login_url.bot_username or "self")
+                ),
                 style=style
             )
 
         if self.user_id is not None:
-            return raw.types.InputKeyboardButtonUserProfile(
+            return raw.types.KeyboardInlineButton(
                 text=self.text,
-                input_user=await client.resolve_peer(self.user_id),
+                type=raw.types.InputInlineButtonTypeUserProfile(
+                    user_id=await client.resolve_peer(self.user_id)
+                ),
                 style=style
             )
 
         if self.switch_inline_query is not None:
-            return raw.types.KeyboardButtonSwitchInline(
+            return raw.types.KeyboardInlineButton(
                 text=self.text,
-                query=self.switch_inline_query,
+                type=raw.types.InlineButtonTypeSwitchInline(query=self.switch_inline_query),
                 style=style
             )
 
         if self.switch_inline_query_current_chat is not None:
-            return raw.types.KeyboardButtonSwitchInline(
+            return raw.types.KeyboardInlineButton(
                 text=self.text,
-                query=self.switch_inline_query_current_chat,
-                same_peer=True,
+                type=raw.types.InlineButtonTypeSwitchInline(
+                    query=self.switch_inline_query_current_chat,
+                    same_peer=True
+                ),
                 style=style
             )
 
         if self.callback_game is not None:
-            return raw.types.KeyboardButtonGame(
+            return raw.types.KeyboardInlineButton(
                 text=self.text,
+                type=raw.types.InlineButtonTypeGame(),
                 style=style
             )
 
         if self.web_app is not None:
-            return raw.types.KeyboardButtonWebView(
+            return raw.types.KeyboardInlineButton(
                 text=self.text,
-                url=self.web_app.url,
+                type=raw.types.InlineButtonTypeWebView(url=self.web_app.url),
                 style=style
             )

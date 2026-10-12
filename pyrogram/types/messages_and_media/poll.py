@@ -74,6 +74,9 @@ class Poll(Object, Update):
 
         close_date (:py:obj:`~datetime.datetime`, *optional*):
             Point in time when the poll will be automatically closed.
+
+        hash (``int``, *optional*):
+            Hash used to fetch poll results through the raw API.
     """
 
     def __init__(
@@ -93,7 +96,8 @@ class Poll(Object, Update):
         explanation: Optional[str] = None,
         explanation_entities: Optional[List["types.MessageEntity"]] = None,
         open_period: Optional[int] = None,
-        close_date: Optional[datetime] = None
+        close_date: Optional[datetime] = None,
+        hash: int = 0
     ):
         super().__init__(client)
 
@@ -111,12 +115,13 @@ class Poll(Object, Update):
         self.explanation_entities = explanation_entities
         self.open_period = open_period
         self.close_date = close_date
+        self.hash = hash
 
     @staticmethod
     def _parse(client, media_poll: Union["raw.types.MessageMediaPoll", "raw.types.UpdateMessagePoll"]) -> "Poll":
         poll: raw.types.Poll = media_poll.poll
         poll_results: raw.types.PollResults = media_poll.results
-        results: List[raw.types.PollAnswerVoters] = poll_results.results
+        results = {result.option: result for result in poll_results.results or []}
 
         chosen_option_id = None
         correct_option_id = None
@@ -125,9 +130,9 @@ class Poll(Object, Update):
         for i, answer in enumerate(poll.answers):
             voter_count = 0
 
-            if results:
-                result = results[i]
-                voter_count = result.voters
+            result = results.get(answer.option)
+            if result is not None:
+                voter_count = result.voters or 0
 
                 if result.chosen:
                     chosen_option_id = i
@@ -137,7 +142,7 @@ class Poll(Object, Update):
 
             options.append(
                 types.PollOption(
-                    text=answer.text,
+                    text=answer.text.text,
                     voter_count=voter_count,
                     data=answer.option,
                     link=types.PollLink._parse(client, answer.media) if getattr(answer, "media", None) else None,
@@ -147,7 +152,8 @@ class Poll(Object, Update):
 
         return Poll(
             id=str(poll.id),
-            question=poll.question,
+            question=poll.question.text,
+            hash=poll.hash,
             options=options,
             total_voter_count=media_poll.results.total_voters,
             is_closed=poll.closed,
@@ -171,7 +177,7 @@ class Poll(Object, Update):
         if update.poll is not None:
             return Poll._parse(client, update)
 
-        results = update.results.results
+        results = update.results.results or []
         chosen_option_id = None
         correct_option_id = None
         options = []
@@ -186,7 +192,7 @@ class Poll(Object, Update):
             options.append(
                 types.PollOption(
                     text="",
-                    voter_count=result.voters,
+                    voter_count=result.voters or 0,
                     data=result.option,
                     client=client
                 )
