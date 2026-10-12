@@ -17,6 +17,8 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 import pyrogram
+import asyncio
+
 from pyrogram.parser.html import HTML
 
 
@@ -143,5 +145,45 @@ def test_html_unparse_no_entities():
     expected = "text"
     text = "text"
     entities = []
+
+    assert HTML.unparse(text=text, entities=entities) == expected
+
+
+def test_html_blockquote():
+    html = HTML(None)
+    result = asyncio.run(html.parse("q: <blockquote>quoted</blockquote>"))
+
+    assert result["message"] == "q: quoted"
+    entity = result["entities"][0]
+    assert isinstance(entity, pyrogram.raw.types.MessageEntityBlockquote)
+    assert entity.offset == 3 and entity.length == 6
+    assert not entity.collapsed
+
+
+def test_html_blockquote_expandable():
+    html = HTML(None)
+    result = asyncio.run(html.parse("q: <blockquote expandable>quoted</blockquote>"))
+
+    assert result["message"] == "q: quoted"
+    assert result["entities"][0].collapsed is True
+
+
+def test_html_unparse_blockquote():
+    expected = "q: <blockquote>quoted</blockquote>"
+    text = "q: quoted"
+    entities = pyrogram.types.List(
+        [pyrogram.types.MessageEntity(
+            type=pyrogram.enums.MessageEntityType.BLOCKQUOTE, offset=3, length=6)])
+
+    assert HTML.unparse(text=text, entities=entities) == expected
+
+
+def test_html_unparse_blockquote_expandable():
+    expected = "q: <blockquote expandable>quoted</blockquote>"
+    text = "q: quoted"
+    entities = pyrogram.types.List(
+        [pyrogram.types.MessageEntity(
+            type=pyrogram.enums.MessageEntityType.BLOCKQUOTE, offset=3, length=6,
+            expandable=True)])
 
     assert HTML.unparse(text=text, entities=entities) == expected

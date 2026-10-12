@@ -27,6 +27,9 @@ class GetJoinedCommunities:
         chats = types.List()
 
         for chat in r.chats:
-            chats.append(types.Chat._parse(self, chat))
+            if isinstance(chat, raw.types.Chat):
+                chats.append(types.Chat._parse_chat_chat(self, chat))
+            elif isinstance(chat, raw.types.Channel):
+                chats.append(types.Chat._parse_channel_chat(self, chat))
 
         return chats
