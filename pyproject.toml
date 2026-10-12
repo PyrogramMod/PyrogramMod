@@ -78,10 +78,16 @@ module = "scripts.hatch_gen_api"
 allow-direct-references = true
 
 [tool.hatch.build.targets.sdist]
-exclude = [
-    ".gitignore",
-    "docs/",
-    "tests/"
+only-include = [
+    "pyrogram",
+    "compiler",
+    "hatch_build.py",
+    "pyproject.toml",
+    "README.md",
+    "COPYING",
+    "COPYING.lesser",
+    "NOTICE",
+    "MANIFEST.in"
 ]
 
 [tool.hatch.build.targets.wheel]
