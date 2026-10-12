@@ -69,6 +69,7 @@ from .file_id import FileId, FileType, ThumbnailSource
 from .mime_types import mime_types
 from .parser import Parser
 from .session.internals import MsgId
+from .session.internals.request_pacer import DownloadRequestPacer
 
 log = logging.getLogger(__name__)
 
@@ -204,12 +205,12 @@ class Client(Methods):
             Defaults to 1.
 
         use_experimental_upload_boost (``bool``, *optional*):
-            If True, uploads multiple file parts in parallel instead of sequentially.
-            May significantly increase upload speed on fast connections. Defaults to False.
+            If True, refills upload requests as parts complete, with up to 2 MiB in flight.
+            Otherwise, uploads bounded batches. Defaults to False.
 
         use_experimental_download_boost (``bool``, *optional*):
-            If True, downloads multiple file chunks in parallel instead of sequentially.
-            May significantly increase download speed on fast connections. Defaults to False.
+            If True, uses paced parallel requests, keeping active and buffered chunks
+            within the download worker limit. Defaults to False.
     """
 
     APP_VERSION = f"PyrogramMod {__version__}"
@@ -638,9 +639,12 @@ class Client(Methods):
                                         force=False
                                     )
                                 )
+                                if not isinstance(diff, raw.types.updates.ChannelDifferenceEmpty):
+                                    users.update({u.id: u for u in diff.users})
+                                    chats.update({c.id: c for c in diff.chats})
                                 break
                             except (ChannelPrivate, PersistentTimestampOutdated, PersistentTimestampInvalid):
-                                pass
+                                break
                             except OSError as e:
                                 log.error(f"Connection error while fetching ChannelDifference: {e}. Retrying...")
                                 retries -= 1
@@ -648,10 +652,6 @@ class Client(Methods):
                                     log.error(f"Max retries reached for ChannelDifference: {e}")
                                     raise
                                 await asyncio.sleep(5)
-                        else:
-                            if not isinstance(diff, raw.types.updates.ChannelDifferenceEmpty):
-                                users.update({u.id: u for u in diff.users})
-                                chats.update({c.id: c for c in diff.chats})
 
                 self.dispatcher.updates_queue.put_nowait((update, users, chats))
         elif isinstance(updates, (raw.types.UpdateShortMessage, raw.types.UpdateShortChatMessage)):
@@ -998,9 +998,11 @@ class Client(Methods):
         try:
             async for chunk in self.get_file(file_id, file_size, 0, 0, progress, progress_args, workers, chunk_size, use_experimental_download_boost):
                 file.write(chunk)
+            if file_size and file.tell() != file_size:
+                raise ValueError("Downloaded file size does not match the expected size")
         except BaseException as e:
+            file.close()
             if not in_memory:
-                file.close()
                 os.remove(temp_file_path)
 
             if isinstance(e, asyncio.CancelledError):
@@ -1116,6 +1118,10 @@ class Client(Methods):
                     current = 0
                     total = abs(limit) or (1 << 31) - 1
                     offset_bytes = abs(offset) * chunk_size
+                    if file_size:
+                        total = min(total, max(0, (file_size - offset_bytes + chunk_size - 1) // chunk_size))
+                        if not total:
+                            return
 
                     r = await session.invoke(
                         raw.functions.upload.GetFile(
@@ -1130,10 +1136,14 @@ class Client(Methods):
                         while True:
                             chunk = r.bytes
 
+                            if file_size and len(chunk) != min(chunk_size, file_size - offset_bytes):
+                                raise ValueError("Downloaded file ended before its expected size")
+                            if not chunk:
+                                break
                             yield chunk
 
                             current += 1
-                            offset_bytes += chunk_size
+                            offset_bytes += len(chunk)
 
                             if progress:
                                 func = functools.partial(
@@ -1188,7 +1198,7 @@ class Client(Methods):
                                             )
                                         )
                                     except VolumeLocNotFound:
-                                        break
+                                        raise
                                     else:
                                         continue
 
@@ -1219,10 +1229,14 @@ class Client(Methods):
                                         "h.hash == sha256(cdn_chunk).digest()"
                                     )
 
+                                if file_size and len(decrypted_chunk) != min(chunk_size, file_size - offset_bytes):
+                                    raise ValueError("Downloaded file ended before its expected size")
+                                if not decrypted_chunk:
+                                    break
                                 yield decrypted_chunk
 
                                 current += 1
-                                offset_bytes += chunk_size
+                                offset_bytes += len(decrypted_chunk)
 
                                 if progress:
                                     func = functools.partial(
@@ -1243,15 +1257,21 @@ class Client(Methods):
                             raise e
                         finally:
                             await cdn_session.stop()
+                    else:
+                        raise RuntimeError("Unexpected response type")
                 else:
-                    total = abs(limit) or file_size or (1 << 31) - 1
-                    total_chunks = (total + chunk_size - 1) // chunk_size
-                    next_chunk = 0
-                    completed = 0
-                    buffer = {}
+                    first_chunk = abs(offset)
+                    total_chunks = abs(limit) or (1 << 31) - 1
+                    if file_size:
+                        total_chunks = min(total_chunks, max(0, (file_size + chunk_size - 1) // chunk_size - first_chunk))
+                    next_chunk = first_chunk
+                    end_chunk = first_chunk + total_chunks
+                    workers = max(1, workers)
+                    pacer = DownloadRequestPacer()
 
                     async def _fetch_chunk(idx: int):
                         offset_bytes = idx * chunk_size
+                        await pacer.wait()
                         r = await session.invoke(
                             raw.functions.upload.GetFile(
                                 location=location,
@@ -1316,33 +1336,69 @@ class Client(Methods):
 
                         raise RuntimeError("Unexpected response type")
 
-                    # Loop principale parallelo
-                    while completed < total_chunks:
-                        tasks = []
-                        for _ in range(min(workers, total_chunks - next_chunk)):
-                            tasks.append(asyncio.create_task(_fetch_chunk(next_chunk)))
-                            next_chunk += 1
+                    tasks = {}
+                    buffer = {}
+                    next_request = first_chunk
+                    try:
+                        while next_chunk < end_chunk:
+                            while next_request < end_chunk and len(tasks) + len(buffer) < workers:
+                                tasks[asyncio.create_task(_fetch_chunk(next_request))] = next_request
+                                next_request += 1
 
-                        for coro in asyncio.as_completed(tasks):
-                            idx, data = await coro
-                            buffer[idx] = data
+                            done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+                            del pending
+                            # Discover EOF before handling failures from speculative requests beyond it.
+                            for task in done:
+                                if not task.cancelled() and task.exception() is None:
+                                    idx, data = task.result()
+                                    if file_size and len(data) != min(chunk_size, file_size - idx * chunk_size):
+                                        raise ValueError("Downloaded file ended before its expected size")
+                                    if not file_size and len(data) < chunk_size:
+                                        end_chunk = min(end_chunk, idx + 1)
+                                    del data
 
-                        while completed in buffer:
-                            chunk = buffer.pop(completed)
-                            yield chunk
-                            completed += 1
+                            outside = {task for task, idx in tasks.items() if idx >= end_chunk}
+                            for task in outside:
+                                if not task.done():
+                                    task.cancel()
+                            await asyncio.gather(*outside, return_exceptions=True)
+                            for task in outside:
+                                del tasks[task]
+                            done.difference_update(outside)
+                            buffer = {idx: data for idx, data in buffer.items() if idx < end_chunk}
+                            for task in done:
+                                idx, data = task.result()
+                                buffer[idx] = data
+                                del tasks[task]
+                            del done, outside, task, data
 
-                            if progress and (completed * chunk_size) % (5 * 1024 * 1024) == 0:
-                                func = functools.partial(
-                                    progress,
-                                    min(completed * chunk_size, file_size) if file_size else completed * chunk_size,
-                                    file_size,
-                                    *progress_args
-                                )
-                                if inspect.iscoroutinefunction(progress):
-                                    await func()
-                                else:
-                                    await self.loop.run_in_executor(self.executor, func)
+                            while next_chunk in buffer:
+                                chunk = buffer.pop(next_chunk)
+                                offset_bytes = next_chunk * chunk_size
+                                if not chunk:
+                                    return
+                                yield chunk
+                                next_chunk += 1
+
+                                if progress:
+                                    func = functools.partial(
+                                        progress,
+                                        offset_bytes + len(chunk),
+                                        file_size,
+                                        *progress_args
+                                    )
+                                    if inspect.iscoroutinefunction(progress):
+                                        await func()
+                                    else:
+                                        await self.loop.run_in_executor(self.executor, func)
+                                if len(chunk) < chunk_size:
+                                    return
+                                del chunk
+                    finally:
+                        for task in tasks:
+                            if not task.done():
+                                task.cancel()
+                        await asyncio.gather(*tasks, return_exceptions=True)
 
             except pyrogram.StopTransmission:
                 raise
@@ -1350,6 +1406,7 @@ class Client(Methods):
                 raise
             except Exception as e:
                 log.exception(e)
+                raise
 
     def guess_mime_type(self, filename: str) -> Optional[str]:
         return self.mimetypes.guess_type(filename)[0]

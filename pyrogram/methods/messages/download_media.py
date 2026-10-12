@@ -65,6 +65,17 @@ class DownloadMedia:
                 Blocks the code execution until the file has been downloaded.
                 Defaults to True.
 
+            workers (``int``, *optional*):
+                Maximum number of active and buffered chunks when download boost is enabled.
+                Defaults to 4.
+
+            chunk_size (``int``, *optional*):
+                Size of each requested chunk in bytes. Defaults to 1 MiB.
+
+            use_experimental_download_boost (``bool``, *optional*):
+                If True, uses paced parallel requests and refills the request window as chunks
+                are consumed. Defaults to the client setting.
+
             progress (``Callable``, *optional*):
                 Pass a callback function to view the file transmission progress.
                 The function must take *(current, total)* as positional arguments (look at Other Parameters below for a

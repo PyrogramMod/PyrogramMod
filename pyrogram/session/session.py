@@ -112,9 +112,11 @@ class Session:
 
         self.loop = None
         self.restart_task = None
+        self._restart_enabled = True
 
         self._state = SessionState.STOPPED
         self._state_lock = asyncio.Lock()
+        self._stop_lock = asyncio.Lock()
         self.restart_lock = asyncio.Lock()
 
     @property
@@ -139,6 +141,9 @@ class Session:
         return task
 
     def _schedule_restart(self):
+        if not self._restart_enabled:
+            return None
+
         # When called from inside the running restart task (start() failing
         # during a reconnect attempt), the task is "not done" but is about to
         # finish without retrying: a new task must be scheduled, otherwise the
@@ -166,6 +171,11 @@ class Session:
         return self.restart_task
 
     async def start(self):
+        if asyncio.current_task() is not self.restart_task:
+            self._restart_enabled = True
+        elif not self._restart_enabled:
+            return
+
         if self._state in (SessionState.STARTED, SessionState.STARTING):
             log.debug("Session already started")
             return
@@ -221,15 +231,18 @@ class Session:
             log.info("Device: %s - %s", self.client.device_model, self.client.app_version)
             log.info("System: %s (%s)", self.client.system_version, self.client.lang_code)
         except (AuthKeyDuplicated, Unauthorized) as e:
-            await self.stop()
+            await self._stop()
             raise e
         except (OSError, RPCError, TimeoutError) as e:
             log.info("Restarting session due to - %s - %s", e.__class__.__name__, e)
-            await self.stop()
+            await self._stop()
             self._schedule_restart()
             return
+        except asyncio.CancelledError:
+            await self._stop()
+            raise
         except Exception as e:
-            await self.stop()
+            await self._stop()
             raise e
 
         await self._set_state(SessionState.STARTED)
@@ -238,41 +251,58 @@ class Session:
         log.info("Session started")
 
     async def stop(self):
-        if self._state in (SessionState.STOPPED, SessionState.STOPPING):
+        self._restart_enabled = False
+        restart_task = self.restart_task
+
+        if restart_task is not None and restart_task is not asyncio.current_task():
+            restart_task.cancel()
+            await asyncio.gather(restart_task, return_exceptions=True)
+            if self.restart_task is restart_task:
+                self.restart_task = None
+
+        await self._stop()
+
+    async def _stop(self):
+        if self._state is SessionState.STOPPED:
             log.debug("Session already stopped")
             return
 
-        await self._set_state(SessionState.STOPPING)
+        async with self._stop_lock:
+            if self._state is SessionState.STOPPED:
+                return
 
-        self.is_started.clear()
+            await self._set_state(SessionState.STOPPING)
 
-        self.stored_msg_ids.clear()
+            self.is_started.clear()
 
-        self.ping_task_event.set()
+            self.stored_msg_ids.clear()
 
-        if self.ping_task is not None:
-            try:
-                await self.ping_task
-            except Exception as e:
-                log.warning("Error awaiting ping task: %s", e)
-            self.ping_task = None
+            self.ping_task_event.set()
 
-        self.ping_task_event.clear()
+            if self.ping_task is not None:
+                if self.ping_task is not asyncio.current_task():
+                    result, = await asyncio.gather(self.ping_task, return_exceptions=True)
+                    if isinstance(result, Exception):
+                        log.warning("Error awaiting ping task: %s", result)
+                self.ping_task = None
 
-        if self.connection is not None:
-            try:
-                await self.connection.close()
-            except Exception as e:
-                log.warning("Error closing connection: %s", e)
+            self.ping_task_event.clear()
 
-        if self.recv_task:
-            try:
-                await self.recv_task
-            except Exception as e:
-                log.warning("Error awaiting recv task: %s", e)
-            self.recv_task = None
+            if self.connection is not None:
+                try:
+                    await self.connection.close()
+                except Exception as e:
+                    log.warning("Error closing connection: %s", e)
 
-        await self._set_state(SessionState.STOPPED)
+            if self.recv_task:
+                if self.recv_task is not asyncio.current_task():
+                    result, = await asyncio.gather(self.recv_task, return_exceptions=True)
+                    if isinstance(result, Exception):
+                        log.warning("Error awaiting recv task: %s", result)
+                self.recv_task = None
+
+            await self._set_state(SessionState.STOPPED)
+            self.loop = None
 
         if not self.is_media and callable(self.client.disconnect_handler):
             try:
@@ -282,10 +312,10 @@ class Session:
 
         log.info("Session stopped")
 
-        self.loop = None
-
     async def restart(self):
         async with self.restart_lock:
+            if not self._restart_enabled:
+                return
             now = datetime.now()
             if (
                 self.last_reconnect_attempt
@@ -294,8 +324,9 @@ class Session:
                 log.info("Reconnecting too frequently, sleeping for a while")
                 await asyncio.sleep(5)
             self.last_reconnect_attempt = now
-            await self.stop()
-            await self.start()
+            await self._stop()
+            if self._restart_enabled:
+                await self.start()
 
     async def handle_packet(self, packet):
         try:

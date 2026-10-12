@@ -131,7 +131,7 @@ docs_build.sh
 .buildinfo
 json_docs.py
 /scripts
-/tests
+/tests/
 /uv.lock
 /examples
 /changelogs
