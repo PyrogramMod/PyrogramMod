@@ -38,6 +38,7 @@ from pyrogram.errors import (
 from pyrogram.raw.all import layer
 from pyrogram.raw.core import TLObject, MsgContainer, Int, FutureSalts
 from .internals import MsgId, MsgFactory
+from .internals.request_pacer import DownloadRequestPacer
 
 log = logging.getLogger(__name__)
 
@@ -535,7 +536,8 @@ class Session:
         query: TLObject,
         retries: int = MAX_RETRIES,
         timeout: float = WAIT_TIMEOUT,
-        sleep_threshold: float = SLEEP_THRESHOLD
+        sleep_threshold: float = SLEEP_THRESHOLD,
+        request_pacer: Optional[DownloadRequestPacer] = None
     ):
         try:
             await asyncio.wait_for(self.is_started.wait(), self.WAIT_TIMEOUT)
@@ -550,6 +552,8 @@ class Session:
         query_name = ".".join(inner_query.QUALNAME.split(".")[1:])
 
         while retries > 0:
+            if request_pacer is not None:
+                await request_pacer.wait()
             try:
                 return await self.send(query, timeout=timeout)
             except (FloodWait, FloodPremiumWait) as e:
@@ -558,10 +562,13 @@ class Session:
                 if amount > sleep_threshold >= 0:
                     raise
 
-                log.warning('[%s] Waiting for %s seconds before continuing (required by "%s")',
-                            self.client.name, amount, query_name)
+                if request_pacer is None or request_pacer.defer(amount):
+                    log.warning('[%s] Waiting for %s seconds before continuing '
+                                '(required by "%s", %s)',
+                                self.client.name, amount, query_name, e.ID)
 
-                await asyncio.sleep(amount)
+                if request_pacer is None:
+                    await asyncio.sleep(amount)
             except (OSError, InternalServerError, ServiceUnavailable) as e:
                 retries -= 1
                 if retries == 0:

@@ -210,7 +210,8 @@ class Client(Methods):
 
         use_experimental_download_boost (``bool``, *optional*):
             If True, uses paced parallel requests, keeping active and buffered chunks
-            within the download worker limit. Defaults to False.
+            within the download worker limit and sharing server-requested pauses.
+            Defaults to False.
     """
 
     APP_VERSION = f"PyrogramMod {__version__}"
@@ -1271,14 +1272,14 @@ class Client(Methods):
 
                     async def _fetch_chunk(idx: int):
                         offset_bytes = idx * chunk_size
-                        await pacer.wait()
                         r = await session.invoke(
                             raw.functions.upload.GetFile(
                                 location=location,
                                 offset=offset_bytes,
                                 limit=chunk_size
                             ),
-                            sleep_threshold=5
+                            sleep_threshold=5,
+                            request_pacer=pacer
                         )
 
                         if isinstance(r, raw.types.upload.File):
@@ -1298,14 +1299,16 @@ class Client(Methods):
                                         file_token=r.file_token,
                                         offset=offset_bytes,
                                         limit=chunk_size
-                                    )
+                                    ),
+                                    request_pacer=pacer
                                 )
                                 if isinstance(r2, raw.types.upload.CdnFileReuploadNeeded):
                                     await session.invoke(
                                         raw.functions.upload.ReuploadCdnFile(
                                             file_token=r.file_token,
                                             request_token=r2.request_token
-                                        )
+                                        ),
+                                        request_pacer=pacer
                                     )
                                     return await _fetch_chunk(idx)
 
@@ -1322,7 +1325,8 @@ class Client(Methods):
                                     raw.functions.upload.GetCdnFileHashes(
                                         file_token=r.file_token,
                                         offset=offset_bytes
-                                    )
+                                    ),
+                                    request_pacer=pacer
                                 )
                                 for i, h in enumerate(hashes):
                                     cdn_chunk = decrypted_chunk[h.limit * i: h.limit * (i + 1)]

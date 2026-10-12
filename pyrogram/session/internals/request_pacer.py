@@ -27,7 +27,17 @@ class DownloadRequestPacer:
     def __init__(self):
         self.interval_ms = 50.0
         self.next_request_at = 0.0
+        self.cooldown_until = 0.0
         self.lock = Lock()
+
+    def defer(self, seconds):
+        now = monotonic() * 1000
+        new_cooldown = now >= self.cooldown_until
+        deadline = now + seconds * 1000
+        self.cooldown_until = max(self.cooldown_until, deadline)
+        # wait() holds the lock while sleeping, so register the delay immediately.
+        self.next_request_at = max(self.next_request_at, deadline)
+        return new_cooldown
 
     async def wait(self):
         async with self.lock:
