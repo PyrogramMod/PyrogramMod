@@ -2393,7 +2393,7 @@ inputTonConnectOauthSession#629f66ce session_id:long challenge_answer:bytes body
 
 exportedNoPaidMessagesToken#695dd042 flags:# token:string url:string expires:flags.0?int = ExportedNoPaidMessagesToken;
 
-starGiftDepositPayload#725bb4eb nft_address:string payload:bytes amount:long = StarGiftDepositPayload;
+payments.starGiftDepositPayload#725bb4eb nft_address:string payload:bytes amount:long = payments.StarGiftDepositPayload;
 
 premiumGiftOption#79c059f7 flags:# months:int currency:string amount:long bot_url:flags.1?string store_product:flags.0?string = PremiumGiftOption;
 
@@ -2402,7 +2402,7 @@ shareThemeBackdrops#aaeadce0 hash:int backdrops:Vector<ShareThemeBackdropOption>
 
 mnemonic.decryptedKeyPart#8b90dd08 share:bytes = mnemonic.DecryptedKeyPart;
 
-card#8ed043b1 flags:# stickers:flags.0?Vector<CardSticker> bg_nft:flags.1?wallet.NftItem address:string balance:long = Card;
+wallet.card#8ed043b1 flags:# stickers:flags.0?Vector<wallet.CardSticker> bg_nft_item:flags.1?wallet.NftItem address:string balance:long = wallet.Card;
 
 messages.webViewResult#aadf159b result:BotInlineResult users:Vector<User> = messages.WebViewResult;
 
@@ -3107,6 +3107,9 @@ payments.getOnrampLimits#80e851fd flags:# provider:string crypto_currency:string
 payments.getOnrampQuote#e06645fa flags:# provider:string crypto_currency:string base_currency:string base_amount:flags.0?string crypto_amount:flags.1?string payment_method:flags.2?string = OnrampQuote;
 payments.createOnrampSession#a2197cf6 flags:# provider:string crypto_currency:string address:string payment_method:flags.0?string base_currency:flags.1?string base_amount:flags.2?string memo:flags.3?string theme:flags.4?string success_return_url:flags.5?string fail_return_url:flags.6?string crypto_amount:flags.7?string = OnrampSession;
 payments.requestRecurringPayment#146e958d user_id:InputUser recurring_init_charge:string invoice_media:InputMedia = Updates;
+payments.withdrawStarGift#20109cb3 flags:# keep_on_profile:flags.0?true stargift:InputSavedStarGift password:InputCheckPasswordSRP tmp_password:flags.1?bytes = Bool;
+payments.displayStarGift#4aa5f0fe flags:# peer:flags.0?InputPeer slug:string = Bool;
+payments.depositStarGift#c0a2ea9f flags:# hide_sender:flags.0?true peer:InputPeer slug:string = payments.StarGiftDepositPayload;
 payments.getStarGiftWithdrawalUrl#cb4ead0b flags:# stargift:InputSavedStarGift password:InputCheckPasswordSRP tmp_password:flags.0?bytes = payments.StarGiftWithdrawalUrl;
 
 stickers.createStickerSet#9021ab67 flags:# masks:flags.0?true emojis:flags.5?true text_color:flags.6?true user_id:InputUser title:string short_name:string thumb:flags.2?InputDocument stickers:Vector<InputStickerSetItem> software:flags.3?string = messages.StickerSet;
@@ -3301,9 +3304,5 @@ wallet.tonConnectNextEventId#775d7244 session_id:long = TonConnectNextEventId;
 wallet.tonConnectCloseSession#d63f61ce flags:# session_id:long body:flags.0?bytes = Bool;
 wallet.tonConnectGetSessions#a7ffb56e = wallet.TonConnectSessions;
 wallet.setCardStickers#68509ac flags:# stickers:Vector<InputWalletCardSticker> bg_nft_address:flags.0?string = wallet.Card;
-
-stars.withdrawStarGift#20109cb3 flags:# keep_on_profile:flags.0?true stargift:InputSavedStarGift password:InputCheckPasswordSRP tmp_password:flags.1?bytes = Bool;
-stars.displayStarGift#4aa5f0fe flags:# peer:InputPeer slug:string = Bool;
-stars.depositStarGift#c0a2ea9f flags:# hide_sender:flags.0?true peer:InputPeer slug:string = StarGiftDepositPayload;
 
 // LAYER 232
