@@ -83,9 +83,9 @@ class Widget(Object):
 
     @staticmethod
     def _parse(client, media: "raw.types.MessageMediaWidget") -> "Widget":
-        # The server stores the HTML zlib-compressed (that is what its 4096-byte limit counts)
+        # The server stores the HTML compressed (zlib, which its 4096-byte limit counts; some bots' payloads are gzip)
         try:
-            html = zlib.decompress(media.payload)
+            html = zlib.decompress(media.payload, zlib.MAX_WBITS | 32)  # 32: zlib or gzip header, auto-detected
         except zlib.error:  # tolerate a payload that is plain text
             html = media.payload
 
