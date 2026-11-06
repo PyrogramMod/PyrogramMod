@@ -19,6 +19,7 @@
 from .on_callback_query import OnCallbackQuery
 from .on_chat_join_request import OnChatJoinRequest
 from .on_guard_bot_query import OnGuardBotQuery
+from .on_widget_query import OnWidgetQuery
 from .on_chat_member_updated import OnChatMemberUpdated
 from .on_chosen_inline_result import OnChosenInlineResult
 from .on_deleted_messages import OnDeletedMessages
@@ -46,6 +47,7 @@ class Decorators(
     OnChatMemberUpdated,
     OnChatJoinRequest,
     OnGuardBotQuery,
+    OnWidgetQuery,
     OnBotStarsSubscription,
 ):
     pass

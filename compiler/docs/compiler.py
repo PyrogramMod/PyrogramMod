@@ -237,6 +237,7 @@ def pyrogram_api():
             on_disconnect
             on_chat_join_request
             on_guard_bot_query
+            on_widget_query
             on_bot_stars_subscription
         """,
         messages="""
@@ -417,6 +418,12 @@ def pyrogram_api():
             edit_bot_access_settings
             confirm_bot_connection
             answer_guard_bot_query
+            send_widget
+            send_shared_widget
+            answer_widget_query
+            edit_message_widget_data
+            edit_inline_widget_data
+            edit_shared_widget_data
             answer_chat_join_request_query
             send_chat_join_request_web_app
         """,
@@ -547,6 +554,7 @@ def pyrogram_api():
             Venue
             Sticker
             Game
+            Widget
             WebPage
             Poll
             PollOption
@@ -578,6 +586,7 @@ def pyrogram_api():
             LoginUrl
             ForceReply
             CallbackQuery
+            WidgetQuery
             GameHighScore
             CallbackGame
             WebAppInfo
@@ -637,6 +646,8 @@ def pyrogram_api():
         InputMessageContent
             InputMessageContent
             InputTextMessageContent
+            InputWidgetMessageContent
+            InputSharedWidgetMessageContent
         """,
         authorization="""
         Authorization

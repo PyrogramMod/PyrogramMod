@@ -618,6 +618,17 @@ pinned_message = create(pinned_message_filter)
 
 # endregion
 
+# region widget_filter
+async def widget_filter(_, __, m: Message):
+    return bool(m.widget)
+
+
+widget = create(widget_filter)
+"""Filter messages that contain :obj:`~pyrogram.types.Widget` objects."""
+
+
+# endregion
+
 # region game_high_score_filter
 async def game_high_score_filter(_, __, m: Message):
     return bool(m.game_high_score)
