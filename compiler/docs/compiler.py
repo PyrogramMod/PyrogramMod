@@ -238,6 +238,9 @@ def pyrogram_api():
             on_chat_join_request
             on_guard_bot_query
             on_widget_query
+            on_widget_data
+            on_transcription
+            on_forum_topic_updated
             on_bot_stars_subscription
         """,
         messages="""
@@ -443,10 +446,14 @@ def pyrogram_api():
         monoforum="""
         Monoforum
             toggle_direct_messages
+            toggle_forum
             get_monoforum_dialogs
             get_monoforum_history
             read_monoforum_history
             delete_monoforum_history
+            transcribe_audio
+            transcribe_audio_file
+            get_transcription_langs
         """,
         help="""
         Help
@@ -533,6 +540,7 @@ def pyrogram_api():
             Restriction
             EmojiStatus
             GuardBotQuery
+            ForumTopicUpdated
             PeerColor
             UserPhoto
         """,
@@ -555,6 +563,9 @@ def pyrogram_api():
             Sticker
             Game
             Widget
+            WidgetDataUpdate
+            TranscribedAudio
+            TranscriptionUpdate
             WebPage
             Poll
             PollOption

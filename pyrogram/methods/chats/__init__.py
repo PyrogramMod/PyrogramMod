@@ -61,6 +61,7 @@ from .unban_chat_member import UnbanChatMember
 from .unpin_all_chat_messages import UnpinAllChatMessages
 from .unpin_chat_message import UnpinChatMessage
 from .toggle_direct_messages import ToggleDirectMessages
+from .toggle_forum import ToggleForum
 
 
 class Chats(
@@ -109,5 +110,6 @@ class Chats(
     CreateGroupCall,
     GetGroupCallStreamChannels,
     ToggleDirectMessages,
+    ToggleForum,
 ):
     pass

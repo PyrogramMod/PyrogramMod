@@ -364,6 +364,14 @@ async def parse_text_entities(
     }
 
 
+def parse_peer_chat(client, peer, users, chats) -> Optional["types.Chat"]:
+    """Chat of a raw Peer out of the users/chats of an update, None if it is not among them."""
+    chat_id = get_peer_id(peer)
+    raw_chat = users.get(chat_id) if chat_id > 0 else chats.get(get_raw_peer_id(peer))
+
+    return types.Chat._parse_chat(client, raw_chat) if raw_chat else None
+
+
 def zero_datetime() -> datetime:
     return datetime.fromtimestamp(0, timezone.utc)
 

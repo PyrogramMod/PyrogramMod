@@ -17,6 +17,7 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from .copy_media_group import CopyMediaGroup
+from .transcribe_audio import TranscribeAudio
 from .copy_message import CopyMessage
 from .delete_messages import DeleteMessages
 from .download_media import DownloadMedia
@@ -137,5 +138,6 @@ class Messages(
     GetMonoforumDialogs,
     ReadMonoforumHistory,
     DeleteMonoforumHistory,
+    TranscribeAudio,
 ):
     pass

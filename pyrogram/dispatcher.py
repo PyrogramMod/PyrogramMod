@@ -27,7 +27,7 @@ from pyrogram.handlers import (
     CallbackQueryHandler, MessageHandler, EditedMessageHandler, DeletedMessagesHandler,
     UserStatusHandler, RawUpdateHandler, InlineQueryHandler, PollHandler,
     ChosenInlineResultHandler, ChatMemberUpdatedHandler, ChatJoinRequestHandler,
-    GuardBotQueryHandler, WidgetQueryHandler,
+    GuardBotQueryHandler, WidgetQueryHandler, WidgetDataHandler, TranscriptionHandler, ForumTopicUpdatedHandler,
     BotStarsSubscriptionHandler,
 )
 from pyrogram.raw.types import (
@@ -40,6 +40,7 @@ from pyrogram.raw.types import (
     UpdateBotChatInviteRequester, UpdateBotGuestChatQuery,
     UpdateBotStarsSubscription,
     UpdateBotWidgetQuery, UpdateInlineBotWidgetQuery, UpdateBotWidgetCopyQuery,
+    UpdateMessageWidgetData, UpdateTranscribedAudio, UpdateTranscribedAudioFile, UpdateEditForumTopic,
 )
 
 log = logging.getLogger(__name__)
@@ -58,6 +59,9 @@ class Dispatcher:
     CHAT_JOIN_REQUEST_UPDATES = (UpdateBotChatInviteRequester,)
     GUARD_BOT_QUERY_UPDATES = (UpdateBotGuestChatQuery,)
     WIDGET_QUERY_UPDATES = (UpdateBotWidgetQuery, UpdateInlineBotWidgetQuery, UpdateBotWidgetCopyQuery)
+    WIDGET_DATA_UPDATES = (UpdateMessageWidgetData,)
+    TRANSCRIPTION_UPDATES = (UpdateTranscribedAudio, UpdateTranscribedAudioFile)
+    FORUM_TOPIC_UPDATES = (UpdateEditForumTopic,)
     BOT_STARS_SUBSCRIPTION_UPDATES = (UpdateBotStarsSubscription,)
 
     def __init__(self, client: "pyrogram.Client"):
@@ -146,6 +150,24 @@ class Dispatcher:
                 WidgetQueryHandler
             )
 
+        async def widget_data_parser(update, users, chats):
+            return (
+                pyrogram.types.WidgetDataUpdate._parse(self.client, update, users, chats),
+                WidgetDataHandler
+            )
+
+        async def transcription_parser(update, users, chats):
+            return (
+                pyrogram.types.TranscriptionUpdate._parse(self.client, update, users, chats),
+                TranscriptionHandler
+            )
+
+        async def forum_topic_parser(update, users, chats):
+            return (
+                pyrogram.types.ForumTopicUpdated._parse(self.client, update, users, chats),
+                ForumTopicUpdatedHandler
+            )
+
         async def bot_stars_subscription_parser(update, users, chats):
             return (
                 pyrogram.types.BotStarsSubscription._parse(self.client, update),
@@ -165,6 +187,9 @@ class Dispatcher:
             Dispatcher.CHAT_JOIN_REQUEST_UPDATES: chat_join_request_parser,
             Dispatcher.GUARD_BOT_QUERY_UPDATES: guard_bot_query_parser,
             Dispatcher.WIDGET_QUERY_UPDATES: widget_query_parser,
+            Dispatcher.WIDGET_DATA_UPDATES: widget_data_parser,
+            Dispatcher.TRANSCRIPTION_UPDATES: transcription_parser,
+            Dispatcher.FORUM_TOPIC_UPDATES: forum_topic_parser,
             Dispatcher.BOT_STARS_SUBSCRIPTION_UPDATES: bot_stars_subscription_parser,
         }
 

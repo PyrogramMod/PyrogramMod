@@ -48,6 +48,9 @@ from .star_gift import StarGift, StarGiftUnique
 from .web_view_result import WebViewResult
 from .callback_answer import CallbackAnswer
 from .widget import Widget
+from .widget_data_update import WidgetDataUpdate
+from .transcribed_audio import TranscribedAudio
+from .transcription_update import TranscriptionUpdate
 
 __all__ = [
     "Animation", "Audio", "Contact", "Document", "Game", "Location", "Message", "MessageEntity", "Photo", "Thumbnail",
@@ -55,4 +58,5 @@ __all__ = [
     "WebPage", "LinkPreviewOptions", "Dice", "Reaction", "WebAppData", "MessageReactions", "Story", "Giveaway", "AlternativeVideo",
     "StarGift", "StarGiftUnique",
     "WebViewResult", "CallbackAnswer", "Widget",
+    "WidgetDataUpdate", "TranscribedAudio", "TranscriptionUpdate",
 ]

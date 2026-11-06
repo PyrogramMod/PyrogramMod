@@ -135,9 +135,7 @@ class WidgetQuery(Object, Update):
         chat = message_id = inline_message_id = None
 
         if isinstance(update, raw.types.UpdateBotWidgetQuery):
-            chat_id = utils.get_peer_id(update.peer)
-            raw_chat = users.get(chat_id) if chat_id > 0 else chats.get(utils.get_raw_peer_id(update.peer))
-            chat = types.Chat._parse_chat(client, raw_chat) if raw_chat else None
+            chat = utils.parse_peer_chat(client, update.peer, users, chats)
             message_id = update.msg_id
         elif isinstance(update, raw.types.UpdateInlineBotWidgetQuery):
             inline_message_id = utils.pack_inline_message_id(update.inline_message_id)
