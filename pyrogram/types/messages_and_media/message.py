@@ -173,6 +173,9 @@ class Message(Object, Update):
         game (:obj:`~pyrogram.types.Game`, *optional*):
             Message is a game, information about the game.
 
+        widget (:obj:`~pyrogram.types.Widget`, *optional*):
+            Message is a widget, information about the widget.
+
         story (:obj:`~pyrogram.types.Story`, *optional*):
             Message is a story, information about the story.
 
@@ -359,6 +362,7 @@ class Message(Object, Update):
             sticker: "types.Sticker" = None,
             animation: "types.Animation" = None,
             game: "types.Game" = None,
+            widget: "types.Widget" = None,
             story: "types.Story" = None,
             giveaway: "types.Giveaway" = None,
             video: "types.Video" = None,
@@ -458,6 +462,7 @@ class Message(Object, Update):
         self.sticker = sticker
         self.animation = animation
         self.game = game
+        self.widget = widget
         self.video = video
         self.alternative_videos = alternative_videos
         self.voice = voice
@@ -707,6 +712,7 @@ class Message(Object, Update):
             contact = None
             venue = None
             game = None
+            widget = None
             story = None
             giveaway = None
             audio = None
@@ -742,6 +748,9 @@ class Message(Object, Update):
                 elif isinstance(media, raw.types.MessageMediaGame):
                     game = types.Game._parse(client, message)
                     media_type = enums.MessageMediaType.GAME
+                elif isinstance(media, raw.types.MessageMediaWidget):
+                    widget = types.Widget._parse(client, media)
+                    media_type = enums.MessageMediaType.WIDGET
                 elif isinstance(media, raw.types.MessageMediaStory):
                     story = types.Story._parse(client, media)
                     media_type = enums.MessageMediaType.STORY
@@ -934,6 +943,7 @@ class Message(Object, Update):
                 voice=voice,
                 animation=animation,
                 game=game,
+                widget=widget,
                 story=story,
                 giveaway=giveaway,
                 video=video,
@@ -1888,6 +1898,71 @@ class Message(Object, Update):
         return await self._client.send_game(
             chat_id=self.chat.id,
             game_short_name=game_short_name,
+            disable_notification=disable_notification,
+            reply_to_message_id=reply_to_message_id,
+            message_thread_id=self.message_thread_id,
+            reply_markup=reply_markup
+        )
+
+    async def reply_widget(
+            self,
+            html: str,
+            quote: bool = None,
+            width: int = 0,
+            height: int = 0,
+            caption: str = "",
+            chat_data: str = None,
+            public_data: str = None,
+            allow_queries: bool = None,
+            is_shared: bool = None,
+            disable_notification: bool = None,
+            reply_to_message_id: int = None,
+            reply_markup=None
+    ) -> "Message":
+        """Bound method *reply_widget* of :obj:`~pyrogram.types.Message`.
+
+        Use as a shortcut for:
+
+        .. code-block:: python
+
+            await client.send_widget(
+                chat_id=message.chat.id,
+                html="<button>Hi</button>"
+            )
+
+        Example:
+            .. code-block:: python
+
+                await message.reply_widget("<button>Hi</button>", allow_queries=True)
+
+        Parameters:
+            html (``str``):
+                The widget's HTML document.
+
+            quote (``bool``, *optional*):
+                If ``True``, the message will be sent as a reply to this message.
+
+            For the other parameters see :meth:`~pyrogram.Client.send_widget`.
+
+        Returns:
+            On success, the sent :obj:`~pyrogram.types.Message` is returned.
+        """
+        if quote is None:
+            quote = self.chat.type != enums.ChatType.PRIVATE
+
+        if reply_to_message_id is None and quote:
+            reply_to_message_id = self.id
+
+        return await self._client.send_widget(
+            chat_id=self.chat.id,
+            html=html,
+            width=width,
+            height=height,
+            caption=caption,
+            chat_data=chat_data,
+            public_data=public_data,
+            allow_queries=allow_queries,
+            is_shared=is_shared,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
             message_thread_id=self.message_thread_id,

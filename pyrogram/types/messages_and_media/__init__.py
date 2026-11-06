@@ -47,11 +47,12 @@ from .message_reactions import MessageReactions
 from .star_gift import StarGift, StarGiftUnique
 from .web_view_result import WebViewResult
 from .callback_answer import CallbackAnswer
+from .widget import Widget
 
 __all__ = [
     "Animation", "Audio", "Contact", "Document", "Game", "Location", "Message", "MessageEntity", "Photo", "Thumbnail",
     "StrippedThumbnail", "Poll", "PollLink", "PollOption", "Sticker", "Venue", "Video", "VideoNote", "Voice",
     "WebPage", "LinkPreviewOptions", "Dice", "Reaction", "WebAppData", "MessageReactions", "Story", "Giveaway", "AlternativeVideo",
     "StarGift", "StarGiftUnique",
-    "WebViewResult", "CallbackAnswer",
+    "WebViewResult", "CallbackAnswer", "Widget",
 ]

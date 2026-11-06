@@ -74,3 +74,6 @@ class MessageMediaType(AutoName):
 
     GIVEAWAY = auto()
     "Giveaway media"
+
+    WIDGET = auto()
+    "Widget media"

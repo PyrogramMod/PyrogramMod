@@ -18,7 +18,10 @@
 
 from .input_message_content import InputMessageContent
 from .input_text_message_content import InputTextMessageContent
+from .input_widget_message_content import InputWidgetMessageContent
+from .input_shared_widget_message_content import InputSharedWidgetMessageContent
 
 __all__ = [
     "InputMessageContent", "InputTextMessageContent",
+    "InputWidgetMessageContent", "InputSharedWidgetMessageContent",
 ]
