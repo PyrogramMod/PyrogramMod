@@ -3431,6 +3431,9 @@ class Message(Object, Update):
         if self.service:
             log.warning("Service messages cannot be copied. chat_id: %s, message_id: %s",
                         self.chat.id, self.id)
+        elif self.widget:
+            log.warning("Widgets cannot be copied, forward them instead. chat_id: %s, message_id: %s",
+                        self.chat.id, self.id)
         elif self.game and not await self._client.storage.is_bot():
             log.warning("Users cannot send messages with Game media type. chat_id: %s, message_id: %s",
                         self.chat.id, self.id)

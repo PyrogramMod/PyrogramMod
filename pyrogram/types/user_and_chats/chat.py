@@ -169,6 +169,9 @@ class Chat(Object):
         forum_tabs (``bool``, *optional*):
             True, if forum tabs are enabled for this chat.
 
+        forum_sidebar (``bool``, *optional*):
+            True, if the forum topics are shown in a sidebar.
+
         stories_max_id (``int``, *optional*):
             Identifier of the most recent story viewed in this chat.
 
@@ -257,6 +260,7 @@ class Chat(Object):
         broadcast_messages_allowed: bool = None,
         monoforum: bool = None,
         forum_tabs: bool = None,
+        forum_sidebar: bool = None,
         stories_max_id: int = None,
         color: "types.PeerColor" = None,
         profile_color: "types.PeerColor" = None,
@@ -314,6 +318,7 @@ class Chat(Object):
         self.broadcast_messages_allowed = broadcast_messages_allowed
         self.monoforum = monoforum
         self.forum_tabs = forum_tabs
+        self.forum_sidebar = forum_sidebar
         self.stories_max_id = stories_max_id
         self.color = color
         self.profile_color = profile_color
@@ -438,6 +443,7 @@ class Chat(Object):
             broadcast_messages_allowed=getattr(channel, "broadcast_messages_allowed", None),
             monoforum=getattr(channel, "monoforum", None),
             forum_tabs=getattr(channel, "forum_tabs", None),
+            forum_sidebar=getattr(channel, "forum_sidebar", None),
             stories_max_id=getattr(channel, "stories_max_id", None),
             color=types.PeerColor._parse(getattr(channel, "color", None)),
             profile_color=types.PeerColor._parse(getattr(channel, "profile_color", None)),

@@ -100,6 +100,9 @@ class User(Object, Update):
         is_premium (``bool``, *optional*):
             True, if this user is a premium user.
 
+        bot_forum_sidebar (``bool``, *optional*):
+            True, if the forum topics of this bot are shown in a sidebar.
+
         bot_forum_can_manage_topics (``bool``, *optional*):
             True, if this bot can manage forum topics.
 
@@ -211,6 +214,7 @@ class User(Object, Update):
         bot_business: bool = None,
         bot_has_main_app: bool = None,
         bot_forum_view: bool = None,
+        bot_forum_sidebar: bool = None,
         bot_forum_can_manage_topics: bool = None,
         bot_can_manage_bots: bool = None,
         bot_guestchat: bool = None,
@@ -268,6 +272,7 @@ class User(Object, Update):
         self.bot_business = bot_business
         self.bot_has_main_app = bot_has_main_app
         self.bot_forum_view = bot_forum_view
+        self.bot_forum_sidebar = bot_forum_sidebar
         self.bot_forum_can_manage_topics = bot_forum_can_manage_topics
         self.bot_can_manage_bots = bot_can_manage_bots
         self.bot_guestchat = bot_guestchat
@@ -342,6 +347,7 @@ class User(Object, Update):
             bot_business=getattr(user, "bot_business", None),
             bot_has_main_app=getattr(user, "bot_has_main_app", None),
             bot_forum_view=getattr(user, "bot_forum_view", None),
+            bot_forum_sidebar=getattr(user, "bot_forum_sidebar", None),
             bot_forum_can_manage_topics=getattr(user, "bot_forum_can_manage_topics", None),
             bot_can_manage_bots=getattr(user, "bot_can_manage_bots", None),
             bot_guestchat=getattr(user, "bot_guestchat", None),
