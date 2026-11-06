@@ -22,6 +22,8 @@ import pyrogram
 from pyrogram import raw
 from ..object import Object
 
+MAX_HTML_BYTES = 32 * 1024  # the server's limit for a widget's HTML
+
 
 class Widget(Object):
     """A widget: a self-contained HTML document drawn inside the message bubble.
@@ -83,11 +85,15 @@ class Widget(Object):
 
     @staticmethod
     def _parse(client, media: "raw.types.MessageMediaWidget") -> "Widget":
-        # The server stores the HTML compressed (zlib, which its 4096-byte limit counts; some bots' payloads are gzip)
+        # The server stores the HTML compressed (zlib, which its 4096-byte limit counts; some bots' payloads are gzip).
+        # Inflate with a cap: the server keeps the HTML under 32 KB, but a payload is untrusted input (decompression bomb)
+        inflater = zlib.decompressobj(zlib.MAX_WBITS | 32)  # 32: zlib or gzip header, auto-detected
         try:
-            html = zlib.decompress(media.payload, zlib.MAX_WBITS | 32)  # 32: zlib or gzip header, auto-detected
+            html = inflater.decompress(media.payload, MAX_HTML_BYTES + 1)
+            if len(html) > MAX_HTML_BYTES or inflater.unconsumed_tail:
+                html = b""  # over the limit: not a widget the server could have produced
         except zlib.error:  # tolerate a payload that is plain text
-            html = media.payload
+            html = media.payload[:MAX_HTML_BYTES]
 
         return Widget(
             html=html.decode("utf-8", errors="replace"),
