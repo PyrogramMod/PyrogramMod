@@ -1017,7 +1017,8 @@ class Message(Object, Update):
                             replies=replies - 1
                         )
 
-                    parsed_message.reply_to_message = reply_to_message
+                    # A deleted/unavailable original comes back as an empty Message: that is no reply target
+                    parsed_message.reply_to_message = None if getattr(reply_to_message, "empty", False) else reply_to_message
                 except MessageIdsEmpty:
                     pass
 
