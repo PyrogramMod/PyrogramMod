@@ -15,6 +15,7 @@
 #
 #  You should have received a copy of the GNU Lesser General Public License
 
+import zlib
 from typing import Optional
 
 import pyrogram
@@ -82,8 +83,14 @@ class Widget(Object):
 
     @staticmethod
     def _parse(client, media: "raw.types.MessageMediaWidget") -> "Widget":
+        # The server stores the HTML zlib-compressed (that is what its 4096-byte limit counts)
+        try:
+            html = zlib.decompress(media.payload)
+        except zlib.error:  # tolerate a payload that is plain text
+            html = media.payload
+
         return Widget(
-            html=media.payload.decode("utf-8", errors="replace"),
+            html=html.decode("utf-8", errors="replace"),
             width=media.width,
             height=media.height,
             public_data=media.public_data,
