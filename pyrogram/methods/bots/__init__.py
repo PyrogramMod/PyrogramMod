@@ -27,6 +27,10 @@ from .get_game_high_scores import GetGameHighScores
 from .get_inline_bot_results import GetInlineBotResults
 from .request_callback_answer import RequestCallbackAnswer
 from .send_game import SendGame
+from .send_widget import SendWidget
+from .send_shared_widget import SendSharedWidget
+from .answer_widget_query import AnswerWidgetQuery
+from .edit_widget_data import EditWidgetData
 from .send_inline_bot_result import SendInlineBotResult
 from .send_streaming_text import SendStreamingText
 from .set_bot_commands import SetBotCommands
@@ -65,5 +69,9 @@ class Bots(
     ConfirmBotConnection,
     AnswerChatJoinRequestQuery,
     SendChatJoinRequestWebApp,
+    SendWidget,
+    SendSharedWidget,
+    AnswerWidgetQuery,
+    EditWidgetData,
 ):
     pass
