@@ -130,7 +130,10 @@ async def parse_messages(
                 reply_id = messages_with_replies.get(message.id, None)
 
                 for reply in reply_messages:
-                    if reply.id == reply_id and not reply.empty:
+                    if reply.id == reply_id:
+                        if reply.empty and message.chat:  # see Message._parse: keep the id and the chat of the original
+                            reply = types.Message(id=reply_id, empty=True, chat=message.chat, client=client)
+
                         message.reply_to_message = reply
 
     return types.List(parsed_messages)

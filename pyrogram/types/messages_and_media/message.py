@@ -1017,8 +1017,14 @@ class Message(Object, Update):
                             replies=replies - 1
                         )
 
-                    # A deleted/unavailable original comes back as an empty Message: that is no reply target
-                    parsed_message.reply_to_message = None if getattr(reply_to_message, "empty", False) else reply_to_message
+                    if getattr(reply_to_message, "empty", False):
+                        # The original is deleted or not readable by this account: the server sends no chat for it,
+                        # but the id and the chat are known from this message, which is all replying/deleting needs
+                        reply_to_message = Message(
+                            id=parsed_message.reply_to_message_id, empty=True, chat=parsed_message.chat, client=client
+                        )
+
+                    parsed_message.reply_to_message = reply_to_message
                 except MessageIdsEmpty:
                     pass
 
