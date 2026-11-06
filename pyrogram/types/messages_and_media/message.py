@@ -512,6 +512,13 @@ class Message(Object, Update):
         self.web_app_data = web_app_data
         self.reactions = reactions
 
+    def _default_quote(self) -> bool:
+        """Whether reply_* quote this message by default: in groups, never for an empty (deleted) message."""
+        if self.chat is None:
+            raise ValueError("The message is empty (deleted or unavailable) and has no chat: it cannot be replied to")
+
+        return not self.empty and self.chat.type != enums.ChatType.PRIVATE
+
     @staticmethod
     async def _parse(
             client: "pyrogram.Client",
@@ -522,7 +529,10 @@ class Message(Object, Update):
             replies: int = 1
     ):
         if isinstance(message, raw.types.MessageEmpty):
-            return Message(id=message.id, empty=True, client=client)
+            # A deleted/unavailable message: keep its chat when the server says which one it was
+            chat = utils.parse_peer_chat(client, message.peer_id, users, chats) if message.peer_id else None
+
+            return Message(id=message.id, empty=True, chat=chat, client=client)
 
         from_id = utils.get_raw_peer_id(message.from_id)
         peer_id = utils.get_raw_peer_id(message.peer_id)
@@ -1144,7 +1154,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -1292,7 +1302,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -1439,7 +1449,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -1538,7 +1548,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -1667,7 +1677,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -1810,7 +1820,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -1890,7 +1900,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -1948,7 +1958,7 @@ class Message(Object, Update):
             On success, the sent :obj:`~pyrogram.types.Message` is returned.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -2025,7 +2035,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -2106,7 +2116,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -2176,7 +2186,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -2303,7 +2313,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -2449,7 +2459,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -2567,7 +2577,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -2669,7 +2679,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -2825,7 +2835,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -2957,7 +2967,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
@@ -3084,7 +3094,7 @@ class Message(Object, Update):
             RPCError: In case of a Telegram RPC error.
         """
         if quote is None:
-            quote = self.chat.type != enums.ChatType.PRIVATE
+            quote = self._default_quote()
 
         if reply_to_message_id is None and quote:
             reply_to_message_id = self.id
