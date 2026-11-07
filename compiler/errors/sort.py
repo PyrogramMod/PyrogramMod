@@ -18,6 +18,7 @@
 
 import csv
 from pathlib import Path
+import os
 import re
 import requests  # requests==2.28.1
 import sys
@@ -73,7 +74,7 @@ if sys.argv[1] == "sort":
 elif sys.argv[1] == "scrape":
     base_url = "https://core.telegram.org"
 
-    errors_json_url = base_url + "/api/errors.json"
+    errors_json_url = os.environ.get("ERRORS_JSON_URL") or base_url + "/api/errors.json"
 
     try:
         response = requests.get(errors_json_url)
