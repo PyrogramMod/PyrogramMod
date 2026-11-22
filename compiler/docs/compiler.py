@@ -432,6 +432,11 @@ def pyrogram_api():
             answer_chat_join_request_query
             send_chat_join_request_web_app
         """,
+        gifts="""
+        Gifts
+            get_unique_gift
+            delete_gift
+        """,
         communities="""
         Communities
             create_community
