@@ -83,3 +83,6 @@ class MessageServiceType(AutoName):
 
     CHANGE_CREATOR = auto()
     "Creator changed"
+
+    BOT_INVITE = auto()
+    "Bot invited to a private chat by its owner"

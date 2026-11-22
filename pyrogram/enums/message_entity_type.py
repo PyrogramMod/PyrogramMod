@@ -77,6 +77,9 @@ class MessageEntityType(AutoName):
     BANK_CARD = raw.types.MessageEntityBankCard
     "Bank card text"
 
+    TON_ADDRESS = raw.types.MessageEntityTonAddress
+    "TON wallet address"
+
     CUSTOM_EMOJI = raw.types.MessageEntityCustomEmoji
     "Custom emoji"
 

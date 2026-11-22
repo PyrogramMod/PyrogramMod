@@ -422,6 +422,8 @@ def pyrogram_api():
             confirm_bot_connection
             answer_guard_bot_query
             send_widget
+            set_bot_settings
+            invite_users_to_bot
             send_shared_widget
             answer_widget_query
             edit_message_widget_data

@@ -28,6 +28,8 @@ from .get_inline_bot_results import GetInlineBotResults
 from .request_callback_answer import RequestCallbackAnswer
 from .send_game import SendGame
 from .send_widget import SendWidget
+from .set_bot_settings import SetBotSettings
+from .invite_users_to_bot import InviteUsersToBot
 from .send_shared_widget import SendSharedWidget
 from .answer_widget_query import AnswerWidgetQuery
 from .edit_widget_data import EditWidgetData
@@ -70,6 +72,8 @@ class Bots(
     AnswerChatJoinRequestQuery,
     SendChatJoinRequestWebApp,
     SendWidget,
+    SetBotSettings,
+    InviteUsersToBot,
     SendSharedWidget,
     AnswerWidgetQuery,
     EditWidgetData,

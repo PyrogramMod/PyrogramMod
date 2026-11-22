@@ -303,6 +303,9 @@ class Message(Object, Update):
         video_chat_ended (:obj:`~pyrogram.types.VideoChatEnded`, *optional*):
             Service message: the voice chat has ended.
 
+        bot_invited_by (:obj:`~pyrogram.types.User`, *optional*):
+            Service message: the bot was invited to this private chat by the given user (the bot's owner).
+
         video_chat_members_invited (:obj:`~pyrogram.types.VoiceChatParticipantsInvited`, *optional*):
             Service message: new members were invited to the voice chat.
 
@@ -397,6 +400,7 @@ class Message(Object, Update):
             video_chat_started: "types.VideoChatStarted" = None,
             video_chat_ended: "types.VideoChatEnded" = None,
             video_chat_members_invited: "types.VideoChatMembersInvited" = None,
+            bot_invited_by: "types.User" = None,
             web_app_data: "types.WebAppData" = None,
             show_caption_above_media: bool = None,
             silent: bool = None,
@@ -509,6 +513,7 @@ class Message(Object, Update):
         self.video_chat_started = video_chat_started
         self.video_chat_ended = video_chat_ended
         self.video_chat_members_invited = video_chat_members_invited
+        self.bot_invited_by = bot_invited_by
         self.web_app_data = web_app_data
         self.reactions = reactions
 
@@ -571,6 +576,7 @@ class Message(Object, Update):
             video_chat_ended = None
             video_chat_members_invited = None
             web_app_data = None
+            bot_invited_by = None
 
             service_type = None
 
@@ -628,6 +634,9 @@ class Message(Object, Update):
                 service_type = enums.MessageServiceType.NEW_CREATOR_PENDING
             elif isinstance(action, raw.types.MessageActionChangeCreator):
                 service_type = enums.MessageServiceType.CHANGE_CREATOR
+            elif isinstance(action, raw.types.MessageActionBotInvite):
+                bot_invited_by = types.User._parse(client, users.get(action.inviter_id))
+                service_type = enums.MessageServiceType.BOT_INVITE
 
             from_user = types.User._parse(client, users.get(user_id, None))
             sender_chat = types.Chat._parse(client, message, users, chats, is_chat=False) if not from_user else None
@@ -652,6 +661,7 @@ class Message(Object, Update):
                 video_chat_started=video_chat_started,
                 video_chat_ended=video_chat_ended,
                 video_chat_members_invited=video_chat_members_invited,
+                bot_invited_by=bot_invited_by,
                 web_app_data=web_app_data,
                 client=client
                 # TODO: supergroup_chat_created
