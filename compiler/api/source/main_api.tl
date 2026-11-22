@@ -2943,6 +2943,7 @@ messages.forwardMessage#33963bf9 peer:InputPeer id:int random_id:long = Updates;
 messages.getStatsURL#812c2ae6 flags:# dark:flags.0?true peer:InputPeer params:string = StatsURL;
 messages.getAllChats#875f74be except_ids:Vector<long> = messages.Chats;
 messages.setWebViewResult#e41cd11d query_id:long result:InputBotInlineResult = Bool;
+messages.getTranscriptionModels#81f6321 version:int = Vector<TranscriptionModel>;
 
 updates.getState#edd4882a = updates.State;
 updates.getDifference#19c2f763 flags:# pts:int pts_limit:flags.1?int pts_total_limit:flags.0?int date:int qts:int qts_limit:flags.2?int = updates.Difference;
@@ -3088,6 +3089,7 @@ bots.editAccessSettings#31813cd8 flags:# restricted:flags.0?true bot:InputUser a
 bots.setJoinChatResults#e71a4810 query_id:long result:JoinChatBotResult = Bool;
 bots.addUsername#3501c08a bot:InputUser username:string = Bool;
 bots.removeUsername#c704147d bot:InputUser username:string = Bool;
+bots.setBotSettings#7cc0c0ca flags:# bot:flags.0?InputUser inline_mode:flags.1?Bool inline_placeholder:flags.2?string inline_geo:flags.3?Bool inline_feedback:flags.4?int nochats:flags.5?Bool chat_history:flags.6?Bool business:flags.7?Bool can_manage_bots:flags.8?Bool guestchat:flags.9?Bool guard:flags.10?Bool forum_view:flags.11?Bool forum_can_manage_topics:flags.12?Bool forum_sidebar:flags.13?Bool bot_to_bot_communication_mode:flags.14?Bool callback_mode:flags.15?string = User;
 
 payments.getPaymentForm#37148dbb flags:# invoice:InputInvoice theme_params:flags.0?DataJSON = payments.PaymentForm;
 payments.getPaymentReceipt#2478d1cc peer:InputPeer msg_id:int = payments.PaymentReceipt;
