@@ -41,6 +41,7 @@ from .menu_button_web_app import MenuButtonWebApp
 from .reply_keyboard_markup import ReplyKeyboardMarkup
 from .reply_keyboard_remove import ReplyKeyboardRemove
 from .sent_web_app_message import SentWebAppMessage
+from .share_theme_backdrop import ShareThemeBackdrop
 from .web_app_info import WebAppInfo
 from .widget_query import WidgetQuery
 
@@ -65,6 +66,7 @@ __all__ = [
     "BotCommandScopeChatAdministrators",
     "BotCommandScopeChatMember",
     "BotCommandScopeDefault",
+    "ShareThemeBackdrop",
     "WebAppInfo",
     "MenuButton",
     "MenuButtonCommands",

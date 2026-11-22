@@ -449,6 +449,8 @@ def pyrogram_api():
         Monoforum
             toggle_direct_messages
             toggle_forum
+            get_share_theme_backdrops
+            set_chat_share_theme
             get_monoforum_dialogs
             get_monoforum_history
             read_monoforum_history
@@ -603,6 +605,7 @@ def pyrogram_api():
             GameHighScore
             CallbackGame
             WebAppInfo
+            ShareThemeBackdrop
             MenuButton
             MenuButtonCommands
             MenuButtonWebApp
