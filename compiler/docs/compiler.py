@@ -458,6 +458,7 @@ def pyrogram_api():
             toggle_forum
             get_share_theme_backdrops
             set_chat_share_theme
+            get_chat_share_theme
             get_monoforum_dialogs
             get_monoforum_history
             read_monoforum_history

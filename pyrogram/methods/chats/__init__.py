@@ -64,6 +64,7 @@ from .toggle_direct_messages import ToggleDirectMessages
 from .toggle_forum import ToggleForum
 from .toggle_channel_news import ToggleChannelNews
 from .report_not_spam import ReportNotSpam
+from .get_chat_share_theme import GetChatShareTheme
 from .get_share_theme_backdrops import GetShareThemeBackdrops
 from .set_chat_share_theme import SetChatShareTheme
 
@@ -117,6 +118,7 @@ class Chats(
     ToggleForum,
     ToggleChannelNews,
     ReportNotSpam,
+    GetChatShareTheme,
     GetShareThemeBackdrops,
     SetChatShareTheme,
 ):
