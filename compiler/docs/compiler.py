@@ -472,6 +472,17 @@ def pyrogram_api():
             transcribe_audio_file
             get_transcription_langs
         """,
+        feed="""
+        Feed
+            get_feed
+            get_for_you_feed
+            read_feed
+            like_post
+            dislike_post
+            report_feed_events
+            get_feed_interest_categories
+            set_feed_interest_categories
+        """,
         help="""
         Help
         """,

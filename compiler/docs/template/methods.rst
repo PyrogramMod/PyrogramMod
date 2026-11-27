@@ -164,6 +164,19 @@ Communities
 
     {communities}
 
+Feed
+----
+
+.. autosummary::
+    :nosignatures:
+
+    {feed}
+
+.. toctree::
+    :hidden:
+
+    {feed}
+
 Authorization
 -------------
 

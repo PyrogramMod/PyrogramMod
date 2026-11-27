@@ -23,6 +23,7 @@ from .chats import Chats
 from .communities import Communities
 from .contacts import Contacts
 from .decorators import Decorators
+from .feed import Feed
 from .gifts import Gifts
 from .help import Help
 from .invite_links import InviteLinks
@@ -47,5 +48,6 @@ class Methods(
     Decorators,
     Utilities,
     InviteLinks,
+    Feed,
 ):
     pass
