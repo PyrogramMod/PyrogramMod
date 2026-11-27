@@ -24,14 +24,17 @@ from ..update import Update
 
 
 class WidgetDataUpdate(Object, Update):
-    """The state of a widget message changed.
+    """The state of a widget message, or of a bot profile widget, changed.
 
     Parameters:
         chat (:obj:`~pyrogram.types.Chat`, *optional*):
-            Chat of the widget message.
+            Chat of the widget message, or the bot for a profile widget.
 
-        message_id (``int``):
-            Identifier of the widget message.
+        message_id (``int``, *optional*):
+            Identifier of the widget message. None for a profile widget.
+
+        is_profile (``bool``):
+            True, if the widget on the bot's profile changed.
 
         public_data (``str``, *optional*):
             New shared state, if it changed.
@@ -45,7 +48,8 @@ class WidgetDataUpdate(Object, Update):
         *,
         client: "pyrogram.Client" = None,
         chat: "types.Chat" = None,
-        message_id: int,
+        message_id: Optional[int] = None,
+        is_profile: bool = False,
         public_data: Optional[str] = None,
         chat_data: Optional[str] = None
     ):
@@ -53,11 +57,21 @@ class WidgetDataUpdate(Object, Update):
 
         self.chat = chat
         self.message_id = message_id
+        self.is_profile = is_profile
         self.public_data = public_data
         self.chat_data = chat_data
 
     @staticmethod
-    def _parse(client, update: "raw.types.UpdateMessageWidgetData", users, chats) -> "WidgetDataUpdate":
+    def _parse(client, update, users, chats) -> "WidgetDataUpdate":
+        if isinstance(update, raw.types.UpdateBotProfileWidgetData):
+            bot = users.get(update.bot_id)
+            return WidgetDataUpdate(
+                chat=types.Chat._parse_user_chat(client, bot) if bot else None,
+                is_profile=True,
+                chat_data=update.chat_data,
+                client=client
+            )
+
         return WidgetDataUpdate(
             chat=utils.parse_peer_chat(client, update.peer, users, chats),
             message_id=update.msg_id,

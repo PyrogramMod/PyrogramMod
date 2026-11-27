@@ -39,7 +39,8 @@ from pyrogram.raw.types import (
     UpdateBotInlineSend, UpdateChatParticipant, UpdateChannelParticipant,
     UpdateBotChatInviteRequester, UpdateBotGuestChatQuery,
     UpdateBotStarsSubscription,
-    UpdateBotWidgetQuery, UpdateInlineBotWidgetQuery, UpdateBotWidgetCopyQuery,
+    UpdateBotWidgetQuery, UpdateInlineBotWidgetQuery, UpdateBotWidgetCopyQuery, UpdateBotProfileWidgetQuery,
+    UpdateBotProfileWidgetData,
     UpdateMessageWidgetData, UpdateTranscribedAudio, UpdateTranscribedAudioFile, UpdateEditForumTopic,
 )
 
@@ -58,8 +59,8 @@ class Dispatcher:
     CHOSEN_INLINE_RESULT_UPDATES = (UpdateBotInlineSend,)
     CHAT_JOIN_REQUEST_UPDATES = (UpdateBotChatInviteRequester,)
     GUARD_BOT_QUERY_UPDATES = (UpdateBotGuestChatQuery,)
-    WIDGET_QUERY_UPDATES = (UpdateBotWidgetQuery, UpdateInlineBotWidgetQuery, UpdateBotWidgetCopyQuery)
-    WIDGET_DATA_UPDATES = (UpdateMessageWidgetData,)
+    WIDGET_QUERY_UPDATES = (UpdateBotWidgetQuery, UpdateInlineBotWidgetQuery, UpdateBotWidgetCopyQuery, UpdateBotProfileWidgetQuery)
+    WIDGET_DATA_UPDATES = (UpdateMessageWidgetData, UpdateBotProfileWidgetData)
     TRANSCRIPTION_UPDATES = (UpdateTranscribedAudio, UpdateTranscribedAudioFile)
     FORUM_TOPIC_UPDATES = (UpdateEditForumTopic,)
     BOT_STARS_SUBSCRIPTION_UPDATES = (UpdateBotStarsSubscription,)

@@ -30,6 +30,7 @@ from .send_game import SendGame
 from .send_widget import SendWidget
 from .set_bot_settings import SetBotSettings
 from .invite_users_to_bot import InviteUsersToBot
+from .profile_widget import ProfileWidget
 from .send_shared_widget import SendSharedWidget
 from .answer_widget_query import AnswerWidgetQuery
 from .edit_widget_data import EditWidgetData
@@ -74,6 +75,7 @@ class Bots(
     SendWidget,
     SetBotSettings,
     InviteUsersToBot,
+    ProfileWidget,
     SendSharedWidget,
     AnswerWidgetQuery,
     EditWidgetData,

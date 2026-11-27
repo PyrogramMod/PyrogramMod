@@ -212,6 +212,10 @@ class Chat(Object):
             True, if Telegram marked this private chat as spam.
             Only returned in :meth:`~pyrogram.Client.get_chat`.
 
+        bot_profile_widget (:obj:`~pyrogram.raw.types.BotProfileWidget`, *optional*):
+            Raw widget shown on the bot's profile.
+            Only returned in :meth:`~pyrogram.Client.get_chat` for bots.
+
         restriction_reason (List of :obj:`~pyrogram.types.Restriction`, *optional*):
             Reasons why access to this chat may be restricted.
 
@@ -278,6 +282,7 @@ class Chat(Object):
         linked_monoforum_id: int = None,
         linked_community_id: int = None,
         is_spam: bool = None,
+        bot_profile_widget: "raw.types.BotProfileWidget" = None,
         restriction_reason: List["types.Restriction"] = None,
     ):
         super().__init__(client)
@@ -337,6 +342,7 @@ class Chat(Object):
         self.linked_monoforum_id = linked_monoforum_id
         self.linked_community_id = linked_community_id
         self.is_spam = is_spam
+        self.bot_profile_widget = bot_profile_widget
         self.restriction_reason = restriction_reason or restrictions
 
     @property
@@ -503,6 +509,7 @@ class Chat(Object):
             parsed_chat = Chat._parse_user_chat(client, users[full_user.id])
             parsed_chat.bio = full_user.about
             parsed_chat.is_spam = getattr(full_user.settings, "spam", None) or None
+            parsed_chat.bot_profile_widget = getattr(full_user, "bot_profile_widget", None)
 
             if full_user.pinned_msg_id:
                 parsed_chat.pinned_message = await client.get_messages(

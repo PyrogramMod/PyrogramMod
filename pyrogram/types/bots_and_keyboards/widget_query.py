@@ -64,6 +64,10 @@ class WidgetQuery(Object, Update):
             True, if the query comes from a forwarded copy of a shared widget (``shared_widget_query``).
             Such a query has no *chat*, *message_id* or *inline_message_id*.
 
+        is_profile (``bool``):
+            True, if the query comes from the widget on the bot's profile.
+            Such a query has no *chat*, *message_id*, *inline_message_id*, *chat_instance* or *chat_type*.
+
         sign_data (``str``, *optional*):
             Data to sign. Only when *type* is ``"sign_data"``.
 
@@ -92,6 +96,7 @@ class WidgetQuery(Object, Update):
         chat_type: Optional[str] = None,
         widget_id: Optional[int] = None,
         is_copy: bool = False,
+        is_profile: bool = False,
         sign_data: Optional[str] = None,
         msg_hash: Optional[str] = None,
         wallet: "raw.base.UserWallet" = None,
@@ -110,6 +115,7 @@ class WidgetQuery(Object, Update):
         self.chat_type = chat_type
         self.widget_id = widget_id
         self.is_copy = is_copy
+        self.is_profile = is_profile
         self.sign_data = sign_data
         self.msg_hash = msg_hash
         self.wallet = wallet
@@ -141,6 +147,8 @@ class WidgetQuery(Object, Update):
             inline_message_id = utils.pack_inline_message_id(update.inline_message_id)
 
         is_copy = isinstance(update, raw.types.UpdateBotWidgetCopyQuery)
+        is_profile = isinstance(update, raw.types.UpdateBotProfileWidgetQuery)
+        no_chat = is_copy or is_profile
 
         return WidgetQuery(
             id=str(update.query_id),
@@ -150,10 +158,11 @@ class WidgetQuery(Object, Update):
             chat=chat,
             message_id=message_id,
             inline_message_id=inline_message_id,
-            chat_instance=None if is_copy else str(update.chat_instance),
-            chat_type=None if is_copy else update.chat_type,
-            widget_id=update.widget_id,
+            chat_instance=None if no_chat else str(update.chat_instance),
+            chat_type=None if no_chat else update.chat_type,
+            widget_id=getattr(update, "widget_id", None),
             is_copy=is_copy,
+            is_profile=is_profile,
             sign_data=sign_data,
             msg_hash=msg_hash,
             wallet=wallet,

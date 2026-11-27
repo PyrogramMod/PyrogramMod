@@ -431,6 +431,10 @@ def pyrogram_api():
             edit_message_widget_data
             edit_inline_widget_data
             edit_shared_widget_data
+            edit_profile_widget_data
+            edit_profile_widget_chat_data
+            get_profile_widget_public_data
+            get_profile_widget_query_answer
             answer_chat_join_request_query
             send_chat_join_request_web_app
         """,
