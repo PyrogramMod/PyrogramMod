@@ -304,6 +304,7 @@ def pyrogram_api():
         chats="""
         Chats
             join_chat
+            report_not_spam
             leave_chat
             ban_chat_member
             unban_chat_member

@@ -62,6 +62,7 @@ from .unpin_all_chat_messages import UnpinAllChatMessages
 from .unpin_chat_message import UnpinChatMessage
 from .toggle_direct_messages import ToggleDirectMessages
 from .toggle_forum import ToggleForum
+from .report_not_spam import ReportNotSpam
 from .get_share_theme_backdrops import GetShareThemeBackdrops
 from .set_chat_share_theme import SetChatShareTheme
 
@@ -113,6 +114,7 @@ class Chats(
     GetGroupCallStreamChannels,
     ToggleDirectMessages,
     ToggleForum,
+    ReportNotSpam,
     GetShareThemeBackdrops,
     SetChatShareTheme,
 ):
