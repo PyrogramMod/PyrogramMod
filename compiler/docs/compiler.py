@@ -438,6 +438,7 @@ def pyrogram_api():
         Gifts
             get_unique_gift
             delete_gift
+            get_merged_resale_gifts
         """,
         communities="""
         Communities

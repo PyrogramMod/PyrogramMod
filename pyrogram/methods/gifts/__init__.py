@@ -17,11 +17,13 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from .delete_gift import DeleteGift
+from .get_merged_resale_gifts import GetMergedResaleGifts
 from .get_unique_gift import GetUniqueGift
 
 
 class Gifts(
     DeleteGift,
+    GetMergedResaleGifts,
     GetUniqueGift
 ):
     pass

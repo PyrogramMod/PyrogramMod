@@ -52,6 +52,9 @@ class StarGift(Object):
         require_premium (``bool``, *optional*):
             Whether this gift can only be bought by Premium users.
 
+        is_new (``bool``, *optional*):
+            Whether Telegram marks this gift as new.
+
         availability_remains (``int``, *optional*):
             For limited-supply gifts: remaining number of gifts available.
 
@@ -83,6 +86,7 @@ class StarGift(Object):
         sold_out: bool = None,
         birthday: bool = None,
         require_premium: bool = None,
+        is_new: bool = None,
         availability_remains: int = None,
         availability_total: int = None,
         first_sale_date: datetime = None,
@@ -100,6 +104,7 @@ class StarGift(Object):
         self.sold_out = sold_out
         self.birthday = birthday
         self.require_premium = require_premium
+        self.is_new = is_new
         self.availability_remains = availability_remains
         self.availability_total = availability_total
         self.first_sale_date = first_sale_date
@@ -122,6 +127,7 @@ class StarGift(Object):
             sold_out=star_gift.sold_out or None,
             birthday=star_gift.birthday or None,
             require_premium=star_gift.require_premium or None,
+            is_new=getattr(star_gift, "new", None) or None,
             availability_remains=star_gift.availability_remains,
             availability_total=star_gift.availability_total,
             first_sale_date=utils.timestamp_to_datetime(star_gift.first_sale_date),
