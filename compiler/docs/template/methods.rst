@@ -177,6 +177,19 @@ Feed
 
     {feed}
 
+Wallet
+------
+
+.. autosummary::
+    :nosignatures:
+
+    {wallet}
+
+.. toctree::
+    :hidden:
+
+    {wallet}
+
 Authorization
 -------------
 

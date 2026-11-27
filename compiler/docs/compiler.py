@@ -483,6 +483,12 @@ def pyrogram_api():
             get_feed_interest_categories
             set_feed_interest_categories
         """,
+        wallet="""
+        Wallet
+            get_staking_info
+            stake
+            unstake
+        """,
         help="""
         Help
         """,
