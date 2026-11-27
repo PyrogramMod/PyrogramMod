@@ -208,6 +208,10 @@ class Chat(Object):
         linked_community_id (``int``, *optional*):
             Identifier of the community linked to this channel/supergroup.
 
+        in_news (``bool``, *optional*):
+            True, if you moved this channel to the News feed.
+            Official apps then show it only in the News tab, not in the chat list.
+
         is_spam (``bool``, *optional*):
             True, if Telegram marked this private chat as spam.
             Only returned in :meth:`~pyrogram.Client.get_chat`.
@@ -281,6 +285,7 @@ class Chat(Object):
         guard_bot_id: int = None,
         linked_monoforum_id: int = None,
         linked_community_id: int = None,
+        in_news: bool = None,
         is_spam: bool = None,
         bot_profile_widget: "raw.types.BotProfileWidget" = None,
         restriction_reason: List["types.Restriction"] = None,
@@ -341,6 +346,7 @@ class Chat(Object):
         self.guard_bot_id = guard_bot_id
         self.linked_monoforum_id = linked_monoforum_id
         self.linked_community_id = linked_community_id
+        self.in_news = in_news
         self.is_spam = is_spam
         self.bot_profile_widget = bot_profile_widget
         self.restriction_reason = restriction_reason or restrictions
@@ -466,7 +472,8 @@ class Chat(Object):
             bot_verification_icon=getattr(channel, "bot_verification_icon", None),
             send_paid_messages_stars=getattr(channel, "send_paid_messages_stars", None),
             linked_monoforum_id=getattr(channel, "linked_monoforum_id", None),
-            linked_community_id=getattr(channel, "linked_community_id", None)
+            linked_community_id=getattr(channel, "linked_community_id", None),
+            in_news=getattr(channel, "in_news", None) or None
         )
 
     @staticmethod
